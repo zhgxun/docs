@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="16. 用Go重写商家结余表导数脚本"/>
+
+
+
+
+  <meta name="keywords" content="go, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/08/16/export/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 16. 用Go重写商家结余表导数脚本 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          16. 用Go重写商家结余表导数脚本
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-16
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/go/">go</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-我们最终需要导出一个这样的excel表格给其他业务部门查看"><span class="toc-text">1. 我们最终需要导出一个这样的excel表格给其他业务部门查看</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-表格标题项的处理"><span class="toc-text">2. 表格标题项的处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-需要导出的11种数据类型"><span class="toc-text">3. 需要导出的11种数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-每一个方法的编写，其中以调试最多的方法结算过暂不结算为例"><span class="toc-text">4. 每一个方法的编写，其中以调试最多的方法结算过暂不结算为例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-数据处理完后，其它类型转为字符串类型"><span class="toc-text">5. 数据处理完后，其它类型转为字符串类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-写csv文件"><span class="toc-text">6. 写csv文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-发送邮件"><span class="toc-text">7. 发送邮件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-整个入口文件"><span class="toc-text">8. 整个入口文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-编译代码"><span class="toc-text">9. 编译代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-PHP如何使用"><span class="toc-text">10. PHP如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-执行效果"><span class="toc-text">11. 执行效果</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。</p>
+<a id="more"></a>
+<p>开始编写时，确实遇到很多难处。一开始想到的，是如何做数据库连接，幸好Go对这些常见的场景都有现成的库可使用，稍微在GitHub上搜索就能有好的选择。然后是对数据类型的描述上，确实跟动态语言有明显的不同，但是无法否认，静态语言在编写和编译期间就能减少很多低级的Bug。</p>
+<p>也发现了一些公司的服务问题，比如邮件服务器总是x.509证书问题而无法使用，网易163也存在这样的问题，但是QQ邮箱可以正常使用。官方库中已经提供了CSV格式的支持，使用起来相当的方便，就不提供excel方式了。</p>
+<p>下面简单梳理一下编写该脚本的过程和需要注意的地方。</p>
+<h2 id="1-我们最终需要导出一个这样的excel表格给其他业务部门查看"><a href="#1-我们最终需要导出一个这样的excel表格给其他业务部门查看" class="headerlink" title="1. 我们最终需要导出一个这样的excel表格给其他业务部门查看"></a>1. 我们最终需要导出一个这样的excel表格给其他业务部门查看</h2><p><img src="https://raw.githubusercontent.com/zhgxun/images/master/programming/refund.jpeg" alt="需要导出的样例表格"></p>
+<p>表格中省略了部分内容，只是为了呈现最终的样式，同时为了方便查看，依照顺序显示，后续操作需要兼顾该顺序。当然因为csv格式与Excel的关系，直接用Excel打开会出现乱码，如果必须要使用Excel查看，需要将csv用文本文件打开，拷贝到Excel中，使用数据-&gt;分隔的方式重新显示。如操作频繁，可使用Go的Excel库来直接写入到Excel文件，略去转化过程。比如之前在公众号看到的这篇<a href="https://mp.weixin.qq.com/s/Lk84NGqjM0lajW9b32l20w" target="_blank" rel="external">Golang 读写 Excel</a>，可以参考其思路。</p>
+<h2 id="2-表格标题项的处理"><a href="#2-表格标题项的处理" class="headerlink" title="2. 表格标题项的处理"></a>2. 表格标题项的处理</h2><pre><code class="go">// 结算相关标题
+var settleColumns = []string{
+    &quot;供应商&quot;,
+    &quot;结算单Id&quot;,
+    &quot;有效付款订单金额&quot;,
+    &quot;红包抵扣金额合计&quot;,
+    &quot;手机端满减返款项的金额合计&quot;,
+    &quot;钻石会员包邮运费返款&quot;,
+    &quot;已确认退货金额&quot;,
+    &quot;退货快递运费&quot;,
+    &quot;违约订单金额&quot;,
+    &quot;罚款金额&quot;,
+    &quot;暂不结款订单金额&quot;,
+    &quot;返点订单总金额&quot;,
+    &quot;返点金额&quot;,
+    &quot;费用调整&quot;,
+    &quot;红包总金额&quot;,
+    &quot;退款金额扣点&quot;,
+    &quot;现金券使用的金额&quot;,
+    &quot;虚假发货罚款金额&quot;,
+    &quot;应付金额&quot;,
+    &quot;结算时间&quot;,
+    &quot;结算状态&quot;,
+}
+</code></pre>
+<p>比较简单，直接定义为一个变量即可，也可以直接在写csv文件时在定义。</p>
+<h2 id="3-需要导出的11种数据类型"><a href="#3-需要导出的11种数据类型" class="headerlink" title="3. 需要导出的11种数据类型"></a>3. 需要导出的11种数据类型</h2><p>一开始联想到PHP的变量函数，但是静态语言不支持该种思路，必须在编译阶段确定其类型，不能直接调用一个字符串，更无法操作一个字符串会像动态语言一样，解释器将其解释为一个函数，因此要按函数类型来定义，比如我的处理方式是：</p>
+<pre><code class="go">// 使用计数器记录启动的goroutine个数
+var count sync.WaitGroup
+
+// 声明函数类型字典
+names := map[string]func(group *sync.WaitGroup, string string){
+    &quot;1、partner系统已结算单&quot;:  partnerList,
+    &quot;2、Partner未结算数据&quot;:   partnerNoList,
+    &quot;3、FSP已结算数据&quot;:       fspList,
+    &quot;4、FSP未结算数据&quot;:       fspNoList,
+    &quot;5、Finance已结算数据&quot;:   financeList,
+    &quot;6、未发货并且无退货的订单&quot;:    noDeliveryNoRmaList,
+    &quot;7、未结算订单&quot;:          noSettleList,
+    &quot;8、结算过暂不结算&quot;:        onHoldList,
+    &quot;9、结算过退货&quot;:          settleRmaList,
+    &quot;10、在结算单创建审核中产生退货&quot;: settlingRmaList,
+}
+for dist, name := range names {
+    count.Add(1)
+    go name(&amp;count, dist)
+}
+
+// 等待所有的goroutine执行完毕
+count.Wait()
+</code></pre>
+<p>之所以要用Go来写，就是因为该处的异步调用优势。每一个字符串描述的后面，都是一个个的真实函数。第11种比较特殊，需要依赖前面的几种返回值，因此无法将其加入到异步执行中，只能同步阻塞运行。</p>
+<pre><code class="go">// 11、没有符合任何条件的订单
+// 该数据依赖前面数据，不支持并发操作，该方法最后执行
+noList()
+</code></pre>
+<p>PHP按照我们已有的方式，只能借助Pcntl多进程模型来完成，但是也需要将执行结果写入到一个文本文件中，同样要记录字典的键，然后等待所有进程都执行完毕后，在将该文本文件按展示顺序排列后在重新写入到Excel文件中，一样可以实现。但是考虑到多进程控制问题，如果不需要返回值，确实比较方便。当然也可以临时建一张表，没跑完一个进程就将数据按格式写入库中，待执行完毕后，在查询数据库得到结果，效果也不会差。</p>
+<pre><code class="php">// PHP多进程执行方式
+foreach ($dateSpanList as $dateList) {
+    $pid = pcntl_fork();
+    if ($pid == -1) {
+        error_log(&#39;Could not launch new job, exiting&#39;);
+        exit(3);
+    } else if ($pid) {
+        ++$processCnt;
+    } else {
+        // 每一个独立的业务都在该进程中执行，不需要返回值，执行完毕后直接退出
+        exit(0);
+    }
+}
+
+for ($i = 0; $i &lt; $processCnt; ++$i) {
+    printf(&quot;\t\t*****************return %d\n&quot;, pcntl_wait($status));
+}
+
+// 此时所有进程均已执行完毕，就可以得到所有的结果
+</code></pre>
+<p>但是进程的资源要昂贵得多，而Go的go关键字启动的消耗说特别的小，系统里完全可以有成千上万个协程在运行。Pcntl如果要接收子进程的结束信号，就要用到pcntl_signal()信号注册函数，而且编写和管理起来就要复杂的多。</p>
+<h2 id="4-每一个方法的编写，其中以调试最多的方法结算过暂不结算为例"><a href="#4-每一个方法的编写，其中以调试最多的方法结算过暂不结算为例" class="headerlink" title="4. 每一个方法的编写，其中以调试最多的方法结算过暂不结算为例"></a>4. 每一个方法的编写，其中以调试最多的方法结算过暂不结算为例</h2><pre><code class="go">var soIdList settledSoIds
+
+// 8、结算过暂不结算
+func onHoldList(n *sync.WaitGroup, dist string) {
+    defer n.Done()
+
+    // 对字典进行锁
+    soIdList.lock.Lock()
+    defer soIdList.lock.Unlock()
+
+    // 是否已经获取过已结算的so_id集合
+    if len(soIdList.soIds) &lt;= 0 {
+        var soId int32
+        var settleCnt int
+        rows, err := common.GetPopDb().Query(`
+            SELECT
+                so_id,
+                MAX(settlement_cnt) settlement_cnt
+            FROM t_pop_trans_list FORCE INDEX(idx_pid_oid)
+            WHERE partner_id = ?
+            AND settlement_note_id &gt; 0
+            AND order_id &gt; 1
+            AND type &lt;&gt; &#39;pre_settle&#39;
+            GROUP BY so_id
+        `, partnerId)
+        common.Error(err)
+        defer rows.Close()
+
+        for rows.Next() {
+            if err := rows.Scan(&amp;soId, &amp;settleCnt); err != nil {
+                if _, file, line, ok := runtime.Caller(0); ok {
+                    common.Info(err, file, line)
+                }
+            }
+
+            // 保存已结算的so_id到全局字典中
+            soIdList.soIds[settleCnt] = soId
+        }
+        common.RowsError(rows)
+    }
+
+    var p order
+    var records [][]string
+    records = append(records, []string{dist})
+    for cnt, id := range soIdList.soIds {
+        err := common.GetPopDb().QueryRow(`
+            SELECT
+                order_id,
+                sku_no,
+                valid_order_total_price,
+                red_envelope_user_delivery_fee,
+                mobile_user_delivery_fee,
+                diamond_user_delivery_fee,
+                rma_order_total_price,
+                rma_delivery_fee,
+                delay_order_total_price,
+                fine_fee,
+                onhold_order_total_price,
+                media_rebate_order_total_price,
+                media_rebate_fee,
+                adjustment_fee,
+                red_envelope_total_price,
+                rma_rebate_fee,
+                promo_card_used_order_total_price,
+                0 fake_shipping_fee,
+                need_paid_total,
+                UNIX_TIMESTAMP(date_line) check_time,
+                &#39;&#39; status
+            FROM t_pop_trans_list FORCE INDEX(idx_soid_cnt)
+            WHERE so_id = ?
+            AND settlement_cnt = ?
+            AND settlement_note_id = 0
+            AND re_type &lt;&gt; &#39;so&#39;
+            AND type &lt;&gt; &#39;pre_settle&#39;
+        `, id, cnt).Scan(
+            &amp;p.orderId, &amp;p.skuNo,
+            &amp;p.common.validOrderTotalPrice, &amp;p.common.redEnvelopeUserDeliveryFee, &amp;p.common.mobileUserDeliveryFee,
+            &amp;p.common.diamondUserDeliveryFee, &amp;p.common.rmaOrderTotalPrice, &amp;p.common.rmaDeliveryFee,
+            &amp;p.common.delayOrderTotalPrice, &amp;p.common.fineFee, &amp;p.common.onHoldOrderTotalPrice,
+            &amp;p.common.mediaRebateOrderTotalPrice, &amp;p.common.mediaRebateFee, &amp;p.common.adjustmentFee,
+            &amp;p.common.redEnvelopeTotalPrice, &amp;p.common.rmaRebateFee, &amp;p.common.promoCardUsedOrderTotalPrice,
+            &amp;p.common.fakeShippingFee, &amp;p.common.needPaidTotal, &amp;p.common.checkTime, &amp;p.common.status,
+        )
+        switch {
+        case err == sql.ErrNoRows:
+            continue
+        case err != nil:
+            if _, file, line, ok := runtime.Caller(0); ok {
+                common.Info(err, file, line)
+            }
+        }
+
+        specSoIdList.lock.Lock()
+        specSoIdList.soIds[id] = id
+        specSoIdList.lock.Unlock()
+
+        // FSP新退保业务，记录日志
+        sur := surrender{
+            checkLogId:    checkLogId,
+            partnerId:     partnerId,
+            name:          partnerName,
+            classify:      6,
+            orderId:       p.orderId,
+            skuNo:         p.skuNo,
+            needPaidTotal: p.common.needPaidTotal,
+            reason:        fmt.Sprintf(&quot;结算过暂不结算的订单orderId: %d, skuNo: %d&quot;, p.orderId, p.skuNo),
+        }
+        surrenderLod(sur)
+
+        records = addOrderRecord(records, p)
+    }
+
+    target.lock.Lock()
+    target.goal[8] = records
+    target.lock.Unlock()
+
+    fmt.Println(dist, time.Now().Format(&quot;2006-01-02 15:04:05&quot;))
+}
+</code></pre>
+<p>其中包含了基本常用的错误处理方式，对于Go来说，查询结果集为空的错误需要特殊处理，</p>
+<pre><code class="go">switch {
+case err == sql.ErrNoRows:
+    continue
+case err != nil:
+    if _, file, line, ok := runtime.Caller(0); ok {
+        common.Info(err, file, line)
+    }
+}
+</code></pre>
+<p>sql.ErrNoRows的值是</p>
+<pre><code class="go">// ErrNoRows is returned by Scan when QueryRow doesn&#39;t return a
+// row. In such a case, QueryRow returns a placeholder *Row value that
+// defers this error until a Scan.
+var ErrNoRows = errors.New(&quot;sql: no rows in result set&quot;)
+</code></pre>
+<p>是一种特殊的情形，需要单独判断，其实是一种正常的返回，但是在Go中被定义为一种错误消息。</p>
+<p>遍历也需要检查是否有错误产生。</p>
+<pre><code class="go">// 结果集错误，该错误可能由db.query()遍历产生
+func RowsError(rows *sql.Rows) {
+    if err := rows.Err(); err != nil {
+        log.Fatalln(err)
+    }
+}
+</code></pre>
+<p>看到一些评论说，Go写什么都好，就是真正管用的代码没几行，但是跟错误相关的代码却是有用代码的好几倍，而且错误几乎都无法避开。</p>
+<p>在这里遇到最大的一个问题还是，因为Go的数据库包 database/sql 的原因，如果返回的数据较多，会产生MySQL数据库太多连接的错误，这个没什么好办法，只能将sql语句调节到最优，每次处理完数据就直接关闭连接，而不需要等待到defer来延迟关闭结果集。</p>
+<p>目前使用go1.8.3版本，并发写字典是需要加锁的，但是据说go1.9之后的新版本，内部已经加锁处理，可以直接调用了。</p>
+<pre><code class="go">// 定义一个字典保存所有结算相关信息，字典的键为每一项结算信息的标识，即main中11种内容类型，字典的值为一个二维字符串数组
+type desc struct {
+    goal map[int][][]string
+    lock sync.Mutex
+}
+</code></pre>
+<p>该脚本使用的目标数据结构，其中就专门定义了锁机制。</p>
+<p>Go查询的记录，即结果集，都需要有明确的变量去绑定接收，这是动态语言天然的优势，但静态语言无法做到。还有就是需要注意，数据库查询返回值中一定不能有NULL，这在Go中是不可接受的。如果无法改变，需要借助NULL类型来处理。但我觉得任何一个合格的DBA或者PHP开发者，只要不是第一天学习PHP，都应该知道数据库对NULL的控制，这种东西应该从建表的第一行SQL开始，就被扼杀在摇篮之中。如果不行你使用的旧的数据库中有这种类型存在，那么狠遗憾，你只能在SQL语句中大量使用 IS NULL</p>
+<pre><code class="sql">IF (valid_order_total_price IS NULL, 0, valid_order_total_price) valid_order_total_price,
+</code></pre>
+<p>这样的判断，你也看到了，我就是这个不幸的人。还有更多奇怪的问题，只能遇到了再挨个解决。以前一个小伙伴对我说，她们老大给她一个同事说，做编程是一门有意思的工作，你每天都是不停的发现问题，遇见新问题，然后解决问题，每一天都是新的。一定程度上的确如此，但要是遇见磕破脑袋都解决不了的问题，谁都会有发狂的时候，遇见了就忍忍吧，歇一会就想到解决办法了。</p>
+<h2 id="5-数据处理完后，其它类型转为字符串类型"><a href="#5-数据处理完后，其它类型转为字符串类型" class="headerlink" title="5. 数据处理完后，其它类型转为字符串类型"></a>5. 数据处理完后，其它类型转为字符串类型</h2><p>因为使用csv来读写数据，csv只接收字符串类型，故需要将其它非字符串类型转化为字符串类型。</p>
+<pre><code class="go">// 对结算值进行绑定
+func addSettleRecord(records [][]string, p settle) [][]string {
+    return append(records, []string{
+        partnerName,
+        fmt.Sprintf(&quot;%d&quot;, p.settlementNoteId),
+        fmt.Sprintf(&quot;%f&quot;, p.common.validOrderTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.redEnvelopeUserDeliveryFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.mobileUserDeliveryFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.diamondUserDeliveryFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.rmaOrderTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.rmaDeliveryFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.delayOrderTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.fineFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.onHoldOrderTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.mediaRebateOrderTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.mediaRebateFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.adjustmentFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.redEnvelopeTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.rmaRebateFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.promoCardUsedOrderTotalPrice),
+        fmt.Sprintf(&quot;%f&quot;, p.common.fakeShippingFee),
+        fmt.Sprintf(&quot;%f&quot;, p.common.needPaidTotal),
+        time.Unix(p.common.checkTime, 0).Format(&quot;2006-01-02 15:04:05&quot;),
+        statusToDes(p.common.status),
+    })
+}
+</code></pre>
+<p>这也是和动态脚本语言差异很大的地方，数据类型很多场景下是不能自动传化为所需要的格式的，必须明确将其转化为目标类型。也没有三元运算符，只能用类似字典断言的方式来判断具体的值。</p>
+<pre><code class="go">// 结算单状态描述
+func statusToDes(status string) string {
+    var statusList = map[string]string{
+        &quot;confirmed&quot;:             &quot;初审通过&quot;,
+        &quot;confirmNote&quot;:           &quot;待确认&quot;,
+        &quot;new&quot;:                   &quot;新建&quot;,
+        &quot;invalid&quot;:               &quot;不可结算&quot;,
+        &quot;merged&quot;:                &quot;合并&quot;,
+        &quot;paid&quot;:                  &quot;结款完成&quot;,
+        &quot;rejected&quot;:              &quot;驳回&quot;,
+        &quot;to_approve&quot;:            &quot;待审批&quot;,
+        &quot;verified&quot;:              &quot;待结款&quot;,
+        &quot;submitted&quot;:             &quot;待审核&quot;,
+        &quot;approved&quot;:              &quot;审核通过&quot;,
+        &quot;finished&quot;:              &quot;完成&quot;,
+        &quot;supplier_approved&quot;:     &quot;商家审核通过&quot;,
+        &quot;supplier_rejected&quot;:     &quot;商家驳回&quot;,
+        &quot;wait_supplier_confirm&quot;: &quot;待商家确认&quot;,
+        &quot;received&quot;:              &quot;已收单&quot;,
+        &quot;wait_finance_check&quot;:    &quot;等待finance检查&quot;,
+        &quot;finance_check_ok&quot;:      &quot;finance检查ok&quot;,
+    }
+    if desc, ok := statusList[status]; ok {
+        return desc
+    }
+    return status
+}
+</code></pre>
+<p>这要是在PHP中，下列方式</p>
+<pre><code class="php">return isset($list[$skuCategory]) ? $list[$skuCategory] : &#39;未知&#39;;
+</code></pre>
+<p>很简单的一句话就能做到，高版本的PHP，甚至还能用<a href="http://php.net/manual/zh/migration70.new-features.php" target="_blank" rel="external">合并运算符</a>，更精简</p>
+<pre><code class="php">return $list[$skuCategory] ?? &#39;未知&#39;;
+</code></pre>
+<p>直接省去了isset()的判断就能得到要表达的结果。Go没有这么多的语法糖，这根它的哲学有关，保持语言本身的简单。</p>
+<h2 id="6-写csv文件"><a href="#6-写csv文件" class="headerlink" title="6. 写csv文件"></a>6. 写csv文件</h2><pre><code class="go">// 生成csv格式的附件
+func attachment(name string) {
+    f, err := os.OpenFile(name, os.O_TRUNC|os.O_WRONLY|os.O_CREATE, 0777)
+    defer f.Close()
+    common.Error(err)
+
+    var records [][]string
+    records = append(records, settleColumns)
+    for i := 1; i &lt;= 11; i++ {
+        // 当属于第6个时，需要标识为订单相关项
+        if i == 6 {
+            records = append(records, orderColumns)
+        }
+        for _, v := range target.goal[i] {
+            records = append(records, v)
+        }
+    }
+    err = csv.NewWriter(f).WriteAll(records)
+    common.Error(err)
+}
+</code></pre>
+<p>写csv文件非常简单，直接保存即可，默认均为utf-8编码，写完后用LibreOffice这些软件打开是没问题的，但是Windows系统就不是很方便了，需要做一些额外的工作。跨平台就是这样，只能迁就它。谁让他们家的办公软件这么流行和好用。苹果的Numbers打开也没问题，反正你知道就行，就是微软的Excel打开是一堆乱码，即便是PHP，也要主动对中文进行转码，将utf-8转化为gbk，你生气也没用，事就是要这样才能成的</p>
+<pre><code class="php">return mb_convert_encoding($str, &#39;gbk&#39;, &#39;utf-8&#39;);
+</code></pre>
+<p>对，就是要这样处理之后，使用Windows的同学才能正常查看，但是这样处理后至少我的Mac是没法查看的，这没关系，他们能看就行，咱们自己都可以忍。</p>
+<h2 id="7-发送邮件"><a href="#7-发送邮件" class="headerlink" title="7. 发送邮件"></a>7. 发送邮件</h2><pre><code class="go">// 发送附件
+func email(name string, emails string) {
+    // smtp.qq.com，使用SSL，端口号465或587
+    // 公司邮件本次测试，使用mail.xxx.com:25可以发送邮件，但是正式线无法发送邮件
+    // x509: cannot validate certificate for 10.2.12.9 because it doesn&#39;t contain any IP SANs
+    // x509: certificate is valid for Barracuda/emailAddress=sales@barracuda.com, not mail.jumei.com
+    // 似乎是证书的问题
+    // 我的网易邮件zhgxun1989@163.com也存在一样的问题，但是腾讯QQ邮箱服务却可以正常使用
+    // 定位问题为公司服务器原因，不处理，属于个性问题
+    config := `{&quot;username&quot;:&quot;978771018@qq.com&quot;,&quot;password&quot;:&quot;xxxxxx&quot;,&quot;host&quot;:&quot;smtp.qq.com&quot;,&quot;port&quot;:587}`
+    mail := common.NewEMail(config)
+    mail.To = strings.Split(emails, &quot;,&quot;)
+    mail.From = &quot;978771018@qq.com&quot;
+    mail.Subject = partnerName + &quot; 商家结余附件导出&quot;
+    //mail.Text = &quot;Text Body is, of course, supported!&quot;
+
+    // 尝试读取错误日志中的文件内容
+    f, err := os.Open(logFile)
+    common.Error(err)
+    defer f.Close()
+    con, err := ioutil.ReadAll(f)
+    common.Error(err)
+
+    mail.HTML = &quot;&lt;h3 style=&#39;color:red&#39;&gt;商家重复结算或结算后退货日志: &lt;/h3&gt;&quot; +
+        string(con) +
+        &quot;&lt;h3 style=&#39;color:blue&#39;&gt;以下为商家结余附件: &lt;/h3&gt;&quot;
+    mail.AttachFile(name)
+    err = mail.Send()
+    common.Error(err)
+}
+</code></pre>
+<p>正如注释中所说，x509问题属于服务问题，就不处理。该邮件发送使用了Beego框架的邮件发送封装包。错误日志部分是另一个Go脚本，这里就不描述了，都差不多。代码只是工具，重要的是要跟业务结合起来，才有用处，才能转化为生产力。</p>
+<h2 id="8-整个入口文件"><a href="#8-整个入口文件" class="headerlink" title="8. 整个入口文件"></a>8. 整个入口文件</h2><pre><code class="go">// 商家结余表导出
+func Export(pId int, fix int, emails string, cId int, n *sync.WaitGroup) {
+    defer n.Done()
+
+    partnerId = pId
+    checkLogId = cId
+    logFile = fmt.Sprintf(&quot;/home/www/finance/apps/finance/protected/runtime/fix_rma_after_settle_%d&quot;, partnerId)
+
+    if len(settleColumns)-len(orderColumns) != 0 {
+        log.Fatal(&quot;导出csv文件标题项目数不对应&quot;)
+    }
+
+    // 商家名称
+    partnerName = getPartnerName()
+
+    // 结算后退货或重复结算处理
+    if fix &gt; 0 {
+        Fix()
+    }
+
+    // 时间格式化必须是该日期2006-01-02 15:04:05
+    fmt.Println(&quot;统计开始&quot;, time.Now().Format(&quot;2006-01-02 15:04:05&quot;))
+
+    // 初始化字典
+    target.goal = make(map[int][][]string)
+    specSoIdList.soIds = make(map[int32]int32)
+    soIdList.soIds = make(map[int]int32)
+
+    // 使用计数器记录启动的goroutine个数
+    var count sync.WaitGroup
+
+    // 声明函数类型字典
+    names := map[string]func(group *sync.WaitGroup, string string){
+        &quot;1、partner系统已结算单&quot;:  partnerList,
+        &quot;2、Partner未结算数据&quot;:   partnerNoList,
+        &quot;3、FSP已结算数据&quot;:       fspList,
+        &quot;4、FSP未结算数据&quot;:       fspNoList,
+        &quot;5、Finance已结算数据&quot;:   financeList,
+        &quot;6、未发货并且无退货的订单&quot;:    noDeliveryNoRmaList,
+        &quot;7、未结算订单&quot;:          noSettleList,
+        &quot;8、结算过暂不结算&quot;:        onHoldList,
+        &quot;9、结算过退货&quot;:          settleRmaList,
+        &quot;10、在结算单创建审核中产生退货&quot;: settlingRmaList,
+    }
+    for dist, name := range names {
+        count.Add(1)
+        go name(&amp;count, dist)
+    }
+
+    // 等待所有的goroutine执行完毕
+    count.Wait()
+
+    // 11、没有符合任何条件的订单
+    // 该数据依赖前面数据，不支持并发操作，该方法最后执行
+    noList()
+
+    // 保存为csv格式的附件
+    name := fmt.Sprintf(&quot;/home/www/flogs/POP_PartnerId_%d.csv&quot;, partnerId)
+    attachment(name)
+
+    // 发送邮件
+    email(name, emails)
+
+    fmt.Println(&quot;统计结束&quot;, time.Now().Format(&quot;2006-01-02 15:04:05&quot;))
+}
+</code></pre>
+<p>使用Go确实比PHP写起来要严格一些，但是对数据库操作没有PHP那么方便和自由。PHP WEB框架目前非常的成熟，数据库等操作都是开箱即用，手到擒来，唯一的就是因为语言的关系，异步编程不方便，需要借助扩展来实现。</p>
+<p>偶尔还看到说Go的时间格式化非常鸡肋，其实这东西，熟能生巧，就是一个字符串而已，没有必要在这些东西上浪费时间，这完全没有必要去争论。我也看到网上确实有很多类似的库，看来大家都还是有目共睹，像PHP一样处理时间最简单。不过我也没有使用，觉得这些多写几个字符影响不了工作效率，等到真的需要改善时，再来处理吧。</p>
+<p>我喜欢用Go还有一个更大的好处是，Go本身的SDK就是用Go来写的，每个源代码都能看到，每个Go文件都有对应的测试和样例文件，很多功能直接将样例文件拷贝过来，稍加研究和理解就可以写出符合自己业务需要的代码，比如csv包:</p>
+<pre><code class="go">func ExampleWriter_WriteAll() {
+    records := [][]string{
+        {&quot;first_name&quot;, &quot;last_name&quot;, &quot;username&quot;},
+        {&quot;Rob&quot;, &quot;Pike&quot;, &quot;rob&quot;},
+        {&quot;Ken&quot;, &quot;Thompson&quot;, &quot;ken&quot;},
+        {&quot;Robert&quot;, &quot;Griesemer&quot;, &quot;gri&quot;},
+    }
+
+    w := csv.NewWriter(os.Stdout)
+    w.WriteAll(records) // calls Flush internally
+
+    if err := w.Error(); err != nil {
+        log.Fatalln(&quot;error writing csv:&quot;, err)
+    }
+    // Output:
+    // first_name,last_name,username
+    // Rob,Pike,rob
+    // Ken,Thompson,ken
+    // Robert,Griesemer,gri
+}
+</code></pre>
+<p>官方源码库中文件example_test.go就给出了这个例子，非常直观，容易，而PHP就没有这么便利，首先PHP源代码是C代码，至少我看不懂C代码，只能看手册。但是Go不一样，本身编写的就是Go代码，Go的源代码本身也是Go代码，我觉得这是这门语言非常让人喜欢的一个原因。只要学有余力，完全可以去读Go源代码，做更多的事情。</p>
+<h2 id="9-编译代码"><a href="#9-编译代码" class="headerlink" title="9. 编译代码"></a>9. 编译代码</h2><pre><code class="bash">sudo CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install finance/main
+</code></pre>
+<p>我是在自己的Mac上编译成CentOS系统上的可执行文件，编译完成后直接拷贝到服务器上，通过PHP代码调用运行。还有一些说法是Go编译后的二进制文件有点大，确实我这个小脚本编译后有5M多，但是好像基本维持在这个容量。</p>
+<h2 id="10-PHP如何使用"><a href="#10-PHP如何使用" class="headerlink" title="10. PHP如何使用"></a>10. PHP如何使用</h2><pre><code class="php">/**
+ * go脚本导数
+ * @param $r
+ * @param $partnerIds
+ * @param int $fix
+ * @param string $emails
+ * @param int $checkLogId
+ */
+public function actionReturnExt($r, $partnerIds, $fix = 1, $emails = &#39;guangxunz@jumei.com&#39;, $checkLogId = 0)
+{
+    $path = __DIR__ . &quot;/main {$r} {$partnerIds} {$fix} {$emails} {$checkLogId}&quot;;
+    exec($path, $output);
+    print_r($output);
+}
+</code></pre>
+<p>PHP中使用只能按照命令执行方式来使用，exec()，system()，shell_exec()等函数都可以实现。该处因为我简单封装了路由和传参方式，所以参数传递有自己的规则，入口文件变得就相对简单一些：</p>
+<pre><code class="go">// 编译Linux系统amd64下可执行文件
+// sudo CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install finance/main
+package main
+
+import (
+    &quot;os&quot;
+
+    _ &quot;github.com/go-sql-driver/mysql&quot;
+
+    &quot;finance&quot;
+)
+
+func main() {
+    finance.Handle(os.Args[1:])
+}
+</code></pre>
+<p>这就是整个go脚本的入口文件，直接接收参数即可执行，使用频率不高，需要时直接调用，故不需要守护进程。路由解析就很简单，其实就是用一种传参方式，让代码知道何时，何处调用正确的函数而已。</p>
+<h2 id="11-执行效果"><a href="#11-执行效果" class="headerlink" title="11. 执行效果"></a>11. 执行效果</h2><pre><code class="php">66329 : ./protected/yiic2014 Balance ReturnExt --r=settlementExport --partnerIds=3244
+Array
+(
+    [0] =&gt; 统计开始 2017-08-16 11:40:33
+    [1] =&gt; 2、Partner未结算数据 2017-08-16 11:40:33
+    [2] =&gt; 10、在结算单创建审核中产生退货 2017-08-16 11:40:33
+    [3] =&gt; 6、未发货并且无退货的订单 2017-08-16 11:40:33
+    [4] =&gt; 1、partner系统已结算单 2017-08-16 11:40:33
+    [5] =&gt; 7、未结算订单 2017-08-16 11:40:33
+    [6] =&gt; 9、结算过退货 2017-08-16 11:40:33
+    [7] =&gt; 8、结算过暂不结算 2017-08-16 11:40:33
+    [8] =&gt; 4、FSP未结算数据 2017-08-16 11:40:33
+    [9] =&gt; 5、Finance已结算数据 2017-08-16 11:40:33
+    [10] =&gt; 3、FSP已结算数据 2017-08-16 11:40:33
+    [11] =&gt; 11、没有符合任何条件的订单 2017-08-16 11:40:33
+    [12] =&gt; 统计结束 2017-08-16 11:40:35
+)
+
+exitStatus:0
+
+66329 : 结束 &quot;./protected/yiic2014 Balance ReturnExt --r=settlementExport --partnerIds=3244&quot;
+        [begin:2017-08-16 11:40:33 end:2017-08-16 11:40:35]                      历时:     02秒
+</code></pre>
+<p>这是使用我们自己的跑数平台执行后的输出结果，而且以为异步的关系，能正确执行的条件下，肯定会比同步的PHP脚本快得多。而我们原来的PHP脚本代码是这样一行一行阻塞下去的</p>
+<pre><code class="php">/**
+ * 导出商家结余信息
+ *
+ * @param $partnerId
+ * @param int $other
+ * @param int $fix 是否需要检查结算后退货，重复结算等情况
+ * @param string $email 邮箱账号 多个邮件之间用逗号分隔
+ * @param int $checkLogId fsp系统新退保业务，可能会有该任务主键ID，来源于脚本 Balance-&gt;clean
+ */
+public function actionExport($partnerId, $other = 1, $fix = 1, $email = &#39;&#39;, $checkLogId = 0)
+{
+    $this-&gt;partnerId = $partnerId;
+    $length = count($this-&gt;showSettleColumns);
+    if ($length != count($this-&gt;showOrderColumns)) {
+        exit(&quot;导出excel文件头项目数不对应\n&quot;);
+    }
+
+    // 启动结算后退货检测
+    if ($fix) {
+        $runner = FinanceConsoleCommandRunner::createCommandRunner($this);
+        $runner-&gt;addRun(&#39;TPopTransListFixData&#39;, &#39;FixRmaAfterSettle&#39;, [&#39;partnerId&#39; =&gt; $partnerId, &#39;checkLogId&#39; =&gt; $checkLogId]);
+        // 因为要邮件周知结算后退货等日志记录，故只能同步等待
+        $runner-&gt;wait();
+        unset($runner);
+    }
+
+    $logFile = $this-&gt;getLogFile();
+
+    echo sprintf(&quot;统计开始%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+    $partnerName = Common::getPartnerName($partnerId, &#39;PARTNER&#39;);
+
+    $list[] = $this-&gt;showSettleColumns;
+
+    // 1、partner系统已结算单
+    $list[] = array_pad([&#39;Partner已结算数据&#39;], $length, &#39;&#39;);
+    $partnerList = CommonPopDb::getPopDb()-&gt;createCommand($this-&gt;getPartnerSettleSql())-&gt;queryAll();
+    foreach ($partnerList as $row) {
+        $row[&#39;partner_id&#39;] = $partnerName;
+        $row[&#39;status&#39;] = self::statusToDes($row[&#39;status&#39;]);
+        $list[] = array_values($row);
+    }
+    unset($partnerList);
+    echo sprintf(&quot;Partner已结算数据%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+    // 2、Partner未结算数据
+    $list[] = array_pad([&#39;Partner未结算数据&#39;], $length, &#39;&#39;);
+    $partnerUnList = CommonPopDb::getPartnerDb()-&gt;createCommand($this-&gt;getUnPartnerSettleSql())-&gt;queryAll();
+    foreach ($partnerUnList as $row) {
+        $row[&#39;partner_id&#39;] = $partnerName;
+        $row[&#39;status&#39;] = self::statusToDes($row[&#39;status&#39;]);
+        $list[] = array_values($row);
+    }
+    unset($partnerUnList);
+    echo sprintf(&quot;Partner未结算数据%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+    // 3、FSP已结算数据
+    $list[] = array_pad([&#39;FSP已结算数据&#39;], $length, &#39;&#39;);
+    $fspList = CommonPopDb::getPopDb()-&gt;createCommand($this-&gt;getFspSettleSql())-&gt;queryAll();
+    // fsp改结算项为4项,需要重新计算部分结算数值
+    $fspList = $this-&gt;handleFsp($fspList);
+    foreach ($fspList as $row) {
+        $row[&#39;partner_id&#39;] = $partnerName;
+        $row[&#39;status&#39;] = self::statusToDes($row[&#39;status&#39;]);
+        $list[] = array_values($row);
+    }
+    unset($fspList);
+    echo sprintf(&quot;FSP已结算数据%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+    // 4、FSP未结算数据
+    $list[] = array_pad([&#39;FSP未结算数据&#39;], $length, &#39;&#39;);
+    $fspUnList = CommonPopDb::getFspDb()-&gt;createCommand($this-&gt;getUnFspSettleSql($this-&gt;partnerId))-&gt;queryAll();
+    foreach ($fspUnList as $row) {
+        $row[&#39;partner_id&#39;] = $partnerName;
+        $row[&#39;status&#39;] = self::statusToDes($row[&#39;status&#39;]);
+        $list[] = array_values($row);
+    }
+    unset($fspUnList);
+    echo sprintf(&quot;FSP未结算数据%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+    // 5、Finance已结算数据
+    $list[] = array_pad([&#39;Finance已结算数据&#39;], $length, &#39;&#39;);
+    $financeList = CommonPopDb::getPopDb()-&gt;createCommand($this-&gt;getFinanceSettleSql($this-&gt;partnerId))-&gt;queryAll();
+    $this-&gt;handleFinance($financeList);
+    foreach ($financeList as $row) {
+        $row[&#39;partner_id&#39;] = $partnerName;
+        $list[] = array_values($row);
+    }
+    unset($financeList);
+    echo sprintf(&quot;Finance已结算数据%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+    if ($other == 1) {
+        // 6、 未发货并且无退货的订单
+        $list[] = $this-&gt;showOrderColumns;
+        $list[] = array_pad([&#39;未发货并且无退货的订单&#39;], $length, &#39;&#39;);
+        $noDeliveryNoRma = $this-&gt;noDeliveryNoRma();
+        foreach ($noDeliveryNoRma as $row) {
+            $this-&gt;soIdList[] = $row[&#39;id&#39;];
+            unset($row[&#39;id&#39;]);
+            $list[] = array_values($row);
+        }
+        unset($noDeliveryNoRma);
+        echo sprintf(&quot;未发货并且无退货的订单%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+        // 7、未结算订单
+        $list[] = array_pad([&#39;未结算订单&#39;], $length, &#39;&#39;);
+        $unSettleList = $this-&gt;unsettle();
+        foreach ($unSettleList as $row) {
+            // 部分预售订单不结算
+            $isSale = false;
+            if ($this-&gt;isPreSale($row[&#39;order_id&#39;])) {
+                $isSale = true;
+                $reason = &quot;预售订单[{$row[&#39;order_id&#39;]}] sku_no[{$row[&#39;sku_no&#39;]}]不需结算&quot;;
+            } else {
+                $reason = &quot;订单[{$row[&#39;order_id&#39;]}] sku_no[{$row[&#39;sku_no&#39;]}]未结算&quot;;
+            }
+            $this-&gt;surrenderLod([
+                &#39;check_log_id&#39; =&gt; $checkLogId,
+                &#39;partner_id&#39; =&gt; $partnerId,
+                &#39;name&#39; =&gt; $partnerName,
+                &#39;type&#39; =&gt; 5,
+                &#39;order_id&#39; =&gt; $row[&#39;order_id&#39;],
+                &#39;sku_no&#39; =&gt; $row[&#39;sku_no&#39;],
+                &#39;need_paid_total&#39; =&gt; $row[&#39;need_paid_total&#39;],
+                &#39;reason&#39; =&gt; $reason,
+                &#39;ctime&#39; =&gt; date(&#39;Y-m-d H:i:s&#39;)
+            ]);
+            if ($isSale) {
+                continue;
+            }
+            $list[] = array_values($row);
+        }
+        unset($unSettleList);
+        echo sprintf(&quot;未结算订单%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+        // 8、结算过暂不结算
+        $list[] = array_pad([&#39;结算过暂不结算&#39;], $length, &#39;&#39;);
+        $onHold = $this-&gt;onHold();
+        foreach ($onHold as $row) {
+            $list[] = array_values($row);
+
+            $this-&gt;surrenderLod([
+                &#39;check_log_id&#39; =&gt; $checkLogId,
+                &#39;partner_id&#39; =&gt; $partnerId,
+                &#39;name&#39; =&gt; $partnerName,
+                &#39;type&#39; =&gt; 6,
+                &#39;order_id&#39; =&gt; $row[&#39;order_id&#39;],
+                &#39;sku_no&#39; =&gt; $row[&#39;sku_no&#39;],
+                &#39;need_paid_total&#39; =&gt; $row[&#39;need_paid_total&#39;],
+                &#39;reason&#39; =&gt; &quot;订单[{$row[&#39;order_id&#39;]}] sku_no[{$row[&#39;sku_no&#39;]}]结算过暂不结算&quot;,
+                &#39;ctime&#39; =&gt; date(&#39;Y-m-d H:i:s&#39;)
+            ]);
+        }
+        unset($onHold);
+        echo sprintf(&quot;结算过暂不结算%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+        // 9、结算过退货
+        $list[] = array_pad([&#39;结算过退货&#39;], $length, &#39;&#39;);
+        $afterSettle = $this-&gt;afterSettle();
+        foreach ($afterSettle as $row) {
+            $list[] = array_values($row);
+        }
+        unset($afterSettle);
+        echo sprintf(&quot;结算过退货%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+        // 10、在结算单创建审核中产生退货
+        $list[] = array_pad([&#39;在结算单创建审核中产生退货&#39;], $length, &#39;&#39;);
+        $whilesSettle = $this-&gt;whilesSettle();
+        foreach ($whilesSettle as $row) {
+            $list[] = array_values($row);
+        }
+        unset($whilesSettle);
+        echo sprintf(&quot;在结算单创建审核中产生退货%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+
+        // 11、没有符合任何条件的订单
+        $list[] = array_pad([&#39;没有符合任何条件的订单&#39;], $length, &#39;&#39;);
+        $no = $this-&gt;CheckDiff();
+        foreach ($no as $row) {
+            $list[] = array_values($row);
+        }
+        unset($no);
+        echo sprintf(&quot;没有符合任何条件的订单%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+    }
+
+    $partnerName = str_replace(array(&#39; &#39;, &#39;&#39;, &#39;\t&#39;), &#39;_&#39;, trim($partnerName));
+    $content = &quot;&lt;p style=&#39;color: red;&#39;&gt;&lt;b&gt;$partnerName&quot;.&quot;({$partnerId})&lt;/b&gt;结算后退货、重复结算或其他差异记录日志:&lt;/p&gt;\n\n&quot;;
+    $title = &quot;POP_PartnerId_{$partnerId}&quot;;
+    $mailTo = $this-&gt;getMailTo();
+    if ($email) {
+        $emails = explode(&#39;,&#39;, $email);
+        $mailTo = array_merge($mailTo, $emails);
+    }
+
+    // 查看该商家是否有结算后退货的信息
+    if (file_exists($logFile)) {
+        $content .= file_get_contents($logFile) . &quot;\n&quot;;
+        unlink($logFile);
+    }
+
+    $content .= &quot;\n&lt;p style=&#39;color: blue; &#39;&gt;以下为商家结余附件:&lt;/p&gt;&quot;;
+    FMailer::sendPOPExport(
+        $content,
+        [Common::exportExcel($list, [&#39;title&#39; =&gt; $title, &#39;biz_item&#39; =&gt; $title])],
+        $mailTo
+    );
+    echo sprintf(&quot;统计结束%s\n&quot;, date(&#39;Y-m-d H:i:s&#39;));
+}
+</code></pre>
+<p>哈哈，这还是我后来优化过后的代码，之前的代码好几个SQL效率都很慢，当然第一个编写这个脚本的人已经离职不再公司了，那时候还没有这么多的业务逻辑，随便写的脚本都能够很开心的跑出让大家满意的结果来。有时候在公司的时间也很重要，像我就写新功能的时候很少，但是维护现有功能的多。很多东西，如果咱们自己不想改，装作不知道，完全可以一句话把责任抛给别人，网络慢啊，服务器有点卡啊各种理由似乎都很对，毕竟优化是件让人头疼的事情，而且还不一定有结果。做好了，对自己未必有好处，但对公司，对后来的团队都有好处；做不好，只能是劳民伤财，自作自受，所以，优化其实不是真的必须面对时，一般很少有人会轻易去碰它。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/go/">go</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/08/06/jingbian/">
+        <span class="next-text nav-default">15. 靖边</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

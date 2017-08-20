@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="6. Golang字符串子串的最大长度"/>
+
+
+
+
+  <meta name="keywords" content="go, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/07/09/sub-longest/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 6. Golang字符串子串的最大长度 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          6. Golang字符串子串的最大长度
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-09
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/go/">go</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>昨天在Letcode上做题，有这么一道题：</p>
+<blockquote>
+<p>Given a string, find the length of the longest substring without repeating characters.</p>
+<p>Examples:</p>
+<p>Given “abcabcbb”, the answer is “abc”, which the length is 3.</p>
+<p>Given “bbbbb”, the answer is “b”, with the length of 1.</p>
+<p>Given “pwwkew”, the answer is “wke”, with the length of 3. Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
+</blockquote>
+<p>查找当前字符串不重复的子串最大长度，我看难度等级是中等。我用go写了至少2个小时吧，总算是完成了，但是一提交测试，所有单元测试都通过了，但是，最后一个超时，就是执行时间太长了而被拒绝。昨天忘记记录下该测试用例，是一个很长很长的字符串，我写出来的代码983个单元测试，除了这个长串超时外其余982个都通过了。我苦思不得其解，后来去看了别人的答案，才知道之所以把这类问题归类为算法题的原因，肯定是不能用常规的思路去解决。确实高人挺多，我辈需要学习的东西实在是太多了。</p>
+<p>下面给出两个答案，我觉得第二种比较好理解，第一种总是有点模糊，而且第二种的效率要比第一种高一些。</p>
+<a id="more"></a>
+<pre><code class="go">// Given a string, find the length of the longest substring without repeating characters.
+package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(lengthOfLongestSubstring(&quot;abba&quot;))
+    fmt.Println(lengthOfLongestSubstring1(&quot;abba&quot;))
+}
+
+// 用字符本身来记录, 该种方法因字典逐渐递增, 性能会下降
+// 单个字符串的类型为 byte
+func lengthOfLongestSubstring1(s string) int {
+    max := 0
+
+    length := len(s)
+    if length == 0 {
+        return max
+    }
+
+    // 字典, 存储的键为 byte 字符, 值为该字符在字符串中的位置
+    hash := make(map[byte]int, length)
+
+    for i, j := 0, 0; i &lt; length; i++ {
+        // i 是当前字符出现的位置
+        // j 记录该字符当前位置之前最近一次出现的位置
+        if v, ok := hash[s[i]]; ok &amp;&amp; v+1 &gt; j {
+            j = v + 1
+        }
+        hash[s[i]] = i
+        // 记录当前子串的最大长度
+        if i-j+1 &gt; max {
+            max = i - j + 1
+        }
+    }
+
+    return max
+}
+
+// 初始化字符标识, 因字符数量有限, 对长串字符处理比较高效, 且比第一种更容易理解
+func lengthOfLongestSubstring(s string) int {
+    // 基本的字符有127个, 如果没有别的特殊字符, 已经够存储
+    m := [128]int{}
+    for i := 0; i &lt; 128; i++ {
+        m[i] = -1
+    }
+
+    length, start := 0, -1
+
+    for i := 0; i &lt; len(s); i++ {
+        // 如果该字符被记录过, 则记录该字符已经记录的最大位置
+        if m[s[i]] &gt; start {
+            start = m[s[i]]
+        }
+        // 将存在的字符记录为键, 字符在字符串中的位置记录为值
+        m[s[i]] = i
+        // 当前位置 - 已经记录的最大位置, 为该次重复子串的最大长度
+        if i-start &gt; length {
+            length = i - start
+        }
+    }
+
+    return length
+}
+</code></pre>
+<p>面对一个问题，能实现出来固然不容易，但是更好的实现，思路确实太重要了。今天看了下Workerman框架，找到一篇文章说，他2010年毕业，应该在腾讯朋友网工作。看到这篇博客，是2016年在聚美优品。我问了下，说已经离职了。目前聚美rpc框架应该是他写的，不过后来又改版了很多，跟开源的那个应该有些差别了。我看了下项目中的这部分，确实有很多聚美业务方面的东西，跟开源的Workerman差别还是不小。</p>
+<p>如果让我写，我实在是写不出来。前几天同事还跟我说，排序准备两个，字符串匹配会一个，递归，动态规划，回溯各一个。这些东西对于经常写crud操作的人来说，确实没什么直接的用处。但是一旦涉及性能问题，常规的思路分析就没什么用了。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/go/">go</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/07/14/curl-timeout/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">7. PHP扩展cURL执行中途无响应</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/07/09/haituo/">
+        <span class="next-text nav-default">5. 海坨扎营</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

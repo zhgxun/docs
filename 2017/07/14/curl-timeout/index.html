@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="7. PHP扩展cURL执行中途无响应"/>
+
+
+
+
+  <meta name="keywords" content="php, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2017/07/14/curl-timeout/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 7. PHP扩展cURL执行中途无响应 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          7. PHP扩展cURL执行中途无响应
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-14
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。一直看，请求一开始都是能正常完成的，越往后执行时间也变得逐渐增长，然后就可能变成死连接。就想到，肯定是cURL发送的请求有的无响应失效了，已经成僵尸连接，还一直阻塞脚本，导致资源一直存在，但是并不能继续使用。</p>
+<a id="more"></a>
+<p>找了各种资料，还想尝试写一个类似定时器的定西，如果脚本执行超过1分钟，则强制丢弃掉该cURL链接。不知道PHP怎么实现这样的需求，还犹豫要不要用go来实现。涉及到json,xml等，用go毕竟没有PHP方便，就去手册阅读cURL的内容，企图找到一点有用的东西。而且cURL命令行工具是有重试功能的，猜想扩展肯定也有。但是该如何配置呢？</p>
+<p>看了<a href="https://segmentfault.com/a/1190000000313184#articleHeader10" target="_blank" rel="external">PHP超时处理全面总结</a>这篇文章中的超时，才知道因为我的代码设置cURL连接选项时只设置了连接超时时间，并没有设置执行超时时间。观察通常10秒内正常都应该返回数据，我就设置了超时和执行时间都是30秒。增加这个参数限制后，总算能捕捉到无响应的请求了，剩下的就是如何处理在规定时间内无法返回结果的资源了。</p>
+<p>就是这几个参数没有了解过，给排查问题浪费了整整一个下午。</p>
+<pre><code class="php">/**
+ * CURLOPT_TIMEOUT设置cURL允许执行的最长秒数。
+ * CURLOPT_TIMEOUT_MS设置cURL允许执行的最长毫秒数。(在cURL7.16.2中被加入。从PHP5.2.3起可使用。)
+ * CURLOPT_CONNECTTIMEOUT在发起连接前等待的时间，如果设置为0，则无限等待。
+ * CURLOPT_CONNECTTIMEOUT_MS尝试连接等待的时间，以毫秒为单位。如果设置为0，则无限等待。在cURL7.16.2中被加入。从PHP5.2.3开始可用。
+ * CURLOPT_DNS_CACHE_TIMEOUT设置在内存中保存DNS信息的时间，默认为120秒。
+ */
+</code></pre>
+<p>增加执行超时后的请求设置函数。</p>
+<pre><code class="php">/**
+ * curl请求
+ *
+ * @param $url
+ * @param string $postData
+ * @param int $timeout
+ * @return array|mixed
+ * @throws Exception
+ */
+protected static function post($url, $postData = &#39;&#39;, $timeout = 5)
+{
+    $ret = array();
+    $times = 5;
+    do {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, &quot;POST&quot;);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        if ($postData != &#39;&#39;) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        }
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        // curl 执行最大秒数
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        $output = curl_exec($ch);
+        if ($errNo = curl_errno($ch)) {
+            error_log(&quot;Error [$errNo]: &quot; . curl_error($ch));
+        } else {
+            $ret = json_decode($output, true);
+            // 解析的结果集为空时停止查询
+            if (!is_array($ret) &amp;&amp; !trim($ret)) {
+                throw new Exception(__METHOD__ . &quot;: cURL调用失败, 信息为: &quot; . $output);
+            }
+            unset($output);
+        }
+        curl_close($ch);
+        // 每个接口返回的值不一致, 故使用效率较低的count来判断, 不使用isset($ret[0])来判断了
+        if (count($ret)) {
+            return $ret;
+        }
+    } while ($times--);
+    exit(__METHOD__ . &quot;: cURL请求重试至 {$times} 次后仍无响应, 执行退出&quot;);
+}
+</code></pre>
+<p>超时时的提示信息设置如：</p>
+<pre><code class="php">error_log(&quot;Error [$errNo]: &quot; . curl_error($ch));
+</code></pre>
+<p>我设置的连接时间和执行时间限制都是30秒。</p>
+<pre><code class="php">Error [28]: Operation timed out after 30000 milliseconds with 0 bytes received
+</code></pre>
+<p>可以输出查看，针对这种超时，直接丢弃该次连接，重新初始化一次资源请求即可。当然这里尝试重试6次，6次都还无法正常执行完毕，就只能在想别的办法了。虽然最终并不知道为什么会有连接失效，但是这样之后，就能保证基本可以完成任务了。</p>
+<p><img src="https://raw.githubusercontent.com/zhgxun/images/master/programming/curl_timeout.jpeg" alt="超时"></p>
+<p>我执行一个月的跑数脚本，所有超时情况就有这么多，幸运的是最终都没能等到重试6次，就请求成功了。从错误类型中，看到确实是有一些请求在30秒内未能执行完毕。</p>
+<pre><code class="php">Error [28]: Operation timed out after 30000 milliseconds with 0 bytes received
+Error [28]: Operation timed out after 30000 milliseconds with 0 bytes received
+Error [28]: Operation timed out after 30000 milliseconds with 62399 out of 323196 bytes received
+</code></pre>
+<p>需要补充的是，倘若执行重试失败，需要使用exit等函数直接退出脚本，否则可能导致无效的循环，比如：</p>
+<pre><code class="php">156013 : ./protected/yiic2014 DWHtUnitaryTax GetCGO1EachDayDataV2 --from=2017-04-01 --to=2017-05-01 --declare=2017-05-10
+DELETE 0 ROWS
+正在处理 2017-04-01 期间税单...开始时间: 2017-07-15 19:09:10
+正在处理第 1/80 批数据...
+开始时间: 2017-07-15 19:09:11
+Common::post: cURL请求重试至 -1 次后仍无响应, 执行退出
+exitStatus:0
+
+156013 : 结束 &quot;./protected/yiic2014 DWHtUnitaryTax GetCGO1EachDayDataV2 --from=2017-04-01 --to=2017-05-01 --declare=2017-05-10&quot;
+        [begin:2017-07-15 19:09:10 end:2017-07-15 19:10:09]                      历时:     59秒
+</code></pre>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/07/19/go-database/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">8. Go database/sql 教程</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/07/09/sub-longest/">
+        <span class="next-text nav-default">6. Golang字符串子串的最大长度</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

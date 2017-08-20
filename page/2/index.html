@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/page/2/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts">
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/09/sub-longest/">6. Golang字符串子串的最大长度</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-09
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/go/">go</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>昨天在Letcode上做题，有这么一道题：</p>
+<blockquote>
+<p>Given a string, find the length of the longest substring without repeating characters.</p>
+<p>Examples:</p>
+<p>Given “abcabcbb”, the answer is “abc”, which the length is 3.</p>
+<p>Given “bbbbb”, the answer is “b”, with the length of 1.</p>
+<p>Given “pwwkew”, the answer is “wke”, with the length of 3. Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
+</blockquote>
+<p>查找当前字符串不重复的子串最大长度，我看难度等级是中等。我用go写了至少2个小时吧，总算是完成了，但是一提交测试，所有单元测试都通过了，但是，最后一个超时，就是执行时间太长了而被拒绝。昨天忘记记录下该测试用例，是一个很长很长的字符串，我写出来的代码983个单元测试，除了这个长串超时外其余982个都通过了。我苦思不得其解，后来去看了别人的答案，才知道之所以把这类问题归类为算法题的原因，肯定是不能用常规的思路去解决。确实高人挺多，我辈需要学习的东西实在是太多了。</p>
+<p>下面给出两个答案，我觉得第二种比较好理解，第一种总是有点模糊，而且第二种的效率要比第一种高一些。</p>
+          <div class="read-more">
+            <a href="/2017/07/09/sub-longest/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/09/haituo/">5. 海坨扎营</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-09
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/travel/">travel</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>海坨山是北京第二高峰，很多徒步爱好者每年都会去一次。去年端午夜爬，我们去时，山上的草刚刚长齐。计划中的云海没有看到，日出过后，大家疲惫的下山了。这次比去年晚了整整一个月，山口停车的位置已经修成海坨山庄，闫家坪村看起来也像模像样。</p>
+<p>重装扎营比较累，还走错了一段路。我们到山顶时，已经快7点，太阳已在落山。山顶鞍部已经支起了很多帐篷。旁边就是一个户外队，吵闹中，我们也支起自己的帐篷，背包睡袋整理好，天边还剩下一摸红色。海坨山的营地在风口，温度比白天要低很多。还担心晚上风大，我们搬了好多大石头，绑了风绳，打了地钉，才安心下来开始做饭。旁边的户外队吵到八九点，也陆陆续续的睡了。</p>
+          <div class="read-more">
+            <a href="/2017/07/09/haituo/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/08/beego-salt/">3. Golang生成一个盐</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-08
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/go/">go</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>有时候业务可能需要生成一个随机字符串，而我们希望包括的字符类型多一些，在go标准库中没有这样的包，不能开箱即用。</p>
+<p>而基本字符在ASCII表中有确定的值，这些值在主流的编码系统中都是统一的，不分操作系统和编程语言，这一点确实给我们带来了便利。以下案例中使用的rand为标准数学库 <strong>math/rand</strong>。通过该编码值，我们可以轻松的不用复写这些字符，只需要知道属于它们的边界，在此基础上增加到某个位置，就可以获取到该字符。</p>
+<pre><code class="go">import (
+    &quot;math/rand&quot;
+)
+</code></pre>
+          <div class="read-more">
+            <a href="/2017/07/08/beego-salt/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/08/beego-link/">2. 用Beego编写一个友情链接</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-08
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/go/">go</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>beego框架和bee工具的安装非常简单，唯一需要注意的是Mac平台go1.8版本无法运行bee工具，说是官方包造成的bug，需要使用更高版本，比如我的Mac本地版本是:</p>
+<pre><code class="bash">zhgxun-pro:~ zhgxun$ go version
+go version go1.8.3 darwin/amd64
+</code></pre>
+<p>现在来看如何用beego框架编写一个友情链接。</p>
+          <div class="read-more">
+            <a href="/2017/07/08/beego-link/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/08/beego-cookie/">1. Beego框架设置cookie</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-08
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/go/">go</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>“cookie是当前识别用户，实现持久会话的最好方式…最初是由网景公司开发的。”</p>
+<p>beego框架上下文模块中context对象对GetCookie和SetCookie进行了封装。</p>
+          <div class="read-more">
+            <a href="/2017/07/08/beego-cookie/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2017/07/01/bible/">4. "话说你想了解圣经吗"</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-01
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/read/">read</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <blockquote>
+<p>前些天一个朋友突然问我: “话说你想了解圣经吗？”</p>
+<p>我先是一愣，说：“为啥问这个？你听谁说的？”</p>
+<p>她显然听出了我的疑虑，说：“我以前学习过，我以前上学的时候看过很多书啊！”</p>
+</blockquote>
+<p>我们以前是同事，在一起玩过很长的一段时间，我知道她不是信教的人。之前的一个同事也问过我类似的问题，她也不是信教的人。不过他们都看圣经。我知道这本书，但我除了前面几页外，一直没再继续往里看过。只是这些书一听起来，就像跟信教有关一样让人觉得气氛有点怪怪的。其实看不看圣经，跟信不信教没有什么关系。</p>
+<p>在深圳的时候，我一直在书店找这本书，后来在南山新华书店找到了，但是有点贵，我就没有买，看圣经的最后一点机会也没有了。</p>
+          <div class="read-more">
+            <a href="/2017/07/01/bible/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    
+      <a class="prev" href="/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一页</span>
+      </a>
+    
+    
+  </nav>
+
+
+          </div>
+          
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
