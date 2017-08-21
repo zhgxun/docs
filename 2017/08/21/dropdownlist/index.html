@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="准确说,初学框架那段时间,使用下拉列表可不是件容易的事,包括怎么引入类class都需要去百度,手册找,而且几乎很多次都是徒劳无功.第一次使用地区三级联动还是用的网上的js插件,才插件中别人已经把地区信息以数组或者json的格式包装好了,不需要提供额外的数据库支持,好处是直接使用.坏处是地区信息都很旧,比如我家所在地,记得是2012年已经将毕节地区改为市了,但是插件中还是使用毕业地区,这虽然没什么错,但已经说明这些数据其实也是作者搜索出来的,别的地方没有考证过,但肯定也有一些地区信息,已经在最近的几年被更改过了,因此使用一定意义上是不正确的."/>
+
+
+
+
+  <meta name="keywords" content="php, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/dropdownlist/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 24. Yii2中下拉列表dropdownlist的用法 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          24. Yii2中下拉列表dropdownlist的用法
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-21
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        <p>准确说,初学框架那段时间,使用下拉列表可不是件容易的事,包括怎么引入类class都需要去百度,手册找,而且几乎很多次都是徒劳无功.第一次使用地区三级联动还是用的网上的js插件,才插件中别人已经把地区信息以数组或者json的格式包装好了,不需要提供额外的数据<br>库支持,好处是直接使用.坏处是地区信息都很旧,比如我家所在地,记得是2012年已经将毕节地区改为市了,但是插件中还是使用毕业地区,这虽然没什么错,但已经说明这些数据其实也是作者搜索出来的,别的地方没有考证过,但肯定也有一些地区信息,已经在最近的几年被更改<br>过了,因此使用一定意义上是不正确的.</p>
+<p>几乎在我遇到的项目中,地区信息都有自己的数据库,而且后台都有地区信息添加修改功能,所以地区的插件其实是不需要的,基本都要自己去写,这次也不例外.</p>
+<p>下面我就把一个完整的使用过程罗列:</p>
+<ol>
+<li>首先当然是数据库信息,这里就不列出,一般是三张基本表省,市,区县,以及小区等</li>
+<li>模型通常直接使用gii生成即可</li>
+<li>通过模型获取各级数据,需要一个中间文件,也可以直接写在模型中,只是会比较乱</li>
+</ol>
+<h2 id="1-基础"><a href="#1-基础" class="headerlink" title="1. 基础"></a>1. 基础</h2><pre><code class="php">BaseLib.php
+
+namespace common\louli\service;
+
+use common\models\base\Area;
+use common\models\base\City;
+use common\models\base\Community;
+
+class BaseLib
+{
+    /**
+     * 市列表
+     *
+     * @param $condition
+     * @param array $params
+     * @param bool $isArray
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getCity($condition, $params = [], $isArray = false)
+    {
+        $query = City::find()-&gt;where($condition, $params);
+        if ($isArray) {
+            $query-&gt;asArray();
+        }
+        $result = $query-&gt;all();
+        return $result;
+    }
+
+    /**
+     * 区列表
+     *
+     * @param $condition
+     * @param array $params
+     * @param bool $isArray
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getArea($condition, $params = [], $isArray = false)
+    {
+        $query = Area::find()-&gt;where($condition, $params);
+        if ($isArray) {
+            $query-&gt;asArray();
+        }
+        $result = $query-&gt;all();
+        return $result;
+    }
+
+    /**
+     * 区详细信息
+     *
+     * @param $id
+     * @return null|static
+     */
+    public function getAreaDetail($id)
+    {
+        $query = Area::findOne($id);
+        return $query;
+    }
+
+    /**
+     * 小区列表
+     *
+     * @param $condition
+     * @param array $params
+     * @param bool $isArray
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getCommunity($condition, $params = [], $isArray = true)
+    {
+        $query = Community::find()-&gt;where($condition, $params);
+        if ($isArray) {
+            $query-&gt;asArray();
+        }
+        $result = $query-&gt;all();
+        return $result;
+    }
+
+    /**
+     * 小区详细信息
+     *
+     * @param $id
+     * @return null|static
+     */
+    public function getCommunityDetail($id)
+    {
+        $query = Community::findOne($id);
+        return $query;
+    }
+}
+</code></pre>
+<h2 id="2-控制器"><a href="#2-控制器" class="headerlink" title="2. 控制器"></a>2. 控制器</h2><pre><code class="php">HuangYeErrorController.php
+/**
+ * 黄页纠错
+ *
+ * @return string
+ */
+public function actionIndex()
+{
+    $searchModel  = new HuangYeErrorSearch();
+    $dataProvider = $searchModel-&gt;search(Yii::$app-&gt;request-&gt;queryParams);
+
+    //市-区-小区
+    $params = isset($_GET[&#39;HuangYeErrorSearch&#39;]) ? $_GET[&#39;HuangYeErrorSearch&#39;] : [];
+    $cities = BaseController::getCity();
+    $cityId = isset($params[&#39;cityName&#39;]) &amp;&amp; $params[&#39;cityName&#39;] ? intval($params[&#39;cityName&#39;]) : $cities[0]-&gt;id;
+    $searchModel-&gt;cityName = isset($params[&#39;cityName&#39;]) ? intval($params[&#39;cityName&#39;]) : 0;
+    $areas  = BaseController::getArea($cityId);
+    $areaId = isset($params[&#39;areaName&#39;]) &amp;&amp; $params[&#39;areaName&#39;] ? intval($params[&#39;areaName&#39;]) : $areas[0]-&gt;id;
+    $searchModel-&gt;areaName = isset($params[&#39;areaName&#39;]) ? intval($params[&#39;areaName&#39;]) : 0;
+    $communities = BaseController::getCommunity($areaId, false);
+    $searchModel-&gt;communityName = isset($params[&#39;communityName&#39;]) ? intval($params[&#39;communityName&#39;]) : 0;
+
+    //获得类别
+    $parentId[&#39;id&#39;] = 0;
+    $order = &#39;&#39;;
+    $categories = BaseController::getCategories($parentId, $order, false, true);
+
+    return $this-&gt;render(&#39;index&#39;, [
+        &#39;searchModel&#39;  =&gt; $searchModel,
+        &#39;dataProvider&#39; =&gt; $dataProvider,
+        &#39;cities&#39;       =&gt; $cities,
+        &#39;areas&#39;        =&gt; $areas,
+        &#39;communities&#39;  =&gt; $communities,
+        &#39;categories&#39;   =&gt; $categories
+    ]);
+}
+</code></pre>
+<p>这里我加了一个中间文件baseController.php,以后在模板中调用就只需要这个固定的路径,毕竟需要用到的模板不止一个,每个控制器中都写的话需要修改的时候就必须每一处都要修改</p>
+<pre><code class="php">namespace admin\modules\service\controllers;
+
+use common\louli\service\BaseLib;
+use common\louli\service\CategoryLib;
+use yii\web\Controller;
+
+/**
+ * 地区信息和类别
+ *
+ * Class BaseController
+ * @package admin\modules\service\controllers
+ */
+class BaseController extends Controller
+{
+    /**
+     * 市,默认北京市,省id是1
+     *
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getCity()
+    {
+        $condition = &#39; `status` = :status&#39;;
+        $params[&#39;:status&#39;] = 1;
+
+        $bLib   = new BaseLib();
+        $result = $bLib-&gt;getCity($condition, $params);
+        return $result;
+    }
+
+    /**
+     * 区
+     *
+     * @param $cityId
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getArea($cityId)
+    {
+        $condition = &#39; `cityid` = :cityid AND `status` = :status&#39;;
+        $params[&#39;:cityid&#39;] = $cityId;
+        $params[&#39;:status&#39;] = 1;
+
+        $bLib   = new BaseLib();
+        $result = $bLib-&gt;getArea($condition, $params);
+        return $result;
+    }
+
+    /**
+     * 小区
+     *
+     * @param $areaId
+     * @param bool $flag
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getCommunity($areaId, $flag = true)
+    {
+        $condition = &#39; `areaid` = :areaid AND `status` = :status&#39;;
+        $params[&#39;:areaid&#39;] = $areaId;
+        $params[&#39;:status&#39;] = 1;
+
+        $bLib   = new BaseLib();
+        $result = $bLib-&gt;getCommunity($condition, $params, $flag);
+        return $result;
+    }
+
+    /**
+     * ajax请求区
+     *
+     * @param $id
+     * @return string
+     */
+    public function actionGetAreaList($id)
+    {
+        $option = &#39;&#39;;
+        $result = self::getArea($id);
+        if ($result) {
+            foreach ($result as $value) {
+                $option .= &#39;&lt;option value=&quot;&#39; . $value[&#39;id&#39;] . &#39;&quot;&gt;&#39; . $value[&#39;name&#39;] . &#39;&lt;/option&gt;&#39;;
+            }
+        } else {
+            $option .= &#39;&lt;option value=&quot;0&quot;&gt;暂未开通可选择的区&lt;/option&gt;&#39;;
+        }
+
+        echo $option;
+    }
+
+    /**
+     * ajax请求小区
+     *
+     * @param $id
+     * @return string
+     */
+    public function actionGetCommunityList($id)
+    {
+        $option = &#39;&#39;;
+        $result = self::getCommunity($id);
+        if ($result) {
+            foreach ($result as $value) {
+                $option .= &#39;&lt;option value=&quot;&#39; . $value[&#39;id&#39;] . &#39;&quot;&gt;&#39; . $value[&#39;name&#39;] . &#39;&lt;/option&gt;&#39;;
+            }
+        } else {
+            $option .= &#39;&lt;option value=&quot;0&quot;&gt;暂未开通可选择的小区&lt;/option&gt;&#39;;
+        }
+
+        echo $option;
+    }
+
+    /**
+     * 搜索小区
+     *
+     * @param $id
+     * @param $word
+     * @return string
+     */
+    public function actionSearchCommunity($id, $word)
+    {
+        $condition = &#39; `areaid` = :areaid AND `status` = :status AND `name` LIKE :name&#39;;
+        $params[&#39;:areaid&#39;] = $id;
+        $params[&#39;:status&#39;] = 1;
+        $params[&#39;:name&#39;]   = &#39;%&#39; . $word . &#39;%&#39;;
+
+        $countLib = new BaseLib();
+        $result   = $countLib-&gt;getCommunity($condition, $params);
+
+        $option = &#39;&#39;;
+        if (! empty($result)) {
+            $option .= &#39;&lt;option value=&quot;0&quot;&gt;请选择小区&lt;/option&gt;&#39;;
+            foreach ($result as $value) {
+                $option .= &#39;&lt;option value=&quot;&#39; . $value[&#39;id&#39;] . &#39;&quot;&gt;&#39; . $value[&#39;name&#39;] . &#39;&lt;/option&gt;&#39;;
+            }
+        } else {
+            $option .= &#39;&lt;option value=&quot;0&quot;&gt;没有查找到小区&lt;/option&gt;&#39;;
+        }
+
+        echo $option;
+    }
+}
+</code></pre>
+<h2 id="3-视图"><a href="#3-视图" class="headerlink" title="3. 视图"></a>3. 视图</h2><pre><code class="html">&lt;div class=&quot;row&quot;&gt;
+    &lt;?= $form-&gt;field($model, &#39;cityName&#39;, [&#39;options&#39; =&gt; [&#39;class&#39; =&gt; &#39;form-group col-lg-2 &#39;]])-&gt;dropDownList(ArrayHelper::map($cities, &#39;id&#39;, &#39;name&#39;), [&#39;prompt&#39; =&gt; &#39;请选择城市&#39;])-&gt;label(&#39;请选择城市&#39;, [&#39;class&#39; =&gt; &#39;sr-only&#39;]) ?&gt;
+
+    &lt;?= $form-&gt;field($model, &#39;areaName&#39;, [&#39;options&#39; =&gt; [&#39;class&#39; =&gt; &#39;form-group col-lg-2&#39;]])-&gt;dropDownList(ArrayHelper::map($areas, &#39;id&#39;, &#39;name&#39;), [&#39;prompt&#39; =&gt; &#39;请选择区县&#39;])-&gt;label(&#39;请选择区县&#39;, [&#39;class&#39; =&gt; &#39;sr-only&#39;]) ?&gt;
+
+    &lt;?= $form-&gt;field($model, &#39;communityName&#39;, [&#39;options&#39; =&gt; [&#39;class&#39; =&gt; &#39;form-group col-lg-2&#39;]])-&gt;dropDownList(ArrayHelper::map($communities, &#39;id&#39;, &#39;name&#39;), [&#39;prompt&#39; =&gt; &#39;请选择小区&#39;])-&gt;label(&#39;请选择小区&#39;, [&#39;class&#39; =&gt; &#39;sr-only&#39;]) ?&gt;
+
+    &lt;div class=&quot;col-lg-2&quot;&gt;
+        &lt;label for=&quot;keyword&quot; class=&quot;sr-only&quot;&gt;请输入小区名&lt;/label&gt;
+        &lt;input class=&quot;form-control&quot; id=&quot;keyword&quot; placeholder=&quot;请输入小区名&quot; value=&quot;&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-lg-1&quot;&gt;
+        &lt;label for=&quot;search-community&quot; class=&quot;sr-only&quot;&gt;搜索&lt;/label&gt;
+        &lt;button type=&quot;button&quot; id=&quot;search-community&quot; class=&quot;btn btn-info&quot;&gt;搜索&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    //市地址改变
+    $(&quot;#huangyeerrorsearch-cityname&quot;).change(function() {
+        //市id值
+        var cityid = $(this).val();
+        $(&quot;#huangyeerrorsearch-areaname&quot;).html(&quot;&lt;option value=\&quot;0\&quot;&gt;请选择区县&lt;/option&gt;&quot;);
+        $(&quot;#huangyeerrorsearch-communityname&quot;).html(&quot;&lt;option value=\&quot;0\&quot;&gt;请选择小区&lt;/option&gt;&quot;);
+        if (cityid &gt; 0) {
+            getArea(cityid);
+        }
+    });
+
+    //区地址改变
+    $(&quot;#huangyeerrorsearch-areaname&quot;).change(function() {
+        //区id值
+        var areaid = $(this).val();
+        $(&quot;#huangyeerrorsearch-communityname&quot;).html(&quot;&lt;option value=\&quot;0\&quot;&gt;请选择小区&lt;/option&gt;&quot;);
+        if (areaid &gt; 0) {
+            getCommunity(areaid);
+        }
+    });
+
+    //获取市下面的区列表
+    function getArea(id)
+    {
+        var href = &quot;&#39; . Url::to([&#39;/service/base/get-area-list&#39;], true). &#39;&quot;;
+        $.ajax({
+            &quot;type&quot;  : &quot;GET&quot;,
+            &quot;url&quot;   : href,
+            &quot;data&quot;  : {id : id},
+            success : function(d) {
+                $(&quot;#huangyeerrorsearch-areaname&quot;).append(d);
+            }
+        });
+    }
+
+    //获取区下面的小区列表
+    function getCommunity(id)
+    {
+        var href = &quot;&#39; . Url::to([&#39;/service/base/get-community-list&#39;], true) . &#39;&quot;;
+        $.ajax({
+            &quot;type&quot;  : &quot;GET&quot;,
+            &quot;url&quot;   : href,
+            &quot;data&quot;  : {id : id},
+            success : function(d) {
+                $(&quot;#huangyeerrorsearch-communityname&quot;).append(d);
+            }
+        });
+    }
+
+    //搜索小区
+    $(&quot;#search-community&quot;).click(function() {
+        var word   = $(&quot;#keyword&quot;).val();
+        var areaid = $(&quot;#huangyeerrorsearch-areaname option:selected&quot;).val();
+        var href   = &quot;&#39; . Url::to([&#39;/service/base/search-community&#39;], true) . &#39;&quot;;
+        if (areaid &gt; 0) {
+            $.ajax({
+                &quot;type&quot;  : &quot;GET&quot;,
+                &quot;url&quot;   : href,
+                &quot;data&quot;  : {id : areaid, word : word},
+                success : function(d) {
+                    $(&quot;#huangyeerrorsearch-communityname&quot;).html(d);
+                }
+            });
+        }
+    });
+&lt;/script&gt;
+</code></pre>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/21/php-excel/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">25. Yii2使用PHPExcel第三方扩展</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/08/21/gii/">
+        <span class="next-text nav-default">23. Yii2如何重写Gii生成的列表页按钮</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。"/>
+
+
+
+
+  <meta name="keywords" content="php, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/gii/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 23. Yii2如何重写Gii生成的列表页按钮 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          23. Yii2如何重写Gii生成的列表页按钮
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-21
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        <p>Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。</p>
+<pre><code class="php">// 默认是不需要设置的，默认值是
+[
+    &#39;class&#39; =&gt; &#39;yii\grid\ActionColumn&#39;,
+    &#39;template&#39; =&gt; &#39;{view} {update} {delete}&#39;
+],
+
+// 可以看到默认的实现方式是：
+protected function initDefaultButtons()
+{
+    if (!isset($this-&gt;buttons[&#39;view&#39;])) {
+        $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
+            $options = array_merge([
+                &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
+                &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
+                &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
+                &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+            ], $this-&gt;buttonOptions);
+            return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+        };
+    }
+}
+// 即是使用Bootstrap的字体和样式实现的
+</code></pre>
+<p>因此就可以重写该类，覆盖原来的内容。因为常用的操作就这么多，修改默认样式和增加新按钮相对多些。比如不想用默认的图标，想改成汉字，比如”查看”， “编辑”, “删除”，则只需要改变return的行为就可以，</p>
+<pre><code class="php">return Html::a(&#39;查看&#39;, $url, $options);
+</code></pre>
+<p>如果对框架没有严格的限制，可以直接修改框架源码，但一般不推荐修改框架底层的东西。</p>
+<pre><code class="php">// 如果想增加按钮，比如&quot;设置&quot;，则需要修改默认的模板，比如：
+[
+    &#39;class&#39; =&gt; &#39;admin\modules\temp\vendor\ActionColumn&#39;,  // 这个类就需要自己集成该类来实现了
+    &#39;template&#39; =&gt; &#39;{view} {update} {delete} {set}&#39;
+],
+
+// 这个类的头部是这样写的：
+class ActionColumn extends \yii\grid\ActionColumn
+{
+    // set 是你要新增的按钮
+    public $template = &#39;{view} {update} {delete} {set}&#39;;
+
+    function __toString()
+    {
+        return $this-&gt;template;
+    }
+
+    public function init()
+    {
+        parent::init();
+    }
+
+    // 然后把默认的几个复制过来
+    /**
+     * Initializes the default button rendering callbacks.
+     */
+    protected function initDefaultButtons()
+    {
+        if (!isset($this-&gt;buttons[&#39;view&#39;])) {
+            $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
+                $options = array_merge([
+                    &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
+                    &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
+                    &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
+                    &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+                ], $this-&gt;buttonOptions);
+                return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+            };
+        }
+        if (!isset($this-&gt;buttons[&#39;update&#39;])) {
+            $this-&gt;buttons[&#39;update&#39;] = function ($url, $model, $key) {
+                $options = array_merge([
+                    &#39;class&#39; =&gt; &#39;buttonUpdateLink&#39;,
+                    &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;编辑&#39;),
+                    &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;Update&#39;),
+                    &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+                ], $this-&gt;buttonOptions);
+                return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+            };
+        }
+        if (!isset($this-&gt;buttons[&#39;delete&#39;])) {
+            $this-&gt;buttons[&#39;delete&#39;] = function ($url, $model, $key) {
+                $options = array_merge([
+                    &#39;class&#39; =&gt; &#39;buttonDeleteLink&#39;,
+                    &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;删除&#39;),
+                    &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;Delete&#39;),
+                    &#39;data-confirm&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;确定要删除该条记录吗?&#39;),
+                    &#39;data-method&#39; =&gt; &#39;post&#39;,
+                    &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+                ], $this-&gt;buttonOptions);
+                return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-trash&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+                //return Html::a(&#39;删除&#39;, $url, $options);
+            };
+        }
+
+        // 然后在这里新增自己的自定义按钮
+        if (!isset($this-&gt;buttons[&#39;set&#39;])) {
+            $this-&gt;buttons[&#39;set&#39;] = function ($url, $model, $key) {
+                $options = array_merge([
+                    &#39;title&#39; =&gt; \Yii::t(&#39;yii&#39;, &#39;设置&#39;),
+                    &#39;aria-label&#39; =&gt; \Yii::t(&#39;yii&#39;, &#39;Update&#39;),
+                    &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+                    &#39;class&#39; =&gt; &#39;tags&#39;, // 还可以顺带自定义一些标签属性
+                ], $this-&gt;buttonOptions);
+                return Html::a(&#39;设置&#39;, $url, $options);
+            };
+        }
+    }
+
+    // 如此一来就达到了重写gii默认外观的目的。
+}
+</code></pre>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/21/dropdownlist/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">24. Yii2中下拉列表dropdownlist的用法</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/08/21/xhprof/">
+        <span class="next-text nav-default">22. 在Yii2中如何使用XHProf性能分析工具</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>

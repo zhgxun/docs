@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="PHPExcel是一个由纯PHP写的函数库，从不同的电子表格中读取和写回数据。PHPExcel这个项目围绕微软的OpenXML和PHP标准创建。"/>
+
+
+
+
+  <meta name="keywords" content="php, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/php-excel/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 25. Yii2使用PHPExcel第三方扩展 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          25. Yii2使用PHPExcel第三方扩展
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-21
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        <p>解释：以下代码非我所写，我只是添加部分注释和说明，不要用来说事，若能帮助到，自己实现所需的功能就行了。</p>
+<h2 id="1-说明"><a href="#1-说明" class="headerlink" title="1. 说明"></a>1. 说明</h2><p>PHPExcel是一个由纯PHP写的函数库，从不同的电子表格中读取和写回数据。PHPExcel这个项目围绕微软的OpenXML和PHP标准创建，<a href="https://github.com/PHPOffice/PHPExcel">GitHub的源码托管地址</a>。</p>
+<p>也<a href="http://www.imooc.com/learn/433" target="_blank" rel="external">可以去听听慕课的免费视频</a>。</p>
+<p>网上有详细的设置教程，并且源代码中提供了很多的使用样例，几乎能用到的场景都有现成的例子。汉老师的yiifans也列有好几篇，我大体看过，都是很好的教程，对初学者都是不错的选择。</p>
+<p>这里只提供一种简单粗暴的解决方案，目前也是我们正在使用的，没有对文件迭代一类的思路给予处理。</p>
+<p>不推荐动不动就要把这些第三方扩展集成到框架中，直接使用最基本的引用就足够。网上看了一些成年旧帖，没准还让你怎么修改框架的配置文件，设置各种参数才达到简单的目的，浪费时间不说，还破坏了原本干净的框架，维护交接都是问题。</p>
+<p>我们使用的是yii2高级模板，目录类似：</p>
+<pre><code>zoulu - 
+      - backend
+      - common
+      ----extend 第三方扩展存放文件夹
+      --------PHPExcel PHPExcel扩展文件夹
+      ------------ PHPExcel 扩展内部代码，非必要时不推荐修改
+      ------------ .readme 简单的说明文件
+      ------------ PHPExcel.php 扩展入口文件 非必要不推荐修改
+      ------------ Excel.php 自己封装的针对该扩展的调用类，以后对该扩展的引用全部通过该类来完成
+      - console
+      - frontend
+      - tests
+      - vendor
+      ...
+</code></pre><h2 id="2-封装"><a href="#2-封装" class="headerlink" title="2. 封装"></a>2. 封装</h2><pre><code class="php">// 项目本身需要的命名空间
+namespace common\extend\phpexcel;
+
+// 在这里引入扩展入口文件
+// @todo 不记得什么时候，网上还有教程说，为了防止扩展和框架的依赖注入冲突，使用了各种“骇客”手段
+// 现在看来，技术的东西，会就简单，不会就稀里糊涂。
+require &#39;PHPExcel.php&#39;;
+
+class Excel extends \PHPExcel
+{
+    // 单例
+    public static $instance;
+    public static function getInstance()
+    {
+        if (empty(self::$instance)) self::$instance = new self();
+        return self::$instance;
+    }
+
+    /**
+     * 获取Excel表单数据
+     * 说明：通常来说，数据量不是很大（多大算大？）按照这种方式一次性读入内存中是没什么关系的，
+     * 扩展提供了文件迭代器协议的方式循环读取，可参见开头给出的慕课网免费视频，几乎常用的都提到了
+     * @param int $inFile 读取文件路径
+     * @param bool $index 读取表格索引，默认读取所有数据 合并后返回
+     * @return array
+     */
+    public function readSheet($inFile, $index = false)
+    {
+        // 得到文件类型
+        $type = \PHPExcel_IOFactory::identify($inFile);
+        $reader = \PHPExcel_IOFactory::createReader($type);
+        // 导入文件
+        $sheet = $reader-&gt;load($inFile);
+        // 获取文件中表格sheet的数量
+        $sCount = $sheet-&gt;getSheetCount();
+        // 如果指定了获取某一个子表格（表格中，可能有多个子表格）的数据，转化为数组返回
+        if (is_int($index) &amp;&amp; $index &lt; $sCount &amp;&amp; $index &gt;= 0) {
+            return $sheet-&gt;getSheet($index)-&gt;toArray();
+        }
+        // 只有一个子表格
+        if ($sCount == 1) {
+            return $sheet-&gt;getSheet(0)-&gt;toArray();
+        }
+        $data = [];
+        // 所有表格数据全部以数组格式返回
+        for ($i=0; $i &lt; $sCount; $i++) {
+            $data[] = $sheet-&gt;getSheet($i)-&gt;toArray();
+        }
+        unset($sheet，$reader, $type);
+
+        return $data;
+    }
+
+    /**
+     * 将数据保存至Excel表格
+     * 说明：只是一个子表时请自行处理，道理类似
+     * @param string $outFile 要保存的文件路径
+     * @param array $data 需要保存的数据 二维数组
+     * @return bool
+     */
+    public function saveSheet($outFile, array $data)
+    {
+        $path = explode(&#39;/&#39;,$outFile);
+        unset($path[count($path)-1]);
+        // DIRECTORY_SEPARATOR 常量是框架定义的目录分隔符，（服务器环境自知，可以不用这么麻烦）
+        $path = implode(&#39;/&#39;,$path) . DIRECTORY_SEPARATOR;
+        //目录不存在 则创建目录 需要父目录有写权限才可以创建子目录，
+        // Linux基础现在几乎都多多少少会了，不再是什么高深的知识
+        if (!file_exists($path)) { 
+            @mkdir($path, 0777, TRUE); 
+            @chmod($path, 0777);
+        }
+
+        // 实例化一个PHPExcel对象
+        $newExcel = new \PHPExcel();
+        // 得到一个默认的激活表格，预备写入数据
+        $newSheet = $newExcel-&gt;getActiveSheet();
+        $newSheet-&gt;fromArray($data);
+        // 格式按自己需要，源码文件样例中有写，（下面这个其实是excel2003的标准）
+        $objWriter = \PHPExcel_IOFactory::createWriter($newExcel, &#39;Excel5&#39;);
+        // 保存数据到表格中
+        $objWriter-&gt;save($outFile);
+        unset($objWriter，$newSheet, $newExcel);
+        return true;
+    }
+
+    /**
+     * @param array $data 需要过滤处理的数据 二维数组
+     * @param int $cols  取N列
+     * @param int $offset  排除 N 行，比如读取一个表格数据时，标题这一行可能是不希望读出来的，
+     *                     毕竟这部分和存入数据库中没什么关系，就排除这一行
+     * @param bool|int $must 某列不可为空  0 - index
+     * @return array
+     */
+    public function handleSheetArray(array $data, $cols = 10, $offset = 1, $must = false)
+    {
+        $final = [];
+        if ($must &amp;&amp; $must &gt;= $cols) {
+            $must = false;
+         }
+
+        foreach($data as $key =&gt; $row) {
+            if ($key &lt; $offset) {
+                continue;
+            }
+            $t = [];
+            for ($i = 0; $i &lt; $cols; $i++) {
+                if (isset($row[$i])) {
+                    $t[$i] = trim(strval($row[$i]));
+                } else {
+                    $t[$i] = &#39;&#39;;
+                }
+            }
+            if (is_array($row) &amp;&amp; implode(&#39;&#39;, $t) &amp;&amp; ($must===false || $t[$must])) {
+                $final[] = $t; 
+                continue;
+            }
+        }
+
+        return $final;
+    }
+}
+</code></pre>
+<h2 id="3-导出数据"><a href="#3-导出数据" class="headerlink" title="3. 导出数据"></a>3. 导出数据</h2><p>有这么一个场景，数据库中存有帖子信息，根据搜索条件搜索出一部分帖子，想把它导出到Excel表格中，来帅选…</p>
+<pre><code class="php">namespace backend\modules\feed\controllers;
+
+use yii\web\Controller;
+
+class FeedController extends Controller
+{
+    public function actionExport()
+    {
+        // 各种搜索条件过滤后得到一个相对较大的数组，数据太大不合适，上千条也能导出，但是如果
+        // 数据偏大，可能用浏览器触发来操作就不合适了，可以考虑写好后用控制台或者命令行导出
+
+        // 得到搜索结果集$list
+        // 这一行定义导出后的表格头部，相当于table 的 th ，标题需要设置，这里没有标题显得简单
+        $final = [[&#39;小区&#39;,&#39;帖子ID&#39;,&#39;用户昵称&#39;, &#39;用户类型&#39;,&#39;用户ID&#39;,&#39;标签&#39;,&#39;内容&#39;,&#39;赞&#39;,&#39;评论&#39;,&#39;分享&#39;,&#39;收藏&#39;,&#39;发帖时间&#39;]];
+        foreach ($list as $feed) {
+            // 把需要处理的数据都处理一下
+            $communityName = &#39;&#39;;
+            $nickname = &#39;&#39;;
+            $userType = &#39;&#39;;
+            $tagName = &#39;&#39;;
+            $final[] = [
+                $communityName, $feed[&#39;feedid&#39;], $nickname, $userType, $feed[&#39;userid&#39;], $tagName,
+                $feed[&#39;content&#39;], $feed[&#39;diggcount&#39;], $feed[&#39;commentcount&#39;], $feed[&#39;sharecount&#39;],
+                $feed[&#39;favcount&#39;], $feed[&#39;ctime&#39;],
+            ];
+
+        }
+        unset($list);
+
+        // 使用我们写好的saveSheet()方法导出数据
+        $outFile = \Yii::$app-&gt;getRuntimePath().&#39;/fileIO/feed/&#39; . date(&quot;YmdHis&quot;) . &#39;.xls&#39;;
+        $ret = \common\extend\phpexcel\Excel::getInstance()-&gt;saveSheet($outFile, $final);
+        if ($ret) {
+            // 导出成功了，其它操作
+        }
+        // 看了代码其实都知道，这个是恒返回真，一般来说只要不是权限问题，即是你的数据不对，都会导出成功
+    }
+}
+</code></pre>
+<h2 id="4-读入数据"><a href="#4-读入数据" class="headerlink" title="4. 读入数据"></a>4. 读入数据</h2><p>有这么一个场景，客户需求提供一个文件上传功能，可以上传Excel表格，上传完成后希望看到上传的结果列表再执行其它操作。上传文件对服务器来说本身是很危险的，包括图片，因此可能需要做很多限制，以防发生危险。我也没什么好的处理方式，自己</p>
+<pre><code class="php">namespace backend\modules\feed\controllers;
+
+use yii\web\Controller;
+
+class Article extends Controller
+{
+    public function actionLoad($communityid)
+    {
+        // 其它逻辑
+
+        //保存sheet表记录数据
+        $data = [];
+
+        if (\Yii::$app-&gt;getRequest()-&gt;getIsPost() &amp;&amp; $model-&gt;load(\Yii::$app-&gt;request-&gt;post())) {
+
+            $redis = \common\core\Redis::getInstance();
+            $lock = &#39;&#39;;
+            if ($redis &amp;&amp; $redis-&gt;get($lock)) {
+                \Yii::$app-&gt;getSession()-&gt;setFlash(&#39;error&#39;, &#39;请不要频繁导入文件&#39;);
+                return $this-&gt;render();
+            } else {
+                $redis-&gt;set($lock, 1, 30);
+            }
+
+            //保存临时文件，建议保存一份文件下来，以免出错时手足无措，保存后查问题时还有补救的可能
+            $inFile = \yii\web\UploadedFile::getInstance($model, &#39;inFile&#39;);
+            if (!$inFile-&gt;name || (strpos($inFile-&gt;type,&#39;excel&#39;) === false &amp;&amp; strpos($inFile-&gt;type, &#39;sheet&#39;) === false)) {
+                \Yii::$app-&gt;getSession()-&gt;setFlash(&#39;error&#39;, &#39;无法获取上传文件,请重试或者检查文件格式是否正确&#39;);
+                return $this-&gt;render(&#39;&#39;);
+            }
+            $fileName = date(&quot;Hi-&quot;) . $inFile-&gt;name;
+            // 自定义方法保存文件
+            $tempFile = \common\core\File::getInstance()-&gt;saveTempFile($fileName, $inFile);
+
+            //排除标题行数
+            $number = $_POST[&#39;num&#39;];
+
+            //限制文件大小在2M以内,以小值为界
+            $size = 2 * 1000 * 1000;
+            if (!$inFile-&gt;size || $inFile-&gt;size &gt; $size) {
+                \Yii::$app-&gt;getSession()-&gt;setFlash(&#39;error&#39;, &#39;上传文件请控制在2M以内.&#39;);
+                return $this-&gt;render(&#39;&#39;);
+            }
+
+            // 从excel中读取所有信息
+            // 这里说明一下，我们踩过的坑，对时间格式，正常的2016-03-03是几乎没有问题的，可就是有人要输入03/03/16等一系列时间格式
+            // 请当心读入会出错，如果你也遇到，再说。毕竟总有那么一些人，就是不按常理出牌，谁让我们是程序员，在别人眼里，我们就是来解决
+            // 变态问题的，^~^
+            $result = \common\extend\phpexcel\Excel::getInstance()-&gt;readSheet($tempFile, 0);
+            // 针对读完的数组$result 取前8列，排除$number行
+            $newResult = \common\extend\phpexcel\Excel::getInstance()-&gt;handleSheetArray($result, 8, $number);
+            $now = time();
+            if (!empty($newResult)) {
+                $count = count($newResult);
+                $t_mobiles = [];
+                foreach ($newResult as $key =&gt; $value) {
+                    if (empty($value)) {
+                        continue;
+                    }
+                    $index = 0;
+                    //顺序为姓名-手机号-类别-有效期-区-楼-单元-门牌号-小区-状态为临时数据-创建时间-更新时间-备注-来源物业-操作员
+                    foreach ($value as $k =&gt; $val) {
+                        // 各种变态判断，注意这里读到的数据是按表格顺序，索引数组保存的就好
+                        // 同样保存成索引数组，按数据库表字段保存好，这里推荐使用框架的批量插入batchInsert()来操作，速度会好一些。
+                        $data = []; // 
+                }
+                // 哈哈我们自定义的批量操作，一次处理500条，非常快，就是批量操作不好记录日志，一旦出错，几乎无法查找原因
+                $total = $this-&gt;generate($data);
+            }
+
+            // 其它逻辑
+        }
+
+        return $this-&gt;render(&#39;&#39;);
+    }
+}
+</code></pre>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>简单的导入导出，确实没什么操作，复杂的和大量的导出，需要使用任务日志，命令行等来操作，否则浏览器可能存在超时等原因，影响导出。</p>
+<p>2016-03-03 朝阳区定福庄西街</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/21/composer/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">26. composer.json文件说明</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/08/21/dropdownlist/">
+        <span class="next-text nav-default">24. Yii2中下拉列表dropdownlist的用法</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
