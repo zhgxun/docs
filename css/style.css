@@ -1373,4 +1373,5 @@ h6 {
   width: 100%; }
 
 .description {
-  clear: left; }
+  clear: left;
+  margin-top: 40px; }
