@@ -17,10 +17,12 @@
 
 
 
-  <meta name="description" content="分享PHP, Go, Linux等技术知识。"/>
+  <meta name="description" content="上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。"/>
 
 
 
+
+  <meta name="keywords" content="php, 小步走路" />
 
 
 
@@ -40,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/archives/2017/08/"/>
+<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/bathinsert/"/>
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
@@ -71,11 +73,7 @@
 
 
 
-    <title>
-  
-    归档 - 小步走路
-  
-</title>
+    <title> 21. Yii2批量导入大数据的快捷方法 - 小步走路 </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -173,195 +171,132 @@
           <div id="content" class="content">
             
   
-  <section id="archive" class="archive">
-    
-      
-        <div class="archive-title">
-          <span class="archive-post-counter">
-            目前共计 22 篇日志
-          </span>
-        </div>
-      
-    
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          21. Yii2批量导入大数据的快捷方法
+        
+      </h1>
 
-    
-      
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-21
+        </span>
         
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year">2017</h2>
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
           </div>
         
-      
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/21/xhprof/" class="archive-post-link">
-            22. 在Yii2中如何使用XHProf性能分析工具
-          </a>
-        </span>
       </div>
-    
-      
-        
-        
+    </header>
 
-        
-      
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/21/bathinsert/" class="archive-post-link">
-            21. Yii2批量导入大数据的快捷方法
-          </a>
-        </span>
-      </div>
     
-      
-        
-        
+    
+    
 
-        
+    <div class="post-content">
       
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/21/rename/" class="archive-post-link">
-            20. shell重命名目录中文件名称
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
+        <p>上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。</p>
+<p>后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时涉及到需要给发放优惠券的用户发送一条私信通知，这个连接非常耗时，没办法同步发送，最后只能拆分开来，将用户存入redis中，用系统自带的crontab计划任务来完成了。</p>
+<pre><code class="php">public static function generateCoupon($userIds, $args)
+{
+    $now = time();
+    $count = count($userIds);
+    if (! $count) {
+        return false;
+    }
+    $i = 0;
+    while ($i &lt; $count) {
+        $values = [];
+        for ($j = 0; $j &lt; 500; $j++) {
+            if ($i + $j &gt;= $count) {
+                $j = 501;
+            } else {
+                $values[] = [
+                    $args[&#39;sendid&#39;],
+                    $args[&#39;couponid&#39;],
+                    $args[&#39;handler&#39;],
+                    $userIds[$i + $j],
+                    $now,
+                    $now,
+                ];
+            }
+        }
+        if (empty($values)) {
+            return true;
+        }
+        //确定连接的数据库名和表名
+        @ \common\models\shop\CouponIndex::getDb()-&gt;createCommand()-&gt;batchInsert(\common\models\shop\CouponIndex::tableName(), [
+            &#39;sendid&#39;,
+            &#39;couponid&#39;,
+            &#39;handler&#39;,
+            &#39;userid&#39;,
+            &#39;ctime&#39;,
+            &#39;utime&#39;,
+        ], $values)-&gt;execute();
+        $i += 500;
+    }
 
-        
-      
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/21/yii2-qiniu/" class="archive-post-link">
-            19. Yii2使用七牛云存储
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
+    return true;
+}
+</code></pre>
 
-        
       
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/21/php-note/" class="archive-post-link">
-            18. PHP性能优化笔记
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
+    </div>
 
-        
-      
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-21
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/21/mysql-note/" class="archive-post-link">
-            17. 燕十八MySQL优化笔记
-          </a>
-        </span>
-      </div>
     
       
-        
-        
+      
 
-        
-      
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-16
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/16/export/" class="archive-post-link">
-            16. 用Go重写商家结余表导数脚本
-          </a>
-        </span>
-      </div>
-    
-      
-        
-        
 
-        
-      
-      
-      <div class="archive-post">
-        <span class="archive-post-time">
-          
-            08-06
-          
-        </span>
-        <span class="archive-post-title">
-          <a href="/2017/08/06/jingbian/" class="archive-post-link">
-            15. 靖边
-          </a>
-        </span>
-      </div>
-    
-  </section>
 
-  
-  <nav class="pagination">
+      
+      
     
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2017/08/21/xhprof/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">22. 在Yii2中如何使用XHProf性能分析工具</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2017/08/21/rename/">
+        <span class="next-text nav-default">20. shell重命名目录中文件名称</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
     
   </nav>
 
+      </footer>
+    
+
+  </article>
 
 
           </div>
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>  
       </main>
@@ -424,6 +359,8 @@
     </div>
 
     
+  
+
 
 
     

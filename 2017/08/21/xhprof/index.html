@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="打印数据已经呈现,但是没有再日记记录中发现该文件,但是使用官方提供的例子立马就生成了日记文件我就想到路径的问题,就是说必须使用这两个文件xhprof_lib.php和xhprof_runs.php才可能在框架中生成日记文件。然后就尝试引入该文件后,顺利解决了这个问题,只是没有进行封装,也不麻烦,但清楚一些。"/>
+
+
+
+
+  <meta name="keywords" content="php, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/xhprof/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 22. 在Yii2中如何使用XHProf性能分析工具 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          22. 在Yii2中如何使用XHProf性能分析工具
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-21
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        <p>“XHProf是PHP的功能级别分层分析器，具有简单的基于HTML的导航界面。 原始数据收集组件以C（作为PHP扩展）实现。 报告UI层全部在PHP中。 它能够报告功能级别的调用时间，内存使用情况，CPU时间和每个功能的呼叫次数。 此外，它还支持比较两个运行（分层DIFF报告）的能力，或多个运行的聚合结果。”</p>
+<h2 id="1-系统版本"><a href="#1-系统版本" class="headerlink" title="1. 系统版本:"></a>1. 系统版本:</h2><pre><code class="bash">commond:@uname -a
+Linux Edge 3.16.0-36-generic #48~14.04.1-Ubuntu SMP Wed Apr 15 13:11:28 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre>
+<h2 id="2-php版本"><a href="#2-php版本" class="headerlink" title="2. php版本"></a>2. php版本</h2><pre><code class="bash">commond:@php -v
+PHP 5.5.9-1ubuntu4.9 (cli) (built: Apr 17 2015 11:44:57) 
+Copyright (c) 1997-2014 The PHP Group
+Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
+with Zend OPcache v7.0.3, Copyright (c) 1999-2014, by Zend Technologies
+with Xdebug v2.2.3, Copyright (c) 2002-2013, by Derick Rethans
+</code></pre>
+<h2 id="3-xhprof"><a href="#3-xhprof" class="headerlink" title="3. xhprof"></a>3. xhprof</h2><p><a href="download:http://pecl.php.net/package/xhprof" target="_blank" rel="external">XHProf下载</a></p>
+<p>需要安装作图工具扩展:graphviz</p>
+<pre><code class="bash">sudo apt-get install graphviz
+</code></pre>
+<h2 id="4-see参考源网址"><a href="#4-see参考源网址" class="headerlink" title="4. @see参考源网址"></a>4. @see参考源网址</h2><p><code>http://www.cnblogs.com/wangtao_20/archive/2013/09/13/3320497.html</code></p>
+<h2 id="5-将xhprof文件夹拷贝到apache2能访问到的目录中"><a href="#5-将xhprof文件夹拷贝到apache2能访问到的目录中" class="headerlink" title="5. 将xhprof文件夹拷贝到apache2能访问到的目录中"></a>5. 将xhprof文件夹拷贝到apache2能访问到的目录中</h2><p><code>/home/zhgxun/Public/html/xhprof</code></p>
+<h2 id="6-在公共目录中建立文件"><a href="#6-在公共目录中建立文件" class="headerlink" title="6.在公共目录中建立文件"></a>6.在公共目录中建立文件</h2><p>XHProf.php</p>
+<p>引入以下两个文件,可以单独拷贝,这里使用路径方式</p>
+<pre><code class="php">include_once &quot;../../../xhprof/xhprof_lib/utils/xhprof_lib.php&quot;;
+include_once &quot;../../../xhprof/xhprof_lib/utils/xhprof_runs.php&quot;;
+</code></pre>
+<p>这一步才是紧要的,手册里其实已经准备的很好了,我遇到的问题是,在对应位置使用</p>
+<pre><code class="php">xhprof_enable();
+
+// ......
+
+xhprof_disable();
+</code></pre>
+<p>打印数据已经呈现,但是没有再日记记录中发现该文件,但是使用官方提供的例子立马就生成了日记文件我就想到路径的问题,就是说必须使用这两个文件xhprof_lib.php和xhprof_runs.php才可能在框架中生成日记文件。然后就尝试引入该文件后,顺利解决了这个问题,只是没有进行封装,也不麻烦,但清楚一些。</p>
+<h2 id="7-在控制器中使用"><a href="#7-在控制器中使用" class="headerlink" title="7. 在控制器中使用"></a>7. 在控制器中使用</h2><p>引入;</p>
+<pre><code class="php">include &quot;../../common/core/XHProf.php&quot;;
+</code></pre>
+<p>开启:</p>
+<pre><code class="php">xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+</code></pre>
+<p>使用该方法来调用:</p>
+<pre><code class="php">//需要使用绝对路径,就是加\标识,否则会在当前命名空间中查找该类
+$objXhprofRun = new \XHProfRuns_Default();
+$objXhprofRun-&gt;save_run(xhprof_disable(), $this-&gt;id . &#39;-&#39; . $this-&gt;action-&gt;id);
+</code></pre>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/08/21/bathinsert/">
+        <span class="next-text nav-default">21. Yii2批量导入大数据的快捷方法</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
