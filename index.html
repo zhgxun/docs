@@ -175,6 +175,56 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2017/08/21/mysql-note/">17. 燕十八MySQL优化笔记</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-08-21
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/mysql/">mysql</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>sql的时间花在哪里？等待，执行时间。这两个时间并非孤立的，如果单条语句执行快了，对其它语句的锁定也就少了其它语句受到干扰，关键在执行上。执行时间耗费？1. 查找，沿着索引查找，慢者可能拖慢全表扫描；2. 取出，查到行后，把数据取出来。如何查找快？1. 联合索引；2. 索引覆盖；3. 传输少，更少的行和列。切分查询，按数据拆成多次；分解查询，按逻辑把多个表连接查询分成多个简单SQL。SQL语句优化思路：1. 不查，通过业务逻辑来计算，比如观察长期的数据变化，论坛会员注册数，适当增加，而不需要精确计算数据库中的值；2. 少查，尽量精准的查，少取行，一般一次性取10-30条左右；3. 必须要查，高效的查，尽量从索引上查，取时，少取行和列。</p>
+          <div class="read-more">
+            <a href="/2017/08/21/mysql-note/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2017/08/16/export/">16. 用Go重写商家结余表导数脚本</a>
         
       </h1>
@@ -608,56 +658,6 @@
           <p>在Go中访问数据库，需要使用**sql.DB**类型。你可以使用此类型创建语句和事务，执行查询和获取结果。你应该知道的第一件事是，一个**sql.DB**不是一个数据库连接。 它也不是对任何一个特定数据库软件的概念如数据库或模式的映射。它是一个接口的抽象和数据库存在，很可能就像本地文件一样多样化，通过网络连接，内存或进程访问。</p>
           <div class="read-more">
             <a href="/2017/07/19/go-database/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/07/14/curl-timeout/">7. PHP扩展cURL执行中途无响应</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted by zhgxun 2017-07-14
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/php/">php</a>
-            
-          </div>
-        
-      </div>
-    </header>
-
-    
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。一直看，请求一开始都是能正常完成的，越往后执行时间也变得逐渐增长，然后就可能变成死连接。就想到，肯定是cURL发送的请求有的无响应失效了，已经成僵尸连接，还一直阻塞脚本，导致资源一直存在，但是并不能继续使用。</p>
-          <div class="read-more">
-            <a href="/2017/07/14/curl-timeout/" class="read-more-link">阅读更多</a>
           </div>
         
       
