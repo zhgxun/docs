@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="6. Golang字符串子串的最大长度"/>
+  <meta name="description" content="查找当前字符串不重复的子串最大长度，我看难度等级是中等。我用go写了至少2个小时吧，总算是完成了，但是一提交测试，所有单元测试都通过了，但是，最后一个超时，就是执行时间太长了而被拒绝。昨天忘记记录下该测试用例，是一个很长很长的字符串，我写出来的代码983个单元测试，除了这个长串超时外其余982个都通过了。我苦思不得其解，后来去看了别人的答案，才知道之所以把这类问题归类为算法题的原因，肯定是不能用常规的思路去解决。确实高人挺多，我辈需要学习的东西实在是太多了。"/>
 
 
 
@@ -195,6 +195,7 @@
 
     
     
+    
 
     <div class="post-content">
       
@@ -208,7 +209,6 @@
 </blockquote>
 <p>查找当前字符串不重复的子串最大长度，我看难度等级是中等。我用go写了至少2个小时吧，总算是完成了，但是一提交测试，所有单元测试都通过了，但是，最后一个超时，就是执行时间太长了而被拒绝。昨天忘记记录下该测试用例，是一个很长很长的字符串，我写出来的代码983个单元测试，除了这个长串超时外其余982个都通过了。我苦思不得其解，后来去看了别人的答案，才知道之所以把这类问题归类为算法题的原因，肯定是不能用常规的思路去解决。确实高人挺多，我辈需要学习的东西实在是太多了。</p>
 <p>下面给出两个答案，我觉得第二种比较好理解，第一种总是有点模糊，而且第二种的效率要比第一种高一些。</p>
-<a id="more"></a>
 <pre><code class="go">// Given a string, find the length of the longest substring without repeating characters.
 package main
 
@@ -381,7 +381,7 @@ func lengthOfLongestSubstring(s string) int {
     
     2017
 
-    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
   </span>
 </div>
       </footer>

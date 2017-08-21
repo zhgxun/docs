@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="3. Golang生成一个盐"/>
+  <meta name="description" content="有时候业务可能需要生成一个随机字符串，而我们希望包括的字符类型多一些，在go标准库中没有这样的包，不能开箱即用。而基本字符在ASCII表中有确定的值，这些值在主流的编码系统中都是统一的，不分操作系统和编程语言，这一点确实给我们带来了便利。以下案例中使用的rand为标准数学库 **math/rand**。通过该编码值，我们可以轻松的不用复写这些字符，只需要知道属于它们的边界，在此基础上增加到某个位置，就可以获取到该字符。"/>
 
 
 
@@ -195,8 +195,7 @@
 
     
     
-
-
+    
 
     <div class="post-content">
       
@@ -206,7 +205,6 @@
     &quot;math/rand&quot;
 )
 </code></pre>
-<a id="more"></a>
 <h2 id="1、生成一串随机的数字字符串"><a href="#1、生成一串随机的数字字符串" class="headerlink" title="1、生成一串随机的数字字符串"></a>1、生成一串随机的数字字符串</h2><p>数字字符0-9在ASCII表中对应的十进制值是48-57，因此可以使用基于底数48，随机生成一个0-9之间的数字来随机取一个数字。</p>
 <pre><code class="go">// Number 随机生成size个数字
 func Number(size int) []byte {
@@ -416,7 +414,7 @@ func main() {
     
     2017
 
-    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
   </span>
 </div>
       </footer>

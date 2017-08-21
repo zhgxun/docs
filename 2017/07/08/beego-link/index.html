@@ -17,7 +17,7 @@
 
 
 
-  <meta name="description" content="2. 用Beego编写一个友情链接"/>
+  <meta name="description" content="和使用PHP成熟的WEB开发框架比如YII2比较起来，确实显得无比笨拙。当然还可以做更多的封装，在这里就不做这些处理，仅仅是体验一下用go来编写一个简单的友情链接，你就会知道对于一般功能的实现，有一个完善的框架是多么的便捷和美好。没有尝试过用bee的自动生成工具生成的代码有多棒，但至少应该比上面的代码看起来要聪明一些才好。"/>
 
 
 
@@ -195,8 +195,7 @@
 
     
     
-
-
+    
 
     <div class="post-content">
       
@@ -205,7 +204,6 @@
 go version go1.8.3 darwin/amd64
 </code></pre>
 <p>现在来看如何用beego框架编写一个友情链接。</p>
-<a id="more"></a>
 <h2 id="1、创建表"><a href="#1、创建表" class="headerlink" title="1、创建表"></a>1、创建表</h2><pre><code class="mysql">CREATE TABLE `link` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT &#39;类型1官网2手册3其它&#39;,
@@ -739,7 +737,7 @@ func (l *LinkController) Delete() {
     
     2017
 
-    <span class="author">to <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
   </span>
 </div>
       </footer>
