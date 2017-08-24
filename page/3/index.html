@@ -175,6 +175,56 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2017/07/14/curl-timeout/">7. PHP扩展cURL执行中途无响应</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-07-14
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。一直看，请求一开始都是能正常完成的，越往后执行时间也变得逐渐增长，然后就可能变成死连接。就想到，肯定是cURL发送的请求有的无响应失效了，已经成僵尸连接，还一直阻塞脚本，导致资源一直存在，但是并不能继续使用。</p>
+          <div class="read-more">
+            <a href="/2017/07/14/curl-timeout/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2017/07/09/sub-longest/">6. Golang字符串子串的最大长度</a>
         
       </h1>
