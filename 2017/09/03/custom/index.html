@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="yii2提供了足够解析模型数据的方法，但有时候我们还是需要实现一些自定义的数据格式，如果框架提供的方法不足以满足要求时，除了直接在模板中改写外，其实可以看看框架的源码，为框架增加更多的新方法。前几天在群里看到说，yii2的作者已经转go了，这个框架更新已经不在积极。如GridView Widget中可以使用匿名方法对模型数据进行自定义格式化处理类似，DetailView Widget也提供了类似的处理方法，只是稍微繁琐一些。"/>
+
+
+
+
+  <meta name="keywords" content="php, 小步走路" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小步走路">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/09/03/custom/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <title> 30. Yii2在DetailView中使用自定义方法解析模型数据 - 小步走路 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">小步走路</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">小步走路</a>
+</div>
+
+<div class="description">
+  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          30. Yii2在DetailView中使用自定义方法解析模型数据
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-09-03
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        <p>作者：尐邪|2015-4-23 交流探讨</p>
+<p>说明：yii2提供了足够解析模型数据的方法，但有时候我们还是需要实现一些自定义的数据格式，如果框架提供的方法不足以满足要求时，除了直接在模板中改写外，其实可以看看框架的源码，为框架增加更多的新方法。前几天在群里看到说，yii2的作者已经转go了，这个框架更新已经不在积极。</p>
+<p>如GridView Widget中可以使用匿名方法对模型数据进行自定义格式化处理类似，DetailView Widget也提供了类似的处理方法，只是稍微繁琐一些，查看DetailView源码可以发现：</p>
+<h2 id="1-查看其注释"><a href="#1-查看其注释" class="headerlink" title="1. 查看其注释"></a>1. 查看其注释</h2><pre><code class="php">/**
+ * @var array|Formatter the formatter used to format model attribute values into displayable texts.
+ * This can be either an instance of [[Formatter]] or an configuration array for creating the [[Formatter]]
+ * instance. If this property is not set, the &quot;formatter&quot; application component will be used.
+ */
+public $formatter;
+</code></pre>
+<h2 id="2-继续跟踪-formatter"><a href="#2-继续跟踪-formatter" class="headerlink" title="2. 继续跟踪 formatter"></a>2. 继续跟踪 formatter</h2><pre><code class="php">if ($this-&gt;formatter == null) {
+    $this-&gt;formatter = Yii::$app-&gt;getFormatter();
+} elseif (is_array($this-&gt;formatter)) {
+    // 注意这行 2
+    $this-&gt;formatter = Yii::createObject($this-&gt;formatter);
+}
+if (!$this-&gt;formatter instanceof Formatter) {
+    // 注意这行 1
+    throw new InvalidConfigException(&#39;The &quot;formatter&quot; property must be either a Format object or a configuration array.&#39;);
+}
+</code></pre>
+<h2 id="3-得知自定义，格式化，工具类需要从-Formatter-继承"><a href="#3-得知自定义，格式化，工具类需要从-Formatter-继承" class="headerlink" title="3. 得知自定义，格式化，工具类需要从 Formatter 继承"></a>3. 得知自定义，格式化，工具类需要从 Formatter 继承</h2><p>那具体方法要怎么实现呢，接着看源码</p>
+<pre><code class="php">protected function renderAttribute($attribute, $index)
+{
+    if (is_string($this-&gt;template)) {
+        return strtr($this-&gt;template, [
+            &#39;{label}&#39; =&gt; $attribute[&#39;label&#39;],
+            // 从此行得知 调用的是 Formatter 类中的 format方法
+            &#39;{value}&#39; =&gt; $this-&gt;formatter-&gt;format($attribute[&#39;value&#39;], $attribute[&#39;format&#39;]),
+        ]);
+    } else {
+        return call_user_func($this-&gt;template, $attribute, $index, $this);
+    }
+}
+</code></pre>
+<h2 id="4-于是我们去-yii-i18n-Formatter-中找对应的-format-方法"><a href="#4-于是我们去-yii-i18n-Formatter-中找对应的-format-方法" class="headerlink" title="4. 于是我们去 yii\i18n\Formatter 中找对应的 format 方法"></a>4. 于是我们去 yii\i18n\Formatter 中找对应的 format 方法</h2><pre><code class="php">public function format($value, $format)
+{
+    if (is_array($format)) {
+        if (!isset($format[0])) {
+            throw new InvalidParamException(&#39;The $format array must contain at least one element.&#39;);
+        }
+        $f = $format[0];
+        $format[0] = $value;
+        $params = $format;
+        $format = $f;
+    } else {
+        $params = [$value];
+    }
+    // 注意这行
+    $method = &#39;as&#39; . $format;
+    if ($this-&gt;hasMethod($method)) {
+        return call_user_func_array([$this, $method], $params);
+    } else {
+        throw new InvalidParamException(&quot;Unknown format type: $format&quot;);
+    }
+}
+</code></pre>
+<h2 id="5-接着可能就联想到了最常见的-‘ctime-datetime’-的格式化方法，-搜索下-asDatetime-就会找到对应的方法了"><a href="#5-接着可能就联想到了最常见的-‘ctime-datetime’-的格式化方法，-搜索下-asDatetime-就会找到对应的方法了" class="headerlink" title="5. 接着可能就联想到了最常见的 ‘ctime:datetime’ 的格式化方法， 搜索下 asDatetime 就会找到对应的方法了"></a>5. 接着可能就联想到了最常见的 ‘ctime:datetime’ 的格式化方法， 搜索下 asDatetime 就会找到对应的方法了</h2><pre><code class="php">public function asDatetime($value, $format = null)
+{
+    if ($format === null) {
+        $format = $this-&gt;datetimeFormat;
+    }
+    return $this-&gt;formatDateTimeValue($value, $format, &#39;datetime&#39;);
+}
+</code></pre>
+<h2 id="6-发现有两个参数，其第一个参数就是解析对应模型属性的值了"><a href="#6-发现有两个参数，其第一个参数就是解析对应模型属性的值了" class="headerlink" title="6. 发现有两个参数，其第一个参数就是解析对应模型属性的值了"></a>6. 发现有两个参数，其第一个参数就是解析对应模型属性的值了</h2><p>到这边，整个流程基本明了，于是乎编辑我们自己的自定义类及格式化方法。</p>
+<pre><code class="php">namespace common\louli\vendor;
+
+use yii\helpers\Html;
+use yii\i18n\Formatter;
+
+class ImgKeysFormatter extends Formatter
+{
+    public function asKeys2img($value)
+    {
+        $tHtml = &#39;&#39;;
+        $keys = explode(&#39;|&#39;,$value);
+        $tHtml .= Html::beginTag(&#39;div&#39;);
+        foreach($keys as $key) {
+            $tHtml .= Html::img(\Yii::$app-&gt;params[&#39;qiniu&#39;][&#39;baseurl&#39;].$key.&#39;-ll120png&#39;,[
+                &#39;width&#39;=&gt;60,
+                &#39;height&#39;=&gt;60,
+                &#39;style&#39;=&gt;&#39;border-radius:50%;margin:5px;&#39;
+            ]);
+        }
+        $tHtml .= Html::endTag(&#39;div&#39;);
+        return $tHtml;
+    }
+}
+</code></pre>
+<h2 id="7-这样我们就有了-keys2img-方法"><a href="#7-这样我们就有了-keys2img-方法" class="headerlink" title="7. 这样我们就有了 keys2img 方法"></a>7. 这样我们就有了 keys2img 方法</h2><p>接下来就是嵌入使用了，多的就不赘述了，请看以下节选的View源码</p>
+<pre><code class="php">&lt;?= DetailView::widget([
+    &#39;model&#39; =&gt; $model,
+    &#39;attributes&#39; =&gt; [
+        &#39;id&#39;,
+        &#39;nickname&#39;,
+        &#39;logo:keys2img&#39;,// 使用自定义格式化方法
+        &#39;randnickname&#39;,
+        &#39;randlogo:keys2img:随机头像&#39;,// 自定义格式及标签
+        &#39;handler&#39;,
+        &#39;ctime:datetime&#39;,
+        [
+            &#39;attribute&#39;=&gt;&#39;ctime&#39;,
+            &#39;value&#39;=&gt;date(&quot;Y-m-d H:i:s&quot;,$model-&gt;ctime)
+        ],
+        &#39;status&#39;,
+    ],
+    &#39;formatter&#39; =&gt; [ // 这边引入我们自定义的类 (包含需要使用的格式化方法)
+        &#39;class&#39;=&gt;&#39;common\louli\vendor\ImgKeysFormatter&#39;,
+    ],
+]) ?&gt;
+</code></pre>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/php/">php</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2017/08/29/reg-ip/">
+        <span class="next-text nav-default">29. 正则表达式之ip地址匹配</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz"></div>
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+    
+    2017
+
+    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+    <script type="text/javascript">
+      (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+
+         if (typeof LivereTower === 'function') { return; }
+
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+
+         e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
+</html>
