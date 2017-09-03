@@ -175,6 +175,56 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2017/09/03/standard/">31. (转)PHP运行机制</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          Posted by zhgxun 2017-09-03
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/php/">php</a>
+            
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>说到PHP的运行机制还要先给大家介绍PHP的模块，PHP总共有三个模块：内核、Zend引擎、以及扩展层；PHP内核用来处理请求、文件流、错误处理等相关操作；Zend引擎（ZE）用以将源文件转换成机器语言，然后在虚拟机上运行它；扩展层是一组函数、类库和流，PHP使用它们来执行一些特定的操作。比如，我们需要MySQL扩展来连接MySQL数据库；当ZE执行程序时可能会需要连接若干扩展，这时ZE将控制权交给扩展，等处理完特定任务后再返还。</p>
+          <div class="read-more">
+            <a href="/2017/09/03/standard/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2017/09/03/custom/">30. Yii2在DetailView中使用自定义方法解析模型数据</a>
         
       </h1>
@@ -608,56 +658,6 @@
           <p>打印数据已经呈现,但是没有再日记记录中发现该文件,但是使用官方提供的例子立马就生成了日记文件我就想到路径的问题,就是说必须使用这两个文件xhprof_lib.php和xhprof_runs.php才可能在框架中生成日记文件。然后就尝试引入该文件后,顺利解决了这个问题,只是没有进行封装,也不麻烦,但清楚一些。</p>
           <div class="read-more">
             <a href="/2017/08/21/xhprof/" class="read-more-link">阅读更多</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-    
-      
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2017/08/21/bathinsert/">21. Yii2批量导入大数据的快捷方法</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted by zhgxun 2017-08-21
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/php/">php</a>
-            
-          </div>
-        
-      </div>
-    </header>
-
-    
-    
-    
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。</p>
-          <div class="read-more">
-            <a href="/2017/08/21/bathinsert/" class="read-more-link">阅读更多</a>
           </div>
         
       
