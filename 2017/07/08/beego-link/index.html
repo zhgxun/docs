@@ -1,209 +1,118 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-
-  <meta name="description" content="和使用PHP成熟的WEB开发框架比如YII2比较起来，确实显得无比笨拙。当然还可以做更多的封装，在这里就不做这些处理，仅仅是体验一下用go来编写一个简单的友情链接，你就会知道对于一般功能的实现，有一个完善的框架是多么的便捷和美好。没有尝试过用bee的自动生成工具生成的代码有多棒，但至少应该比上面的代码看起来要聪明一些才好。"/>
-
-
-
-
-  <meta name="keywords" content="go, 小步走路" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="小步走路">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
-
-
-
-<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/07/08/beego-link/"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
-
-
-
-
-
-
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>2. 用Beego编写一个友情链接 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="beego框架和bee工具的安装非常简单，唯一需要注意的是Mac平台go1.8版本无法运行bee工具，说是官方包造成的bug，需要使用更高版本，比如我的Mac本地版本是: zhgxun-pro:~ zhgxun$ go version go version go1.8.3 darwin/amd64  现在来看如何用beego框架编写一个友情链接。">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2. 用Beego编写一个友情链接">
+<meta property="og:url" content="https://github.com/zhgxun/zhgxun.github.io/2017/07/08/beego-link/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="beego框架和bee工具的安装非常简单，唯一需要注意的是Mac平台go1.8版本无法运行bee工具，说是官方包造成的bug，需要使用更高版本，比如我的Mac本地版本是: zhgxun-pro:~ zhgxun$ go version go version go1.8.3 darwin/amd64  现在来看如何用beego框架编写一个友情链接。">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/link_list.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/link_add.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/link_update.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/link_view.jpeg">
+<meta property="og:updated_time" content="2017-09-08T01:05:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2. 用Beego编写一个友情链接">
+<meta name="twitter:description" content="beego框架和bee工具的安装非常简单，唯一需要注意的是Mac平台go1.8版本无法运行bee工具，说是官方包造成的bug，需要使用更高版本，比如我的Mac本地版本是: zhgxun-pro:~ zhgxun$ go version go version go1.8.3 darwin/amd64  现在来看如何用beego框架编写一个友情链接。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/link_list.jpeg">
+  
+  
   
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <script id="baidu_push">
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+  <link rel="stylesheet" href="/css/styles.css">
+  
 
+</head>
 
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
 
-    <title> 2. 用Beego编写一个友情链接 - 小步走路 </title>
-  </head>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
 
-  <body><div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/." class="logo">小步走路</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 
-    <div class="container" id="mobile-panel">
-      <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">小步走路</a>
+  <div class="container">
+    <div class="blog-header">
+  
 </div>
 
-<div class="description">
-  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+    <div class="row">
+        
+          <div class="col-sm-12 blog-main">
+            <article id="post-beego-link" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      2. 用Beego编写一个友情链接
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/07/08/beego-link/" class="article-date"><time datetime="2017-07-08T15:15:13.000Z" itemprop="datePublished">2017-07-08</time></a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
-        </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
-
-      <main id="main" class="main">
-        <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          2. 用Beego编写一个友情链接
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted by zhgxun 2017-07-08
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/go/">go</a>
-            
-          </div>
-        
-      </div>
-    </header>
-
     
     
-    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
 
-    <div class="post-content">
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
       
         <p>beego框架和bee工具的安装非常简单，唯一需要注意的是Mac平台go1.8版本无法运行bee工具，说是官方包造成的bug，需要使用更高版本，比如我的Mac本地版本是:</p>
 <pre><code class="bash">zhgxun-pro:~ zhgxun$ go version
 go version go1.8.3 darwin/amd64
 </code></pre>
 <p>现在来看如何用beego框架编写一个友情链接。</p>
+<a id="more"></a>
 <h2 id="1、创建表"><a href="#1、创建表" class="headerlink" title="1、创建表"></a>1、创建表</h2><pre><code class="mysql">CREATE TABLE `link` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT &#39;类型1官网2手册3其它&#39;,
@@ -638,156 +547,98 @@ func (l *LinkController) Delete() {
 
     
       
+
+    
+
+    <footer class="article-footer">
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
 
 
-
-      
-      
-    
-
-    
-      <footer class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/go/">go</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2017/07/08/beego-salt/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">3. Golang生成一个盐</span>
-        <span class="prev-text nav-mobile">上一篇</span>
-      </a>
-    
-    
-      <a class="next" href="/2017/07/08/beego-cookie/">
-        <span class="next-text nav-default">1. Beego框架设置cookie</span>
-        <span class="prev-text nav-mobile">下一篇</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    
-  </nav>
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz"></div>
-    
+    </footer>
   </div>
-
-
-        </div>  
-      </main>
-
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-    
-    
-  </div>
-
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
-  </span>
   
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
-  </span>
-
-  <span class="copyright-year">
-    
-    &copy; 
-    
-    2017
-
-    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
-  </span>
-</div>
-      </footer>
-
-      <div class="back-to-top" id="back-to-top">
-        <i class="iconfont icon-up"></i>
-      </div>
+    <!-- 分享按钮 -->
+    <p></p>
+    <div class="bdsharebuttonbox">
+      <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+      <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+      <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+      <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+      <a href="#" class="bds_more" data-cmd="more"></a>
     </div>
 
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
     
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/07/08/beego-cookie/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">1. Beego框架设置cookie</span>
+    </a>
+  </li>
   
   
-    <script type="text/javascript">
-      (function(d, s) {
-         var j, e = d.getElementsByTagName(s)[0];
-
-         if (typeof LivereTower === 'function') { return; }
-
-         j = d.createElement(s);
-         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-         j.async = true;
-
-         e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-
-
-
-
-    
-
-
+  <li role="presentation">
+    <a href="/2017/07/08/beego-salt/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">3. Golang生成一个盐</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
-  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhgxun<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and <a href="https://github.com/zhgxun" target="_blank">GitHub.</a>
+    </div>
+  </div>
+</footer>
 
   
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
 
-  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
 
-  </body>
+<script src="/js/script.js"></script>
+
+<script>
+  window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+</body>
 </html>

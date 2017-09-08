@@ -1,203 +1,106 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-  <head>
-    
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-
-  <meta name="description" content="还是后来一个大哥说的，没几个用户会这么搜，把常用的留着，其他的隐藏起来....就算是后台，这也太蛋疼了。。有些搜索可能一辈子也用不到。我才回过头来，没必要提供这么多搜索筛选，就把必不可少的留下，随便你怎么写，都不觉得麻烦，而且代码还简单，就是楼上说的，这是一个月入门的吧，呵呵。我才知道，不管程序也好，还是别的什么，会做加法固然重要，但能做减法，才是需要深思熟虑过后才可能会幡然醒悟的。这才是我们常说的，实现功能，代码越少越简单越好，并不需要各种机灵的hack手段。"/>
-
-
-
-
-  <meta name="keywords" content="php, 小步走路" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="小步走路">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
-
-
-
-<link rel="canonical" href="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/rename/"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
-
-
-
-
-
-
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>20. shell重命名目录中文件名称 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。 常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得">
+<meta name="keywords" content="php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20. shell重命名目录中文件名称">
+<meta property="og:url" content="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/rename/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。 常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得">
+<meta property="og:updated_time" content="2017-09-08T01:02:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="20. shell重命名目录中文件名称">
+<meta name="twitter:description" content="这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。 常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得">
+  
+  
   
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
-  <script id="baidu_push">
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+  <link rel="stylesheet" href="/css/styles.css">
+  
 
+</head>
 
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
 
-    <title> 20. shell重命名目录中文件名称 - 小步走路 </title>
-  </head>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
 
-  <body><div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/." class="logo">小步走路</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/about">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 
-    <div class="container" id="mobile-panel">
-      <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">小步走路</a>
+  <div class="container">
+    <div class="blog-header">
+  
 </div>
 
-<div class="description">
-  <p>有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇见方知有。</p>
+    <div class="row">
+        
+          <div class="col-sm-12 blog-main">
+            <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      20. shell重命名目录中文件名称
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/rename/" class="article-date"><time datetime="2017-08-21T03:48:09.000Z" itemprop="datePublished">2017-08-21</time></a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/">
-            
-            
-              首页
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/archives/">
-            
-            
-              归档
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/about">
-            
-            
-              关于
-            
-          </a>
-        </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
-
-      <main id="main" class="main">
-        <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          20. shell重命名目录中文件名称
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          Posted by zhgxun 2017-08-21
-        </span>
-        
-          <div class="post-category">
-            
-              <a href="/categories/php/">php</a>
-            
-          </div>
-        
-      </div>
-    </header>
-
     
     
-    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
 
-    <div class="post-content">
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
       
         <p>这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。</p>
 <p>常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得的），有些字段可能周期中就使用过一两次或者根本没有使用过，也把它处理了。然后我贴了类似这样重复的代码：</p>
@@ -211,6 +114,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
     $query-&gt;andFilterWhere([&#39;&gt;=&#39;, &#39;ctime&#39;, trim($request[&#39;start&#39;])]);
 }
 </code></pre>
+<a id="more"></a>
 <p>当然实际比这个多得多，然后就收到一堆吐槽，日,直接列个数组循环不就得了，谁写的这段代码？直接打死，有人直接说这是一个月入门的吧，粘贴复制这么多行明显是不对的。我实现的方法有一万种，教你一个简单的，把要查询的字段放在一个数组里面呢，然后foreach数组里面的值去做你的addFilter…类似的道理其实不是第一次听说了，一直没有使用这种方式，还有一个同事建议直接对$_GET作$引用后，直接使用$var来进行操作，我都没有使用，对参数的验证来说，这些都不是好办法。</p>
 <p>当然如果你不想验证了，那这样的确很方便，而且还有一丝丝hack的意思。我没看过什么开源项目，不知道有没有很多这类的做法，也不知道是否可取，但我的确一直没有采用这种实践。不记得什么时候看到的了，程序安全很重要，尤其是需要依赖客户端处理时，要坚持客户端的输入是不可取的这一原则。结果处理这个原则，丧失了很多灵活性，比如上面这种，至少在这个判断中，有去空格，强制类型转化，和大小于处理，你觉得把可能用的参数都预先写在一个数组中能简单到多少？其实这种方式也是一种不错的实现方式，数据库DB类中就有类似的做法，对于单一重复的操作的确简便，容易很多，但是表面单一，具体参数处理并不<br>统一时，这样反而变得复杂。所以一开始我也觉得我这样写挺傻逼的，尝试还是封装一下吧，结果发现不能用，我至少的准备三个数组，一个专门只做去空处理的，一个只做强制类型转化的，还有一个涉及大于等处理的，每一次循环中还是避免不了对该参数执行三个in_array()操作，直到遇到continue为止，你说这样看起来只是没有我上面写的傻一点，但是并没什么用啊。</p>
 <p>还是后来一个大哥说的，没几个用户会这么搜，把常用的留着，其他的隐藏起来….就算是后台，这也太蛋疼了。。有些搜索可能一辈子也用不到。我才回过头来，没必要提供这么多搜索筛选，就把必不可少的留下，随便你怎么写，都不觉得麻烦，而且代码还简单，就是楼上说的，这是一个月入门的吧，呵呵。我才知道，不管程序也好，还是别的什么，会做加法固然重要，但能做减法，才是需要深思熟虑过后才可能会幡然醒悟的。这才是我们常说的，实现功能，代码越少越简单越好，并不需要各种机灵的hack手段。</p>
@@ -226,156 +130,98 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 
     
       
+
+    
+
+    <footer class="article-footer">
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
 
 
-
-      
-      
-    
-
-    
-      <footer class="post-footer">
-        
-          <div class="post-tags">
-            
-              <a href="/tags/php/">php</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2017/08/21/bathinsert/">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">21. Yii2批量导入大数据的快捷方法</span>
-        <span class="prev-text nav-mobile">上一篇</span>
-      </a>
-    
-    
-      <a class="next" href="/2017/08/21/yii2-qiniu/">
-        <span class="next-text nav-default">19. Yii2使用七牛云存储</span>
-        <span class="prev-text nav-mobile">下一篇</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    
-  </nav>
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz"></div>
-    
+    </footer>
   </div>
-
-
-        </div>  
-      </main>
-
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-    
-    
-  </div>
-
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
-  </span>
   
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
-  </span>
-
-  <span class="copyright-year">
-    
-    &copy; 
-    
-    2017
-
-    <span class="author"> By <a href="https://github.com/zhgxun" target="_blank">zhgxun</a></span>
-  </span>
-</div>
-      </footer>
-
-      <div class="back-to-top" id="back-to-top">
-        <i class="iconfont icon-up"></i>
-      </div>
+    <!-- 分享按钮 -->
+    <p></p>
+    <div class="bdsharebuttonbox">
+      <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+      <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+      <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+      <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+      <a href="#" class="bds_more" data-cmd="more"></a>
     </div>
 
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
     
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/08/21/yii2-qiniu/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">19. Yii2使用七牛云存储</span>
+    </a>
+  </li>
   
   
-    <script type="text/javascript">
-      (function(d, s) {
-         var j, e = d.getElementsByTagName(s)[0];
-
-         if (typeof LivereTower === 'function') { return; }
-
-         j = d.createElement(s);
-         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-         j.async = true;
-
-         e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-
-
-
-
-    
-
-
+  <li role="presentation">
+    <a href="/2017/08/21/bathinsert/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">21. Yii2批量导入大数据的快捷方法</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
-  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhgxun<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and <a href="https://github.com/zhgxun" target="_blank">GitHub.</a>
+    </div>
+  </div>
+</footer>
 
   
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
 
-  
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
 
-  </body>
+<script src="/js/script.js"></script>
+
+<script>
+  window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+</body>
 </html>
