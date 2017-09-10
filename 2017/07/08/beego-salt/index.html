@@ -5,21 +5,6 @@
   
   <title>3. Golang生成一个盐 | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有时候业务可能需要生成一个随机字符串，而我们希望包括的字符类型多一些，在go标准库中没有这样的包，不能开箱即用。 而基本字符在ASCII表中有确定的值，这些值在主流的编码系统中都是统一的，不分操作系统和编程语言，这一点确实给我们带来了便利。以下案例中使用的rand为标准数学库 math/rand。通过该编码值，我们可以轻松的不用复写这些字符，只需要知道属于它们的边界，在此基础上增加到某个位置，就可">
-<meta name="keywords" content="go">
-<meta property="og:type" content="article">
-<meta property="og:title" content="3. Golang生成一个盐">
-<meta property="og:url" content="https://github.com/zhgxun/zhgxun.github.io/2017/07/08/beego-salt/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="有时候业务可能需要生成一个随机字符串，而我们希望包括的字符类型多一些，在go标准库中没有这样的包，不能开箱即用。 而基本字符在ASCII表中有确定的值，这些值在主流的编码系统中都是统一的，不分操作系统和编程语言，这一点确实给我们带来了便利。以下案例中使用的rand为标准数学库 math/rand。通过该编码值，我们可以轻松的不用复写这些字符，只需要知道属于它们的边界，在此基础上增加到某个位置，就可">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/salt.jpeg">
-<meta property="og:updated_time" content="2017-09-08T01:05:44.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3. Golang生成一个盐">
-<meta name="twitter:description" content="有时候业务可能需要生成一个随机字符串，而我们希望包括的字符类型多一些，在go标准库中没有这样的包，不能开箱即用。 而基本字符在ASCII表中有确定的值，这些值在主流的编码系统中都是统一的，不分操作系统和编程语言，这一点确实给我们带来了便利。以下案例中使用的rand为标准数学库 math/rand。通过该编码值，我们可以轻松的不用复写这些字符，只需要知道属于它们的边界，在此基础上增加到某个位置，就可">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/salt.jpeg">
-  
-  
   
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -27,8 +12,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
   <link rel="stylesheet" href="/css/styles.css">
-  
-
 </head>
 
 <body>
@@ -283,6 +266,7 @@ func main() {
         }
       };
     </script>
+    <script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
     
 <ul id="article-nav" class="nav nav-pills nav-justified">
@@ -325,8 +309,6 @@ func main() {
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
 
 

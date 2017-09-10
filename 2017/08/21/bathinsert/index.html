@@ -5,19 +5,6 @@
   
   <title>21. Yii2批量导入大数据的快捷方法 | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。 后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时">
-<meta name="keywords" content="php">
-<meta property="og:type" content="article">
-<meta property="og:title" content="21. Yii2批量导入大数据的快捷方法">
-<meta property="og:url" content="https://github.com/zhgxun/zhgxun.github.io/2017/08/21/bathinsert/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。 后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时">
-<meta property="og:updated_time" content="2017-09-08T01:05:27.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="21. Yii2批量导入大数据的快捷方法">
-<meta name="twitter:description" content="上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。 后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时">
-  
-  
   
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -25,8 +12,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
   <link rel="stylesheet" href="/css/styles.css">
-  
-
 </head>
 
 <body>
@@ -215,6 +200,7 @@
         }
       };
     </script>
+    <script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
     
 <ul id="article-nav" class="nav nav-pills nav-justified">
@@ -257,8 +243,6 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
 
 

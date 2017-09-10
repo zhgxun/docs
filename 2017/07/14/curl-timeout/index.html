@@ -5,21 +5,6 @@
   
   <title>7. PHP扩展cURL执行中途无响应 | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。">
-<meta name="keywords" content="php">
-<meta property="og:type" content="article">
-<meta property="og:title" content="7. PHP扩展cURL执行中途无响应">
-<meta property="og:url" content="https://github.com/zhgxun/zhgxun.github.io/2017/07/14/curl-timeout/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/curl_timeout.jpeg">
-<meta property="og:updated_time" content="2017-09-08T01:06:08.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="7. PHP扩展cURL执行中途无响应">
-<meta name="twitter:description" content="今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/curl_timeout.jpeg">
-  
-  
   
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -27,8 +12,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
   <link rel="stylesheet" href="/css/styles.css">
-  
-
 </head>
 
 <body>
@@ -257,6 +240,7 @@ exitStatus:0
         }
       };
     </script>
+    <script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
     
 <ul id="article-nav" class="nav nav-pills nav-justified">
@@ -299,8 +283,6 @@ exitStatus:0
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
 
 

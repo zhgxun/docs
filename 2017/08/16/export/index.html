@@ -5,21 +5,6 @@
   
   <title>16. 用Go重写商家结余表导数脚本 | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。 开始编写时，">
-<meta name="keywords" content="go">
-<meta property="og:type" content="article">
-<meta property="og:title" content="16. 用Go重写商家结余表导数脚本">
-<meta property="og:url" content="https://github.com/zhgxun/zhgxun.github.io/2017/08/16/export/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。 开始编写时，">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/refund.jpeg">
-<meta property="og:updated_time" content="2017-09-08T01:00:04.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="16. 用Go重写商家结余表导数脚本">
-<meta name="twitter:description" content="前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。 开始编写时，">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zhgxun/images/master/programming/refund.jpeg">
-  
-  
   
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -27,8 +12,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
   <link rel="stylesheet" href="/css/styles.css">
-  
-
 </head>
 
 <body>
@@ -896,6 +879,7 @@ public function actionExport($partnerId, $other = 1, $fix = 1, $email = &#39;&#3
         }
       };
     </script>
+    <script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
     
 <ul id="article-nav" class="nav nav-pills nav-justified">
@@ -938,8 +922,6 @@ public function actionExport($partnerId, $other = 1, $fix = 1, $email = &#39;&#3
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-
-<script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)]"></script>
 
 
 
