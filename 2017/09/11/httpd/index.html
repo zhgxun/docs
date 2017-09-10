@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>36. 安装 httpd-2.4.25 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-httpd" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      36. 安装 httpd-2.4.25
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/httpd/" class="article-date"><time datetime="2017-09-10T22:49:49.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/apache/">apache</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常来说，在Linux系列系统上安装apache还是比较容易的，不管是基于Red Hat系列的yum命令，Debian系列的apt-get命令，还是openSUSE系列的zypper命令，安装系统提供的软件包是最便捷的，不需要自行处理软件依赖问题。该安装方式其实已经可以直接在服务器上操作了，并不都是所说的，服务器上的软件都是精心编译出来的。就我工作过的3个公司来说，服务器上都没有自己编译。源代码编译的好处是文件都统一放在一个固定的位置，不需要时直接删除文件夹即可，但是系统命令安装的，文件和可执行程序最终会被分散在操作系统的各目录中。</p>
+<p>操作系统：Ubuntu 16.04 LTS x86_64</p>
+<h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1. 准备"></a>1. 准备</h2><p>Apache可移植运行的任务（APR）项目是创建和维护软件库，为底层平台的具体实现提供了一个可预见的和一致的接口。</p>
+<p>APR(Apache portable Run-time libraries，Apache可移植运行库)的目的如其名称一样，主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。在早期的Apache版本中，应用程序本身必须能够处理各种具体操作系统平台的细节，并针对不同的平台调用不同的处理函数。</p>
+<a id="more"></a>
+<p>随着Apache的进一步开发，Apache组织决定将这些通用的函数独立出来并发展成为一个新的项目。这样，APR的开发就从Apache中独立出来，Apache仅仅是使用APR而已。目前APR主要还是由Apache使用，不过由于APR的较好的移植性，因此一些需要进行移植的C程序也开始使用APR，开源项目比如 Flood loader tester(<a href="http://httpd.apache.org/test/flood/，该项目用于服务器压力测试，不仅仅适用于Apache" target="_blank" rel="external">http://httpd.apache.org/test/flood/，该项目用于服务器压力测试，不仅仅适用于Apache</a>)</p>
+<p>PCRE(Perl Compatible Regular Expressions)是一个Perl库，包括 perl 兼容的正则表达式库。</p>
+<p>需要用到的软件包：</p>
+<pre><code>httpd-2.4.25.tar.bz2
+apr-1.5.2.tar.bz2
+apr-util-1.5.4.tar.bz2
+pcre-8.40.tar.bz2
+</code></pre><h2 id="2-安装-prce"><a href="#2-安装-prce" class="headerlink" title="2. 安装 prce"></a>2. 安装 prce</h2><pre><code class="bash">cd pcre-8.40
+./configure
+make
+sudo make install
+</code></pre>
+<h2 id="3-解压"><a href="#3-解压" class="headerlink" title="3. 解压"></a>3. 解压</h2><pre><code class="bash">tar jxvf httpd-2.4.25.tar.bz2
+tar jxvf apr-1.5.2.tar.bz2
+tar jxvf apr-util-1.5.4.tar.bz2
+tar jxvf pcre-8.40.tar.bz2
+</code></pre>
+<h2 id="4-安装-apr-and-apr-util"><a href="#4-安装-apr-and-apr-util" class="headerlink" title="4. 安装 apr and apr-util"></a>4. 安装 apr and apr-util</h2><p>直接将其拷贝到httpd源码目录srclib中，去除版本号</p>
+<pre><code class="bash">cp -r apr-1.5.2/ httpd-2.4.25/srclib/apr
+cp -r apr-util-1.5.4/ httpd-2.4.25/srclib/apr-util
+</code></pre>
+<h2 id="5-安装-httpd-2-4"><a href="#5-安装-httpd-2-4" class="headerlink" title="5. 安装 httpd-2.4"></a>5. 安装 httpd-2.4</h2><p>需要指定–with-include-apr，其实apache的模块都编译好了，安装完成后直接编辑配置文件就可以，不需要安装时指定需要的库。</p>
+<pre><code class="bash">cd httpd-2.4.25
+./configure --prefix=/usr/local/apache2 --sysconfdir=/usr/local/apache2/etc --with-include-apr --enable-so --enable-expires=shared --enable-rewrite=shared
+make
+sudo make install
+</code></pre>
+<h2 id="6-编辑-httpd-conf"><a href="#6-编辑-httpd-conf" class="headerlink" title="6. 编辑 httpd.conf"></a>6. 编辑 httpd.conf</h2><p>可以简单的指定一些目录位置，我个人喜欢把apache服务目录指定到自己的文件中，<code>/home/zhgxun/Public/html</code>，然后继续建相应的目录，php管理与php相关的项目，python管理跟python相关的项目，doc管理一些工作上的文档，test管理一些可要可不要的测试文件等，当然自己的文档应该放在<code>/home/zhgxun/Documents</code>文件中比较好。这些东西是个人喜好，我工作过的公司，有习惯单独建一个<code>/data</code>目录来管理服务器上的项目，也有的直接用系统默认的<code>/var</code>目录来管理项目。 </p>
+<pre><code class="bash">sudo vim /usr/local/apache2/etc/httpd.conf
+</code></pre>
+<h2 id="7-启动"><a href="#7-启动" class="headerlink" title="7. 启动"></a>7. 启动</h2><p>自己电脑上没必要设置开机自启动服务器，每次需要时直接手动开启即可。</p>
+<pre><code class="bash">sudo /usr/local/apache2/bin/apachectl start
+</code></pre>
+<h2 id="8-错误"><a href="#8-错误" class="headerlink" title="8. 错误"></a>8. 错误</h2><p>不管怎么说，源代码编译，不管在什么系统上，总会遇到一些错误，而且每次遇到的错误都细节上是不见得类似的。好在现在使用的人多，总能在网上找到类似的答案，不过真不要祈求某人遇到跟自己一样的问题，直接拷贝他的命令就能在自己电脑上无损运行，别人的思路才是最重要的。</p>
+<pre><code>/usr/local/apache2/bin/httpd: error while loading shared libraries: libpcre.so.1: cannot open shared object file: No such file or directory
+</code></pre><p>ldd命令用于判断某个可执行的 binary 档案含有什么动态函式库。</p>
+<pre><code>ldd $(which /usr/local/apache2/bin/apachectl start)
+/usr/local/apache2/bin/apachectl:
+    not a dynamic executable
+/sbin/start:
+    linux-vdso.so.1 =&gt;  (0x00007ffe4b11a000)
+    libnih.so.1 =&gt; /lib/x86_64-linux-gnu/libnih.so.1 (0x00007fb6bdf76000)
+    libnih-dbus.so.1 =&gt; /lib/x86_64-linux-gnu/libnih-dbus.so.1 (0x00007fb6bdd6c000)
+    libdbus-1.so.3 =&gt; /lib/x86_64-linux-gnu/libdbus-1.so.3 (0x00007fb6bdb1f000)
+    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb6bd756000)
+    librt.so.1 =&gt; /lib/x86_64-linux-gnu/librt.so.1 (0x00007fb6bd54e000)
+    libpthread.so.0 =&gt; /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb6bd330000)
+    libsystemd.so.0 =&gt; /lib/x86_64-linux-gnu/libsystemd.so.0 (0x00007fb6bd2ab000)
+    /lib64/ld-linux-x86-64.so.2 (0x000055b68cb17000)
+    libselinux.so.1 =&gt; /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007fb6bd089000)
+    liblzma.so.5 =&gt; /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007fb6bce66000)
+    libgcrypt.so.20 =&gt; /lib/x86_64-linux-gnu/libgcrypt.so.20 (0x00007fb6bcb85000)
+    libpcre.so.3 =&gt; /lib/x86_64-linux-gnu/libpcre.so.3 (0x00007fb6bc915000)
+    libdl.so.2 =&gt; /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fb6bc710000)
+    libgpg-error.so.0 =&gt; /lib/x86_64-linux-gnu/libgpg-error.so.0 (0x00007fb6bc4fc000)
+</code></pre><p>发现 libpcre.so 库链接的位置是系统 <code>/lib/x86_64-linux-gnu/</code> 目录中。</p>
+<p>然后简单浏览下，发现其实已经编译有了，但是启动服务器时提示少了libpcre.so.1，版本号不一致。毕竟不懂C代码和apache的具体加载过程，但猜想是某个文件写死了，可能因为版本的原因，编译出来混乱了版本号。发现pcre库安装在/usr/local/lib目录中，而且有各种库存在，一开始以为是少链接了版本为1的库，结果操作失败。回到系统链接库中，怀疑是不是仅仅是版本原因，新增了一个链接，测试服务器可以重启成功。</p>
+<pre><code class="bash">ls /lib/x86_64-linux-gnu/ | grep -i libpcre
+libpcre.so.3
+libpcre.so.3.13.2
+</code></pre>
+<p>在系统当前目录中增加一个链接，直接修改版本号, apache重启成功。</p>
+<pre><code class="bash">sudo ln -s /lib/x86_64-linux-gnu/libpcre.so.3 /lib/x86_64-linux-gnu/libpcre.so.1
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/10/start/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">35. 林达-走向世界的起点</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

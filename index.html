@@ -60,6 +60,61 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-httpd" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/11/httpd/">36. 安装 httpd-2.4.25</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/httpd/" class="article-date"><time datetime="2017-09-10T22:49:49.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/apache/">apache</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常来说，在Linux系列系统上安装apache还是比较容易的，不管是基于Red Hat系列的yum命令，Debian系列的apt-get命令，还是openSUSE系列的zypper命令，安装系统提供的软件包是最便捷的，不需要自行处理软件依赖问题。该安装方式其实已经可以直接在服务器上操作了，并不都是所说的，服务器上的软件都是精心编译出来的。就我工作过的3个公司来说，服务器上都没有自己编译。源代码编译的好处是文件都统一放在一个固定的位置，不需要时直接删除文件夹即可，但是系统命令安装的，文件和可执行程序最终会被分散在操作系统的各目录中。</p>
+<p>操作系统：Ubuntu 16.04 LTS x86_64</p>
+<h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1. 准备"></a>1. 准备</h2><p>Apache可移植运行的任务（APR）项目是创建和维护软件库，为底层平台的具体实现提供了一个可预见的和一致的接口。</p>
+<p>APR(Apache portable Run-time libraries，Apache可移植运行库)的目的如其名称一样，主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。在早期的Apache版本中，应用程序本身必须能够处理各种具体操作系统平台的细节，并针对不同的平台调用不同的处理函数。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/11/httpd/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-start" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -565,91 +620,6 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
 </article>
 
   
-    <article id="post-composer" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/composer/">26. composer.json文件说明</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/composer/" class="article-date"><time datetime="2017-08-21T04:41:01.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>PHP组件中必须有composer.json文件，而且这个文件的内容必须是有效的JSON，Composer会使用这个文件中的信息查找、安装和自动加载PHP组件。composer.json文件还包含组件在Packagist目录中的信息。</p>
-<pre><code>{
-    &quot;name&quot;: &quot;modernphp/scnner&quot;,
-    &quot;description&quot;: &quot;Scan URLs a CSV file and report inaccessible URLs&quot;,
-    &quot;keywords&quot;: [&quot;url&quot;, &quot;scanner&quot;, &quot;csv&quot;],
-    &quot;homepage&quot;: &quot;http://example.com&quot;,
-    &quot;license&quot;: &quot;MIT&quot;,
-    &quot;authors&quot;: [
-        {
-            &quot;name&quot;: &quot;Josh Lockhart&quot;,
-            &quot;homepage&quot;: &quot;https://github.com/codeguy&quot;,
-            &quot;role&quot;: &quot;Developer&quot;
-        }
-    ],
-    &quot;support&quot;: {
-        &quot;email&quot;: &quot;help@example.com&quot;
-    },
-    &quot;require&quot;: {
-        &quot;php&quot;: &quot;&gt;=5.4.0&quot;,
-        &quot;guzzlehttp&quot;: &quot;~5.0&quot;
-    },
-    &quot;require-dev&quot;: {
-        &quot;phpunit/phpunit&quot; : &quot;~5.0&quot;
-    },
-    &quot;suggest&quot;: {
-        &quot;league/csv&quot;: &quot;~6.0&quot;
-    },
-    &quot;autoload&quot;: {
-        &quot;psr-4&quot;: {
-            &quot;Oreilly\\ModernPHP&quot;: &quot;src/&quot;
-        }
-    }
-}
-</code></pre>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/composer/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -664,7 +634,7 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">8</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">8</span></li></ul>
   </div>
 
 
@@ -673,6 +643,10 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/11/httpd/">36. 安装 httpd-2.4.25</a>
+        </li>
       
         <li>
           <a href="/2017/09/10/start/">35. 林达-走向世界的起点</a>
@@ -688,10 +662,6 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
       
         <li>
           <a href="/2017/09/10/object/">32. PHP面向对象基础</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/03/standard/">31. (转)PHP运行机制</a>
         </li>
       
     </ul>
