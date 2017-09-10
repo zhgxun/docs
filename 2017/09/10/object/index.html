@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>32. PHP面向对象基础 | </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  
+</div>
+
+    <div class="row">
+        
+          <div class="col-sm-12">
+            <article id="post-object" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      32. PHP面向对象基础
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/10/object/" class="article-date"><time datetime="2017-09-10T05:11:14.000Z" itemprop="datePublished">2017-09-10</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>PHP5的最大特点是引入了面向对象的全部机制，并且保留了向下的兼容性。面向对象程序设计OOP，达到了软件工程的三个目标：重用性、灵活性和可扩展性。面向对象程序设计OOP是一种计算机编程框架，OOP的一条基本原则是计算机元素是由单个能够起到子程序作用的单元或对象组合而成的，为了实现整体运算，每个对象都能够接收信息，处理数据或向其它对象发送信息。</p>
+<p>面向对象一直是软件开发领域比较热门的话题，面向对象符合人类看待事物的一般规律，采用面向对象的设计方式可以使系统各部分运行自己的功能。对于大型项目，你可能需要使用纯粹的面向对象去设计。</p>
+<a id="more"></a>
+<h2 id="一、类和对象之间的关系"><a href="#一、类和对象之间的关系" class="headerlink" title="一、类和对象之间的关系"></a>一、类和对象之间的关系</h2><p>类的实例化结果就是对象，而对象的抽象就是类。</p>
+<ol>
+<li>类是一个独立的程序单位，是具有相同的属性和服务的一组对象的集合；</li>
+<li>对象是系统中用来描述客观事物的一个实体，它是构成系统的一个单位，一个对象由一组属性和有权对这些属性进行操作的一组服务的封装组成；</li>
+<li>面向对象的最小单位是对象；面向过程的最小单位是函数。</li>
+</ol>
+<h2 id="二、类的定义"><a href="#二、类的定义" class="headerlink" title="二、类的定义"></a>二、类的定义</h2><h3 id="1-类型的声明"><a href="#1-类型的声明" class="headerlink" title="1. 类型的声明"></a>1. 类型的声明</h3><p>[一些修饰类的关键字] class 类名 {类中的成员属性和成员方法}</p>
+<pre><code class="php">abstract class Application extends Module
+{
+
+}
+</code></pre>
+<h3 id="2-成员属性"><a href="#2-成员属性" class="headerlink" title="2. 成员属性"></a>2. 成员属性</h3><p>在类中直接声明的变量就是成员属性，每个变量都存储对象不同的属性信息，没有必要在声明成员属性时直接赋予初值</p>
+<p>[一些修饰词] 变量名</p>
+<pre><code class="php">abstract class Application extends Module
+{
+    public $name = &#39;My Application&#39;;
+    public $charset = &#39;UTF-8&#39;;
+    public $language = &#39;en-US&#39;;
+    public $sourceLanguage = &#39;en-US&#39;;
+    public $controller;
+}
+</code></pre>
+<h2 id="3-成员方法"><a href="#3-成员方法" class="headerlink" title="3. 成员方法"></a>3. 成员方法</h2><p>在类中直接声明的函数就是成员方法</p>
+<p>[一些修饰词] 方法名</p>
+<pre><code class="php">abstract class Application extends Module
+{
+    public $name = &#39;My Application&#39;;
+    public $charset = &#39;UTF-8&#39;;
+    public $language = &#39;en-US&#39;;
+    public $sourceLanguage = &#39;en-US&#39;;
+    public $controller;
+
+    public function getTimeZone()
+    {
+        return date_default_timezone_get();
+    }
+
+    public function setTimeZone($value)
+    {
+        date_default_timezone_set($value);
+    }
+}
+</code></pre>
+<h2 id="三、实例化对象"><a href="#三、实例化对象" class="headerlink" title="三、实例化对象"></a>三、实例化对象</h2><h3 id="1-变量名-new-类名-参数列表-可以省略"><a href="#1-变量名-new-类名-参数列表-可以省略" class="headerlink" title="1. 变量名 = new 类名([参数列表])可以省略"></a>1. 变量名 = new 类名([参数列表])可以省略</h3><pre><code class="php">class Test
+{
+    public $name;
+
+    public function getName()
+    {
+        return $this-&gt;name;
+    }
+
+    public function setName($name)
+    {
+        $this-&gt;name = $name;
+    }
+}
+
+// 实例化一个类
+$test1 = new Test();
+print_r($test1);
+echo &quot;\n&quot;;
+// 类实例化后就成为一个具体的$test1对象, 可以使用对象的方法
+$test1-&gt;setName(&#39;zhangsan&#39;);
+print_r($test1-&gt;getName());
+echo &quot;\n&quot;;
+
+// 如果类中不需要传递参数, 直接使用类名也可以正常实例化
+$test2 = new Test;
+print_r($test2);
+echo &quot;\n&quot;;
+</code></pre>
+<p>打印输出的内容：</p>
+<pre><code class="bash">zhgxun-pro:test zhgxun$ php b.php 
+Test Object
+(
+    [name] =&gt; 
+)
+
+zhangsan
+Test Object
+(
+    [name] =&gt; 
+)
+
+zhgxun-pro:test zhgxun$
+</code></pre>
+<h3 id="2-对象在内存中的分布-p-new-Person"><a href="#2-对象在内存中的分布-p-new-Person" class="headerlink" title="2. 对象在内存中的分布    $p = new Person()"></a>2. 对象在内存中的分布    <code>$p = new Person()</code></h3><p><code>$p-&gt;say()</code></p>
+<ol>
+<li>数据段：存放可执行文件中已初始化的全部变量，包括常量和静态数据</li>
+<li>栈内存：空间小但被访问速度快，存放用户在程序中临时创建的变量</li>
+</ol>
+<p><code>$p</code></p>
+<p>堆内存：存放程序中被动态分配的内存段，大小并不固定，可动态扩张</p>
+<p><code>$p -&gt; new Person()</code></p>
+<p>代码段：存放可执行文件的操作指令，需要防止在运行时被修改，只允许读操作</p>
+<p><code>function say(){}</code></p>
+<h3 id="3-对象中成员的访问"><a href="#3-对象中成员的访问" class="headerlink" title="3. 对象中成员的访问"></a>3. 对象中成员的访问</h3><p>引用名-&gt;成员属性或方法</p>
+<h2 id="四、-this"><a href="#四、-this" class="headerlink" title="四、$this"></a>四、<code>$this</code></h2><p>对象一旦被创建，在对象的每个成员方法里都会存在一个特殊的对象引用<code>$this</code>，是由当前类实例化后的对象，不代表它所在的类。在对象的方法中都默认有一个<code>$this</code>关键字，代表实例化的本对象。</p>
+<h3 id="1-构造方法"><a href="#1-构造方法" class="headerlink" title="1. 构造方法"></a>1. 构造方法</h3><p>在PHP4中和类名相同的方法就是构造方法。构造方法是对象创建完成以后第一个被对象自动调用的方法，通常使用构造方法来完成对象的一些初始化工作。在每个声明的类中，都有一个成为构造方法的特殊成员方法，如果没有显示地声明它，类中都会默认存在一个没有参数列表并且内容为空的构造方法。构造方法必须是以两个下划线开始，这是php5中的变化，用来对成员属性进行初始化。</p>
+<p>PHP中，同一个类中只能声明一个构造方法，构造方法名称是固定的，已经被系统预先定义好，没有自定义的构造方法。创建对象时写入对象中的参数就是对象中的属性，改变对象的成员属性就是改变对象的功能。在PHP5中构造方法是魔术方法，使用关键字<code>__construct</code>，在改变类名时，构造方法不需要修改。</p>
+<h3 id="2-析构方法"><a href="#2-析构方法" class="headerlink" title="2. 析构方法"></a>2. 析构方法</h3><p>在PHP中有一种垃圾回收机制，当对象不能被访问时就会自动启用垃圾回收程序。析构函数不带有任何参数。当类中使用了一些资源操作时，就需要对资源进行释放和清理，比如数据库链接、GD库以及文件操作，就需要使用析构方法。析构方法的输出是，对象的引用是在栈内存中，是一种后进先出的机制。</p>
+<h2 id="五、和对象封装有关的几个方法"><a href="#五、和对象封装有关的几个方法" class="headerlink" title="五、和对象封装有关的几个方法"></a>五、和对象封装有关的几个方法</h2><h4 id="1-private-public-protected关键字"><a href="#1-private-public-protected关键字" class="headerlink" title="1. private, public, protected关键字"></a>1. private, public, protected关键字</h4><p>封装就是把对象的成员属性或方法结合成一个独立的相同单位，并尽可能影藏对象的内部细节。</p>
+<p>private修饰的成员属性和方法默认只能在对象内部通过<code>$this</code>方法访问，不能在对象外部使用。</p>
+<p><code>protected</code>修饰的成员属性和方法只能在当前类或继承当前类的子类中使用。</p>
+<h4 id="2-成员属性的封装"><a href="#2-成员属性的封装" class="headerlink" title="2. 成员属性的封装"></a>2. 成员属性的封装</h4><p>一个变量需要在多个方法中使用，就可以声明为成员属性，相当于这个对象中的全局变量，可以在所有方法中使用该属性。</p>
+<p>成员属性都会在相应的成员方法中使用，成员属性的变化就是在改变成员方法的行为，也就是改变对象的功能，成员属性的值如果不正常，方法执行的结果就并不正常，对象也就随之改变功能或状态。</p>
+<p>封装的作用是不需要在对象外部改变或读取类中的值。</p>
+<p>这样做的好处是一个对象的多个方法中，通过封装影藏一些方法不能在类外面使用，有些方法之间是互相关联的，在外部调用单个的方法不仅不完整，而且没有意义，所以进行封装，提供外部访问的公有方法进行使用。</p>
+<h3 id="3-和封装有关的四个魔术方法"><a href="#3-和封装有关的四个魔术方法" class="headerlink" title="3. 和封装有关的四个魔术方法"></a>3. 和封装有关的四个魔术方法</h3><ol>
+<li>__set() 直接设置<em>私有或受保护的</em>成员属性值时调用的魔术方法</li>
+<li>__get() 直接获取<em>私有成员或受保护的</em>成员属性值时调用的魔术方法</li>
+<li>__isset() 直接使用isset()查看对象中<em>私有成员或受保护的</em>成员属性时调用的魔术方法</li>
+<li>__unset() 直接使用unset()删除对象中<em>私有成员或受保护的</em>成员属性时调用的魔术方法</li>
+</ol>
+<h4 id="1-set"><a href="#1-set" class="headerlink" title="1. __set()"></a>1. __set()</h4><p>在对象中可以自定义函数来实现设置私有成员属性值的方法，但是php中提供了具体的魔术方法来供使用，而且在触发执行条件时会调用相应的魔术方法。</p>
+<p>在对象中一旦设置了__set()，就可以对成员属性进行赋值，该方法的参数形式是</p>
+<pre><code class="php">void __set(string $name, mixed $value)
+</code></pre>
+<p>函数没有返回值，第一个参数是所传入的需要设置的成员属性名，第二个参数是给对应的成员属性名赋的值。</p>
+<p>调用的触发时机是在对象外部访问对象中的私有成员属性或受保护的成员属性，但可以在类中通过程序控制用户的访问，可以实现允许赋值的成员属性，或者返回不真实的值给用户，控制外部查看。</p>
+<h4 id="2-get"><a href="#2-get" class="headerlink" title="2. __get()"></a>2. __get()</h4><p>和set方法一样，该方法需要一个参数值，传入的参数就是类中的成员属性名，可以通过程序控制用户能获得的信息，实现对类中属性的保护</p>
+<pre><code class="php">mixed __get(string $name)
+</code></pre>
+<p>所有传入的参数都可以是字符串或数组的形式，数组需要另外附加处理，进行遍历和拼接和分割。</p>
+<h4 id="3-isset"><a href="#3-isset" class="headerlink" title="3. __isset()"></a>3. __isset()</h4><p>外部通过isset()方法访问对象中私有的或受保护的成员属性是否有设置时，会自动调用该魔术方法，该方法</p>
+<pre><code class="php">bool __isset(string $name)
+</code></pre>
+<p>会返回一个布尔值给用户。</p>
+<h4 id="4-unset"><a href="#4-unset" class="headerlink" title="4. __unset()"></a>4. __unset()</h4><p>外部删除对象中受保护的或私有的成员属性时调用unset()时会触发该魔术方法，该方法中的代码段会根据控制情况进行执行，unset()没有返回值</p>
+<pre><code class="php">void __unset(string $name)
+</code></pre>
+<p>这些魔术方法的主要功能是对外部访问对象中的私有的或受保护的成员属性进行控制，并不都能使用到，但如果程序需要这些设置，就可以在类中使用魔术方法，不再需要自己自定义成员方法来进行设置，魔术方法的功能都是固定的，并不需要额外执行功能，比如设置成员属性值的__set()方法，如果对象中没有这个成员属性，会自动添加上这个值，但对象本身并不需要这个值，所以这样做对于该对象，没有任何意义，因此魔术方法的使用必须有意义，如果对象中的成员属性和方法不需要提供外部访问，就不需要设置这些方法，通过类中的方法进行调用，直接返回执行结果就可以了。</p>
+<h2 id="六、继承性"><a href="#六、继承性" class="headerlink" title="六、继承性"></a>六、继承性</h2><p>继承就是用子类去扩展父类。</p>
+<p>C++属于多继承，同一个子类可以有多个父类。但不管是单继承还是多继承，都可以有多个子类。</p>
+<p>设计的类中，都可能有公有的成员属性或方法，就可以把共享的成员属性或方法拿出来，作为一个父类–基类。子类–派生类。</p>
+<h3 id="1-类继承的应用"><a href="#1-类继承的应用" class="headerlink" title="1.类继承的应用"></a>1.类继承的应用</h3><p>声明一个子类，使用extends关键字去继承或扩展一个父类。子类可以从父类继承所有的内容，包括成员属性、成员方法，构造方法…都可以在子类中使用，因此父子类之间的层级关系要设计好。</p>
+<h3 id="2-访问类型控制"><a href="#2-访问类型控制" class="headerlink" title="2.访问类型控制"></a>2.访问类型控制</h3><p>虽然子类可以从父类中继承所有内容，但private成员只能在本类中使用，通过var_dump()查看时虽然能看到父类的私有成员属性，但子类中无法使用父类中的私有成员。封装时，即要让本类中能够使用，又要让子类继承后能使用成员属性或成员方法，修饰时至少需要使用protected关键字。</p>
+<h3 id="3-子类中重载父类的方法"><a href="#3-子类中重载父类的方法" class="headerlink" title="3.子类中重载父类的方法"></a>3.子类中重载父类的方法</h3><p>子类可以声明和父类相同的方法名，即子类中覆盖父类中同名的成员方法。子类的方法是对分类方法的继承和扩展。在子类继承使用父类的方式是：使用关键字extends，父类名后不加括号，例如：class 子类名 extends 父类名 {}。</p>
+<p>在子类中，访问父类中的方法：父类名::方法名  parent::方法名。</p>
+<p>如果子类中有构造方法，会覆盖父类中的构造方法，并且子类中的构造和父类中的构造不完全一样，因此子类继承父类时父类中的所有成员属性和方法都是清楚的，在子类中传递实参时，就必须知道这一点，同时，在子类中使用构造方法，应该先将父类中的构造方法重载一次，就会实现对父类中成员属性的初始化，然后在继续给子类中特有的成员属性进行赋值操作。</p>
+<p>不仅仅是构造方法，子类中所有对父类重载的成员方法都可以直接通过关键字parent来进行重载。但是对于需要重载的成员属性和方法，权限上子类至少要和父类一样，只能更宽松才能实现重载。</p>
+<h2 id="七、PHP类中常用的关键字"><a href="#七、PHP类中常用的关键字" class="headerlink" title="七、PHP类中常用的关键字"></a>七、PHP类中常用的关键字</h2><h3 id="1-final"><a href="#1-final" class="headerlink" title="1. final"></a>1. final</h3><ol>
+<li>只能修饰类和方法，不能修饰成员属性</li>
+<li>使用该关键字修饰的类不能被子类继承</li>
+<li>使用该关键字修饰的成员方法不能在子类中被重载</li>
+</ol>
+<h3 id="2-static"><a href="#2-static" class="headerlink" title="2. static"></a>2. static</h3><ol>
+<li>static只能修饰成员属性和成员方法，不能修饰类</li>
+<li>用static修饰的成员属性，可以被同一个类中的所有对象共享</li>
+<li>静态的数据是存放在静态内存中（数据段）中，一直存活直到脚本结束</li>
+<li>静态的数据是在类第一次加载时存放到静态内存中，以后再用到时直接从数据段中获取</li>
+</ol>
+<p>静态的成员都要使用类名去访问，不用创建对象也不需要创建对象。</p>
+<p>如果在类中使用静态成员，使用self::关键字去访问，如果使用类名，一旦类名被修改，就要作出相应的修改。</p>
+<p><strong>CLASS</strong>虽然可以得到当前类的类名，但不可以使用它来访问类中的静态成员。</p>
+<p>静态方法不能访问非静态的成员，在非静态的方法中，可以访问静态成员。因为非静态成员必须用对象来访问，访问内部的成员使用的<code>$this</code>来访问。静态方法不用对象来调用，也就没有对象，<code>$this</code>也就不能代表什么对象，非静态的成员必须使用对象才可以访问。</p>
+<h3 id="3-const关键字"><a href="#3-const关键字" class="headerlink" title="3. const关键字"></a>3. const关键字</h3><ol>
+<li>在类中声明常量时使用，定义方式和PHP基本语法中讲到的一样</li>
+<li>常量一旦声明就要赋初始值，否则将再不能赋值</li>
+<li>常量也是贮存在静态内存中，不需要设计继承一类说法，静态内存中的数据可以直接访问，访问方式和静态成员属性一样</li>
+<li>外部访问：类名::常量名</li>
+<li>内部访问：self::常量名</li>
+</ol>
+<h3 id="4-instanceof关键字"><a href="#4-instanceof关键字" class="headerlink" title="4. instanceof关键字"></a>4. instanceof关键字</h3><p>使用这个关键字可以确定一个对象是类的实例，类的子类或某个特定的接口，可以判断它是否是由它的先辈类实例化后生成的。</p>
+<h2 id="八、单态设计模式"><a href="#八、单态设计模式" class="headerlink" title="八、单态设计模式"></a>八、单态设计模式</h2><p>单态模式的主要作用是保证在面向对象编程中，一个类只能有一个实例对象存在。在很多操作中，比如建立目录，数据库链接都可能会用到这种技术。和其他面向对象的编程语言相比，PHP中使用单态设计模式尤为重要。脚本语言每次访问都是一次独立执行的过程，这个过程中一个类有一个实例就足够了。比如数据库操作，连接一次数据库就可以，不必要每次进行查询都重复链接一次，浪费内存和系统资源。</p>
+<p>要编写单态设计模式，就必须让一个类只能实例化一个对象。而要想让一个类只能实例化一次对象，就必须让该类不能实例化对象，例如一个简单的数据库操作类DB。</p>
+<pre><code class="php">class Helper
+{
+    public static $instance;
+
+    public static function getInstance()
+    {
+        if (empty(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+}
+</code></pre>
+<h2 id="九、其它魔术方法"><a href="#九、其它魔术方法" class="headerlink" title="九、其它魔术方法"></a>九、其它魔术方法</h2><h3 id="1-clone"><a href="#1-clone" class="headerlink" title="1. __clone()"></a>1. __clone()</h3><ol>
+<li>克隆对象 没有参数，直接在方法体中使用赋值</li>
+<li>原本 （原来的对象）</li>
+<li>复本 （复制出来的对象）</li>
+<li>__clone()就是在克隆对象时自动调用的方法</li>
+<li>只要一个对象一诞生，就要有初使化的动作， 和构造方法__construct作用相似</li>
+<li>在__clone()方法中的<code>$this</code>关键字，代表的是复本, <code>$that</code>代表原本对象，<br>但不一定能方便使用，只是提供了这个关键字</li>
+</ol>
+<p>克隆对象和继承是不一样的，继承是一个完整的功能，并且用到的时候比较多。克隆仅仅是其中的一些细节需要改变，而不需要重新创建一个类时使用。比如一个简单的时间，只因为时间往前而改变，但类已经被初始化过，不方便重新初始化赋值，就可以克隆一个对象，在对象中使用魔术方法__clone()就可以修改仅需要改变的值，而不需要去重新声明一个几乎一样的类。</p>
+<h3 id="2-toString"><a href="#2-toString" class="headerlink" title="2. __toString()"></a>2. __toString()</h3><p>没有参数，以前的旧版本中如果不提供返回值为字符串会报错，但是新版是不需要的，推荐最好有一个return返回，至少为一个空字符串返回。echo对象时快速获取对象的字符串表示的最快捷的方式。对象引用是一个指针，存放对象在堆内存中的首地址的变量。</p>
+<h3 id="3-call"><a href="#3-call" class="headerlink" title="3. __call()"></a>3. __call()</h3><p>需要两个参数，第一个参数是调用不存在的方法时，接受这个方法名称字符串，第二个参数是一个数组。</p>
+<p>魔术方法可以用一个友好的提示用户访问不存在的方法名，但是程序一旦被封装，就要尽可能多隐藏程序中的实现机制。多余的提示不能有，所以这不是这个魔术方法真正的功能。它的作用是：链式操作，例如DB类的一个简单过程。</p>
+<h3 id="4-对象的串行化"><a href="#4-对象的串行化" class="headerlink" title="4. 对象的串行化"></a>4. 对象的串行化</h3><p>对象也是一种在内存中存储的数据类型，它的寿命通常随着生成该对象的终止而终止。有时候，可能需要将对象的状态保存下来，需要时再将对象恢复。对象通过写出描述自己的状态的数值来记录自己，这个过程称为对象的穿行化(serialization)。串行化就是把整个对象转化为二进制字符串。</p>
+<ol>
+<li>对象需要在网络中传输时，将对象串行化成二进制串后在网络中传播</li>
+<li>对象需要持久保存时，将对象串行化后写入文件或数据库中</li>
+</ol>
+<p>使用serialize()函数来串行化一个对象，把对象转化为二进制的字符串，该函数需要一个参数，就是对象的引用名。返回值为一个对象被串行化后的二进制字符串，其字符串含义模糊，一般不需要解析它来得到对象的信息。</p>
+<p>使用unserialize()函数来反串行化一个对象，把对象串行化后转化成的二进制字符串转化为一个对象。</p>
+<p>在调用serialize()函数将对象串行化时，会自动调用对象中__sleep()方法，用来将对象的部分成员串行化。</p>
+<p>在调用unserialize()函数反串行化对象时，会自动调用对象中的__wakeup()方法，用来将二进制串重新转化为一个对象，为新对象中的成员属性重新初始化。</p>
+<p><strong>sleep()函数不需要参数，返回一个数组，在数组中包含需要串行化的属性，未被包含在数组中的属性将不会被串行化，如果没有在类中声明</strong>sleep()方法，对象中的所有属性都被串行化。</p>
+<p>__wakeup()在对象中调用unserialize()时将会自动调用，为需要的成员属性重新赋值。</p>
+<h2 id="5-autoload-自动加载类"><a href="#5-autoload-自动加载类" class="headerlink" title="5. __autoload()自动加载类"></a>5. __autoload()自动加载类</h2><ol>
+<li>是PHP中惟一一个不在类中使用的魔术方法</li>
+<li>使用方式是可以写成一个包含文件，用来包含各种类</li>
+<li>但有一些约束，类名和文件名的定义应该有规律并且遵循一些规范</li>
+</ol>
+<pre><code class="php">function __autoload($className)
+{
+    include(&quot;{$className}.class.php&quot;);
+}
+</code></pre>
+<p>参数是当前页面中使用到的不存在的类名。该魔术方法的触发条件是，在当前页面中，使用到不存在的类名时会自动调用该魔术方法，然后该方法会去尝试加载这些类。如果这个类不存在则报一个错误。在大量使用类的地方，可以尝试使用自动加载，还会减少错误。但是目前该方式使用几乎不再，而是采用spl_autoload_register()函数来实现文件和类的自动加载。</p>
+<h2 id="十、抽象类和接口"><a href="#十、抽象类和接口" class="headerlink" title="十、抽象类和接口"></a>十、抽象类和接口</h2><p>抽象类和接口相似，都是一种特殊的抽象类。抽象类是一种特殊的类，接口是一种特殊的抽象类，它们通常配合面向对象的多态一起使用。</p>
+<h3 id="1-抽象类"><a href="#1-抽象类" class="headerlink" title="1. 抽象类"></a>1. 抽象类</h3><h4 id="1-抽象方法"><a href="#1-抽象方法" class="headerlink" title="1. 抽象方法"></a>1. 抽象方法</h4><ol>
+<li>没有方法体的方法是抽象方法，即声明时没有花括号就直接用分号结束</li>
+<li>使用关键字abstract来修饰</li>
+<li>抽象方法是为了方便继承而引入的</li>
+</ol>
+<p>声明类时只要其中含有抽象方法，该类就是抽象类，也使用关键字abstract修饰。</p>
+<p>抽象类中可以没有抽象方法，抽象类不能实例化。</p>
+<h4 id="2-抽象类的使用"><a href="#2-抽象类的使用" class="headerlink" title="2. 抽象类的使用"></a>2. 抽象类的使用</h4><ol>
+<li>抽象类就像是个半成品，在抽象类中没有被实现的抽象方法，因此无法实例化，也就无法创建对象；</li>
+<li>抽象类包含了继承关系，是为它的子类定义公共的接口，将它的操作（部分或全部）交给子类去完成。</li>
+</ol>
+<p>定义抽象类就相当于定义了一种规范，这种规范要求子类去遵守。当子类继承了抽象类后，就必须把抽象类中的抽象方法按照子类自己的需要去实现。子类必须把父类中的抽象方法全部都实现，否则子类中还存在抽象方法，否则还是抽象类，还不能实例化。</p>
+<h3 id="2-接口"><a href="#2-接口" class="headerlink" title="2. 接口"></a>2. 接口</h3><p>PHP只支持单继承，当声明的新类继承抽象类实现模版以后，它就不能再有其它父类了。为了解决这个问题，php引入了接口。</p>
+<ol>
+<li>接口是一种特殊的抽象类</li>
+<li>如果抽象类中所有的方法都是抽象方法，就可以换一种声明方式，叫接口技术</li>
+<li>接口中声明的所有方法都必须是抽象方法，另外不能在接口中声明成员属性，即变量</li>
+<li>如果需要，也只能在接口中声明const常量</li>
+<li>接口中的所有成员都必须是public访问权限</li>
+<li>接口的声明使用interface关键字</li>
+<li>接口中所有的抽象方法都是抽象方法，因此不再需要加上关键字abstract来修饰了</li>
+<li>接口和抽象类一样都不能实例化对象，它是一种更严格的规范，也需要通过子类来实现，但可以直接使用接口名称在接口外面去获取常量的成员属性值</li>
+<li>也可以使用extends关键字去去让一个接口去继承另一个接口，实现接口之间的扩展</li>
+<li>接口与接口之间可以使用extends继承，扩展</li>
+<li>接口和对象之间使用implements关键字去实现接口的功能</li>
+</ol>
+<p>如果需要使用接口中的成员，需要通过子类去实现接口中的全部抽象方法，然后创建子类的对象去调用在子类中实现的方法。</p>
+<p>如果需要使用子类去实现接口中的部分方法，也需要使用implements去实现，但此时子类还是抽象类，所以仍然是抽象类。</p>
+<p>一个类可以实现多个接口，将要实现的多个接口之间用逗号分隔，而且在子类中要将所有的接口中的抽象方法都实现才能创建对象，就相当于一个类要遵守多个规范。</p>
+<h2 id="十一、多态"><a href="#十一、多态" class="headerlink" title="十一、多态"></a>十一、多态</h2><ol>
+<li>多态是面向对象的三大特性之一，它展现了动态绑定的功能，也成为’同名异构’的方式</li>
+<li>多态的功能可以让软件在开发和维护时，达到充分的延展性</li>
+<li>事实上，多态最直接的定义就是让具有继承关系的的不同类对象，可以对相同名称的成员4. 函数调用，产生不同的反映效果</li>
+<li>所谓多态性是指一段程序能够处理多种类型对象的能力</li>
+</ol>
+<p>在PHP中，多态指的就是方法的重写<br>方法重写是指一个子类中可以重新修改父类的某些方法，使其具有自己的特征，重写要求子类的方法和父类的方法名称相同。 </p>
+<h2 id="十二、类的组织框架"><a href="#十二、类的组织框架" class="headerlink" title="十二、类的组织框架"></a>十二、类的组织框架</h2><p>在大多数以面向对象思想开发的项目中，会使用UML工具中的类图来勾画设计。这些UML图表<br>对新开发人员理解系统是非常有帮助的，也可以作为使用你软件的开发人员的手册。统一建模<br>语言(UML)是一种与具体编程语言无关的用来描述面向对象编程观念的方法。UML设计很多方面，但对PHP程序员来说，其中最相关的两方面是类图和序列图。</p>
+<p>类图描述一个或者更多的类及其在你的程序之间的相互关系。每个类都用一个盒子标识，每个<br>盒子都分成三个部分：第一部分是类名，第二部分列举了类的属性，最后一部分列举了类的方法。</p>
+<p>属性和方法的可见度被设计为：</p>
+<ol>
+<li><code>+</code>号代表public公开部分</li>
+<li><code>—</code>号代表private私有部分</li>
+<li><code>#</code>号代表protected受保护部分</li>
+</ol>
+<p>类图是代码工程的基础，同时也是系统设计部分的主体工作，类图主要体现了系统详细的设计<br>框架。</p>
+<p>通过图可以看到各个类中声明的成员组成，也可以看到每个成员的封装权限情况，当然也可以看到类之间的继承关系，箭头的方向指向父类。</p>
+<p>UML中的序列图描述了为一个特定任务或事件，你对代码中的对象之间的典型的交互活动。</p>
+<p>序列图也称为时序图，是一种UML行为图，它通过描述对象之间发送消息的时间顺序显示多个对象之间的动态协作，一个序列图主要传达这样的信息，谁，以什么样的顺序，在什么时候调用不同的方法。</p>
+<p>序列图是对象集成和开发人员之间交互沟通的非常有用的工具。</p>
+<h2 id="十三、和对象相关的函数"><a href="#十三、和对象相关的函数" class="headerlink" title="十三、和对象相关的函数"></a>十三、和对象相关的函数</h2><ol>
+<li>class_exists() 检查类是否已定义</li>
+<li>get_class_methods() 返回由类的方法名组成的数组</li>
+<li>get_class() 返回对象的类名</li>
+<li>get_object_vars() 返回由对象属性组成的关联数组</li>
+<li>get_parent_class() 返回对象或类的父类名</li>
+<li>is_a() 如果对象属于该类或者该类是此对象的先辈类</li>
+<li>method_exists() 检查对象的方法是否存在</li>
+<li>property_exists() 检查给出的属性是否存在于该类中</li>
+</ol>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/03/standard/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">31. (转)PHP运行机制</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhgxun<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and <a href="https://github.com/zhgxun" target="_blank">GitHub.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
