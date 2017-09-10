@@ -60,6 +60,64 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-apache-config" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/10/apache-config/">33. Apache请求超过了10个内部重定向的限制</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/10/apache-config/" class="article-date"><time datetime="2017-09-10T14:55:38.000Z" itemprop="datePublished">2017-09-10</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/apache/">apache</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本地原一直使用Nginx作为Web服务器，今天刚重置了Mac，就沿用系统自带的Apache作为服务器。</p>
+<p>配置完虚拟机和重定向，提示500内部错误，查看权限错误日志，有如下说明：</p>
+<pre><code>[Mon Jun 19 12:14:08.349798 2017] [core:error] [pid 5839] [client 127.0.0.1:50553] AH00124:
+Request exceeded the limit of 10 internal redirects due to probable configuration error.
+Use &#39;LimitInternalRecursion&#39; to increase the limit if necessary.
+Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
+</code></pre><p>由于可能的配置错误，请求超过了10个内部重定向的限制。如果需要，使用“LimitInternalRecursion”来增加限制。 使用’LogLevel debug’来获得一个回溯。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/10/apache-config/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-object" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -593,82 +651,6 @@
 </article>
 
   
-    <article id="post-gii" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/gii/">23. Yii2如何重写Gii生成的列表页按钮</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/gii/" class="article-date"><time datetime="2017-08-21T04:28:08.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。</p>
-<pre><code class="php">// 默认是不需要设置的，默认值是
-[
-    &#39;class&#39; =&gt; &#39;yii\grid\ActionColumn&#39;,
-    &#39;template&#39; =&gt; &#39;{view} {update} {delete}&#39;
-],
-
-// 可以看到默认的实现方式是：
-protected function initDefaultButtons()
-{
-    if (!isset($this-&gt;buttons[&#39;view&#39;])) {
-        $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
-            $options = array_merge([
-                &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
-                &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
-                &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
-                &#39;data-pjax&#39; =&gt; &#39;0&#39;,
-            ], $this-&gt;buttonOptions);
-            return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
-        };
-    }
-}
-// 即是使用Bootstrap的字体和样式实现的
-</code></pre>
-<p>因此就可以重写该类，覆盖原来的内容。因为常用的操作就这么多，修改默认样式和增加新按钮相对多些。比如不想用默认的图标，想改成汉字，比如”查看”， “编辑”, “删除”，则只需要改变return的行为就可以，</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/gii/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -683,7 +665,7 @@ protected function initDefaultButtons()
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">8</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">8</span></li></ul>
   </div>
 
 
@@ -692,6 +674,10 @@ protected function initDefaultButtons()
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/10/apache-config/">33. Apache请求超过了10个内部重定向的限制</a>
+        </li>
       
         <li>
           <a href="/2017/09/10/object/">32. PHP面向对象基础</a>
@@ -707,10 +693,6 @@ protected function initDefaultButtons()
       
         <li>
           <a href="/2017/08/29/reg-ip/">29. 正则表达式之ip地址匹配</a>
-        </li>
-      
-        <li>
-          <a href="/2017/08/26/swoole-platform/">28. 用swoole_process写一个跑数平台</a>
         </li>
       
     </ul>

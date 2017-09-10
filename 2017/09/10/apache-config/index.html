@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>33. Apache请求超过了10个内部重定向的限制 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-apache-config" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      33. Apache请求超过了10个内部重定向的限制
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/10/apache-config/" class="article-date"><time datetime="2017-09-10T14:55:38.000Z" itemprop="datePublished">2017-09-10</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/apache/">apache</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本地原一直使用Nginx作为Web服务器，今天刚重置了Mac，就沿用系统自带的Apache作为服务器。</p>
+<p>配置完虚拟机和重定向，提示500内部错误，查看权限错误日志，有如下说明：</p>
+<pre><code>[Mon Jun 19 12:14:08.349798 2017] [core:error] [pid 5839] [client 127.0.0.1:50553] AH00124:
+Request exceeded the limit of 10 internal redirects due to probable configuration error.
+Use &#39;LimitInternalRecursion&#39; to increase the limit if necessary.
+Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
+</code></pre><p>由于可能的配置错误，请求超过了10个内部重定向的限制。如果需要，使用“LimitInternalRecursion”来增加限制。 使用’LogLevel debug’来获得一个回溯。</p>
+<a id="more"></a>
+<p>原因是我直接在httpd.conf中配置重定向操作，导致重定向嵌套。将重写配置迁移到虚拟机中即可:</p>
+<pre><code>&lt;VirtualHost *:80&gt;
+    # 错误发生时，如果支持会发送邮件到该地址
+    ServerAdmin 978771018@qq.com
+    # 该虚拟机对应的可访问入口文件所在目录
+    DocumentRoot &quot;/Users/zhgxun/Public/html/php/zoulu/frontend/web&quot;
+    # 域名
+    ServerName frontend.com
+
+    # 重定向配置
+    &lt;Directory &quot;/Users/zhgxun/Public/html/php/zoulu/frontend/web&quot;&gt;
+        # 开启 mod_rewrite 用于美化 URL 功能的支持
+        RewriteEngine On
+        # 如果请求的是真实存在的文件或目录，直接访问
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # 如果请求的不是真实文件或目录，分发请求至 index.php
+        RewriteRule . index.php
+    &lt;/Directory&gt;
+
+    # 错误日志
+    ErrorLog &quot;/Users/zhgxun/Public/html/logs/frontend.com-error_log&quot;
+    # 权限日志
+    CustomLog &quot;/Users/zhgxun/Public/html/logs/frontend.com-acess_log&quot; common
+&lt;/VirtualHost&gt;
+</code></pre>
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/10/object/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">32. PHP面向对象基础</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
