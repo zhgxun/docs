@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>38. PHP在升序数组中查找绝对值最小的元素 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-min-abs" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      38. PHP在升序数组中查找绝对值最小的元素
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/min-abs/" class="article-date"><time datetime="2017-09-11T03:18:39.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是不久前我在滴滴出行时，面试官让我在纸上写出来的面试题。在一个升序排列的数组中, 查找绝对值最小的元素。分析, 数组升序排列, 两边的数值绝对值只会越来越大, 绝对值最小的元素必须在中间趋近于0的地方,因此思路就是不断的遍历数组, 找到趋近于0的这个位置。考虑四种情况:</p>
+<ol>
+<li>数组全部为正数时, 绝对值最小的元素是第一位;</li>
+<li>数组全部为负值时, 绝对值最小的元素为最后一位;</li>
+<li>数组即包含正数, 也包含负数时, 需要找到趋近于0的位置, 找到两边的正数和负数, 比较这两个元素的大小;</li>
+<li>数组为空或为一个元素时, 就是该元素或不存在。</li>
+</ol>
+<p>这个题的思路并不难, 一般都会一开始就想到, 关键是面试时如何在纸上正确写出。我在网上搜索了下，发觉这是一道很老的面试题了，遗憾没有为找工作刷过题，当时没能在纸上写出来，但是思路是正确的，就卡在如何处理有正负数时的情况。我想到了用中点来快速遍历，但是一下子没多想，可能还是因为紧张，就没想到<code>while</code>循环的数组下标处理方式，而是去设计每次判断中点偏离了解题思路。</p>
+<a id="more"></a>
+<p>代码如下：</p>
+<pre><code class="php">namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+
+/**
+ * 测试
+ *
+ * @package App\Console\Commands
+ */
+class Test extends Command
+{
+    protected $signature = &#39;test&#39;;
+    protected $description = &#39;测试样例&#39;;
+
+    public function handle()
+    {
+        $arr1 = [1, 5, 8, 10];
+        $arr2 = [-4, -3, -2];
+        $arr3 = [0];
+        $arr4 = [-10, -8, -2, 0, 1, 6, 8];
+        $this-&gt;info($this-&gt;minAbs($arr1));
+        $this-&gt;info($this-&gt;minAbs($arr2));
+        $this-&gt;info($this-&gt;minAbs($arr3));
+        $this-&gt;info($this-&gt;minAbs($arr4));
+    }
+
+    /**
+     * 在一个升序排列的数组中, 查找绝对值最小的元素
+     * 
+     * @param array $list 升序排列的有序原数组
+     * @return bool|mixed 返回找到的元素或者布尔错误
+     */
+    public function minAbs($list = [])
+    {
+        $start = 0;
+        $length = count($list);
+        // 全部为正数时
+        if ($length &lt;= 1) {
+            return $list[0] ?? false;
+        }
+        if ($list[0] &gt;= 0) {
+            return $list[0];
+        } elseif ($list[$length - 1] &lt; 0) {
+            return $list[$length - 1];
+        } else {
+            // 既然是正序排列的数组, 那么绝对值最小的元素必定是在正数和负数交界处, 比较两个值即可
+            while ($start &lt;= $length) {
+                // 取中点, floor返回值为float类型, 强制转化类型
+                $middle = intval(floor(($length + $start) / 2));
+                // 如果中间值是正数, 看上一个值是否为正数
+                if ($list[$middle] &gt;= 0) {
+                    // 如果上一个值也大于0, 则该位置全部属于正数, 需要往前继续查找
+                    if ($list[$middle - 1] &gt;= 0) {
+                        $length = $middle - 2;
+                    // 如果上一个值是负数, 则绝对值最小的元素在该位置产生
+                    } else {
+                        return abs($list[$middle]) &gt; abs($list[$middle - 1]) ? $list[$middle - 1] : $list[$middle];
+                    }
+                // 当前在负值区域
+                } else {
+                    if ($list[$middle + 1] &lt;= 0) {
+                        $start = $middle + 2;
+                    // 该处为正值区域, 绝对值最小的元素在该处产生
+                    } else {
+                        return abs($list[$middle]) &gt; abs($list[$middle + 1]) ? $list[$middle + 1] : $list[$middle];
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
+</code></pre>
+<p>测试样例输出：</p>
+<pre><code class="bash">zhgxun-pro:ankerbox_finance zhgxun$ php artisan test
+1
+-2
+0
+0
+zhgxun-pro:ankerbox_finance zhgxun$
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/11/accuracy/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">37. PHP处理数学精度</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
