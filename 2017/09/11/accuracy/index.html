@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>37. PHP处理数学精度 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-accuracy" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      37. PHP处理数学精度
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/accuracy/" class="article-date"><time datetime="2017-09-11T02:03:35.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用编程语言做计算，很多时候浮点数精度都是困扰过我的问题，即便是刚学PHP的新手也会在群里问为什么我的计算结果明显不对，而我们总是老态龙钟的丢出一句浮点数计算都存在精度问题，并没有提出过什么实质性的改善。比如下面的计算 <code>0.57*100</code>：</p>
+<pre><code class="bash">zhgxun-pro:~ zhgxun$ php -a
+Interactive shell
+
+php &gt; echo intval(0.57*100);
+56
+php &gt; echo 0.57*100;
+57
+php &gt;
+</code></pre>
+<p>看到结果其实我们已经想到了，很多时候我们忽略精度问题，一定意义上是因为我们没有对计算结果进行类型转换，巧妙的得到了更好的结果值。但是总会有（细心）的开发者会自作聪明的对结果进行指定，恰恰得到了相反的效果。这也是为什么我一直没有仔细想过这个问题的原因，按动态解释性语言的特性，变量都是在运行时才最终确定的，所以不要刻意去转换类型，即便你很确认变量就应该是这个样子的。</p>
+<p>我记得在刚学PHP的时候，偶然间看到网络上高洛峰的一个视频，其间有一句话就说以后你们在PHP编程中，会遇到很多一时半会解释不清楚的问题，那时候你们首先想到的应该是这门语言的特性–解释性，自然你就会慢慢理解了。</p>
+<a id="more"></a>
+<p>直到前几天在滴滴出行面试，直接问我你们是怎么解决精度问题的？想了一下，说没有处理。你爱怎么想就怎么想吧，因为我觉得我们的数据最终表现其实是良好的。说起业务工具，还说你们都怎么处理，你们做的不就是BI部门做的吗，那上游的数据变了，你们的数据不也就错了吗！看着他一副道貌岸然的样子，我都懒得解释了，虽然我们聚美现在不如你滴滴出行，我们也没那么差，这种低级错误，很早就已经解决了，多说无益。而且我们用这么点工资就做出了这些事情，你们拿那么多钱，也没觉得你们成了这个行业的标杆啊。最后说我们想找一个有处理精度和数据库事务经验的人，很遗憾你不符合我们的标准。其实我很反感的还是前一个问题，他问我MyISAM和InnoDB引擎都有什么区别，还说既然你们都不用事务，那你还用InnoDB做什么，直接用MyISAM不就行了吗！我说对我们的业务来说用什么都能做到，MySQL现在的默认引擎就是InnoDB，那我们就用呗。显然这种理由他也很无语，后来我想了下，其实工具确实就是用来解决问题的，既然都能解决问题，那为啥非要说用哪个好呢。虽然我承认有好的工具，但是我没有根据它自己的特性来使用它，而是选择了另一个替代品，我觉得没毛病啊，随你吧。</p>
+<p>后来我看了下，PHP确实有这么一个扩展库，<strong>BCMath</strong>处理任意精度数字，对于任意精度的数学，PHP提供了支持用字符串表示的任意大小和精度的数字的二进制计算。自 PHP 4.0.4，libbcmath 随同 PHP 一起发布，该扩展不需要任何外部的库。官方文档提供的<a href="http://php.net/manual/zh/ref.bc.php" target="_blank" rel="external">函数</a>有如下这些：</p>
+<ol>
+<li>bcadd — 2个任意精度数字的加法计算</li>
+<li>bccomp — 比较两个任意精度的数字</li>
+<li>bcdiv — 2个任意精度的数字除法计算</li>
+<li>bcmod — 对一个任意精度数字取模</li>
+<li>bcmul — 2个任意精度数字乘法计算</li>
+<li>bcpow — 任意精度数字的乘方</li>
+<li>bcpowmod — Raise an arbitrary precision number to another, reduced by a specified modulus</li>
+<li>bcscale — 设置所有bc数学函数的默认小数点保留位数</li>
+<li>bcsqrt — 任意精度数字的二次方根</li>
+<li>bcsub — 2个任意精度数字的减法</li>
+</ol>
+<p>如果不是设计太复杂的运算，只需要其中的加减乘除既可以做到高精度的数学处理。</p>
+<pre><code class="php">class Test extends Command
+{
+    protected $signature = &#39;test&#39;;
+    protected $description = &#39;测试样例&#39;;
+
+    public function handle()
+    {
+        // 使用BCMath进行高精度运算
+        $a = 0.57;
+        $b = 100;
+
+        echo intval($a * $b) . PHP_EOL;
+        echo $a * $b . PHP_EOL;
+        echo bcmul($a, $b) . PHP_EOL;
+
+        $c = 1;
+        $d = 3;
+        echo intval($c / $d) . PHP_EOL;
+        echo $c / $d . PHP_EOL;
+        echo bcdiv($c, $d, 6) . PHP_EOL;
+    }
+}
+</code></pre>
+<p>执行结果：</p>
+<pre><code class="bash">zhgxun-pro:ankerbox_finance zhgxun$ php artisan test
+56
+57
+57
+0
+0.33333333333333
+0.333333
+zhgxun-pro:ankerbox_finance zhgxun$
+</code></pre>
+<p>结果跟说明的一样，你只要不要刻意去做数字精度的转换计算，PHP其实表现的很良好的，并没有大家说的那么可怕，觉得这门语言有太多的问题。只是可能当我们知道PHP有专门的函数来处理这个问题时，会不由自主的也觉得精度问题就应该这么做才对，如果对方碰巧不知道这其中的问题，就觉得对方很low一般，而表现的很不尊重别人。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/11/httpd/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">36. 安装 httpd-2.4.25</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
