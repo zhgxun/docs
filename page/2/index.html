@@ -60,6 +60,67 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-reg-ip" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/29/reg-ip/">29. 正则表达式之ip地址匹配</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/29/reg-ip/" class="article-date"><time datetime="2017-08-29T13:45:44.000Z" itemprop="datePublished">2017-08-29</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>白天和小伙伴聊起明后天就要去瓜子和蚂蜂窝面试，他说真棒，瓜子我朋友刚去过，蚂蜂窝去年我去过，没成，蚂蜂窝可是被称为望京的小阿里巴巴呢。当时问了很多Web端的东西，这方面不怎么懂。说让我写个正则，匹配邮箱和ip地址，不会写。想起前几次面试，也是同样的问题，就让写个匹配邮箱的正则，我都是空着。还问我，你不会写正则吗？恩，很少写了。像这样的正则其实是应该背下来的，虽然用的不多，但是毕竟问过好多次了。刚好想起前年读过的一本小书《正则表达式必知必会》，其中就有这篇关于ip地址匹配，当时觉得挺有趣，还抄写下来，终于从尘封的电脑文档中找出来了。</p>
+<p>有这样一段文本：</p>
+<pre><code>Pinging hog.forta.com [12.159.46.200] with 32 bytes of data.
+</code></pre><p>匹配出其中的ip地址，简单粗暴的处理方式是：</p>
+<pre><code class="php">$pattern = &#39;/(\d{1,3}\.){3}\d{1,3}/&#39;;
+</code></pre>
+<p>但是注意，不可以使用下面的方式：</p>
+<pre><code class="php">$pattern = &#39;/(\d{1,3}\.){4}/&#39;;
+</code></pre>
+<p>因为至少要保证ip地址的格式是以英文句号分隔的四组数字，每组数字由1个，2个或者3个数字字符构成。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/29/reg-ip/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-swoole-platform" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -615,59 +676,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 </article>
 
   
-    <article id="post-yii2-qiniu" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/yii2-qiniu/">19. Yii2使用七牛云存储</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/yii2-qiniu/" class="article-date"><time datetime="2017-08-21T03:43:26.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>初学yii2时，不怎么理解前后台分离的思路，有一阵子还纠结怎么处理图片上传的问题。毕竟在已做过的项目中，图片都是直接上传到项目中的一个类似Public/images/*的目录中。发觉这些做法在这里行不通了，在网上也搜查过一些，比较多的答案是配置一台图片<br>服务器，就可以前后台访问了。后来都觉得麻烦，幸好目前在做的项目中，使用了七牛。觉得还方便一些，提供了很多通用的接口，解决了例如断点续传这样的问题。</p>
-<p><a href="http://developer.qiniu.com/code/v7/sdk/php.html" target="_blank" rel="external">PHP开发者地址</a>，基本的使用文档不仅在官网提供，在源代码中也有很多有用的实例。七牛的SDK也在不断更新，要随时看最新的文档。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/yii2-qiniu/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -682,7 +690,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">8</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">9</span></li></ul>
   </div>
 
 
@@ -691,6 +699,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/14/fall/">39. 谁会留意这个秋天</a>
+        </li>
       
         <li>
           <a href="/2017/09/11/min-abs/">38. PHP在升序数组中查找绝对值最小的元素</a>
@@ -706,10 +718,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2017/09/10/start/">35. 林达-走向世界的起点</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/10/worm/">34. 蛲虫：一生总会遇见一次的过客</a>
         </li>
       
     </ul>
