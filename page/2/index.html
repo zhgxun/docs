@@ -60,6 +60,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-custom" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/03/custom/">30. Yii2在DetailView中使用自定义方法解析模型数据</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/03/custom/" class="article-date"><time datetime="2017-09-03T10:56:32.000Z" itemprop="datePublished">2017-09-03</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者：尐邪|2015-4-23 交流探讨</p>
+<p>说明：yii2提供了足够解析模型数据的方法，但有时候我们还是需要实现一些自定义的数据格式，如果框架提供的方法不足以满足要求时，除了直接在模板中改写外，其实可以看看框架的源码，为框架增加更多的新方法。前几天在群里看到说，yii2的作者已经转go了，这个框架更新已经不在积极。</p>
+<p>如GridView Widget中可以使用匿名方法对模型数据进行自定义格式化处理类似，DetailView Widget也提供了类似的处理方法，只是稍微繁琐一些，查看DetailView源码可以发现：</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/03/custom/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-reg-ip" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -613,69 +667,6 @@ protected function initDefaultButtons()
 </article>
 
   
-    <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/rename/">20. shell重命名目录中文件名称</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/rename/" class="article-date"><time datetime="2017-08-21T03:48:09.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。</p>
-<p>常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得的），有些字段可能周期中就使用过一两次或者根本没有使用过，也把它处理了。然后我贴了类似这样重复的代码：</p>
-<pre><code class="php">if (isset($request[&#39;content&#39;]) &amp;&amp; trim($request[&#39;content&#39;])) {
-    $query-&gt;andFilterWhere([&#39;like&#39;, &#39;content&#39;, trim(strip_tags($request[&#39;content&#39;]))]);
-}
-if (isset($request[&#39;userid&#39;]) &amp;&amp; intval($request[&#39;userid&#39;])) {
-    $query-&gt;andFilterWhere([&#39;userid&#39; =&gt; intval($request[&#39;userid&#39;])]);
-}
-if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#39;])) {
-    $query-&gt;andFilterWhere([&#39;&gt;=&#39;, &#39;ctime&#39;, trim($request[&#39;start&#39;])]);
-}
-</code></pre>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/rename/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -690,7 +681,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">9</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">10</span></li></ul>
   </div>
 
 
@@ -699,6 +690,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/15/xian/">40、西安</a>
+        </li>
       
         <li>
           <a href="/2017/09/14/fall/">39. 谁会留意这个秋天</a>
@@ -714,10 +709,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2017/09/11/httpd/">36. 安装 httpd-2.4.25</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/10/start/">35. 林达-走向世界的起点</a>
         </li>
       
     </ul>
