@@ -60,6 +60,59 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-bathinsert" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/bathinsert/">21. Yii2批量导入大数据的快捷方法</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/bathinsert/" class="article-date"><time datetime="2017-08-21T03:51:09.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。</p>
+<p>后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时涉及到需要给发放优惠券的用户发送一条私信通知，这个连接非常耗时，没办法同步发送，最后只能拆分开来，将用户存入redis中，用系统自带的crontab计划任务来完成了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/bathinsert/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -559,64 +612,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 </article>
 
   
-    <article id="post-tianchi" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/25/tianchi/">11. 天山天池</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/07/25/tianchi/" class="article-date"><time datetime="2017-07-25T15:21:14.000Z" itemprop="datePublished">2017-07-25</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/travel/">travel</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、起点"><a href="#1、起点" class="headerlink" title="1、起点"></a>1、起点</h2><p>早上六点半我就起来冲凉洗漱。在大厅整理昨天的日志，厅里面两只猫老来干扰我，还抓我衣服，赶也赶不走，不是蹭我键盘就是要蹲我桌子上，趴我腿上，太粘人，我不喜欢逗小动物，招架不住就只好回到床上来了。</p>
-<p>坤坤叫我说，他已经到了，还买好了早餐。看时间才8点多，昨天提醒的集合时间是8点半。下楼来找到他，我们走到停车处，看好车上靠前的位置，把包放在座位上，下车来吃早餐。早上去天池的人还不少，有一些还是临时来报名的。我看有一个中年男子在那里拿着本子登记，哪些是昨天报名的，哪些已经到了……一个中年大妈嗓门很大，到处问到处喊，手舞足蹈，哪个车，来这里登记，往那边走……一会儿飘在这里，一会儿就扭到了那边。</p>
-<p>有些临时问要去天池的，她就喊一个人70的车费。有一波人好像是早上提醒她了，说给他们安排到我们的车上，刚好5个位子。结果是她记错了，我们车上已经满员。那一波人就不停的叫嚣。她指着前面的车说把他们安排到小车上，说这也是我们的车，是我记错了，我会给你们安排好的……坤坤买的早餐多，我们吃了油条和鸡蛋，豆腐脑和包子就吃不完，只能带在车上当中午饭吃。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/07/25/tianchi/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/2/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li><a class="page-number" href="/page/2/">2</a></li><li class="active"><span class="page-number">3</span></li><li><a class="page-number" href="/page/4/">4</a></li><li><a class="page-next" rel="next" href="/page/4/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/2/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li><a class="page-number" href="/page/2/">2</a></li><li class="active"><span class="page-number">3</span></li><li><a class="page-number" href="/page/4/">4</a></li><li><a class="page-number" href="/page/5/">5</a></li><li><a class="page-next" rel="next" href="/page/4/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -627,7 +626,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">10</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">10</span></li></ul>
   </div>
 
 
@@ -636,6 +635,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/17/runner/">41. Go管理任务运行和生命周期</a>
+        </li>
       
         <li>
           <a href="/2017/09/15/xian/">40. 西安</a>
@@ -651,10 +654,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2017/09/11/accuracy/">37. PHP处理数学精度</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/11/httpd/">36. 安装 httpd-2.4.25</a>
         </li>
       
     </ul>
