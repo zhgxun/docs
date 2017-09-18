@@ -81,7 +81,7 @@
       
         <p>内容参考<a href="https://studygolang.com/pkgdoc" target="_blank" rel="external">net</a>包，net包提供了可移植的网络I/O接口，包括TCP/IP、UDP、域名解析和Unix域socket。</p>
 <p>虽然本包提供了对网络原语的访问，大部分使用者只需要Dial、Listen和Accept函数提供的基本接口；以及相关的Conn和Listener接口。crypto/tls包提供了相同的接口和类似的Dial和Listen函数。</p>
-<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><p>在服务器端我们需要绑定服务到指定的非激活端口, 并监听此端口；当有客户端请求到达的时候可以接收到来自客户端连接的请求。</p>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>在服务器端我们需要绑定服务到指定的非激活端口, 并监听此端口；当有客户端请求到达的时候可以接收到来自客户端连接的请求。</p>
 <a id="more"></a>
 <pre><code class="go">package main
 
@@ -162,7 +162,7 @@ func handleClient(conn net.Conn) {
     }
 }
 </code></pre>
-<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><p>首先程序将用户的输入作为参数service传入net.ResolveTCPAddr获取一个tcpAddr，然后把tcpAddr传入DialTCP后创建了一个TCP连接conn，通过conn来发送请求信息，最后通过ioutil.ReadAll从conn中读取全部的文本，也就是服务端响应反馈的信息。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>首先程序将用户的输入作为参数service传入net.ResolveTCPAddr获取一个tcpAddr，然后把tcpAddr传入DialTCP后创建了一个TCP连接conn，通过conn来发送请求信息，最后通过ioutil.ReadAll从conn中读取全部的文本，也就是服务端响应反馈的信息。</p>
 <pre><code class="go">package main
 
 import (
@@ -246,7 +246,7 @@ func main() {
     os.Exit(0)
 }
 </code></pre>
-<h1 id="服务端启动"><a href="#服务端启动" class="headerlink" title="服务端启动"></a>服务端启动</h1><p>服务端每次请求结束后都会以文件结束符标志输出。</p>
+<h2 id="服务端启动"><a href="#服务端启动" class="headerlink" title="服务端启动"></a>服务端启动</h2><p>服务端每次请求结束后都会以文件结束符标志输出。</p>
 <pre><code class="bash">zhgxun-pro:go zhgxun$ go run server.go 
 EOF
 EOF
@@ -255,7 +255,7 @@ EOF
 EOF
 EOF
 </code></pre>
-<h1 id="客户端输出"><a href="#客户端输出" class="headerlink" title="客户端输出"></a>客户端输出</h1><p>当客户端停止写入时，服务端将全部数据返回。</p>
+<h2 id="客户端输出"><a href="#客户端输出" class="headerlink" title="客户端输出"></a>客户端输出</h2><p>当客户端停止写入时，服务端将全部数据返回。</p>
 <pre><code class="bash">zhgxun-pro:go zhgxun$ 
 zhgxun-pro:go zhgxun$ go run client.go 127.0.0.1:1200
 2017-09-17 21:07:44a~~~b~~~~~c~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
