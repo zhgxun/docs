@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>45. Go http rpc 笔记 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-httprpc" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      45. Go http rpc 笔记
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/19/httprpc/" class="article-date"><time datetime="2017-09-19T04:49:54.000Z" itemprop="datePublished">2017-09-19</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>rpc包提供了通过网络或其他I/O连接对一个对象的导出方法的访问。服务端注册一个对象，使它作为一个服务被暴露，服务的名字是该对象的类型名。注册之后，对象的导出方法就可以被远程访问。服务端可以注册多个不同类型的对象(服务)，但注册具有相同类型的多个对象是错误的。</p>
+<p>只有满足如下标准的方法才能用于远程访问，其余方法会被忽略:</p>
+<ol>
+<li>方法是导出的；</li>
+<li>方法有两个参数，都是导出类型或内建类型；</li>
+<li>方法的第二个参数是指针；</li>
+<li>方法只有一个error接口类型的返回值。</li>
+</ol>
+<p>事实上，方法必须看起来像这样：</p>
+<pre><code class="go">func (t *T) MethodName(argType T1，replyType *T2) error
+</code></pre>
+<p>其中T，T1和T2都能被 encoding/gob 包序列化；这些限制即使使用不同的编解码器也适用(未来，对定制的编解码器可能会使用较宽松一点的限制)。</p>
+<p>方法的第一个参数代表调用者提供的参数；第二个参数代表返回给调用者的参数。方法的返回值，如果非nil，将被作为字符串回传，在客户端看来就和errors.New创建的一样。如果返回了错误，回复的参数将不会被发送给客户端。</p>
+<a id="more"></a>
+<p>服务端可能会在单个连接上调用ServeConn管理请求。更典型地，它会创建一个网络监听器然后调用Accept，或者，对于HTTP监听器，调用HandleHTTP和http.Serve。比如文档的例子：</p>
+<pre><code class="go">arith := new(Arith)
+rpc.Register(arith)
+rpc.HandleHTTP()
+// 1. 先调用Listen来监听后
+l, e := net.Listen(&quot;tcp&quot;, &quot;:1234&quot;)
+if e != nil {
+    log.Fatal(&quot;listen error:&quot;, e)
+}
+// 2. 再启动服务
+go http.Serve(l, nil)
+</code></pre>
+<p>想要使用服务的客户端会创建一个连接，然后用该连接调用NewClient。更方便的函数Dial(DialHTTP)会在一个原始的连接(或HTTP连接)上依次执行这两个步骤。生成的Client类型值有两个方法，Call和Go，它们的参数为要调用的服务和方法，一个包含参数的指针，一个用于接收结果的指针。Call方法会等待远端调用完成，而Go方法异步的发送调用请求并使用返回的Call结构体类型的Done通道字段传递完成信号。除非设置了显式的编解码器，本包默认使用encoding/gob包来传输数据。</p>
+<h2 id="http-rpc-服务端"><a href="#http-rpc-服务端" class="headerlink" title="http rpc 服务端"></a>http rpc 服务端</h2><p>这是来自<a href="https://studygolang.com/pkgdoc" target="_blank" rel="external">文档</a>的例子。如同常规方法一样，服务端编写可正常执行操作的一系列方法集合，暴露给外部包调用，将这些方法按rpc的规则注册并启动监听服务，客户端就可以进行访问并获取结果值。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;errors&quot;
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+    &quot;net/rpc&quot;
+)
+
+// 两个整数参数
+type Args struct {
+    A, B int
+}
+
+// 商
+// Quo除法 Rem取余
+type Quotient struct {
+    Quo, Rem int
+}
+
+type Arith int
+
+// 执行乘法
+// Args 参数结构体
+// reply 保存结果
+// error 返回值
+func (t *Arith) Multiply(args *Args, reply *int) error {
+    *reply = args.A * args.B
+    return nil
+}
+
+// 执行除法
+// Args 参数结构体
+// Quotient 保存结算结果
+// error 返回值
+func (t *Arith) Divide(args *Args, quo *Quotient) error {
+    if args.B == 0 {
+        return errors.New(&quot;divide by zero&quot;)
+    }
+    quo.Quo = args.A / args.B
+    quo.Rem = args.A % args.B
+    return nil
+}
+
+func main() {
+    // 注册Arith的RPC服务, 然后通过rpc.HandleHTTP函数把该服务注册到了HTTP协议上,
+    // 然后我们就可以利用http的方式来传递数据了
+    arith := new(Arith)
+    rpc.Register(arith)
+    rpc.HandleHTTP()
+
+    err := http.ListenAndServe(&quot;:1234&quot;, nil)
+    if err != nil {
+        fmt.Println(err.Error())
+    }
+}
+</code></pre>
+<p>HandleHTTP函数注册DefaultServer的RPC信息HTTP处理器对应到DefaultRPCPath，和DefaultServer的debug处理器对应到DefaultDebugPath。HandleHTTP函数会注册到http.DefaultServeMux。之后，仍需要调用http.Serve()，一般会另开线程：”go http.Serve(l, nil)”。</p>
+<p>直接启动即可提供注册的服务，供调用的客户端使用。</p>
+<pre><code class="bash">zhgxun-pro:httprpcserver zhgxun$ go run httpserver.go
+</code></pre>
+<h2 id="http-rpc-客户端"><a href="#http-rpc-客户端" class="headerlink" title="http rpc 客户端"></a>http rpc 客户端</h2><p>客户端使用也比较明确，只需要连接上服务端地址和端口，就可以按同步Call和异步Go的方式使用。由于语言的原因，客户端也基本上要重复定义一次相同的数据结构来传递参数和接收返回的结果值。需要注意的是，异步的方式会按通道事件返回，需要一些记录结果返回的时机便于操作。而且使用异步时，附带的环境信息都是interface类型，如需使用，需要做更进一步的转化，可能会用到反射refect或类型断言等机制。</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;log&quot;
+    &quot;net/rpc&quot;
+    &quot;os&quot;
+)
+
+// 两个整数参数
+type Args struct {
+    A, B int
+}
+
+// 两个整数值 Quo除法 Rem取余
+type Quotient struct {
+    Quo, Rem int
+}
+
+func main() {
+    if len(os.Args) != 2 {
+        fmt.Println(&quot;Usage: &quot;, os.Args[0], &quot;server&quot;)
+        os.Exit(1)
+    }
+    // 连接提供服务的地址
+    serverAddress := os.Args[1]
+
+    // 连接服务器
+    client, err := rpc.DialHTTP(&quot;tcp&quot;, serverAddress+&quot;:1234&quot;)
+    if err != nil {
+        log.Fatal(&quot;dialing error:&quot;, err)
+    }
+    // 提供参数
+    args := Args{20, 6}
+    var reply int
+
+    fmt.Println(&quot;Call...&quot;)
+    // 同步调用rpc服务
+    // Arith.Multiply 服务器上提供的对应执行方法
+    // args 提供符合格式需要的参数
+    // reply 接收计算结果
+    // 返回错误信息
+    // Call调用指定的方法, 等待调用返回, 将结果写入reply, 然后返回执行的错误状态
+    // serviceMethod 方法为服务端注册的已有方法, 然后是参数传递和结果返回值指针
+    err = client.Call(&quot;Arith.Multiply&quot;, args, &amp;reply)
+    if err != nil {
+        log.Fatal(&quot;arith error:&quot;, err)
+    }
+    fmt.Printf(&quot;Call Arith: %d*%d=%d\n&quot;, args.A, args.B, reply)
+
+    var quot Quotient
+    err = client.Call(&quot;Arith.Divide&quot;, args, &amp;quot)
+    if err != nil {
+        log.Fatal(&quot;arith error:&quot;, err)
+    }
+    fmt.Printf(&quot;Call Arith: %d/%d=%d remainder %d\n&quot;, args.A, args.B, quot.Quo, quot.Rem)
+
+    fmt.Println(&quot;Go...&quot;)
+    // Go异步的调用函数
+    // 本方法Call结构体类型指针的返回值代表该次远程调用
+    // 通道类型的参数done会在本次调用完成时发出信号(通过返回本次Go方法的返回值)
+    // 如果done为nil, Go会申请一个新的通道(写入返回值的Done字段)
+    // 如果done非nil, done必须有缓冲, 否则Go方法会故意崩溃
+    // new 本身返回指针类型
+    args = Args{25, 4}
+    quotient := new(Quotient)
+    divCall := client.Go(&quot;Arith.Divide&quot;, args, quotient, nil)
+    // divCall 与 replyCall 是相同的
+    replyCall := &lt;-divCall.Done
+    if replyCall.Error != nil {
+        fmt.Println(replyCall.Error.Error())
+    }
+
+    // 保存了所有环境值, 但是都属于interface 无法读取
+    // {17 8}
+    // &amp;{2 1}
+    // &lt;nil&gt;
+    // Arith.Divide
+    //
+    fmt.Printf(&quot;Go Arith: %d/%d=%d remainder %d\n&quot;, args.A, args.B, quotient.Quo, quotient.Rem)
+    fmt.Println(divCall.Args)
+    fmt.Println(divCall.Reply)
+    fmt.Println(divCall.Error)
+    fmt.Println(divCall.ServiceMethod)
+
+    // 返回值依然保存在指定的接收结构体中
+    fmt.Println(quotient)
+
+    fmt.Println(quotient.Quo)
+    fmt.Println(quotient.Rem)
+
+    // 附带的返回值, 都是接口类型
+    fmt.Println(replyCall.Args)
+    fmt.Println(replyCall.Reply)
+    fmt.Println(replyCall.Error)
+    fmt.Println(replyCall.ServiceMethod)
+}
+</code></pre>
+<p>DialHTTP在指定的网络和地址与在默认HTTP RPC路径监听的HTTP RPC服务端连接。</p>
+<p>启动客户端，即可接收到来自服务端的返回结果：</p>
+<pre><code class="bash">zhgxun-pro:httprpc zhgxun$ go run httpclient.go 127.0.0.1
+Call...
+Call Arith: 20*6=120
+Call Arith: 20/6=3 remainder 2
+Go...
+Go Arith: 25/4=6 remainder 1
+{25 4}
+&amp;{6 1}
+&lt;nil&gt;
+Arith.Divide
+&amp;{6 1}
+6
+1
+{25 4}
+&amp;{6 1}
+&lt;nil&gt;
+Arith.Divide
+zhgxun-pro:httprpc zhgxun$
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/18/kubuqi/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">44. 库布齐之行</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
