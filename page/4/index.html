@@ -60,6 +60,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-export" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/export/">16. 用Go重写商家结余表导数脚本</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/16/export/" class="article-date"><time datetime="2017-08-16T15:22:06.000Z" itemprop="datePublished">2017-08-16</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。</p>
+<p>开始编写时，确实遇到很多难处。一开始想到的，是如何做数据库连接，幸好Go对这些常见的场景都有现成的库可使用，稍微在GitHub上搜索就能有好的选择。然后是对数据类型的描述上，确实跟动态语言有明显的不同，但是无法否认，静态语言在编写和编译期间就能减少很多低级的Bug。</p>
+<p>也发现了一些公司的服务问题，比如邮件服务器总是x.509证书问题而无法使用，网易163也存在这样的问题，但是QQ邮箱可以正常使用。官方库中已经提供了CSV格式的支持，使用起来相当的方便，就不提供excel方式了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/16/export/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-jingbian" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -555,66 +609,6 @@
 </article>
 
   
-    <article id="post-sub-longest" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/09/sub-longest/">6. Golang字符串子串的最大长度</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/07/09/sub-longest/" class="article-date"><time datetime="2017-07-09T15:18:24.000Z" itemprop="datePublished">2017-07-09</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>昨天在Letcode上做题，有这么一道题：</p>
-<blockquote>
-<p>Given a string, find the length of the longest substring without repeating characters.</p>
-<p>Examples:</p>
-<p>Given “abcabcbb”, the answer is “abc”, which the length is 3.</p>
-<p>Given “bbbbb”, the answer is “b”, with the length of 1.</p>
-<p>Given “pwwkew”, the answer is “wke”, with the length of 3. Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
-</blockquote>
-<p>查找当前字符串不重复的子串最大长度，我看难度等级是中等。我用go写了至少2个小时吧，总算是完成了，但是一提交测试，所有单元测试都通过了，但是，最后一个超时，就是执行时间太长了而被拒绝。昨天忘记记录下该测试用例，是一个很长很长的字符串，我写出来的代码983个单元测试，除了这个长串超时外其余982个都通过了。我苦思不得其解，后来去看了别人的答案，才知道之所以把这类问题归类为算法题的原因，肯定是不能用常规的思路去解决。确实高人挺多，我辈需要学习的东西实在是太多了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/07/09/sub-longest/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -629,7 +623,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">12</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">13</span></li></ul>
   </div>
 
 
@@ -638,6 +632,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/20/notice/">46. 你要有多小心才算小心</a>
+        </li>
       
         <li>
           <a href="/2017/09/19/httprpc/">45. Go http rpc 笔记</a>
@@ -653,10 +651,6 @@
       
         <li>
           <a href="/2017/09/17/tcp/">42. Go tcp客户端、服务端编程</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/17/runner/">41. Go管理任务运行和生命周期</a>
         </li>
       
     </ul>
