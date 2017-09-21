@@ -60,6 +60,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-swoole-platform" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/26/swoole-platform/">28. 用swoole_process写一个跑数平台</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/26/swoole-platform/" class="article-date"><time datetime="2017-08-26T04:19:30.000Z" itemprop="datePublished">2017-08-26</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>还是在上家公司的时候，同事在群里突然发了这个<a href="http://www.swoole.com" target="_blank" rel="external">Swoole</a>连接，才看到原来PHP还有这么一个扩展，顺便了也发<a href="http://www.workerman.net" target="_blank" rel="external">Workerman</a>，说也是PHP新的通信框架，而swoole则重新定义了PHP，那时候项目中还没使用这些扩展，就没去看过文档。前不久，这家公司当时带我的这位小伙伴突然告诉说，他们在准备要用swoole重构下一版接口了。</p>
+<p>刚好这段时间我们也在准备街电的财务项目，用了<a href="https://laravel.com" target="_blank" rel="external">Laravel</a>框架，顺便也提前重新写一下跑数平台。以前没做过类似的工具，不知道怎么设计好，就借鉴了原来项目的跑数平台，完全是迁移过来的，并没有自己多的独特创造。</p>
+<h2 id="1-起因"><a href="#1-起因" class="headerlink" title="1. 起因"></a>1. 起因</h2><p>Laravel框架提供了非常丰富的控制台<a href="http://d.laravel-china.org/docs/5.4/artisan" target="_blank" rel="external">Artisan 命令行工具</a>和<a href="http://d.laravel-china.org/docs/5.4/scheduling" target="_blank" rel="external">任务调度功能Task</a>应用，对于测试通过和已经运行正常的脚本来说，直接添加不需要观察就可以很好的得到执行，但是线上项目我没有权限登陆控制台手动去运行命令，也不想申请这些权限，故只能依赖后台网页端来输入命令，让它自动执行，收集每一个脚本的输出结果，执行完毕后直接发邮件给我就行。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/26/swoole-platform/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-slice" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -614,59 +668,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 </article>
 
   
-    <article id="post-php-note" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/php-note/">18. PHP性能优化笔记</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/php-note/" class="article-date"><time datetime="2017-08-21T03:28:58.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>该部分笔记源于慕课视频听讲后所记录的笔记，有一些优化在以前的项目中曾经使用过，大部分并没有真正做过。毕竟很少有一开始写代码就考虑优化，都是项目运行一段时间后逐渐改良。一些项目还来不及优化就离职，一些上线后并不怎么使用，也就谈不上优化了。而且之前使用过XHProf来分析过，大部分耗时的任务基本都是在框架加载上和数据库查询上。一般来说，PHP的性能优化都是数据库优化上。</p>
-<p>一年前在望京SOHO作业盒子面试，他说你写的兑换码，那你是怎么处理并发的？我们项目很小，没考虑并发。那你这不考虑并发，两个请求如果同时发出，那不是给公司造成损失了吗？是呀，如果真的存在并发请求，是极可能给数据库记录造成混乱的。毕竟是第三份工作，待的都是小公司，很少会考虑这些，面试也没什么说的，就结结巴巴的敷衍过去了。后来我想了下，那如果要考虑并发，该怎么写，也一直没弄明白。后来的一段时间在世纪佳缘面试，我也问了同样的问题。他说PHP都是按进程来的，我们也没有考虑并发，都是一个进程过来就处理一个进程。我才知道，其实问这些，多半没什么意义，一个项目真的到了考虑并发的时候，肯定会有办法的。后来看了一些消息队列的东西，发觉并发编程其实挺不容易，要考虑很多东西。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/php-note/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -681,7 +682,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">14</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">14</span></li></ul>
   </div>
 
 
@@ -690,6 +691,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/21/girl/">48. 《打工女孩》读后感</a>
+        </li>
       
         <li>
           <a href="/2017/09/20/warn/">47. 你生多少气，有人就有多开心</a>
@@ -705,10 +710,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2017/09/18/kubuqi/">44. 库布齐之行</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/17/home/">43. 搬家</a>
         </li>
       
     </ul>
