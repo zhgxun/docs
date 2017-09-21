@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>50. 绳子和剪刀 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-cut" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      50. 绳子和剪刀
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/21/cut/" class="article-date"><time datetime="2017-09-21T12:58:01.000Z" itemprop="datePublished">2017-09-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是之前遇到过的一个面试题，说实话，当时想到了开头，但没能进行下去，毕竟循环的条件和结束循环的条件并不容易找。而且要求在纸上手写代码，有点紧张，错误连篇。当他说完的那一刻，我已经在心里默默算出了答案，但似乎跟他的要求不相符，就一直没能说出来。</p>
+<p>题目是这样的：有一根绳子，奇数长度时从一端减去1米长的一段，偶数长度时从中间剪断，你写一个程序，把这根绳子全部剪成1米长的小段，需要几刀？</p>
+<p>刀数是显而易见的，就是绳子的长度减1，但是无法表达出如何实现这一过程，我写了开头，就没能在写下去。今天刚好在家没事，突然想起这个问题，觉得肯定能用代码描述这个过程。想了整整一个下午，都没有解决这个问题，后来我还画了这个图</p>
+<p><img src="https://raw.githubusercontent.com/zhgxun/images/master/programming/fenjie.jpeg" alt="分解绳子长度"></p>
+<p>想是不是将一根绳子拆分成类似一棵树会简单一些，即统计树的最底下一层的1个数就可以知道最终剪了几刀。但是用PHP实现这样一棵树，显然是把这个问题想复杂了，不应该有这么复杂的，但是递归一时半会又不知道怎么实现。</p>
+<p>去超市回来后，突然就把结果跑出来了，才回头去理这一过程。程序就是这么微妙，想到了豁然开朗，简单，想不到，就手足无措，写代码确实很烧脑。</p>
+<a id="more"></a>
+<pre><code class="php">function cut($length)
+{
+    $count = 0;
+    // 按递减的绳子长度遍历
+    while ($length &gt;= 1) {
+        echo sprintf(&quot;当前绳子长度 %d 米\n&quot;, $length);
+        // 偶数长度时从中间剪断
+        if ($length % 2 == 0) {
+            // 每次处理绳子长度的一半
+            echo sprintf(&quot;每次处理绳子长度的一半, 绳子长度 %d 米, 一半长度 %d 米\n&quot;, $length, $length / 2);
+            // 该递归处理绳子长度的一半, 直到计算出该半截绳子所使用的刀数为止
+            $count += cut($length / 2);
+            // 接下来该一半绳子继续循环上一次的操作路线, 完成后半截绳子所使用的刀数
+            $length /= 2;
+        // 奇数长度时从一端减去1米长, 记录1刀
+        } else {
+            // 绳子长度为1米时记录刀数1刀
+            echo sprintf(&quot;绳子长度: %d 米, 从一端减去1米，剩余: %d 米\n&quot;, $length, $length - 1);
+            $length--;
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+// 默认1米长的绳子
+$num = $argv[1] ?? 1;
+echo sprintf(&quot;当前绳子长度为: %d 米, 裁剪开始...\n\n&quot;, $num);
+echo sprintf(&quot;\n裁剪结束, 该绳子一共剪了 %d 刀\n&quot;, cut($num) - 1);
+</code></pre>
+<p>当场我在纸上写时，其实已经写到递归这一步了的，但是已是没明白递归的关系，觉得两半截绳子，应该执行两次递归的，可是递归一旦执行，就有可能被返回，另一段绳子就得不到执行。还是今天才明白该处只需要一次递归就可，下一次的循环条件其实就进行了后半截绳子的递归。</p>
+<p>举几个例子就明白了，绳子的长度为3米时的递归过程：</p>
+<pre><code class="bash">zhgxun-pro:php zhgxun$ php cut.php 3
+当前绳子长度为: 3 米, 裁剪开始...
+
+当前绳子长度 3 米
+绳子长度: 3 米, 从一端减去1米，剩余: 2 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+
+裁剪结束, 该绳子一共剪了 2 刀
+zhgxun-pro:php zhgxun$
+</code></pre>
+<p>绳子的长度为5米时的递归过程：</p>
+<pre><code class="bash">zhgxun-pro:php zhgxun$ php cut.php 5
+当前绳子长度为: 5 米, 裁剪开始...
+
+当前绳子长度 5 米
+绳子长度: 5 米, 从一端减去1米，剩余: 4 米
+当前绳子长度 4 米
+每次处理绳子长度的一半, 绳子长度 4 米, 一半长度 2 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+
+裁剪结束, 该绳子一共剪了 4 刀
+zhgxun-pro:php zhgxun$
+</code></pre>
+<p>绳子的长度为15米时的递归过程：</p>
+<pre><code class="bash">zhgxun-pro:php zhgxun$ php cut.php 15
+当前绳子长度为: 15 米, 裁剪开始...
+
+当前绳子长度 15 米
+绳子长度: 15 米, 从一端减去1米，剩余: 14 米
+当前绳子长度 14 米
+每次处理绳子长度的一半, 绳子长度 14 米, 一半长度 7 米
+当前绳子长度 7 米
+绳子长度: 7 米, 从一端减去1米，剩余: 6 米
+当前绳子长度 6 米
+每次处理绳子长度的一半, 绳子长度 6 米, 一半长度 3 米
+当前绳子长度 3 米
+绳子长度: 3 米, 从一端减去1米，剩余: 2 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 3 米
+绳子长度: 3 米, 从一端减去1米，剩余: 2 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 7 米
+绳子长度: 7 米, 从一端减去1米，剩余: 6 米
+当前绳子长度 6 米
+每次处理绳子长度的一半, 绳子长度 6 米, 一半长度 3 米
+当前绳子长度 3 米
+绳子长度: 3 米, 从一端减去1米，剩余: 2 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 3 米
+绳子长度: 3 米, 从一端减去1米，剩余: 2 米
+当前绳子长度 2 米
+每次处理绳子长度的一半, 绳子长度 2 米, 一半长度 1 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+当前绳子长度 1 米
+绳子长度: 1 米, 从一端减去1米，剩余: 0 米
+
+裁剪结束, 该绳子一共剪了 14 刀
+zhgxun-pro:php zhgxun$
+</code></pre>
+<p>问题其实简单，但也不是那么容易做出来，关键一开始要是能考虑到循环开始和结束的条件，后面的过程就很容易进行下去了。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/09/21/experence/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">49. 讲故事和刷经验值</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
