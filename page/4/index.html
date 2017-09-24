@@ -60,6 +60,82 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-gii" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/gii/">23. Yii2如何重写Gii生成的列表页按钮</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/gii/" class="article-date"><time datetime="2017-08-21T04:28:08.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。</p>
+<pre><code class="php">// 默认是不需要设置的，默认值是
+[
+    &#39;class&#39; =&gt; &#39;yii\grid\ActionColumn&#39;,
+    &#39;template&#39; =&gt; &#39;{view} {update} {delete}&#39;
+],
+
+// 可以看到默认的实现方式是：
+protected function initDefaultButtons()
+{
+    if (!isset($this-&gt;buttons[&#39;view&#39;])) {
+        $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
+            $options = array_merge([
+                &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
+                &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
+                &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
+                &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+            ], $this-&gt;buttonOptions);
+            return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+        };
+    }
+}
+// 即是使用Bootstrap的字体和样式实现的
+</code></pre>
+<p>因此就可以重写该类，覆盖原来的内容。因为常用的操作就这么多，修改默认样式和增加新按钮相对多些。比如不想用默认的图标，想改成汉字，比如”查看”， “编辑”, “删除”，则只需要改变return的行为就可以，</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/gii/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-xhprof" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -551,64 +627,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 </article>
 
   
-    <article id="post-xining" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/xining/">13. 西宁</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/07/28/xining/" class="article-date"><time datetime="2017-07-28T14:40:24.000Z" itemprop="datePublished">2017-07-28</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/travel/">travel</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、到达"><a href="#1、到达" class="headerlink" title="1、到达"></a>1、到达</h2><p>来西宁的火车上，再一次感受到小孩其实都还是挺讨厌的。坐在我后面的一排可能是一家人，一个五六岁的小男孩总是站在座位上，不时把手伸到我这边，隔不了几分钟就会摸一下我的头，也有可能是故意的。我回头很不礼貌的说，别总把手伸过来行吗！我旁边的旅客也说过好几次类似的话。说实话，面对这种现象，我觉得这个家长算是糟糕透了。我还故意站起来看看这都是一对什么样的父子。看一眼后，我就想，也没再碰到我的头，算了。他们是如此的普通，就跟我一样，火车的整个行程中，没有人会注意到你。如果不是因为你的孩子总是碰到我的头，我甚至不知道你是男是女。</p>
-<p>前面有一个小孩，冷不防就是一阵哭闹，还故意提高嗓门，生怕一车人都听不见。说来也奇怪，每次出行，车厢都会有类似的小孩，那个哭声，跟杀猪一样可怕。往往这个时候我看家长都手足无措，可以想见，在他们家里，经常都是撕心裂肺的煎熬。我没有带过孩子，也不喜欢小孩子，对这些公共场合的行为，那种心情，是充满嫌弃极其讨厌的。</p>
-<p>大人也从不可爱。半夜时，我旁边的人把腿伸到对面，好像被对面的人故意碰一下，意思是把你的腿伸回去，我没地放脚了。结果旁边的人一下就吼起来，说你碰我干嘛。老头也不甘示弱，是你把脚伸到我这边来了，放回你自己的位置去。折腾了一分钟吧，大家都还算知趣。他就说，好了，是我的问题。</p>
-<blockquote>
-<p>坐同一班车的人当中，有的轻松旅行。有的却带着深深的悲哀……还有的，在列车上四处奔忙，随时准备帮助有需要的人……很多人下车后，其他旅客对他们的回忆历久弥新… …但是，也有一些人，当他们离开座位时，却没有人察觉。</p>
-</blockquote>
-<p>让我想起以前看过的一个小片《生命列车》中的这句话。我们总是期望经历一次愉快有意义的旅行，可每次的结果都奇迹般的相似。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/07/28/xining/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -623,7 +641,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">15</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">16</span></li></ul>
   </div>
 
 
@@ -632,6 +650,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/09/24/city/">53. 聆听两座城</a>
+        </li>
       
         <li>
           <a href="/2017/09/22/school/">52. 不恋这座城</a>
@@ -647,10 +669,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2017/09/21/experence/">49. 讲故事和刷经验值</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/21/girl/">48. 《打工女孩》读后感</a>
         </li>
       
     </ul>
