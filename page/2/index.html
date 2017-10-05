@@ -63,6 +63,59 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-warn" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/20/warn/">47. 你生多少气，有人就有多开心</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/20/warn/" class="article-date"><time datetime="2017-09-20T02:24:02.000Z" itemprop="datePublished">2017-09-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/travel/">travel</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天的经历特别有意思，完全是我没有预料到的。</p>
+<p>前天上午在世纪佳缘面试，进门填表做题，满满的三页六面题目做的我是真吐血，而且按照惯例，求职一份月薪2万以内的工作，如果招聘方让做智力题，基本可以提笔走人了。我看了看智力题之外的信息，还过得去，就把其余的快速做完，智力题完全不看不写。一会儿过来一个30来岁的帅哥，把我带在走廊里到处走，都没有找到面试的地方，会议室都已经满人了。我们围绕世纪佳缘一层整整绕了一圈，才在楼梯间找到一个并排三座的座位。他说就在这里谈会儿吧。我说给一份我的简历。他说不用了。我就感觉这次面试太儿戏，是不是可以开口说没必要进行下去了。他看了看我做的题，看了看我填的应聘信息，简单问问我的经历。他说我不是让你说你做过什么，我是要你告诉我你会什么。比如…。我简单描述后，他说你期望薪资是？我说12K。他说有这么一个场景：我们佳缘首页需要做一个随机滚动新人信息的功能，要求是新人被在首屏滚动的机会要均等，每次滚动的5个人中不能有重复，但同一个人可以在不同的滚动次数中重复，你看怎么解决这个问题。我简单描述了下，说没什么好办法。他说你说的当然可以，但是你知道吗，你这样就写了一个我们自己都无法预料执行时间的程序。我点头说是。他让我再想想，还有没有什么好办法，我说了一些，说真要保证这个实现，只会把业务做的越来越复杂。他说，你要知道，很多功能，对运营来说，就是一句话，但对我们老说，就是一个技术难题。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/20/warn/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-notice" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -564,69 +617,6 @@
 </article>
 
   
-    <article id="post-accuracy" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/11/accuracy/">37. PHP处理数学精度</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/11/accuracy/" class="article-date"><time datetime="2017-09-11T02:03:35.000Z" itemprop="datePublished">2017-09-11</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用编程语言做计算，很多时候浮点数精度都是困扰过我的问题，即便是刚学PHP的新手也会在群里问为什么我的计算结果明显不对，而我们总是老态龙钟的丢出一句浮点数计算都存在精度问题，并没有提出过什么实质性的改善。比如下面的计算 <code>0.57*100</code>：</p>
-<pre><code class="bash">zhgxun-pro:~ zhgxun$ php -a
-Interactive shell
-
-php &gt; echo intval(0.57*100);
-56
-php &gt; echo 0.57*100;
-57
-php &gt;
-</code></pre>
-<p>看到结果其实我们已经想到了，很多时候我们忽略精度问题，一定意义上是因为我们没有对计算结果进行类型转换，巧妙的得到了更好的结果值。但是总会有（细心）的开发者会自作聪明的对结果进行指定，恰恰得到了相反的效果。这也是为什么我一直没有仔细想过这个问题的原因，按动态解释性语言的特性，变量都是在运行时才最终确定的，所以不要刻意去转换类型，即便你很确认变量就应该是这个样子的。</p>
-<p>我记得在刚学PHP的时候，偶然间看到网络上高洛峰的一个视频，其间有一句话就说以后你们在PHP编程中，会遇到很多一时半会解释不清楚的问题，那时候你们首先想到的应该是这门语言的特性–解释性，自然你就会慢慢理解了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/11/accuracy/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -641,7 +631,7 @@ php &gt;
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">18</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -650,6 +640,10 @@ php &gt;
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/10/05/wutaishan/">57. 五台山</a>
+        </li>
       
         <li>
           <a href="/2017/09/26/taishan/">56. 泰山</a>
@@ -665,10 +659,6 @@ php &gt;
       
         <li>
           <a href="/2017/09/24/city/">53. 聆听两座城</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/22/school/">52. 不恋这座城</a>
         </li>
       
     </ul>

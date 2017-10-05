@@ -63,6 +63,70 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-slice" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/24/slice/">27. Go在函数和切片间传递数组</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/24/slice/" class="article-date"><time datetime="2017-08-24T01:39:19.000Z" itemprop="datePublished">2017-08-24</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>该部分笔记来源于：</p>
+<blockquote>
+<p>Go语言实战 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 69). 人民邮电出版社. Kindle Edition. </p>
+<p>在函数间传递数组和在函数间传递切片部分摘要</p>
+</blockquote>
+<p>根据内存和性能来看，在函数间传递数组是一个开销很大的操作。在函数之间传递变量时，总是以值的方式传递的。如果这个变量是个数组，意味着整个数组，不管有多长，都会完整复制，并传递给函数。</p>
+<p><a href="http://books.studygolang.com/gopl-zh" target="_blank" rel="external">Go语言圣经</a>这本书中介绍到，数组属于复合数据类型，而切片属于引用类型。</p>
+<blockquote>
+<p>当调用一个函数的时候，函数的每个调用参数将会被赋值给函数内部的参数变量，所以函数参数变量接收的是一个复制的副本，并不是原始调用的变量。因为函数参数传递的机制导致传递大的数组类型将是低效的，并且对数组参数的任何的修改都是发生在复制的数组上，并不能直接修改调用时原始的数组变量。在这个方面，Go语言对待数组的方式和其它很多编程语言不同，其它编程语言可能会隐式地将数组作为引用或指针对象传入被调用的函数。</p>
+<p>from: 数组</p>
+<p>Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。基础类型，包括：数字、字符串和布尔型。复合数据类型——数组和结构体——是通过组合简单类型，来表达更加复杂的数据结构。引用类型包括指针、切片、字典、函数、通道，虽然数据种类很多，但它们都是对程序中一个变量或状态的间接引用。这意味着对任一引用类型数据的修改都会影响所有该引用的拷贝。</p>
+<p>from: 基础数据类型</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/24/slice/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-composer" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -606,59 +670,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 </article>
 
   
-    <article id="post-mysql-note" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/mysql-note/">17. 燕十八MySQL优化笔记</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/mysql-note/" class="article-date"><time datetime="2017-08-21T03:05:18.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/mysql/">mysql</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本套笔记是2次通过燕十八视频听讲后整理的，<a href="http://www.itbool.com/php-video.html" target="_blank" rel="external">视频出处</a>，该视频目前还算比较新，也是学习PHP比较好的资源。<a href="http://www.zixue.it/" target="_blank" rel="external">自学it论坛</a>有好几套传世经典视频，都录制的非常不错。我对PHP的很多概念和思维方法，都是从这里起步的。</p>
-<p>面试过好几次，确实有这样的感受，面试官和我，很多回答都是大而化之，通用又无用的废话。比如提及MySQL优化，少取字段，建立合理的索引这种废话每次都不会少。这就跟平常说的做人是大方点好，还是小气点好一样。我认为该大方的时候要大方，女朋友要买包，此处该大方；该小气的时候要小气一样。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/mysql-note/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -673,7 +684,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">18</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">18</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -682,6 +693,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/10/05/wutaishan/">57. 五台山</a>
+        </li>
       
         <li>
           <a href="/2017/09/26/taishan/">56. 泰山</a>
@@ -697,10 +712,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2017/09/24/city/">53. 聆听两座城</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/22/school/">52. 不恋这座城</a>
         </li>
       
     </ul>
