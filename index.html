@@ -97,102 +97,13 @@
 <p>Yaf框架的前身是鸟哥在百度做PHP顾问时写的，在百度内部叫做AP框架，开源的版本称作Yaf框架。它们之间存在一些差异，但大部分都是相同的。可以说，有大牛经过的地方，都带着他们自己的影子，人走了，但东西都留下，方便了后来的人。</p>
 <p>有时候觉得一些东西简单，很方便，比如Yii框架的gii，有时候又觉得什么都没有最好，比如Yaf，什么都自己写，更简单一些。全栈框架一方面确实快捷，但往往表面的东西占据了大多数功能。有种因为走的太远，可能忘记了自己是因为什么而出发的感觉。</p>
 <p>所以介绍一下Yaf框架，对于以接口为主的应用来说，确实省掉了大量的扩展，即便是后台，也更简单，稍微维护就可以满足需求。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装很简单，现在的机器一般都很少使用源代码编译了，而是直接使用现成的包，比如mac上搜索一下：</p>
-<pre><code class="bash">zhgxun-pro:~ zhgxun$ brew search php71-yaf
-==&gt; Searching local taps...
-homebrew/php/php71-yaf ✔
-==&gt; Searching taps on GitHub...
-==&gt; Searching blacklisted, migrated and deleted formulae...
-zhgxun-pro:~ zhgxun$
-</code></pre>
-<p>当然线上服务器如果yum无法安装，那就考虑源代码编译吧，现如今编译一个软件，真的是一件很容易的事情了。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>比如使用nginx来做web服务器，直接配置应用入口即可：</p>
-<pre><code class="conf">zhgxun-pro:~ zhgxun$ cat /usr/local/etc/nginx/servers/yaf.conf
-server {
-    listen 80;
-    server_name yaf.com;
-    index index.php index.html;
-    root  /Users/zhgxun/Public/html/php/yaf/public;
-
-    if (!-e $request_filename) {
-        rewrite ^(.*)$ /index.php/$1 last;
-    }
-
-
-    location ~ [^/]\.php(/|$) {
-        fastcgi_pass  127.0.0.1:9000;
-        include fastcgi.conf;
-    }
-
-    access_log  /Users/zhgxun/Public/html/logs/yaf.log  main;
-}
-zhgxun-pro:~ zhgxun$
-</code></pre>
-<p>服务器配置，一般只要公司不是很小，都有专门的运维同学负责，完全轮不到开发啥事。如果轮到了，那说明公司真的很小，你就简单配置一下，就可以支持公司业务了。放心，不要害怕，等公司业务做大了，不要害怕自己不会，会找到更厉害的人来管理的，你只需要做好自己该做的就行了。</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>目录按照官网给定的即可，很多项目，都不要弄的很复杂，越简单越好。</p>
-<pre><code class="bash">zhgxun-pro:php zhgxun$ tree yaf/
-yaf/
-├── application
-│   ├── controllers
-│   │   └── Index.php
-│   ├── library
-│   ├── models
-│   ├── modules
-│   ├── plugins
-│   └── views
-│       └── index
-│           └── index.html
-├── conf
-│   └── application.ini
-└── public
-    ├── css
-    ├── img
-    ├── index.php
-    └── js
-
-13 directories, 4 files
-zhgxun-pro:php zhgxun$
-</code></pre>
-<h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><p>Yaf的配置不多，但也要注意一些默认值，可能需要你自己修改：</p>
-<pre><code class="php">[product]
-;支持直接写PHP中的已定义常量
-application.directory=APP_PATH &quot;/application/&quot;
-application.view.ext=html
-</code></pre>
-<p>默认配置已经很好了，但有些很奇怪的配置，可能每个人的适应不同，比如我就看不惯模板文件叫tpl,phtml这类的扩展名，不知道是因为什么，反正是每次看到都有种想要重命名的冲动。</p>
-<h2 id="入口"><a href="#入口" class="headerlink" title="入口"></a>入口</h2><p>每个应用都有一个请求入口。</p>
-<pre><code class="php">class IndexController extends Yaf_Controller_Abstract
-{
-    public function indexAction()
-    {
-        $this-&gt;getView()-&gt;assign(&quot;content&quot;, &quot;Hello World&quot;);
-    }
-}
-</code></pre>
-<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>简单的html标记语言是每个php开发者都需要掌握的知识。不过目前很少需要前后端都要写的情况了，如果有，说明你在的公司真的太小了，是时候需要考虑换一份工作，好好安心写php。</p>
-<pre><code class="html">&lt;html&gt;
- &lt;head&gt;
-   &lt;title&gt;Hello World&lt;/title&gt;
- &lt;/head&gt;
- &lt;body&gt;
-  &lt;?php echo $content;?&gt;
- &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p>我写最多的时候也是后端，后端需要的js也很少，ajax就可以对付基本的业务。前端不一样，现在都要用vue来做了，jQuery做前端的网站不多了，后端同学不喜欢就不要去学了。知识太多，好好做后端就行。</p>
-<h2 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h2><p>因为路由的关系，大多数应用都需要开启重写引擎。</p>
-<pre><code class="conf">#.htaccess, 当然也可以写在httpd.conf
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule .* index.php
-</code></pre>
-<p>好，Yaf框架就说这么多。</p>
-
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/11/13/yaf/#more">Read More</a>
+          </p>
+        
       
     </div>
-
-    
-      
 
     
 
