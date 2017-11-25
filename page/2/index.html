@@ -63,6 +63,61 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-mysqlbase" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/22/mysqlbase/">51. 高性能MySQL笔记-事务</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/22/mysqlbase/" class="article-date"><time datetime="2017-09-22T10:05:05.000Z" itemprop="datePublished">2017-09-22</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/mysql/">mysql</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、MySQL逻辑架构"><a href="#一、MySQL逻辑架构" class="headerlink" title="一、MySQL逻辑架构"></a>一、MySQL逻辑架构</h2><p>为了充分发挥MySQL的性能并顺利地使用，就必须理解其设计。</p>
+<h3 id="1-逻辑架构"><a href="#1-逻辑架构" class="headerlink" title="1. 逻辑架构"></a>1. 逻辑架构</h3><p>最上层的服务并不是MySQL所独有的，大多数基于网络的客户端/服务器的工具或者服务都有类似的架构。比如连接处理、授权认证、安全等等。</p>
+<p>第二层架构是MySQL比较有意思的部分。大多数MySQL的核心服务功能都在这一层，包括查询解析、分析、优化、缓存以及所有的内置函数（例如，日期、时间、数学和加密函数），所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等。</p>
+<p>第三层包含了存储引擎。存储引擎负责MySQL中数据的存储和提取。和GNU/Linux下的各种文件系统一样，每个存储引擎都有它的优势和劣势。服务器通过API与存储引擎进行通信。这些接口屏蔽了不同存储引擎之间的差异，使得这些差异对上层的查询过程透明。存储引擎不会去解析SQL（InnoDB是一个例外，它会去解析外键定义，因为MySQL服务器本身没有实现该功能），不同存储引擎之间也不会相互通信，而只是简单的响应上层服务器的请求。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/22/mysqlbase/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-cut" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -557,64 +612,10 @@
 </article>
 
   
-    <article id="post-runner" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/17/runner/">41. Go管理任务运行和生命周期</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/17/runner/" class="article-date"><time datetime="2017-09-17T08:14:57.000Z" itemprop="datePublished">2017-09-17</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>案例来源于 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 3997). 人民邮电出版社. Kindle Edition.一书第7章 并发模式 之 7.1 runner。</p>
-<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>runner包用于展示如何使用通道来监视程序的执行时间，如果程序运行时间太长，也可以用runner包来终止程序。当开发需要调度后台处理任务的程序的时候，这种模式会很有用。这也是目前我们使用跑数平台抓取数据和执行临时脚本的关键所在，虽然实现各不相同，但大致思路都是相同的。即是添加命令，记录输出，控制命令执行完毕或中断……</p>
-<p>教材中给出的案例相对比较简单，传入参数随意，只传入一个下标ID值。但是go中参数传递并不容易，更啰嗦的办法或者是总结业务中需要用到的形式来提炼出更抽象的方式，这样会显得相对简单，但维护会增加好几倍的精力。但是所有的抽象都统一到一个函数中，只会让参数更抽象，使用go语言的接口interface{}类型，因为该类型可以接收函数传入任意类型的参数，但是在函数中，参数的类型依然是interface类型，需要特别注意，必须进行处理后方可使用。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/17/runner/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/6/">6</a></li><li><a class="page-next" rel="next" href="/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/7/">7</a></li><li><a class="page-next" rel="next" href="/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -625,7 +626,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -634,6 +635,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/11/25/tijian/">61. 慈铭体检</a>
+        </li>
       
         <li>
           <a href="/2017/11/18/juzhu/">60. 昔年种柳</a>
@@ -649,10 +654,6 @@
       
         <li>
           <a href="/2017/10/05/wutaishan/">57. 五台山</a>
-        </li>
-      
-        <li>
-          <a href="/2017/09/26/taishan/">56. 泰山</a>
         </li>
       
     </ul>
