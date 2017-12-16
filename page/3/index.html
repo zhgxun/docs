@@ -63,6 +63,70 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-httprpc" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/19/httprpc/">45. Go http rpc 笔记</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/19/httprpc/" class="article-date"><time datetime="2017-09-19T04:49:54.000Z" itemprop="datePublished">2017-09-19</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>rpc包提供了通过网络或其他I/O连接对一个对象的导出方法的访问。服务端注册一个对象，使它作为一个服务被暴露，服务的名字是该对象的类型名。注册之后，对象的导出方法就可以被远程访问。服务端可以注册多个不同类型的对象(服务)，但注册具有相同类型的多个对象是错误的。</p>
+<p>只有满足如下标准的方法才能用于远程访问，其余方法会被忽略:</p>
+<ol>
+<li>方法是导出的；</li>
+<li>方法有两个参数，都是导出类型或内建类型；</li>
+<li>方法的第二个参数是指针；</li>
+<li>方法只有一个error接口类型的返回值。</li>
+</ol>
+<p>事实上，方法必须看起来像这样：</p>
+<pre><code class="go">func (t *T) MethodName(argType T1，replyType *T2) error
+</code></pre>
+<p>其中T，T1和T2都能被 encoding/gob 包序列化；这些限制即使使用不同的编解码器也适用(未来，对定制的编解码器可能会使用较宽松一点的限制)。</p>
+<p>方法的第一个参数代表调用者提供的参数；第二个参数代表返回给调用者的参数。方法的返回值，如果非nil，将被作为字符串回传，在客户端看来就和errors.New创建的一样。如果返回了错误，回复的参数将不会被发送给客户端。<br>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/19/httprpc/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-kubuqi" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -565,60 +629,6 @@ php &gt;
 </article>
 
   
-    <article id="post-start" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/start/">35. 林达-走向世界的起点</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/10/start/" class="article-date"><time datetime="2017-09-10T15:04:54.000Z" itemprop="datePublished">2017-09-10</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一</p>
-<p>忘了中苏刚刚在那里打了一仗，也忘记了我们被送到这里来虽非士兵却为着“戍边”的布局。隐约之中，那首叫做“黑龙江波涛”的苏联手风琴曲在心中响起。我对自己说，这是货真价实的西伯利亚啊，最低气温零下摄氏四十八度。小说中读过的冰雪覆盖的俄罗斯，真的就活生生站在我们面前。望着对岸建筑上的列宁像，我开始试着理解国境线的意义。</p>
-<p>我想看看对岸列宁像背后的生活，仅仅是出于好奇——哪怕是看苏联的列宁像，我也希望走近去看。可边境线是绝对不可逾越的界限，我也已经学会万不可透露那一点点好奇，那是对好奇心不予承认的年代。旅行的好奇心假如越出国境线，不论向哪个方向，都等同有叛国和投敌的意图，而当时的法律给意图甚至遐想定罪。今天的人理解冷战，会把红色国家都扫作一堆归在一方，岂料它们之间也兵戎相见，如我眼前的中苏两方，此岸与彼岸正不共戴天。我们裹着离开学校前领到的厚厚棉衣，头上扣着翻下耳朵的棉帽，一水儿的“国防绿”，没人能看出里面有一半是女孩。当时真没有一点点预兆，预示将来某一天，我们中间会有人合法领到护照、越过国境、远远飞走。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/10/start/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -644,6 +654,10 @@ php &gt;
     <ul class="sidebar-module-list">
       
         <li>
+          <a href="/2017/12/16/cnote/">65. C Prime Plus 笔记-2017.12.16</a>
+        </li>
+      
+        <li>
           <a href="/2017/12/09/mianbao/">64. 有时候，把工作耽搁几天是无害的</a>
         </li>
       
@@ -657,10 +671,6 @@ php &gt;
       
         <li>
           <a href="/2017/11/25/tijian/">61. 慈铭体检</a>
-        </li>
-      
-        <li>
-          <a href="/2017/11/18/juzhu/">60. 昔年种柳</a>
         </li>
       
     </ul>

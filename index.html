@@ -63,6 +63,52 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-cnote" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/16/cnote/">65. C Prime Plus 笔记-2017.12.16</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/16/cnote/" class="article-date"><time datetime="2017-12-16T13:39:15.000Z" itemprop="datePublished">2017-12-16</time></a>
+</div>
+
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="1-C语言在提供更多自由的同时，也让使用者承担了更大的责任。"><a href="#1-C语言在提供更多自由的同时，也让使用者承担了更大的责任。" class="headerlink" title="1. C语言在提供更多自由的同时，也让使用者承担了更大的责任。"></a>1. C语言在提供更多自由的同时，也让使用者承担了更大的责任。</h5><h5 id="2-想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。"><a href="#2-想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。" class="headerlink" title="2. 想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。"></a>2. 想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。</h5><h5 id="3-编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。"><a href="#3-编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。" class="headerlink" title="3. 编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。"></a>3. 编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。</h5><h5 id="4-链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。"><a href="#4-链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。" class="headerlink" title="4. 链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。"></a>4. 链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。</h5><h5 id="5-LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。"><a href="#5-LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。" class="headerlink" title="5. LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。"></a>5. LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。</h5>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/12/16/cnote/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-mianbao" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -621,60 +667,6 @@ zhgxun-pro:php zhgxun$
 </article>
 
   
-    <article id="post-manage" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/25/manage/">55. 开源很伟大，但它并不能点石成金</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/25/manage/" class="article-date"><time datetime="2017-09-25T14:22:48.000Z" itemprop="datePublished">2017-09-25</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是《大教堂与集市》一书中讲到 Mozilla 项目开源遇到问题时的一句名言。</p>
-<p>读着书中的黑客圈简史，部分层面上来说，就是一部开源运动史，难怪对该书的评价是开源运动的“圣经”。对开源的概念，更多的时候是从Linux系统开始的，而这或许也正是开源最成功的项目，受益者众。</p>
-<p>记得几年前，读着一份<a href="http://man.chinaunix.net/linux/gentoo/gentoo/gentoo/index.htm" target="_blank" rel="external">Gentoo 手册 (2004.2, x86)</a>，被开源这种思绪和新奇折服着。感谢开源世界，给了我们这么多优秀的操作系统和完美的软件，让普通的我们，也能使用。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/25/manage/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -700,6 +692,10 @@ zhgxun-pro:php zhgxun$
     <ul class="sidebar-module-list">
       
         <li>
+          <a href="/2017/12/16/cnote/">65. C Prime Plus 笔记-2017.12.16</a>
+        </li>
+      
+        <li>
           <a href="/2017/12/09/mianbao/">64. 有时候，把工作耽搁几天是无害的</a>
         </li>
       
@@ -713,10 +709,6 @@ zhgxun-pro:php zhgxun$
       
         <li>
           <a href="/2017/11/25/tijian/">61. 慈铭体检</a>
-        </li>
-      
-        <li>
-          <a href="/2017/11/18/juzhu/">60. 昔年种柳</a>
         </li>
       
     </ul>
