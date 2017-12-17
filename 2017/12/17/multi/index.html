@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>67. 指针和多维数组 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-multi" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      67. 指针和多维数组
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/17/multi/" class="article-date"><time datetime="2017-12-17T08:06:29.000Z" itemprop="datePublished">2017-12-17</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>数组用于储存相同类型的数据。C把数组看作是派生类型，因为数组是建立在其他类型的基础上。也就是说，无法简单地声明一个数组。数组。在声明数组时必须说明其元素的类型，如int类型的数组、float类型的数组，或其他类型的数组。所谓的其他类型也可以是数组类型，这种情况下，创建的是数组的数组（或称为二维数组）。</p>
+<p>通常编写一个函数来处理数组，这样在特定的函数中解决特定的问题，有助于实现程序的模块化。在把数组名作为实际参数时，传递给函数的不是整个数组，而是数组的地址（因此，函数对应的形式参数是指针）。为了处理数组，函数必须知道从何处开始读取数据和要处理多少个数组元素。数组地址提供了“地址”，“元素个数”可以内置在函数中或作为单独的参数传递。第2种方法更普遍，因为这样做可以让同一个函数处理不同大小的数组。</p>
+<p>对于传统的C数组，必须用常量表达式指明数组的大小，所以数组大小在编译时就已确定。C99/C11新增了变长数组，可以用变量表示数组大小。这意味着变长数组的大小延迟到程序运行时才确定。</p>
+<a id="more"></a>
+<h2 id="一、指针和多维数组"><a href="#一、指针和多维数组" class="headerlink" title="一、指针和多维数组"></a>一、指针和多维数组</h2><p>指针和多维数组有什么关系？为什么要了解它们的关系？处理多维数组的函数要用到指针，所以在使用这种函数之前，先要更深入地学习指针。至于第1个问题，我们通过几个示例来回答。为简化讨论，我们使用较小的数组。假设有下面的声明：</p>
+<pre><code class="c">// 内含int数组的数组
+int zippo[4][2];
+</code></pre>
+<p>然后数组名zippo是该数组首元素的地址。在本例中，zippo的首元素是一个内含两个int值的数组，所以zippo是这个内含两个int值的数组的地址。下面，我们从指针的属性进一步分析。</p>
+<p>因为zippo是数组首元素的地址，所以<code>zippo</code>的值和<code>&amp;zippo[0]</code>的值相同。而<code>zippo[0]</code>本身是一个内含两个整数的数组，所以<code>zippo[0]</code>的值和它首元素（一个整数）的地址（即<code>&amp;zippo[0][0]</code>的值）相同。简而言之，<code>zippo[0]</code>是一个占用一个int大小对象的地址，而zippo是一个占用两个int大小对象的地址。由于这个整数和内含两个整数的数组都开始于同一个地址，所以zippo和zippo[0]的值相同。</p>
+<p>给指针或地址加1，其值会增加对应类型大小的数值。在这方面，<code>zippo</code>和<code>zippo[0]</code>不同，因为zippo指向的对象占用了两个int大小，而<code>zippo[0]</code>指向的对象只占用一个int大小。因此，<code>zippo+1</code>和<code>zippo[0]+1</code>的值不同。</p>
+<p>解引用一个指针（在指针前使用<code>*</code>运算符）或在数组名后使用带下标的<code>[]</code>运算符，得到引用对象代表的值。因为<code>zippo[0]</code>是该数组首元素（<code>zippo[0][0]</code>）的地址，所以<code>*(zippo[0])</code>表示储存在<code>zippo[0][0]</code>上的值（即一个int类型的值）。与此类似，<code>*zippo</code>代表该数组首元素（<code>zippo[0]</code>）的值，但是<code>zippo[0]</code>本身是一个int类型值的地址。该值的地址是<code>&amp;zippo[0][0]</code>，所以<code>*zippo</code>就是<code>&amp;zippo[0][0]</code>。对两个表达式应用解引用运算符表明，<code>**zippo</code>与<code>*&amp;</code>与<code>*&amp;zippo[0][0]</code>等价，这相当于<code>zippo[0][0]</code>，即一个int类型的值。简而言之，<code>zippo</code>是地址的地址，必须解引用两次才能获得原始值。地址的地址或指针的指针是就是双重间接（double indirection）的例子。</p>
+<pre><code class="c">//
+// 多维数组
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int zippo[4][2] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
+    printf(&quot;zippo=%p, zippo + 1=%p\n&quot;, zippo, zippo + 1);
+    printf(&quot;zippo[0]=%p, zippo[0] + 1=%p\n&quot;, zippo[0], zippo[0] + 1);
+    printf(&quot;*zippo=%p, *zippo + 1=%p\n&quot;, *zippo, *zippo + 1);
+    printf(&quot;zippo[0][0] = %d\n&quot;, zippo[0][0]);
+    printf(&quot;*zippo[0] = %d\n&quot;, *zippo[0]);
+    printf(&quot;**zippo = %d\n&quot;, **zippo);
+    printf(&quot;zippo[2][1] = %d\n&quot;, zippo[2][1]);
+    printf(&quot;*(*(zippo+2)+1) = %d\n&quot;, *(*(zippo + 2) + 1));
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+zippo=0x7fff5c9d9bd0, zippo + 1=0x7fff5c9d9bd8
+zippo[0]=0x7fff5c9d9bd0, zippo[0] + 1=0x7fff5c9d9bd4
+*zippo=0x7fff5c9d9bd0, *zippo + 1=0x7fff5c9d9bd4
+zippo[0][0] = 1
+*zippo[0] = 1
+**zippo = 1
+zippo[2][1] = 6
+*(*(zippo+2)+1) = 6
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>要特别注意，与<code>zippo[2][1]</code>等价的指针表示法是<code>*(*(zippo+2)+1)</code>。看上去比较复杂，应最好能理解。下面列出了理解该表达式的思路：</p>
+<table>
+<thead>
+<tr>
+<th>标识</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zippo</code></td>
+<td>二维数组首元素的地址（每个元素都是内含两个int类型元素的一位数组）</td>
+</tr>
+<tr>
+<td><code>zippo+2</code></td>
+<td>二维数组的第三个元素（即是一维数组）的地址</td>
+</tr>
+<tr>
+<td><code>*(zippo+2)</code></td>
+<td>二维数组第三个元素（即是一维数组）的首元素（一个int类型的值）地址</td>
+</tr>
+<tr>
+<td><code>*(zippo+2)+1</code></td>
+<td>二维数组第三个元素（即是一维数组）的第二个元素（也是一个int类型的值）地址</td>
+</tr>
+<tr>
+<td><code>*(*(aippo+2)+1)</code></td>
+<td>二维数组的第三个一维数组元素的第二个int类型元素的值，即数组的第三行第二列的值（zippo[2][1]）</td>
+</tr>
+</tbody>
+</table>
+<p>以上分析并不是为了说明用指针表示法（<code>*(*(zippo+2)+1)</code>）代替数组表示法（<code>zippo[2][1]</code>），而是提示读者，如果程序恰巧使用一个指向二维数组的指针，而且要通过该指针获取值时，最好用简单的数组表示法，而不是指针表示法。</p>
+<h2 id="二、指向多维数组的指针"><a href="#二、指向多维数组的指针" class="headerlink" title="二、指向多维数组的指针"></a>二、指向多维数组的指针</h2><p>如何声明一个指针变量pz指向一个二维数组（如，zippo）？在编写处理类似zippo这样的二维数组时会用到这样的指针。把指针声明为指向int的类型还不够。因为指向int只能与zippo[0]的类型匹配，说明该指针指向一个int类型的值。但是zippo是它首元素的地址，该元素是一个内含两个int类型值的一维数组。因此，pz必须指向一个内含两个int类型值的数组，而不是指向一个int类型值，其声明如下：</p>
+<pre><code class="c">// pz指向一个内含两个int类型值的数组
+int (*pz)[2];
+</code></pre>
+<p>以上代码把pz声明为指向一个数组的指针，该数组内含两个int类型值。为什么要在声明中使用圆括号？因为[]的优先级高于*。考虑下面的声明：</p>
+<pre><code class="c">// pax是一个内含两个指针元素的数组，每个元素都指向int的指针
+int *pax[2];
+</code></pre>
+<p>由于[]优先级高，先与pax结合，所以pax成为一个内含两个元素的数组。然后<code>*</code>表示pax数组内含两个指针。最后，int表示pax数组中的指针都指向int类型的值。因此，这行代码声明了两个指向int的指针。而前面有圆括号的版本，<code>*</code>先与<code>pz</code>结合，因此声明的是一个指向数组（内含两个int类型的值）的指针。</p>
+<p>指针之间的赋值比数值类型之间的赋值要严格。例如，不用类型转换就可以把int类型的值赋给double类型的变量，但是两个类型的指针不能这样做。</p>
+<p>下面的声明不正确：</p>
+<pre><code class="c">int sum(int [][]);
+</code></pre>
+<p>前面介绍过，编译器会把数组表示法转换成指针表示法。例如，编译器会把ar[1]转换成ar+1。编译器对ar+1求值，要知道ar所指向的对象大小。下面的声明：</p>
+<pre><code class="c">int sum(int [][4]);
+</code></pre>
+<p>表示ar指向一个内含4个int类型值的数组（在我们的系统中，ar指向的对象占16字节），所以ar+1的意思是“该地址加上16字节”。如果第2对方括号是空的，编译器就不知道该怎样处理。</p>
+<p>也可以在第1对方括号中写上大小，如下所示，但是编译器会忽略该值：</p>
+<pre><code class="c">int sum(int [3][4]);
+</code></pre>
+<p>有效声明，但是3会被编译器忽略。</p>
+<p>因为C规定，数组的维数必须是常量，不能用变量来代替COLS。</p>
+<p>变长数组中的“变”不是指可以修改已创建数组的大小。一旦创建了变长数组，它的大小则保持不变。这里的“变”指的是：在创建数组时，可以使用变量指定数组的维度。</p>
+<p>复合字面量是匿名的，所以不能先创建然后再使用它，必须在创建的同时使用它。使用指针记录地址就是一种用法。</p>
+<p>把信息传入函数前不必先创建数组，这是复合字面量的典型用法。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/12/17/arr/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">66. 数组和指针笔记</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

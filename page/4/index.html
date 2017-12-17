@@ -63,6 +63,69 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-accuracy" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/11/accuracy/">37. PHP处理数学精度</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/accuracy/" class="article-date"><time datetime="2017-09-11T02:03:35.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用编程语言做计算，很多时候浮点数精度都是困扰过我的问题，即便是刚学PHP的新手也会在群里问为什么我的计算结果明显不对，而我们总是老态龙钟的丢出一句浮点数计算都存在精度问题，并没有提出过什么实质性的改善。比如下面的计算 <code>0.57*100</code>：</p>
+<pre><code class="bash">zhgxun-pro:~ zhgxun$ php -a
+Interactive shell
+
+php &gt; echo intval(0.57*100);
+56
+php &gt; echo 0.57*100;
+57
+php &gt;
+</code></pre>
+<p>看到结果其实我们已经想到了，很多时候我们忽略精度问题，一定意义上是因为我们没有对计算结果进行类型转换，巧妙的得到了更好的结果值。但是总会有（细心）的开发者会自作聪明的对结果进行指定，恰恰得到了相反的效果。这也是为什么我一直没有仔细想过这个问题的原因，按动态解释性语言的特性，变量都是在运行时才最终确定的，所以不要刻意去转换类型，即便你很确认变量就应该是这个样子的。</p>
+<p>我记得在刚学PHP的时候，偶然间看到网络上高洛峰的一个视频，其间有一句话就说以后你们在PHP编程中，会遇到很多一时半会解释不清楚的问题，那时候你们首先想到的应该是这门语言的特性–解释性，自然你就会慢慢理解了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/11/accuracy/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-httpd" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -559,70 +622,6 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
 </article>
 
   
-    <article id="post-slice" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/24/slice/">27. Go在函数和切片间传递数组</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/24/slice/" class="article-date"><time datetime="2017-08-24T01:39:19.000Z" itemprop="datePublished">2017-08-24</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>该部分笔记来源于：</p>
-<blockquote>
-<p>Go语言实战 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 69). 人民邮电出版社. Kindle Edition. </p>
-<p>在函数间传递数组和在函数间传递切片部分摘要</p>
-</blockquote>
-<p>根据内存和性能来看，在函数间传递数组是一个开销很大的操作。在函数之间传递变量时，总是以值的方式传递的。如果这个变量是个数组，意味着整个数组，不管有多长，都会完整复制，并传递给函数。</p>
-<p><a href="http://books.studygolang.com/gopl-zh" target="_blank" rel="external">Go语言圣经</a>这本书中介绍到，数组属于复合数据类型，而切片属于引用类型。</p>
-<blockquote>
-<p>当调用一个函数的时候，函数的每个调用参数将会被赋值给函数内部的参数变量，所以函数参数变量接收的是一个复制的副本，并不是原始调用的变量。因为函数参数传递的机制导致传递大的数组类型将是低效的，并且对数组参数的任何的修改都是发生在复制的数组上，并不能直接修改调用时原始的数组变量。在这个方面，Go语言对待数组的方式和其它很多编程语言不同，其它编程语言可能会隐式地将数组作为引用或指针对象传入被调用的函数。</p>
-<p>from: 数组</p>
-<p>Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。基础类型，包括：数字、字符串和布尔型。复合数据类型——数组和结构体——是通过组合简单类型，来表达更加复杂的数据结构。引用类型包括指针、切片、字典、函数、通道，虽然数据种类很多，但它们都是对程序中一个变量或状态的间接引用。这意味着对任一引用类型数据的修改都会影响所有该引用的拷贝。</p>
-<p>from: 基础数据类型</p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/24/slice/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -637,7 +636,7 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -646,6 +645,10 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/12/17/multi/">67. 指针和多维数组</a>
+        </li>
       
         <li>
           <a href="/2017/12/17/arr/">66. 数组和指针笔记</a>
@@ -661,10 +664,6 @@ Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
       
         <li>
           <a href="/2017/12/05/cpp/">63. 《C Primer Plus》读书笔记系列</a>
-        </li>
-      
-        <li>
-          <a href="/2017/11/27/zaiyi/">62. 吃素若能成佛</a>
         </li>
       
     </ul>

@@ -210,7 +210,7 @@ int sum(int * start, int * end)
 <p>还可以把循环体压缩成一行代码：</p>
 <pre><code class="c">total += *start++;
 </code></pre>
-<p>一元运算符<code>*</code>和<code>++</code>的优先级相同，但结合律是从右往左，所以<code>start++</code>先求值，然后才是<code>*start</code>。也就是说，指针start先递增后指向。使用后缀形式（即<code>start++</code>而不是<code>++start</code>）意味着先把指针指向位置上的值加到total上，然后再递增指针。如果使用<code>*++start</code>，顺序则反过来，先递增指针，再使用指针指向位置上的值。值。如果使用<code>(*start)++</code>，则先使用start指向的值，再递增该值，而不是递增指针。这样，指针将一直指向同一个位置，但是该位置上的值发生了变化。虽然<code>*start++</code>的写法比较常用，但是<code>*(start++)</code>这样写更清楚。</p>
+<p>一元运算符<code>*</code>和<code>++</code>的优先级相同，但结合律是从右往左，所以<code>start++</code>先求值，然后才是<code>*start</code>。也就是说，指针start先递增后指向。使用后缀形式（即<code>start++</code>而不是<code>++start</code>）意味着先把指针指向位置上的值加到total上，然后再递增指针。如果使用<code>*++start</code>，顺序则反过来，先递增指针，再使用指针指向位置上的值。如果使用<code>(*start)++</code>，则先使用start指向的值，再递增该值，而不是递增指针。这样，指针将一直指向同一个位置，但是该位置上的值发生了变化。虽然<code>*start++</code>的写法比较常用，但是<code>*(start++)</code>这样写更清楚。</p>
 <h5 id="11-至于C语言，ar-i-和-ar-1-这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用ar-这样的表达式。"><a href="#11-至于C语言，ar-i-和-ar-1-这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用ar-这样的表达式。" class="headerlink" title="11. 至于C语言，ar[i]和*(ar+1)这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用ar++这样的表达式。"></a>11. 至于C语言，<code>ar[i]</code>和<code>*(ar+1)</code>这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用<code>ar++</code>这样的表达式。</h5><p>指针表示法（尤其与递增运算符一起使用时）更接近机器语言，因此一些编译器在编译时能生成效率更高的代码。然而，许多程序员认为他们的主要任务是确保代码正确、逻辑清晰，而代码优化应该留给编译器去做。</p>
 <h5 id="12-指针变量的8种基本操作"><a href="#12-指针变量的8种基本操作" class="headerlink" title="12. 指针变量的8种基本操作"></a>12. 指针变量的8种基本操作</h5><pre><code class="c">//
 // 计算数组元素之和
@@ -333,6 +333,13 @@ int main(void)
     </a>
   </li>
   
+  
+  <li role="presentation">
+    <a href="/2017/12/17/multi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">67. 指针和多维数组</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
   
 </ul>
 

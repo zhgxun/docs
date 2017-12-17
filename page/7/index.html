@@ -63,6 +63,59 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-curl-timeout" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/14/curl-timeout/">7. PHP扩展cURL执行中途无响应</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/07/14/curl-timeout/" class="article-date"><time datetime="2017-07-14T15:19:16.000Z" itemprop="datePublished">2017-07-14</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天跑脚本遇到一个奇怪的问题，就是cURL请求到后期会出现程序阻塞卡死，无异常无响应，一直挂起，脚本也不会自动结束。跟对方沟通后说，“哥们儿，是不是你们的程序有问题啊，这边研发排查了，说12点30左右没有收到你们的请求。然后我自己用网上的json工具请求了，一下就通过了”。是不是很尴尬，关键是根本不知道为什么。然后就是不停的尝试重跑脚本，偶尔有些脚本就跑过了，但好景不长，随时都可能出现无效的时候。一直看，请求一开始都是能正常完成的，越往后执行时间也变得逐渐增长，然后就可能变成死连接。就想到，肯定是cURL发送的请求有的无响应失效了，已经成僵尸连接，还一直阻塞脚本，导致资源一直存在，但是并不能继续使用。</p>
+<p>找了各种资料，还想尝试写一个类似定时器的定西，如果脚本执行超过1分钟，则强制丢弃掉该cURL链接。不知道PHP怎么实现这样的需求，还犹豫要不要用go来实现。涉及到json,xml等，用go毕竟没有PHP方便，就去手册阅读cURL的内容，企图找到一点有用的东西。而且cURL命令行工具是有重试功能的，猜想扩展肯定也有。但是该如何配置呢？</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/07/14/curl-timeout/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-sub-longest" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -415,7 +468,7 @@ go version go1.8.3 darwin/amd64
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -424,6 +477,10 @@ go version go1.8.3 darwin/amd64
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/12/17/multi/">67. 指针和多维数组</a>
+        </li>
       
         <li>
           <a href="/2017/12/17/arr/">66. 数组和指针笔记</a>
@@ -439,10 +496,6 @@ go version go1.8.3 darwin/amd64
       
         <li>
           <a href="/2017/12/05/cpp/">63. 《C Primer Plus》读书笔记系列</a>
-        </li>
-      
-        <li>
-          <a href="/2017/11/27/zaiyi/">62. 吃素若能成佛</a>
         </li>
       
     </ul>
