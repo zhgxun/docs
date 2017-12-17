@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>66. 数组和指针笔记 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-arr" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      66. 数组和指针笔记
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/17/arr/" class="article-date"><time datetime="2017-12-17T04:21:44.000Z" itemprop="datePublished">2017-12-17</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="1-有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。"><a href="#1-有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。" class="headerlink" title="1. 有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。"></a>1. 有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。</h5><pre><code class="c">const int days[MONTHS]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+</code></pre>
+<p>这样修改后，程序在运行过程中就不能修改该数组中的内容。和普通变量一样，应该使用声明来初始化const数据，因为一旦声明为const，便不能再给它赋值。</p>
+<h5 id="2-使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。"><a href="#2-使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。" class="headerlink" title="2. 使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。"></a>2. 使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。</h5><p>使用未被初始化的变量：</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+#define SIZE 5
+
+int main(void)
+{
+    int data[SIZE];
+
+    printf(&quot;%2s%14s\n&quot;, &quot;i&quot;, &quot;data[i]&quot;);
+
+    for (int i = 0; i &lt; SIZE; ++i) {
+        printf(&quot;%2d%14d\n&quot;, i, data[i]);
+    }
+
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+ i       data[i]
+ 0             0
+ 1             0
+ 2             0
+ 3             0
+ 4    1600449552
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<a id="more"></a>
+<h5 id="3-当初始化列表中的值少于数组元素个数时，编译器会把剩余的元素都初始化为0。也就是说，如果不初始化数组，数组元素和未初始化的普通变量一样，其中储存的都是垃圾值；但是，如果部分初始化数组，剩余的元素就会被初始化为0。"><a href="#3-当初始化列表中的值少于数组元素个数时，编译器会把剩余的元素都初始化为0。也就是说，如果不初始化数组，数组元素和未初始化的普通变量一样，其中储存的都是垃圾值；但是，如果部分初始化数组，剩余的元素就会被初始化为0。" class="headerlink" title="3. 当初始化列表中的值少于数组元素个数时，编译器会把剩余的元素都初始化为0。也就是说，如果不初始化数组，数组元素和未初始化的普通变量一样，其中储存的都是垃圾值；但是，如果部分初始化数组，剩余的元素就会被初始化为0。"></a>3. 当初始化列表中的值少于数组元素个数时，编译器会把剩余的元素都初始化为0。也就是说，如果不初始化数组，数组元素和未初始化的普通变量一样，其中储存的都是垃圾值；但是，如果部分初始化数组，剩余的元素就会被初始化为0。</h5><p>如果初始化列表的项数多于数组元素个数，编译器可没那么仁慈，它会毫不留情地将其视为错误。但是，没必要因此嘲笑编译器。其实，可以省略方括号中的数字，让编译器自动匹配数组大小和初始化列表中的项数。</p>
+<h5 id="4-sizeof-days是整个数组的大小（以字节为单位），sizeof-day-0-是数组中一个元素的大小（以字节为单位）。整个数组的大小除以单个元素的大小就是数组元素的个数。"><a href="#4-sizeof-days是整个数组的大小（以字节为单位），sizeof-day-0-是数组中一个元素的大小（以字节为单位）。整个数组的大小除以单个元素的大小就是数组元素的个数。" class="headerlink" title="4. sizeof days是整个数组的大小（以字节为单位），sizeof day[0]是数组中一个元素的大小（以字节为单位）。整个数组的大小除以单个元素的大小就是数组元素的个数。"></a>4. sizeof days是整个数组的大小（以字节为单位），sizeof day[0]是数组中一个元素的大小（以字节为单位）。整个数组的大小除以单个元素的大小就是数组元素的个数。</h5><p>sizeof运算符给出它的运算对象的大小（以字节为单位）。所以sizeof days是整个数组的大小（以字节为单位），sizeof day[0]是数组中一个元素的大小（以字节为单位）。整个数组的大小除以单个元素的大小就是数组元素的个数。</p>
+<pre><code class="c">//
+// 让编译器自行计算元素个数
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    const int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31};
+    for (int i = 0; i &lt; sizeof(days) / sizeof(days[0]); ++i) {
+        printf(&quot;Month %2d has %d days\n&quot;, i + 1, days[i]);
+    }
+
+    return 0;
+}
+</code></pre>
+<p>如果初始化数组时省略方括号中的数字，编译器会根据初始化列表中的项数来确定数组的大小。</p>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+Month  1 has 31 days
+Month  2 has 28 days
+Month  3 has 31 days
+Month  4 has 30 days
+Month  5 has 31 days
+Month  6 has 30 days
+Month  7 has 31 days
+Month  8 has 31 days
+Month  9 has 30 days
+Month 10 has 31 days
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>我们的本意是防止初始化值的个数超过数组的大小，让程序找出数组大小。我们初始化时用了10个值，结果就只打印了10个值！这就是自动计数的弊端：无法察觉初始化列表中的项数有误。</p>
+<h5 id="5-C不允许把数组作为一个单元赋给另一个数组，除初始化以外也不允许使用花括号列表的形式赋值。"><a href="#5-C不允许把数组作为一个单元赋给另一个数组，除初始化以外也不允许使用花括号列表的形式赋值。" class="headerlink" title="5. C不允许把数组作为一个单元赋给另一个数组，除初始化以外也不允许使用花括号列表的形式赋值。"></a>5. C不允许把数组作为一个单元赋给另一个数组，除初始化以外也不允许使用花括号列表的形式赋值。</h5><h5 id="6-计算机的硬件指令非常依赖地址，指针在某种程度上把程序员想要传达的指令以更接近机器的方式表达。因此，使用指针的程序更有效率。尤其是，指针能有效地处理数组。我们很快就会学到，数组表示法其实是在变相地使用指针。"><a href="#6-计算机的硬件指令非常依赖地址，指针在某种程度上把程序员想要传达的指令以更接近机器的方式表达。因此，使用指针的程序更有效率。尤其是，指针能有效地处理数组。我们很快就会学到，数组表示法其实是在变相地使用指针。" class="headerlink" title="6. 计算机的硬件指令非常依赖地址，指针在某种程度上把程序员想要传达的指令以更接近机器的方式表达。因此，使用指针的程序更有效率。尤其是，指针能有效地处理数组。我们很快就会学到，数组表示法其实是在变相地使用指针。"></a>6. 计算机的硬件指令非常依赖地址，指针在某种程度上把程序员想要传达的指令以更接近机器的方式表达。因此，使用指针的程序更有效率。尤其是，指针能有效地处理数组。我们很快就会学到，数组表示法其实是在变相地使用指针。</h5><h5 id="7-数组名是数组首元素的地址。"><a href="#7-数组名是数组首元素的地址。" class="headerlink" title="7. 数组名是数组首元素的地址。"></a>7. 数组名是数组首元素的地址。</h5><h5 id="8-我们的系统中，地址按字节编址，short类型占用2字节，double类型占用8字节。在C中，指针加1指的是增加一个存储单元。对数组而言，这意味着把加1后的地址是下一个元素的地址，而不是下一个字节的地址。这是为什么必须声明指针所指向对象类型的原因之一。只知道地址不够，因为计算机要知道储存对象需要多少字节（即使指针指向的是标量变量，也要知道变量的类型，否则-pt就无法正确地取回地址上的值）。"><a href="#8-我们的系统中，地址按字节编址，short类型占用2字节，double类型占用8字节。在C中，指针加1指的是增加一个存储单元。对数组而言，这意味着把加1后的地址是下一个元素的地址，而不是下一个字节的地址。这是为什么必须声明指针所指向对象类型的原因之一。只知道地址不够，因为计算机要知道储存对象需要多少字节（即使指针指向的是标量变量，也要知道变量的类型，否则-pt就无法正确地取回地址上的值）。" class="headerlink" title="8. 我们的系统中，地址按字节编址，short类型占用2字节，double类型占用8字节。在C中，指针加1指的是增加一个存储单元。对数组而言，这意味着把加1后的地址是下一个元素的地址，而不是下一个字节的地址。这是为什么必须声明指针所指向对象类型的原因之一。只知道地址不够，因为计算机要知道储存对象需要多少字节（即使指针指向的是标量变量，也要知道变量的类型，否则*pt就无法正确地取回地址上的值）。"></a>8. 我们的系统中，地址按字节编址，short类型占用2字节，double类型占用8字节。在C中，指针加1指的是增加一个存储单元。对数组而言，这意味着把加1后的地址是下一个元素的地址，而不是下一个字节的地址。这是为什么必须声明指针所指向对象类型的原因之一。只知道地址不够，因为计算机要知道储存对象需要多少字节（即使指针指向的是标量变量，也要知道变量的类型，否则*pt就无法正确地取回地址上的值）。</h5><h5 id="9-只有在函数原型或函数定义头中，才可以用int-ar-代替-int-ar：int-sum-intar-int-n-int-ar形式和-int-ar-形式都表示ar是一个指向int的指针。但是，int-ar-只能用于声明形式参数。第2种形式（int-ar-）提醒读者指针ar指向的不仅仅一个int类型值，还是一个int类型数组的元素。"><a href="#9-只有在函数原型或函数定义头中，才可以用int-ar-代替-int-ar：int-sum-intar-int-n-int-ar形式和-int-ar-形式都表示ar是一个指向int的指针。但是，int-ar-只能用于声明形式参数。第2种形式（int-ar-）提醒读者指针ar指向的不仅仅一个int类型值，还是一个int类型数组的元素。" class="headerlink" title="9. 只有在函数原型或函数定义头中，才可以用int ar[]代替 int * ar：int sum(intar[], int n); int * ar形式和 int ar[]形式都表示ar是一个指向int的指针。但是，int ar[]只能用于声明形式参数。第2种形式（int ar[]）提醒读者指针ar指向的不仅仅一个int类型值，还是一个int类型数组的元素。"></a>9. 只有在函数原型或函数定义头中，才可以用<code>int ar[]</code>代替 <code>int * ar</code>：<code>int sum(intar[], int n);</code> <code>int * ar</code>形式和 <code>int ar[]</code>形式都表示ar是一个指向int的指针。但是，<code>int ar[]</code>只能用于声明形式参数。第2种形式（<code>int ar[]</code>）提醒读者指针ar指向的不仅仅一个int类型值，还是一个int类型数组的元素。</h5><p>下面4种原型都是等价的：</p>
+<pre><code class="c">int sum(int * ar, int n);
+int sum(int *, int);
+int sum(int ar[], int n);
+int sum(int [], int);
+</code></pre>
+<p>但是，在函数定义中不能省略参数名。下面两种形式的函数定义等价：</p>
+<pre><code class="c">int sum(int * ar, int n)
+{
+
+}
+
+int sum2(int arr[], int n)
+{
+
+}
+</code></pre>
+<h5 id="10-函数要处理数组必须知道何时开始、何时结束。sum-函数使用一个指针形参标识数组的开始，用一个整数形参表明待处理数组的元素个数（指针形参也表明了数组中的数据类型）。但是这并不是给函数传递必备信息的唯一方法。还有一种方法是传递两个指针，第1个指针指明数组的开始处（与前面用法相同），第2个指针指明数组的结束处。"><a href="#10-函数要处理数组必须知道何时开始、何时结束。sum-函数使用一个指针形参标识数组的开始，用一个整数形参表明待处理数组的元素个数（指针形参也表明了数组中的数据类型）。但是这并不是给函数传递必备信息的唯一方法。还有一种方法是传递两个指针，第1个指针指明数组的开始处（与前面用法相同），第2个指针指明数组的结束处。" class="headerlink" title="10. 函数要处理数组必须知道何时开始、何时结束。sum()函数使用一个指针形参标识数组的开始，用一个整数形参表明待处理数组的元素个数（指针形参也表明了数组中的数据类型）。但是这并不是给函数传递必备信息的唯一方法。还有一种方法是传递两个指针，第1个指针指明数组的开始处（与前面用法相同），第2个指针指明数组的结束处。"></a>10. 函数要处理数组必须知道何时开始、何时结束。sum()函数使用一个指针形参标识数组的开始，用一个整数形参表明待处理数组的元素个数（指针形参也表明了数组中的数据类型）。但是这并不是给函数传递必备信息的唯一方法。还有一种方法是传递两个指针，第1个指针指明数组的开始处（与前面用法相同），第2个指针指明数组的结束处。</h5><pre><code class="c">//
+// 计算数组元素之和
+//
+#include &lt;stdio.h&gt;
+#define SIZE 10
+
+int sum(int *, int *);
+
+int main(void)
+{
+    int marbles[SIZE] = {20, 10, 5, 39, 4, 16, 19, 26, 31, 20};
+    printf(&quot;%d\n&quot;, sum(marbles, marbles + SIZE));
+
+    return 0;
+}
+
+/**
+ * 计算数组元素之和
+ *
+ * @param start 数组元素的首地址
+ * @param end 数组元素的尾地址, 该地址有效但是地址上的值是无效的
+ * @return int
+ */
+int sum(int * start, int * end)
+{
+    int total = 0;
+    while (start &lt; end) {
+        // 获取该地址上存储的值进行累加
+        total += *start;
+        // 指向数组元素的下一个地址
+        start++;
+    }
+
+    return total;
+}
+</code></pre>
+<p>指针start开始指向marbles数组的首元素，所以赋值表达式<code>total += *start</code>把首元素（20）加给total。然后，表达式<code>start++</code>递增指针变量start，使其指向数组的下一个元素。因为start是指向int的指针，start递增1相当于其值递增int类型的大小。</p>
+<p>因为while循环的测试条件是一个不相等的关系，所以循环最后处理的一个元素是end所指向位置的前一个元素。这意味着end指向的位置实际上在数组最后一个元素的后面。C保证在给数组分配空间时，指向数组后面第一个位置的指针仍是有效的指针。这使得while循环的测试条件是有效的，因为start在循环中最后的值是end。注意，使用这种“越界”指针的函数调用更为简洁：</p>
+<pre><code class="c">sum(marbles, marbles + SIZE);
+</code></pre>
+<p>因为下标从0开始，所以<code>marbles + SIZE</code>指向数组末尾的下一个位置。如果end指向数组的最后一个元素而不是数组末尾的下一个位置，则必须使用下面的代码：</p>
+<pre><code class="c">sum(marbles, marbles + SIZE - 1);
+</code></pre>
+<p>这种写法既不简洁也不好记，很容易导致编程错误。顺带一提，虽然C保证了<code>marbles + SIZE</code>有效，但是对<code>marbles[SIZE]</code>（即储存在该位置上的值）未作任何保证，所以程序不能访问该位置。</p>
+<p>还可以把循环体压缩成一行代码：</p>
+<pre><code class="c">total += *start++;
+</code></pre>
+<p>一元运算符<code>*</code>和<code>++</code>的优先级相同，但结合律是从右往左，所以<code>start++</code>先求值，然后才是<code>*start</code>。也就是说，指针start先递增后指向。使用后缀形式（即<code>start++</code>而不是<code>++start</code>）意味着先把指针指向位置上的值加到total上，然后再递增指针。如果使用<code>*++start</code>，顺序则反过来，先递增指针，再使用指针指向位置上的值。值。如果使用<code>(*start)++</code>，则先使用start指向的值，再递增该值，而不是递增指针。这样，指针将一直指向同一个位置，但是该位置上的值发生了变化。虽然<code>*start++</code>的写法比较常用，但是<code>*(start++)</code>这样写更清楚。</p>
+<h5 id="11-至于C语言，ar-i-和-ar-1-这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用ar-这样的表达式。"><a href="#11-至于C语言，ar-i-和-ar-1-这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用ar-这样的表达式。" class="headerlink" title="11. 至于C语言，ar[i]和*(ar+1)这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用ar++这样的表达式。"></a>11. 至于C语言，<code>ar[i]</code>和<code>*(ar+1)</code>这两个表达式都是等价的。无论ar是数组名还是指针变量，这两个表达式都没问题。但是，只有当ar是指针变量时，才能使用<code>ar++</code>这样的表达式。</h5><p>指针表示法（尤其与递增运算符一起使用时）更接近机器语言，因此一些编译器在编译时能生成效率更高的代码。然而，许多程序员认为他们的主要任务是确保代码正确、逻辑清晰，而代码优化应该留给编译器去做。</p>
+<h5 id="12-指针变量的8种基本操作"><a href="#12-指针变量的8种基本操作" class="headerlink" title="12. 指针变量的8种基本操作"></a>12. 指针变量的8种基本操作</h5><pre><code class="c">//
+// 计算数组元素之和
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int urn[5] = {100, 200, 300, 400, 500};
+    int *ptr1, *ptr2, *ptr3;
+    // 把一个地址赋值给一个指针, 数组名是数组元素的首地址
+    ptr1 = urn;
+    // 直接赋值一个元素地址
+    ptr2 = &amp;urn[2];
+    // 指针的值, 解引用指针, 获取指针的地址
+    printf(&quot;pointer value, dereferenced pointer, pointer address:\n&quot;);
+    printf(&quot;ptr1 = %p, *ptr1 = %d, &amp;ptr1 = %p\n&quot;, ptr1, *ptr1, &amp;ptr1);
+
+    // 指针加法, 指向数组的第五个元素
+    ptr3 = ptr1 + 4;
+    printf(&quot;\nadding an int to a pointer:\n&quot;);
+    printf(&quot;ptr1 + 4 = %p, *(ptr1 + 4) = %d\n&quot;, ptr1 + 4, *(ptr1 + 4));
+
+    // 递增指针
+    ptr1++;
+    printf(&quot;\nvalues after ptr1++:\n&quot;);
+    printf(&quot;ptr1 = %p, *ptr1 = %d, &amp;ptr1 = %p\n&quot;, ptr1, *ptr1, &amp;ptr1);
+
+    // 递减指针
+    ptr2--;
+    printf(&quot;\nvalues after --ptr2:\n&quot;);
+    printf(&quot;ptr2 = %p, *ptr2 = %d, &amp;ptr2 = %p\n&quot;, ptr2, *ptr2, &amp;ptr2);
+
+    // 恢复为初始值
+    --ptr1;
+    ++ptr2;
+    printf(&quot;\nPointers reset to original values:\n&quot;);
+    printf(&quot;ptr1 = %p, ptr2 = %p\n&quot;, ptr1, ptr2);
+
+    // 一个指针减去另一个指针
+    printf(&quot;\nsubtracting one pointer from another:\another:\n&quot;);
+    printf(&quot;ptr2 = %p, ptr1 = %p, ptr2 - ptr1 = %td\n&quot;, ptr2, ptr1, ptr2 - ptr1);
+
+    // 一个指针减去一个整数
+    printf(&quot;\nsubtracting an int from a pointer:\n&quot;);
+    printf(&quot;ptr3 = %p, ptr3 - 2 = %p\n&quot;, ptr3, ptr3 - 2);
+
+    return 0;
+}
+</code></pre>
+<p>赋值：可以把地址赋给指针。例如，用数组名、带地址运算符（<code>&amp;</code>）的变量名、另一个指针进行赋值。注意，地址应该和指针类型兼容。也就是说，不能把double类型的地址赋给指向int的指针，至少要避免不明智的类型转换。C99/C11已经强制不允许这样做。</p>
+<p>解引用：<code>*</code>运算符给出指针指向地址上储存的值。因此，<code>*ptr1</code>的初值是100，该值储存在编号为0x7fff5fbff8d0的地址上。</p>
+<p>取址：和所有变量一样，指针变量也有自己的地址和值。对指针而言，<code>&amp;</code>运算符给出指针本身的地址。</p>
+<p>指针与整数相加：可以使用+运算符把指针与整数相加，或整数与指针相加。无论哪种情况，整数都会和指针所指向类型的大小（以字节为单位）相乘，然后把结果与初始地址相加。因此<code>ptr1 + 4</code>与<code>&amp;urn[4]</code>等价。如果相加的结果超出了初始指针指向的数组范围，计算结果则是未定义的。除非正好超过数组末尾第一个位置，C保证该指针有效。如果相加的结果超出了初始指针指向的数组范围，计算结果则是未定义的。除非正好超过数组末尾第一个位置，C保证该指针有效。</p>
+<p>递增指针：递增指向数组元素的指针可以让该指针移动至数组的下一个元素。毕竟，变量不会因为值发生变化就移动位置。</p>
+<p>指针减去一个整数：可以使用-运算符从一个指针中减去一个整数。指针必须是第1个运算对象，整数是第2个运算对象。</p>
+<p>递减指针：当然，除了递增指针还可以递减指针。在本例中，递减ptr3使其指向数组的第2个元素而不是第3个元素。前缀或后缀的递增和递减运算符都可以使用。</p>
+<p>指针求差：可以计算两个指针的差值。通常，求差的两个指针分别指向同一个数组的不同元素，通过计算求出两元素之间的距离。差值的单位与数组类型的单位相同。</p>
+<p>比较：使用关系运算符可以比较两个指针的值，前提是两个指针都指向相同类型的对象。注意，这里的减法有两种。可以用一个指针减去另一个指针得到一个整数，或者用一个指针减去一个整数得到另一个指针。</p>
+<h5 id="13-在递增或递减指针时还要注意一些问题。编译器不会检查指针是否仍指向数组元素。C只能保证指向数组任意元素的指针和指向数组后面第1个位置的指针有效。但是，如果递增或递减一个指针后超出了这个范围，则是未定义的。另外，可以解引用指向数组任意元素的指针。但是，即使指针指向数组后面一个位置是有效的，也能解引用这样的越界指针。"><a href="#13-在递增或递减指针时还要注意一些问题。编译器不会检查指针是否仍指向数组元素。C只能保证指向数组任意元素的指针和指向数组后面第1个位置的指针有效。但是，如果递增或递减一个指针后超出了这个范围，则是未定义的。另外，可以解引用指向数组任意元素的指针。但是，即使指针指向数组后面一个位置是有效的，也能解引用这样的越界指针。" class="headerlink" title="13. 在递增或递减指针时还要注意一些问题。编译器不会检查指针是否仍指向数组元素。C只能保证指向数组任意元素的指针和指向数组后面第1个位置的指针有效。但是，如果递增或递减一个指针后超出了这个范围，则是未定义的。另外，可以解引用指向数组任意元素的指针。但是，即使指针指向数组后面一个位置是有效的，也能解引用这样的越界指针。"></a>13. 在递增或递减指针时还要注意一些问题。编译器不会检查指针是否仍指向数组元素。C只能保证指向数组任意元素的指针和指向数组后面第1个位置的指针有效。但是，如果递增或递减一个指针后超出了这个范围，则是未定义的。另外，可以解引用指向数组任意元素的指针。但是，即使指针指向数组后面一个位置是有效的，也能解引用这样的越界指针。</h5><h5 id="14-千万不要解引用未初始化的指针。"><a href="#14-千万不要解引用未初始化的指针。" class="headerlink" title="14. 千万不要解引用未初始化的指针。"></a>14. 千万不要解引用未初始化的指针。</h5><pre><code class="c">//
+// 解引用未初始化的指针
+//
+
+int main(void)
+{
+    // 未初始化的指针
+    int *pt;
+    *pt = 5;
+
+    return 0;
+}
+</code></pre>
+<p>为何不行？第2行的意思是把5储存在pt指向的位置。但是pt未被初始化，其值是一个随机值，所以不知道5将储存在何处。这可能不会出什么错，也可能会擦写数据或代码，或者导致程序崩溃。切记：创建一个指针时，系统只分配了储存指针本身的内存，并未分配储存数据的内存。因此，在使用指针之前，必须先用已分配的地址初始化它。</p>
+<h5 id="15-编写一个处理基本类型（如，int）的函数时，要选择是传递int类型的值还是传递指向int的指针。通常都是直接传递数值，只有程序需要在函数中改变该数值时，才会传递指针。对于数组别无选择，必须传递指针，因为这样做效率高。如果一个函数按值传递数组，则必须分配足够的空间来储存原数组的副本，然后把原数组所有的数据拷贝至新的数组中。如果把数组的地址传递给函数，让函数直接处理原数组则效率要高。"><a href="#15-编写一个处理基本类型（如，int）的函数时，要选择是传递int类型的值还是传递指向int的指针。通常都是直接传递数值，只有程序需要在函数中改变该数值时，才会传递指针。对于数组别无选择，必须传递指针，因为这样做效率高。如果一个函数按值传递数组，则必须分配足够的空间来储存原数组的副本，然后把原数组所有的数据拷贝至新的数组中。如果把数组的地址传递给函数，让函数直接处理原数组则效率要高。" class="headerlink" title="15. 编写一个处理基本类型（如，int）的函数时，要选择是传递int类型的值还是传递指向int的指针。通常都是直接传递数值，只有程序需要在函数中改变该数值时，才会传递指针。对于数组别无选择，必须传递指针，因为这样做效率高。如果一个函数按值传递数组，则必须分配足够的空间来储存原数组的副本，然后把原数组所有的数据拷贝至新的数组中。如果把数组的地址传递给函数，让函数直接处理原数组则效率要高。"></a>15. 编写一个处理基本类型（如，int）的函数时，要选择是传递int类型的值还是传递指向int的指针。通常都是直接传递数值，只有程序需要在函数中改变该数值时，才会传递指针。对于数组别无选择，必须传递指针，因为这样做效率高。如果一个函数按值传递数组，则必须分配足够的空间来储存原数组的副本，然后把原数组所有的数据拷贝至新的数组中。如果把数组的地址传递给函数，让函数直接处理原数组则效率要高。</h5><p>传递地址会导致一些问题。C通常都按值传递数据，因为这样做可以保证数据的完整性。如果函数使用的是原始数据的副本，就不会意外修改原始数据。但是，处理数组的函数通常都需要使用原始数据，因此这样的函数可以修改原数组。有时，这正是我们需要的。</p>
+<h5 id="16-ANSI-C提供了一种预防手段。如果函数的意图不是修改数组中的数据内容，那么在函数原型和函数定义中声明形式参数时应使用关键字const。"><a href="#16-ANSI-C提供了一种预防手段。如果函数的意图不是修改数组中的数据内容，那么在函数原型和函数定义中声明形式参数时应使用关键字const。" class="headerlink" title="16. ANSI C提供了一种预防手段。如果函数的意图不是修改数组中的数据内容，那么在函数原型和函数定义中声明形式参数时应使用关键字const。"></a>16. ANSI C提供了一种预防手段。如果函数的意图不是修改数组中的数据内容，那么在函数原型和函数定义中声明形式参数时应使用关键字const。</h5><p>这里一定要理解，这样使用const并不是要求原数组是常量，而是该函数在处理数组时将其视为常量，不可更改。这样使用const可以保护数组的数据不被修改，就像按值传递可以保护基本数据类型的原始值不被改变一样。一般而言，如果编写的函数需要修改数组，在声明数组形参时则不使用const；如果编写的函数不用修改数组，那么在声明数组形参时最好使用const。</p>
+<h5 id="17-C标准规定，使用非const标识符（如，mult-arry-的形参ar）修改const数据（如，locked）导致的结果是未定义的。在创建指针时还可以使用const两次，该指针既不能更改它所指向的地址，也不能修改指向地址上的值。"><a href="#17-C标准规定，使用非const标识符（如，mult-arry-的形参ar）修改const数据（如，locked）导致的结果是未定义的。在创建指针时还可以使用const两次，该指针既不能更改它所指向的地址，也不能修改指向地址上的值。" class="headerlink" title="17. C标准规定，使用非const标识符（如，mult_arry()的形参ar）修改const数据（如，locked）导致的结果是未定义的。在创建指针时还可以使用const两次，该指针既不能更改它所指向的地址，也不能修改指向地址上的值。"></a>17. C标准规定，使用非const标识符（如，mult_arry()的形参ar）修改const数据（如，locked）导致的结果是未定义的。在创建指针时还可以使用const两次，该指针既不能更改它所指向的地址，也不能修改指向地址上的值。</h5>
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/12/16/cnote/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">65. C Prime Plus 笔记-2017.12.16</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
