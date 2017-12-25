@@ -87,7 +87,41 @@
 <p>这几天在疯狂的苦学Java，由于之前学过一段时间的Go，觉得差别不是很大，相对来说还是挺容易的。终于学到操作数据库这一节，这应该是对于使用动态语言的人来说，最为期待的一幕了。在动态语言的世界里，数据库相关的操作，占据了业务的大多数，也占据了代码量相当的一部分。觉得静态语言会不会也很难，当然Go使用MySQL数据库是相当的简单，但是Go的DB包不是特别的好用，不过已经非常完美了。</p>
 <p>让我感到惊讶的是，Java操作MySQL也是如此的简单，得益于jar包的便利，加入一个扩展是如此的方便和快捷。</p>
 <a id="more"></a>
-<pre><code class="java">package test;
+<h2 id="一、用户基类"><a href="#一、用户基类" class="headerlink" title="一、用户基类"></a>一、用户基类</h2><pre><code class="java">package test;
+
+/**
+ * 用户信息
+ * 
+ * @author zhgxun
+ *
+ */
+public class User {
+    public long id;
+    public String name;
+    public int age;
+
+    public User() {
+
+    }
+
+    public User(long id, String name, int age) {
+        this.id = id;
+        this.name = name.trim();
+        this.age = age;
+    }
+
+    public User(String name, int age) {
+        this.name = name.trim();
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;&lt;String: id= &quot; + this.id + &quot;, name= &quot; + this.name + &quot;, age= &quot; + this.age + &quot;&gt;&quot;;
+    }
+}
+</code></pre>
+<h2 id="二、基本查询"><a href="#二、基本查询" class="headerlink" title="二、基本查询"></a>二、基本查询</h2><pre><code class="java">package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -229,6 +263,209 @@ public class DB {
 Update rows: 1
 1 inserted.
 新增数据主键：7
+</code></pre>
+<h2 id="三、事务处理"><a href="#三、事务处理" class="headerlink" title="三、事务处理"></a>三、事务处理</h2><pre><code class="java">package test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 事务处理
+ * 
+ * @author zhgxun
+ *
+ */
+public class DBTx {
+    static final String JDBC_URL = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=UTC&quot;;
+    static final String JDBC_USER = &quot;root&quot;;
+    static final String JDBC_PASSWORD = &quot;&quot;;
+
+    public static void main(String[] args) {
+        // 打印用户列表
+        List&lt;User&gt; users = null;
+        try {
+            users = getUsers();
+            for (User user : users) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 开启更新事务
+        System.out.println(&quot;开启更新事务&quot;);
+        Connection conn = null;
+        try {
+            // 连接数据库
+            conn = getConnection();
+            // 设置事务隔离级别为提交读
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            // 开启事务, 开启事务即是关闭自动提交即可
+            conn.setAutoCommit(false);
+            // 更新用户信息
+            update(conn, new User(users.get(0).id, &quot;杨幂&quot;, 25));
+            update(conn, new User(users.get(1).id, &quot;李思思&quot;, 20));
+            // 提交事务
+            conn.commit();
+            // 事务执行成功
+            System.out.println(&quot;事务执行成功&quot;);
+        } catch (SQLException e) {
+            // 回滚事务
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                System.out.println(&quot;回滚事务失败&quot;);
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // 尝试关闭数据库连接
+            try {
+                // 恢复数据库自动提交记录
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println(&quot;数据库关闭失败&quot;);
+                e.printStackTrace();
+            }
+        }
+
+        // 事务后重新打印所有用户列表
+        System.out.println(&quot;事务后重新打印所有用户列表&quot;);
+        try {
+            users = getUsers();
+            for (User user : users) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 模拟事务回滚
+        System.out.println(&quot;模拟事务回滚&quot;);
+        try {
+            // 连接数据库
+            conn = getConnection();
+            // 设置事务隔离级别为提交读
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            // 开启事务, 开启事务即是关闭自动提交即可
+            conn.setAutoCommit(false);
+            // 更新用户信息
+            update(conn, new User(users.get(0).id, &quot;周迅&quot;, 28));
+            update(conn, new User(users.get(1).id, &quot;卓依婷&quot;, 24));
+            // 提交事务
+            conn.commit();
+            // 人为制造异常终止事务使其回滚, 不过后续代码也无法正常执行了
+            throw new RuntimeException(&quot;强制数据库回滚&quot;);
+        } catch (SQLException e) {
+            // 回滚事务
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                System.out.println(&quot;回滚事务失败&quot;);
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // 尝试关闭数据库连接
+            try {
+                // 恢复数据库自动提交记录
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println(&quot;数据库关闭失败&quot;);
+                e.printStackTrace();
+            }
+        }
+
+        // 回滚事务后再次查看用户列表
+        System.out.println(&quot;回滚事务后再次查看用户列表&quot;);
+        try {
+            users = getUsers();
+            for (User user : users) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 数据库连接
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    }
+
+    /**
+     * 获取用户列表
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static List&lt;User&gt; getUsers() throws SQLException {
+        try (Connection conn = getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT * FROM user&quot;)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    List&lt;User&gt; users = new ArrayList&lt;&gt;();
+                    while (rs.next()) {
+                        long id = rs.getLong(&quot;id&quot;);
+                        String name = rs.getString(&quot;name&quot;);
+                        int age = rs.getInt(&quot;age&quot;);
+                        users.add(new User(id, name, age));
+                    }
+                    return users;
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据id更新用户姓名
+     * 
+     * @param conn
+     * @param user
+     * @throws SQLException
+     */
+    private static void update(Connection conn, User user) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(&quot;UPDATE user SET name = ? WHERE id = ?&quot;)) {
+            ps.setObject(1, user.name);
+            ps.setObject(2, user.id);
+            ps.executeUpdate();
+        }
+    }
+
+}
+</code></pre>
+<p>输出</p>
+<pre><code class="bash">&lt;String: id= 1, name= 周迅, age= 18&gt;
+&lt;String: id= 2, name= 卓依婷, age= 20&gt;
+&lt;String: id= 3, name= wangwu, age= 29&gt;
+&lt;String: id= 4, name= maliu, age= 45&gt;
+&lt;String: id= 5, name= 田七, age= 30&gt;
+&lt;String: id= 6, name= 马云, age= 50&gt;
+&lt;String: id= 7, name= 关晓彤, age= 50&gt;
+开启更新事务
+事务执行成功
+事务后重新打印所有用户列表
+&lt;String: id= 1, name= 杨幂, age= 18&gt;
+&lt;String: id= 2, name= 李思思, age= 20&gt;
+&lt;String: id= 3, name= wangwu, age= 29&gt;
+&lt;String: id= 4, name= maliu, age= 45&gt;
+&lt;String: id= 5, name= 田七, age= 30&gt;
+&lt;String: id= 6, name= 马云, age= 50&gt;
+&lt;String: id= 7, name= 关晓彤, age= 50&gt;
+模拟事务回滚
+Exception in thread &quot;main&quot; java.lang.RuntimeException: 强制数据库回滚
+    at test.DBTx.main(DBTx.java:98)
 </code></pre>
 
       
