@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>68. JDBC操作MySQL数据库 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-jdbc" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      68. JDBC操作MySQL数据库
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/25/jdbc/" class="article-date"><time datetime="2017-12-25T12:11:03.000Z" itemprop="datePublished">2017-12-25</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于熟悉PHP的人来说，最熟悉的莫过于PDO(PHP Data Object)这个词了。而且Web后端更多的时候也确实是存取数据，反而对代码性能和封装没太大的讲究。虽然偶尔会有人问我，你觉得一个人，代码写的漂亮，特别好；另一个人代码写的一般，你更倾向于哪一种？我说，如果非要选一种，那肯定是写的漂亮又好的还稳定的。但事实上，并不是这么回事。对很多人来说，二者并不是统一的。</p>
+<p>有段时间我还学过Python，但是对于Python操作MySQL数据库相当的泄气，以至于后来我就放弃这门语言了。说实话，这门语言比PHP还有实用的多，而且也是一种新潮的趋势，越来越多的人开始使用这门语言。而且这门语言本身的能力也比PHP要强大的多，可以做很多PHP做不了的事情。</p>
+<p>这几天在疯狂的苦学Java，由于之前学过一段时间的Go，觉得差别不是很大，相对来说还是挺容易的。终于学到操作数据库这一节，这应该是对于使用动态语言的人来说，最为期待的一幕了。在动态语言的世界里，数据库相关的操作，占据了业务的大多数，也占据了代码量相当的一部分。觉得静态语言会不会也很难，当然Go使用MySQL数据库是相当的简单，但是Go的DB包不是特别的好用，不过已经非常完美了。</p>
+<p>让我感到惊讶的是，Java操作MySQL也是如此的简单，得益于jar包的便利，加入一个扩展是如此的方便和快捷。</p>
+<a id="more"></a>
+<pre><code class="java">package test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 使用JDBC连接MySQL数据库
+ * 
+ * @author zhgxun
+ *
+ */
+public class DB {
+
+    static final String JDBC_URL = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=UTC&quot;;
+    static final String JDBC_USER = &quot;root&quot;;
+    static final String JDBC_PASSWORD = &quot;&quot;;
+
+    public static void main(String[] args) {
+        try {
+            // 获取所有用户信息
+            List&lt;User&gt; users = new ArrayList&lt;&gt;();
+            users = getAllUsers();
+            for (User user : users) {
+                System.out.println(user);
+            }
+
+            // 更新数据记录
+            User u = users.get(0);
+            u.name = &quot;张十三&quot;;
+            update(u);
+
+            // 删除跟更新数据类似
+
+            // 新增数据
+            long id = insert(new User(&quot;关晓彤&quot;, 50));
+            System.out.printf(&quot;新增数据主键：%d\n&quot;, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取用户信息, 注意try()和try...catch() {}的语法格式
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static List&lt;User&gt; getAllUsers() throws SQLException {
+        try (Connection conn = getConnection()) {
+            // 总是优先使用PreparedStatement
+            try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT * FROM user&quot;)) {
+                // 查询结果是ResultSet
+                try (ResultSet rs = ps.executeQuery()) {
+                    List&lt;User&gt; list = new ArrayList&lt;&gt;();
+                    while (rs.next()) {
+                        long id = rs.getLong(&quot;id&quot;);
+                        String name = rs.getString(&quot;name&quot;);
+                        int age = rs.getInt(&quot;age&quot;);
+                        User std = new User(id, name, age);
+                        list.add(std);
+                    }
+                    return list;
+                }
+            }
+        }
+    }
+
+    /**
+     * 更新记录
+     * 
+     * @param u
+     * @throws SQLException
+     */
+    private static void update(User u) throws SQLException {
+        try (Connection conn = getConnection()) {
+            // 使用PreparedStatement的executeUpdate()进行更新
+            try (PreparedStatement p = conn.prepareStatement(&quot;UPDATE user SET name=? WHERE id = ?&quot;)) {
+                // 占位符从1开始
+                p.setObject(1, u.name);
+                p.setObject(2, u.id);
+                // 更新操作包括UPDATE、INSERT和DELETE语句
+                // 更新结果是int
+                int n = p.executeUpdate();
+                System.out.println(&quot;Update rows: &quot; + n);
+            }
+        }
+    }
+
+    /**
+     * 新增数据
+     * 
+     * @param u
+     * @return
+     * @throws SQLException
+     */
+    private static long insert(User u) throws SQLException {
+        try (Connection conn = getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement(&quot;INSERT INTO user (name, age) VALUES (?, ?)&quot;,
+                    Statement.RETURN_GENERATED_KEYS)) {
+                ps.setObject(1, u.name);
+                ps.setObject(2, u.age);
+                int n = ps.executeUpdate();
+                System.out.println(n + &quot; inserted.&quot;);
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        long id = rs.getLong(1);
+                        u.id = id;
+                        return id;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 连接数据库
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    }
+}
+</code></pre>
+<p>输出</p>
+<pre><code class="bash">&lt;String: id= 1, name= 张三, age= 18&gt;
+&lt;String: id= 2, name= lisi, age= 20&gt;
+&lt;String: id= 3, name= wangwu, age= 29&gt;
+&lt;String: id= 4, name= maliu, age= 45&gt;
+&lt;String: id= 5, name= 田七, age= 30&gt;
+&lt;String: id= 6, name= 马云, age= 50&gt;
+Update rows: 1
+1 inserted.
+新增数据主键：7
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/12/17/multi/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">67. 指针和多维数组</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
