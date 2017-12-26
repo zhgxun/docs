@@ -467,6 +467,129 @@ public class DBTx {
 Exception in thread &quot;main&quot; java.lang.RuntimeException: 强制数据库回滚
     at test.DBTx.main(DBTx.java:98)
 </code></pre>
+<h2 id="四、连接池"><a href="#四、连接池" class="headerlink" title="四、连接池"></a>四、连接池</h2><pre><code class="java">import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 数据库连接池
+ */
+public class DBSource {
+    // 配置MySQL连接属性
+    private static final String JDBC_URL = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=UTC&quot;;
+    private static final String JDBC_USER = &quot;root&quot;;
+    private static final String JDBC_PASSWORD = &quot;&quot;;
+
+    /**
+     * 使用连接池查询数据
+     *
+     * @param args 输入参数
+     */
+    public static void main(String[] args) {
+        // 创建连接池
+        DataSource dataSource = create();
+        // 保持线程实例
+        List&lt;Thread&gt; threads = new ArrayList&lt;&gt;();
+        // 启动4个线程来查询用户列表
+        for (int i = 1; i &lt;= 4; i++) {
+            // 准备线程池
+            Thread thread = new Thread() {
+                public void run() {
+                    // 暂缓一段时间
+                    try {
+                        Thread.sleep((long) (Math.random() * 1000));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        List&lt;User&gt; users = getUsers(dataSource);
+                        for (User user : users) {
+                            System.out.println(user);
+                        }
+                    } catch (SQLException e) {
+                        e.getStackTrace();
+                    }
+                }
+            };
+            threads.add(thread);
+        }
+        // 启动线程
+        for (Thread thread : threads) {
+            thread.start();
+        }
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.getStackTrace();
+            }
+        }
+        // 关闭连接池
+        ((HikariDataSource) dataSource).close();
+    }
+
+    /**
+     * 配置数据库连接池
+     *
+     * @return DataSource
+     */
+    private static DataSource create() {
+        // HikariCP是JDBC连接池组件
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(JDBC_URL);
+        config.setUsername(JDBC_USER);
+        config.setPassword(JDBC_PASSWORD);
+        // 连接超时
+        config.addDataSourceProperty(&quot;connectionTimeout&quot;, 1000);
+        // 空闲超时
+        config.addDataSourceProperty(&quot;idleTimeout&quot;, 1000);
+        // 最大连接数
+        config.addDataSourceProperty(&quot;maximumPoolSize&quot;, 10);
+
+        return new HikariDataSource(config);
+    }
+
+    /**
+     * 通过连接池获取用户列表
+     *
+     * @param dataSource 数据库连接池
+     * @return List&lt;User&gt;
+     * @throws SQLException 异常处理
+     */
+    private static List&lt;User&gt; getUsers(DataSource dataSource) throws SQLException {
+        try (Connection conn = dataSource.getConnection()) {
+            System.out.println(&quot;Using connection: &quot; + conn);
+            try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT * FROM user&quot;)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    return handleUsers(rs);
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取用户列表
+     *
+     * @param rs ResultSet 结果集
+     * @return List&lt;User&gt;
+     * @throws SQLException 异常处理
+     */
+    private static List&lt;User&gt; handleUsers(ResultSet rs) throws SQLException {
+        List&lt;User&gt; users = new ArrayList&lt;&gt;();
+        while (rs.next()) {
+            long id = rs.getLong(&quot;id&quot;);
+            String name = rs.getString(&quot;name&quot;);
+            int age = rs.getInt(&quot;age&quot;);
+            users.add(new User(id, name, age));
+        }
+        return users;
+    }
+}
+</code></pre>
 
       
     </div>
