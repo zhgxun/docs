@@ -63,6 +63,128 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-twosum" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/01/twosum/" class="article-date"><time datetime="2018-01-01T13:08:43.000Z" itemprop="datePublished">2018-01-01</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="external">Two Sum</a>;</p>
+<pre><code class="java">package github.banana;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 给一个整数数组和一个目标值, 返回数组中两个元素相加后等于目标值的原数组元素下标
+ * 
+ * 比如Given nums = [2, 7, 11, 15], target = 9
+ * 
+ * Because nums[0] + nums[1] = 2 + 7= 9
+ * 
+ * return [0, 1]
+ * 
+ * @author zhgxun
+ *
+ */
+public class TwoSum {
+    public static void main(String[] args) {
+        int[] nums = { 2, 7, 11, 15 };
+        int[] res;
+        res = twoSum(nums, 9);
+        System.out.println(Arrays.toString(res));
+
+        res = twoSumV2(nums, 9);
+        System.out.println(Arrays.toString(res));
+    }
+
+    /**
+     * 双层遍历
+     * 
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i &lt; nums.length; i++) {
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                // 判断值是否相等
+                if (nums[i] + nums[j] == target) {
+                    return new int[] { i, j };
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 使用map
+     * 
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSumV2(int[] nums, int target) {
+        // 存储元素键为数组元素值, 元素值为数组元素下标
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            // 计算的目标值
+            int goal = target - nums[i];
+            // 看该值是否存在于hash表中
+            if (map.containsKey(goal)) {
+                return new int[] { map.get(goal), i };
+            }
+            map.put(nums[i], i);
+        }
+        return null;
+    }
+}
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-string" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -630,70 +752,10 @@ zhgxun-pro:c2 zhgxun$
 </article>
 
   
-    <article id="post-tijian" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/25/tijian/">61. 慈铭体检</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/11/25/tijian/" class="article-date"><time datetime="2017-11-25T04:54:20.000Z" itemprop="datePublished">2017-11-25</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>距离上次在微梦科技入职到普仁医院体检，到现在已经2年半的时间了。去年来聚美，当时入职比较匆忙，来不及去体检。一拖再拖，直到离开都没来得及去体检一次。幸好百度这边刚好赶上年度体检，也一直腾不出时间，最终还是约上了慈铭今早的体检。</p>
-<p>这两个月早上7点前都没起过床，差点就迟到。来到知春路，幸好出太阳，都快要被冻死了。</p>
-<p>找到慈铭，里面人很多，我来晚了。看到前台有人在登记，我也走过去。排在我前面的小伙是新浪的。看来今天来体检的人只会更多了。一看采血的人很多，旁边的护士就说先去做彩超。我过去看彩超有4个人在排队，还嫌太多，就去抽血。结果被护士把我的单子拿进去了，才知道抽血的排队至少半个小时，也只能硬着头皮等。后来才发觉，如果先做彩超，再来抽血，至少会早走半个小时。</p>
-<p>抽血检查的项多，抽了三管血。天啊，像我这个从来不抽血，只有体检才抽血的人，实在是看不下去了，要这么多血干嘛。群里的小伙伴说，“这个就要怪搞检测仪器的了，他们的测量池要那么多的样品，那也没办法，医生不吃人血旺”，这语气听起来逗逗的。</p>
-<p>彩超人也很多，听旁边的护士说，之前来做体检的人，都是彩超排的队最长，这次突然彩超变少了。彩超比较慢，我前面就七八个人，都排了近一个小时的时间。</p>
-<p>没注意有个腰椎间盘，就进去了，其实这个是没必要进去的。小伙说身体挺好呀，是不是经常运动……说了一通，最后才说我们这里可以给你200块钱做个按摩，拔火罐……什么的。我说不用了，以后再说吧。</p>
-<p>然后是胸透，胸透也比较快，几分钟就完了。</p>
-<p>做心电图。医生说你不要饮酒吃肉，当时心砰砰的跳，我就想，这酒我是真不喝。确实这几年来，我几乎都不喝酒，最多就是几口啤酒，都是应付应付气氛。问题是这不吃肉，那还活着干啥。也不好多问，是不能饮酒的时候吃肉还是酒也不要喝肉也不要吃。</p>
-<p>耳鼻喉每次都有，其实也不明白这个到底要干啥，就跟每次都要测量身高体重一样，人就站在那里，你测不测都一个样。看了下，说挺好的，没什么问题。我就惶惶恐恐的走出来。量血压，说血压正常。身高171，体重57，天啊，我们自己称的时候是身高170，体重60，不过也不算差。</p>
-<p>最尴尬的是口腔，我还嚼口香糖，她问你嘴里含着什么东西，吓我一跳。是不是口香糖，赶紧吐了。然后说你该去洗牙了，记得要去洗牙啊。简直是太丢人了。</p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li class="disabled"><span class="page-prev"><i class="fa fa-chevron-left"></i> Prev</a></li><li class="active"><span class="page-number">1</span></li><li><a class="page-number" href="/page/2/">2</a></li><li><a class="page-number" href="/page/3/">3</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/7/">7</a></li><li><a class="page-next" rel="next" href="/page/2/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li class="disabled"><span class="page-prev"><i class="fa fa-chevron-left"></i> Prev</a></li><li class="active"><span class="page-number">1</span></li><li><a class="page-number" href="/page/2/">2</a></li><li><a class="page-number" href="/page/3/">3</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/8/">8</a></li><li><a class="page-next" rel="next" href="/page/2/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -704,7 +766,7 @@ zhgxun-pro:c2 zhgxun$
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -713,6 +775,10 @@ zhgxun-pro:c2 zhgxun$
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
       
         <li>
           <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
@@ -728,10 +794,6 @@ zhgxun-pro:c2 zhgxun$
       
         <li>
           <a href="/2017/12/17/multi/">67. 指针和多维数组</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/17/arr/">66. 数组和指针笔记</a>
         </li>
       
     </ul>
