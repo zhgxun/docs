@@ -63,6 +63,79 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-string" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/01/string/" class="article-date"><time datetime="2018-01-01T08:27:47.000Z" itemprop="datePublished">2018-01-01</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、表示字符串和字符串的I-O"><a href="#一、表示字符串和字符串的I-O" class="headerlink" title="一、表示字符串和字符串的I/O"></a>一、表示字符串和字符串的I/O</h2><p>puts()函数也属于stdio.h系列的输入/输出函数，但是只显示字符串，而且自动在显示的字符串末尾加上换行符。</p>
+<p>程序应该确保有足够的空间储存字符串。</p>
+<p>用双引号括起来的内容称为字符串字面量，也叫字符串常量。双引号中的字符和编译器自动加入末尾的\0字符，都作为字符串储存在内存中。</p>
+<p>从ANSI C 开始，如果字符串字面量之间没有间隔，或者用空白字符分隔，C会将其视为串联起来的字符串字面量。</p>
+<pre><code class="c">//
+// 字符串字面量
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char test1[50] = &quot;Some string&quot;&quot;and number&quot; &quot;Hi&quot;;
+    char test2[50] = &quot;Some stringand numberHi&quot;;
+    puts(test1);
+    puts(test2);
+
+    return 0;
+}
+</code></pre>
+<p>两种写法输出的字符串是相同的。</p>
+<p>如果要在字符串里面使用双引号，必须加反斜线。</p>
+<p>字符串常量属于静态存储类别，这说明如果在函数中使用字符串常量，该字符串只会被储存一次，在整个程序的生命周期内存在，即使函数被调用多次。用双引号括起来的内容被视为指向该字符串存储位置的指针。这类似于把数组名作为指向该数组位置的指针。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2018/01/01/string/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-java" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -617,65 +690,6 @@ zhgxun-pro:c2 zhgxun$
 </article>
 
   
-    <article id="post-juzhu" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/18/juzhu/">60. 昔年种柳</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/11/18/juzhu/" class="article-date"><time datetime="2017-11-18T10:01:02.000Z" itemprop="datePublished">2017-11-18</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>昔年种柳，依依汉南。今看摇落，凄怆江潭。树犹如此，人何以堪!</p>
-<p>—- 庾信</p>
-</blockquote>
-<p>昨晚要跟同事去看电影就下班比以往早了一个小时，回来想起10月底办理的居住证明天可以去龙园派出所领取，才知道居住证领用签被上次带到公司一直没有带回来。早上顺便去公司待了2个多小时，解决了点问题才回来。到派出所告诉我说下午2点上班，你来再去户籍室领取。</p>
-<p>看着手里的居住证，心理翻倒了五味瓶一样难受。看旁边在办理身份证，我问说身份证都是在这里办理吗，我的快过期了？我把身份证递给他，他看了看说，还能用，你提前两个月来办理就行。说了声谢谢后，我就走了。</p>
-<p>回到家，突然想起在深圳爱普生时，也是办理过居住证的。只是那时候在深圳没什么需要办理，就一直没机会用上。在北京工作3年，总有需要去派出所办理身份证，申请护照的时候，就不得不面对这些问题。</p>
-<p>相当遗憾的是第一家公司把我的社保缴纳到深圳去了，丢失了半年的时间，错过了上一次护照办理，一等就是2年。本来在聚美时也提过要办理工作居住证的，后来也是一拖再拖，觉得也用不上，就直到离开都没考虑过这事。来百度后，组内组织这个月底要去越南芽庄自费旅游，希望每个人都去，我们没有护照的，只能做留守儿童留下来继续上班。也趁这次机会打算把护照也办理了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/11/18/juzhu/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -690,7 +704,7 @@ zhgxun-pro:c2 zhgxun$
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">14</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -699,6 +713,10 @@ zhgxun-pro:c2 zhgxun$
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
       
         <li>
           <a href="/2018/01/01/java/">69. Java</a>
@@ -714,10 +732,6 @@ zhgxun-pro:c2 zhgxun$
       
         <li>
           <a href="/2017/12/17/arr/">66. 数组和指针笔记</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/16/cnote/">65. C Prime Plus 笔记-2017.12.16</a>
         </li>
       
     </ul>

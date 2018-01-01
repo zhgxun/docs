@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>70. 字符串和字符串函数 | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-string" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      70. 字符串和字符串函数
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/01/string/" class="article-date"><time datetime="2018-01-01T08:27:47.000Z" itemprop="datePublished">2018-01-01</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、表示字符串和字符串的I-O"><a href="#一、表示字符串和字符串的I-O" class="headerlink" title="一、表示字符串和字符串的I/O"></a>一、表示字符串和字符串的I/O</h2><p>puts()函数也属于stdio.h系列的输入/输出函数，但是只显示字符串，而且自动在显示的字符串末尾加上换行符。</p>
+<p>程序应该确保有足够的空间储存字符串。</p>
+<p>用双引号括起来的内容称为字符串字面量，也叫字符串常量。双引号中的字符和编译器自动加入末尾的\0字符，都作为字符串储存在内存中。</p>
+<p>从ANSI C 开始，如果字符串字面量之间没有间隔，或者用空白字符分隔，C会将其视为串联起来的字符串字面量。</p>
+<pre><code class="c">//
+// 字符串字面量
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char test1[50] = &quot;Some string&quot;&quot;and number&quot; &quot;Hi&quot;;
+    char test2[50] = &quot;Some stringand numberHi&quot;;
+    puts(test1);
+    puts(test2);
+
+    return 0;
+}
+</code></pre>
+<p>两种写法输出的字符串是相同的。</p>
+<p>如果要在字符串里面使用双引号，必须加反斜线。</p>
+<p>字符串常量属于静态存储类别，这说明如果在函数中使用字符串常量，该字符串只会被储存一次，在整个程序的生命周期内存在，即使函数被调用多次。用双引号括起来的内容被视为指向该字符串存储位置的指针。这类似于把数组名作为指向该数组位置的指针。</p>
+<a id="more"></a>
+<p>可以使用指针表示法创建字符串</p>
+<pre><code class="c">const char * pt1 = &quot;Something is pointing at me.&quot;;
+</code></pre>
+<p>该声明和下面的声明几乎相同：</p>
+<pre><code class="c">const char ar1[] = &quot;Something is pointing at me.&quot;;
+</code></pre>
+<p>以上两个声明表明，pt1和ar1都是该字符串的地址。在这两种情况下，带双引号的字符串本身决定了预留给字符串的存储空间。尽管如此，这两种形式并不完全相同。</p>
+<p>数组形式和指针形式有何不同？以上面的声明为例，数组形式（ar1[]）在计算机的内存中分配为一个内含29个元素的数组（每个元素对应一个字符，还加上一个末尾的空字符’\0’），每个元素被初始化为字符串字面量对应的字符。通常，字符串都作为可执行文件的一部分储存在数据段中。当把程序载入内存时，也载入了程序中的字符串。字符串储存在静态存储区（static memory）中。但是，程序在开始运行时才会为该数组分配内存。此时，才将字符串拷贝到数组中。注意，此时字符串有两个副本。一个是在静态内存中的字符串字面量，另一个是储存在ar1数组中的字符串。</p>
+<p>此后，编译器便把数组名ar1识别为该数组首元素地址（&amp;ar1[0]）的别名。这里关键要理解，在数组形式中，ar1是地址常量。不能更改ar1，如果改变了ar1，则意味着改变了数组的存储位置（即地址）。可以进行类似ar1+1这样的操作，标识数组的下一个元素。但是不允许进行++ar1这样的操作。递增运算符只能用于变量名前（或概括地说，只能用于可修改的左值），不能用于常量。</p>
+<p>指针形式（*pt1）也使得编译器为字符串在静态存储区预留29个元素的空间。另外，一旦开始执行程序，它会为指针变量pt1留出一个储存位置，并把字符串的地址储存在指针变量中。该变量最初指向该字符串的首字符，但是它的值可以改变。因此，可以使用递增运算符。例如，++pt1将指向第2个字符（o）。</p>
+<p>字符串字面量被视为const数据。由于pt1指向这个const数据，所以应该把pt1声明为指向const数据的指针。这意味着不能用pt1改变它所指向的数据，但是仍然可以改变pt1的值（即，pt1指向的位置）。如果把一个字符串字面量拷贝给一个数组，就可以随意改变数据，除非把数组声明为const。</p>
+<p>总之，初始化数组把静态存储区的字符串拷贝到数组中，而初始化指针只把字符串的地址拷贝给指针。</p>
+<pre><code class="c">//
+// 字符串的地址
+//
+#include &lt;stdio.h&gt;
+#define MSG &quot;message&quot;
+
+int main(void)
+{
+    char ar[] = MSG;
+    const char * pt = MSG;
+
+    printf(&quot;address of \&quot;message\&quot; = %p\n&quot;, &quot;message&quot;);
+    printf(&quot;address of ar=%p\n&quot;, ar);
+    printf(&quot;address of pt=%p\n&quot;, pt);
+    printf(&quot;address of MSG=%p\n&quot;, MSG);
+
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+address of &quot;message&quot; = 0x10c53bf50
+address of ar=0x7fff536c4bf0
+address of ptr=0x10c53bf50
+address of MSG=0x10c53bf50
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>该程序的输出说明了什么？第一，pt和MSG的地址相同，而ar的地址不同，这与我们前面讨论的内容一致。第二，虽然字符串字面量”message”在程序的两个printf()函数中出现了两次，但是编译器只使用了一个存储位置，而且与MSG的地址相同。编译器可以把多次使用的相同字面量储存在一处或多处。另一个编译器可能在不同的位置储存3个”message”。第三，静态数据使用的内存与ar使用的动态内存不同。不仅值不同，特定编译器甚至使用不同的位数表示两种内存。</p>
+<p><strong>数组和指针表示字符串的区别是否很重要？通常不太重要，但是这取决于想用程序做什么。</strong></p>
+<pre><code class="c">char heart[] = &quot;IloveTillie!&quot;;
+const char * head = &quot;IloveMillie!&quot;;
+</code></pre>
+<p>两者主要的区别是：数组名heart是常量，而指针名head是变量。数组的元素是变量（除非数组被声明为const），但是数组名不是变量。</p>
+<p>建议在把指针初始化为字符串字面量时使用const限定符：</p>
+<pre><code class="c">const char * pl = &quot;Klingon&quot;;　// 推荐用法
+</code></pre>
+<p>然而，把非const数组初始化为字符串字面量却不会导致类似的问题。因为数组获得的是原始字符串的副本。总之，如果不修改字符串，不要用指针指向字符串字面量。</p>
+<p>如果要用数组表示一系列待显示的字符串，请使用指针数组，因为它比二维字符数组的效率高。但是，指针数组也有自身的缺点。所以，如果要改变字符串或为字符串输入预留空间，不要使用指向字符串字面量的指针。</p>
+<p>实际上，字符串的绝大多数操作都是通过指针完成的。</p>
+<pre><code class="c">//
+// 指针和字符串
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    const char * msg = &quot;message&quot;;
+    const char * copy;
+    copy = msg;
+
+    puts(msg);
+    puts(copy);
+
+    printf(&quot;msg=%s, &amp;msg=%p, value=%p\n&quot;, msg, &amp;msg, msg);
+    printf(&quot;copy=%s, &amp;copy=%p, value=%p\n&quot;, copy, &amp;copy, copy);
+
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+message
+message
+msg=message, &amp;msg=0x7fff5b71dbf0, value=0x1044e2f70
+copy=message, &amp;copy=0x7fff5b71dbe8, value=0x1044e2f70
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>拷贝一个地址还是拷贝整个数组？通常，程序要完成某项操作只需要知道地址就可以了。</p>
+<h2 id="二、字符串输入"><a href="#二、字符串输入" class="headerlink" title="二、字符串输入"></a>二、字符串输入</h2><p>如果想把一个字符串读入程序，首先必须预留储存该字符串的空间，然后用输入函数获取该字符串。</p>
+<p>要做的第1件事是分配空间，以储存稍后读入的字符串。前面提到过，这意味着必须要为字符串分配足够的空间。不要指望计算机在读取字符串时顺便计算它的长度，然后再分配空间（计算机不会这样做，除非你编写一个处理这些任务的函数）。</p>
+<pre><code class="c">//
+// 未分配空间的字符串
+//
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char * name;
+    scanf(&quot;%s&quot;, name);
+    puts(name);
+
+    return 0;
+}
+</code></pre>
+<p>可能也会正常运行。</p>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+hi
+hi
+zhgxun-pro:c2 zhgxun$ ./a.out 
+name
+name
+zhgxun-pro:c2 zhgxun$ ./a.out 
+hehe
+hehe
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>虽然可能会通过编译（编译器很可能给出警告），但是在读入name时，name可能会擦写掉程序中的数据或代码，从而导致程序异常中止。因为scanf()要把信息拷贝至参数指定的地址上，而此时该参数是个未初始化的指针，name可能会指向任何地方。大多数程序员都认为出现这种情况很搞笑，但仅限于评价别人的程序时。</p>
+<p>最简单的方法是，在声明时显式指明数组的大小：</p>
+<pre><code class="c">char name[80];
+</code></pre>
+<p>现在name是一个已分配块（80字节）的地址。还有一种方法是使用C库函数来分配内存。为字符串分配内存后，便可读入字符串。</p>
+<p>在读取字符串时，scanf()和转换说明%s只能读取一个单词。可是在程序中经常要读取一整行输入，而不仅仅是一个单词。许多年前，gets()函数就用于处理这种情况。gets()函数简单易用，它读取整行输入，直至遇到换行符，然后丢弃换行符，储存其余字符，并在这些字符的末尾添加一个空字符使其成为一个C字符串。它经常和puts()函数配对使用，该函数用于显示字符串，并在末尾添加换行符。</p>
+<pre><code class="c">//
+// 使用gets()和puts()
+//
+#include &lt;stdio.h&gt;
+#define LEN 80
+
+int main(void)
+{
+    char words[LEN];
+
+    puts(&quot;Please input a string&quot;);
+    // 典型的用法
+    gets(words);
+    printf(&quot;your input: %s\n&quot;, words);
+    puts(words);
+
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+Please input a string
+warning: this program uses gets(), which is unsafe.
+my name is test
+your input: my name is test
+my name is test
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>编译器在输出中插入了一行警告消息。每次运行这个程序，都会显示这行消息。但是，并非所有的编译器都会这样做。其他编译器可能在编译过程中给出警告，但不会引起你的注意。</p>
+<p>这是怎么回事？问题出在gets()唯一的参数是words，它无法检查数组是否装得下输入行。上一章介绍过，数组名会被转换成该数组首元素的地址，因此，gets()函数只知道数组的开始处，并不知道数组中有多少个元素。</p>
+<p>如果输入的字符串过长，会导致缓冲区溢出（buffer overflow），即多余的字符超出了指定的目标空间。如果这些多余的字符只是占用了尚未使用的内存，就不会立即出现问题；如果它们擦写掉程序中的其他数据，会导致程序异常中止；或者还有其他情况。</p>
+<p>如果把长度设置为8，则出现如下错误：</p>
+<pre><code class="c">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+Please input a string
+warning: this program uses gets(), which is unsafe.
+my name is hehe
+your input: my name is hehe
+my name is hehe
+Abort trap: 6
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>“Segmentation fault”（分段错误）似乎不是个好提示，的确如此。在UNIX系统中，这条消息说明该程序试图访问未分配的内存。</p>
+<p>C提供解决某些编程问题的方法可能会导致陷入另一个尴尬棘手的困境。但是，为什么要特别提到gets()函数？因为该函数的不安全行为造成了安全隐患。过去，有些人通过系统编程，利用gets()插入和运行一些破坏系统安全的代码。</p>
+<p>不久，C编程社区的许多人都建议在编程时摒弃gets()。制定C99标准的委员会把这些建议放入了标准，承认了gets()的问题并建议不要再使用它。尽管如此，在标准中保留gets()也合情合理，因为现有程序中含有大量使用该函数的代码。而且，只要使用得当，它的确是一个很方便的函数。</p>
+<p>好景不长，C11标准委员会采取了更强硬的态度，直接从标准中废除了gets()函数。既然标准已经发布，那么编译器就必须根据标准来调整支持什么，不支持什么。然而在实际应用中，编译器为了能兼容以前的代码，大部分都继续支持gets()函数。不过，我们使用的编译器，可没那么大方。</p>
+<p>过去通常用fgets()来代替gets()，fgets()函数稍微复杂些，在处理输入方面与gets()略有不同。C11标准新增的gets_s()函数也可代替gets()。该函数与gets()函数更接近，而且可以替换现有代码中的gets()。但是，它是stdio.h输入/输出函数系列中的可选扩展，所以支持C11的编译器也不一定支持它。</p>
+<p>fgets()函数通过第2个参数限制读入的字符数来解决溢出的问题。该函数专门设计用于处理文件输入，所以一般情况下可能不太好用。fgets()和gets()的区别如下。</p>
+<p>fgets()函数的第2个参数指明了读入字符的最大数量。如果该参数的值是n，那么fgets()将读入n-1个字符，或者读到遇到的第一个换行符为止。</p>
+<p>如果fgets()读到一个换行符，会把它储存在字符串中。这点与gets()不同，gets()会丢弃换行符。</p>
+<p>fgets()函数的第3个参数指明要读入的文件。如果读入从键盘输入的数据，则以stdin（标准输入）作为参数，该标识符定义在stdio.h中。</p>
+<p>因为fgets()函数把换行符放在字符串的末尾（假设输入行不溢出），通常要与fputs()函数（和puts()类似）配对使用，除非该函数不在字符串末尾添加换行符。fputs()函数的第2个参数指明它要写入的文件。如果要显示在计算机显示器上，应使用stdout（标准输出）作为该参数。</p>
+<pre><code class="c">//
+// 使用fgets()和fputs()
+//
+#include &lt;stdio.h&gt;
+#define LEN 30
+
+int main(void)
+{
+    char words[LEN];
+
+    puts(&quot;Please input a string&quot;);
+    fgets(words, LEN, stdin);
+    fputs(words, stdout);
+    printf(&quot;%s&quot;, words);
+
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+Please input a string
+my name is lili
+my name is lili
+my name is lili
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>puts()函数会在待输出字符串末尾添加一个换行符，而fputs()不会这样做。</p>
+<p>fputs()函数返回指向char的指针。如果一切进行顺利，该函数返回的地址与传入的第1个参数相同。但是，如果函数读到文件结尾，它将返回一个特殊的指针：空指针（null pointer）。</p>
+<p>该指针保证不会指向有效的数据，所以可用于标识这种特殊情况。在代码中，可以用数字0来代替，不过在C语言中用宏NULL来代替更常见（如果在读入数据时出现某些错误，该函数也返回NULL）。</p>
+<p>系统使用缓冲的I/O。这意味着用户在按下Return键之前，输入都被储存在临时存储区（即，缓冲区）中。按下Return键就在输入中增加了一个换行符，并把整行输入发送给fgets()。对于输出，fputs()把字符发送给另一个缓冲区，当发送换行符时，缓冲区中的内容被发送至屏幕上。</p>
+<p>fgets()储存换行符有好处也有坏处。坏处是你可能并不想把换行符储存在字符串中，这样的换行符会带来一些麻烦。好处是对于储存的字符串而言，检查末尾是否有换行符可以判断是否读取了一整行。如果不是一整行，要妥善处理一行中剩下的字符。</p>
+<p>首先，如何处理掉换行符？一个方法是在已储存的字符串中查找换行符，并将其替换成空字符：</p>
+<pre><code class="c">int i = 0;
+// 假设words中存在换行符
+while (words[i]++ != &#39;\n&#39;) {
+    i++;
+}
+// 在末尾添加空字符
+words[i] = &#39;\0&#39;;
+</code></pre>
+<p>其次，如果仍有字符串留在输入行怎么办？一个可行的办法是，如果目标数组装不下一整行输入，就丢弃那些多出的字符：</p>
+<pre><code class="c">// 读取但不存储任何字符包括换行符
+while (getchar() != &#39;\n&#39;) {
+}
+</code></pre>
+<p>该程序读取输入行，删除储存在字符串中的换行符，如果没有换行符，则丢弃数组装不下的字符。</p>
+<p>空字符和空指针。从概念上看，两者完全不同。空字符（或’\0’）是用于标记C字符串末尾的字符，其对应字符编码是0。由于其他字符的编码不可能是0，所以不可能是字符串的一部分。</p>
+<p>空指针（或NULL）有一个值，该值不会与任何数据的有效地址对应。通常，函数使用它返回一个有效地址表示某些特殊情况发生，例如遇到文件结尾或未能按预期执行。</p>
+<p>空字符是整数类型，而空指针是指针类型。两者有时容易混淆的原因是：它们都可以用数值0来表示。但是，从概念上看，两者是不同类型的0。另外，空字符是一个字符，占1字节；而空指针是一个地址，通常占4字节。</p>
+<p>C11新增的gets_s()函数（可选）和fgets()类似，用一个参数限制读入的字符数。</p>
+<pre><code class="c">gets_s(words, STLEN);
+</code></pre>
+<p>gets_s()与fgets()的区别如下:</p>
+<p>gets_s()只从标准输入中读取数据，所以不需要第3个参数。</p>
+<p>如果gets_s()读到换行符，会丢弃它而不是储存它。</p>
+<p>如果gets_s()读到最大字符数都没有读到换行符，会执行以下以下几步。首先把目标数组中的首字符设置为空字符，读取并丢弃随后的输入直至读到换行符或文件结尾，然后返回空指针。接着，调用依赖实现的“处理函数”（或你选择的其他函数），可能会中止或退出程序。</p>
+<p>第2个特性说明，只要输入行未超过最大字符数，<code>gets_s()</code>和gets()几乎一样，完全可以用<code>gets_s()</code>替换gets()。第3个特性说明，要使用这个函数还需要进一步学习。</p>
+<p>我们来比较一下gets()、fgets()和gets_s()的适用性。如果目标存储区装得下输入行，3个函数都没问题。但是fgets()会保留输入末尾的换行符作为字符串的一部分，要编写额外的代码代码将其替换成空字符。</p>
+<p>如果输入行太长会怎样？使用gets()不安全，它会擦写现有数据，存在安全隐患。<code>gets_s()</code>函数很安全，但是，如果并不希望程序中止或退出，就要知道如何编写特殊的“处理函数”。另外，如果打算让程序继续运行，<code>gets_s()</code>会丢弃该输入行的其余字符，无论你是否需要。由此可见，当输入太长，超过数组可容纳的字符数时，fgets()函数最容易使用，而且可以选择不同的处理方式。</p>
+<p>所以，当输入与预期不符时，<code>gets_s()</code>完全没有fgets()函数方便、灵活。也许这也是<code>gets_s()</code>只作为C库的可选扩展的原因之一。鉴于此，fgets()通常是处理类似情况的最佳选择。</p>
+<pre><code class="c">//
+// s_gets()函数
+// 读取整行输入并用空字符代替换行符, 或者读取一部分输入, 并丢弃其余部分
+//
+
+#include &lt;stdio.h&gt;
+
+char * s_gets(char * st, int n)
+{
+    char * ret_val;
+    int i = 0;
+
+    ret_val = fgets(st, n, stdin);
+    if (ret_val) {
+        // 遍历字符串找出换行符
+        while (st[i] != &#39;\n&#39; &amp;&amp; st[i] != &#39;\0&#39;) {
+            i++;
+        }
+        // 如果存在换行符则替换为空字符
+        if (st[i] == &#39;\n&#39;) {
+            st[i] = &#39;\0&#39;;
+        } else {
+            // 如果还有输入, 则直到换行符即输入结束前丢弃所有后续输入的字符
+            while (getchar() != &#39;\n&#39;) {
+            }
+        }
+    }
+
+    return ret_val;
+}
+</code></pre>
+<p>也许读者想了解为什么要丢弃过长输入行中的余下字符。这是因为，输入行中多出来的字符会被留在缓冲区中，成为下一次读取语句的输入。例如，如果下一条读取语句要读取的是double类型的值，就可能导致程序崩溃。丢弃输入行余下的字符保证了读取语句与键盘输入同步。</p>
+<p>我们设计的s_gets()函数并不完美，它最严重的缺陷是遇到不合适的输入时毫无反应。它丢弃多余的字符时，既不通知程序也不告知用户。但是，用来替换前面程序示例中的gets()足够了。</p>
+<h2 id="三、字符串输出"><a href="#三、字符串输出" class="headerlink" title="三、字符串输出"></a>三、字符串输出</h2><p>puts()函数很容易使用，只需把字符串的地址作为参数传递给它即可。puts()在显示字符串时会自动在其末尾添加一个换行符。</p>
+<p>用双引号括起来的内容是字符串常量，且被视为该字符串的地址。另外，储存字符串的数组名也被看作是地址。</p>
+<p>puts()如何知道在何处停止？该函数在遇到空字符时就停止输出，所以必须确保有空字符。</p>
+<pre><code class="c">//
+// 输出字符串
+//
+
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    char slide_a[] = &quot;Hello&quot;;
+    // 没有空字符结尾, 不是一个字符串
+    char dont[] = {&#39;A&#39;, &#39;B&#39;, &#39;C&#39;};
+    char slide_b[] = &quot;World&quot;;
+
+    puts(dont);
+
+    return 0;
+}
+</code></pre>
+<p>由于dont缺少一个表示结束的空字符，所以它不是一个字符串，因此puts()不知道在何处停止。它会一直打印dont后面内存中的内容，直到发现一个空字符为止。为了让puts()能尽快读到空字符，我们把dont放在<code>side_a</code>和<code>side_b</code>之间。</p>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+ABCHello
+zhgxun-pro:c2 zhgxun$ ./a.out 
+ABCHello
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+<p>我们使用的编译器把side_a数组储存在dont数组之后，所以puts()一直输出至遇到side_a中的空字符。你所使用的编译器输出的内容可能不同，这取决于编译器如何在内存中储存数据。如果删除程序中的side_a和side_b数组会怎样？通常内存中有许多空字符，如果幸运的话，puts()很快就会发现一个。但是，这样做很不靠谱。</p>
+<p>fputs()函数是puts()针对文件定制的版本。它们的区别如下。</p>
+<p>fputs()函数的第2个参数指明要写入数据的文件。如果要打印在显示器上，可以用定义在stdio.h中的stdout（标准输出）作为该参数。</p>
+<p>与puts()不同，fputs()不会在输出的末尾添加换行符。</p>
+<p>注意，gets()丢弃输入中的换行符，但是puts()在输出中添加换行符。另一方面，fgets()保留输入中的换行符，fputs()不在输出中添加换行符。</p>
+<p>printf()也把字符串的地址作为参数。printf()函数用起来没有puts()函数那么方便，但是它更加多才多艺，因为它可以格式化不同的数据类型。</p>
+<p>与puts()不同的是，printf()不会自动在每个字符串末尾加上一个换行符。因此，必须在参数中指明应该在哪里使用换行符。</p>
+<p>printf()的形式更复杂些，需要输入更多代码，而且计算机执行的时间也更长（但是你觉察不到）。然而，使用printf()打印多个字符串更加简单。</p>
+<p>记住，++的优先级高于*。</p>
+<p>许多C程序员会在while循环中使用下面的测试条件：</p>
+<pre><code class="c">while (*string)
+</code></pre>
+<p>当string指向空字符时，*string的值是0，即测试条件为假，while循环结束。这种方法比上面两种方法简洁。但是，如果不熟悉C语言，可能觉察不出来。这种处理方法很普遍，作为C程序员应该熟悉这种写法。</p>
+<h2 id="四、字符串函数"><a href="#四、字符串函数" class="headerlink" title="四、字符串函数"></a>四、字符串函数</h2><p>strlen()函数用于统计字符串的长度。</p>
+<p>strcat()（用于拼接字符串）函数接受两个字符串作为参数。该函数把第2个字符串的备份附加在第1个字符串末尾，并把拼接后形成的新字符串作为第1个字符串，第2个字符串不变。strcat()函数的类型是char*（即，指向char的指针）。strcat()函数返回第1个参数，即拼接第2个字符串后的第1个字符串的地址。</p>
+<p>strcat()函数无法检查第1个数组是否能容纳第2个字符串。如果分配给第1个数组的空间不够大，多出来的字符溢出到相邻存储单元时就会出问题。</p>
+<p>要给拼接后的字符串长度加1才够空间存放末尾的空字符。或者，用strncat()，该函数的第3个参数指定了最大添加字符数。例如，strncat(bugs,addon,13)将把addon字符串的内容附加给bugs，在加到第13个字符或遇到空字符时停止。因此，算上空字符（无论哪种情况都要添加空字符），bugs数组应该足够大，以容纳原始字符串（不包含空字符）、添加原始字符串在后面的13个字符和末尾的空字符。</p>
+<p>读者可能已经注意到，strcat()和gets()类似，也会导致缓冲区溢出。为什么C11标准不废弃strcat()，只留下strncat()？为何对gets()那么残忍？这也许是因为gets()造成的安全隐患来自于使用该程序的人，而strcat()暴露的问题是那些粗心的程序员造成的。无法控制用户会进行什么操作，但是，可以控制你的程序做什么。C语言相信程序员，因此程序员有责任确保strcat()的使用安全。</p>
+<p>strcmp()函数比较的是字符串，不是整个数组，这是非常好的功能。可以用strcmp()比较储存在不同大小数组中的字符串。</p>
+<p>ASCII标准规定，在字母表中，如果第1个字符串在第2个字符串前面，strcmp()返回一个负数；如果两个字符串相同，strcmp()返回0；如果第1个字符串在第2个字符串后面，strcmp()返回正数。然而，返回的具体值取决于实现。</p>
+<p>strcmp()比较所有的字符，不只是字母。所以，与其说该函数按字母顺序进行比较，不如说是按机器排序序列（machinecollatingsequence）进行比较，即根据字符的数值进行比较（通常都使用ASCII值）。在ASCII中，大写字母在小写字母前面，所以strcmp(“Z”,”a”)返回的是负值。</p>
+<p>大多数情况下，strcmp()返回的具体值并不重要，我们只在意该值是0还是非0（即，比较的两个字符串是否相等）。或者按字母排序字符串，在这种情况下，需要知道比较的结果是为正、为负还是为0。</p>
+<p>strcmp()函数比较的是字符串，不是字符，所以其参数应该是字符串（如”apples”和”A”），而不是字符（如’A’）。但是，char类型实际上是整数类型，所以可以使用关系运算符来比较字符。假设word是储存在char类型数组中的字符串，ch是char类型的变量，下面的语句都有效：</p>
+<pre><code class="c">// 使用strcmp()比较字符串
+if (strcmp(word, &quot;quit&quot;) == 0) {
+    puts(&quot;Bye&quot;);
+}
+// 使用==比较字符
+if (ch == &#39;q&#39;) {
+    puts(&quot;Bye&quot;);
+}
+</code></pre>
+<p>尽管如此，不要使用ch或’q’作为strcmp()的参数。</p>
+<p>strcmp()函数比较字符串中的字符，直到发现不同的字符为止，这一过程可能会持续到字符串的末尾。而strncmp()函数在比较两个字符串时，可以比较到字符不同的地方，也可以只比较第3个参数指定的字符数。例如，要查找以”astro”开头的字符串，可以限定函数只查找这5个字符。</p>
+<p>很容易记住strcpy()参数的顺序，即第1个是目标字符串，第2个是源字符串。</p>
+<p>strcpy()接受两个字符串指针作为参数，可以把指向源字符串的第2个指针声明为指针、数组名或字符串常量；而指向源字符串副本的第1个指针应指向一个数据对象（如，数组），且该对象有足够的空间储存源字符串的副本。记住，声明数组将分配储存数据的空间，而声明指针只分配储存一个地址的空间。</p>
+<p>strcpy()函数还有两个有用的属性。第一，strcpy()的返回类型是char *，该函数返回的是第1个参数的值，即一个字符的地址。第二，第1个参数不必指向数组的开始。这个属性可用于拷贝数组的一部分。</p>
+<p>strcpy()和strcat()都有同样的问题，它们都不能检查目标空间是否能容纳源字符串的副本。拷贝字符串用strncpy()更安全，该函数的第3个参数指明可拷贝的最大字符数。</p>
+<p>strncpy(target,source,n)把source中的n个字符或空字符之前的字符（先满足哪个条件就拷贝到何处）拷贝至target中。因此，如果source中的字符数小于n，则拷贝整个字符串，包括空字符。但是，strncpy()拷贝字符串的长度不会超过n，如果拷贝到第n个字符时还未拷贝完整个源字符串，就不会拷贝空字符。所以，拷贝的副本中不一定有空字符。鉴于此，该程序把n设置为比目标数组大小少1（TARGSIZE-1），然后把数组最后一个元素设置为空字符：</p>
+<pre><code class="c">strncpy(qwords[i],temp,TARGSIZE - 1);
+qwords[i][ TARGSIZE - 1] = &#39;\ 0&#39;;
+</code></pre>
+<p>这样做确保储存的是一个字符串。如果目标空间能容纳源字符串的副本，那么从源字符串拷贝的空字符便是该副本的结尾；如果目标空间装不下副本，则把副本最后一个元素设置为空字符。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/01/01/java/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">69. Java</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
