@@ -1,0 +1,2699 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>69. Java | 张广训的个人网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-java" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      69. Java
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/01/java/" class="article-date"><time datetime="2018-01-01T07:50:20.000Z" itemprop="datePublished">2018-01-01</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、概览"><a href="#一、概览" class="headerlink" title="一、概览"></a>一、概览</h2><h3 id="1-特点"><a href="#1-特点" class="headerlink" title="1. 特点"></a>1. 特点</h3><ol>
+<li>面向对象编程；</li>
+<li>字节码方式运行在虚拟机上；</li>
+<li>简单，健壮，安全;</li>
+<li>跨平台。</li>
+</ol>
+<h3 id="2-版本"><a href="#2-版本" class="headerlink" title="2. 版本"></a>2. 版本</h3><ol>
+<li>Java SE：Standard Edition，标准版;</li>
+<li>Java EE：Enterprise Edition，企业版;</li>
+<li>Java ME：Micro Edition，移动版。</li>
+</ol>
+<p>需要注意的是，目前的Android开发并非是该移动版本。</p>
+<h3 id="3-规范"><a href="#3-规范" class="headerlink" title="3. 规范"></a>3. 规范</h3><ol>
+<li>JSR：Java Specification Request，Java规范提案；</li>
+<li>JCP：Java Community Process，国际组织；</li>
+<li>RI：Reference Implementation，参考实现；</li>
+<li>TCK：Technology Compatibility Kit，测试套件；</li>
+<li>JDK：Java Development Kit，Java开发套件；</li>
+<li>JRE：Java Runtime Environment，Java运行环境。</li>
+</ol>
+<a id="more"></a>
+<h3 id="4-环境"><a href="#4-环境" class="headerlink" title="4. 环境"></a>4. 环境</h3><pre><code class="bash">zhgxun-pro:java zhgxun$ java -version
+java version &quot;1.8.0_60&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)
+zhgxun-pro:java zhgxun$ javac -version
+javac 1.8.0_60
+zhgxun-pro:java zhgxun$
+</code></pre>
+<h3 id="5-数据类型"><a href="#5-数据类型" class="headerlink" title="5. 数据类型"></a>5. 数据类型</h3><p>整数类型：byte，short，int，long</p>
+<p>浮点类型：float，double</p>
+<p>字符类型：char</p>
+<p>布尔类型：boolean</p>
+<h3 id="6-常量"><a href="#6-常量" class="headerlink" title="6. 常量"></a>6. 常量</h3><p>用final定义；</p>
+<p>通常全部大写；</p>
+<p>避免magic number。</p>
+<h2 id="二、Maven"><a href="#二、Maven" class="headerlink" title="二、Maven"></a>二、Maven</h2><p>Maven是一个Java项目管理和构建工具，Maven使用pom.xml定义项目内容，并使用预设的目录结构，在Maven中声明一个依赖项可以自动下载并导入classpath，Maven使用groupId，artifactId和version唯一定位一个jar包。</p>
+<h3 id="1-Java目录结构"><a href="#1-Java目录结构" class="headerlink" title="1. Java目录结构"></a>1. Java目录结构</h3><pre><code class="bash">zhgxun-pro:banana zhgxun$ tree
+.
+├── output.txt
+├── pom.xml // 项目描述文件
+├── src
+│   ├── main
+│   │   ├── java // 存放Java源代码
+│   │   │   └── github
+│   │   │       └── banana
+│   │   │           ├── App.java
+│   │   │           ├── CountInputStream.java
+│   │   └── resources // 存放资源文件, 比如一些配置文件, 图片,  前端模板视图等
+│   │       ├── LinuxStory.jpeg
+│   │       └── log4j2.xml
+│   └── test // 单元测试
+│       └── java
+│           └── github
+│               └── banana
+│                   └── AppTest.java
+├── target // 编译打包后的文件
+│   ├── classes
+│   │   ├── LinuxStory.jpeg
+│   │   ├── github
+│   │   │   └── banana
+│   │   │       ├── App.class
+│   │   │       ├── CountInputStream.class
+│   │   └── log4j2.xml
+│   └── test-classes
+│       └── github
+│           └── banana
+│               └── AppTest.class
+├── text.txt
+└── yii_framework_change_log.tar.gz
+
+zhgxun-pro:banana zhgxun$
+</code></pre>
+<h3 id="2-依赖管理"><a href="#2-依赖管理" class="headerlink" title="2. 依赖管理"></a>2. 依赖管理</h3><p>Maven通过解析依赖关系确定项目所需的jar包。</p>
+<p>常用的4种scope：</p>
+<ol>
+<li>compile(默认)编译时需要</li>
+<li>test 编译test时需要</li>
+<li>runtime 编译时不需要, 但运行时需要</li>
+<li>provided 编译时需要，但运行时由JDK提供或由某个服务器提供</li>
+</ol>
+<p>Maven从中央仓库下载所需jar包并缓存在本地。</p>
+<p>Maven维护了一个中央仓库，第三方将自身上传至中央仓库，Maven从中央仓库将所需要的包下载到本地，并且会自动缓存下载过的jar包，~/.m2/repository。</p>
+<p>可以通过镜像加速下载，aliyun镜像仓库配置 ~/.m2/settings.xml：</p>
+<pre><code class="xml">&lt;settings&gt;
+    &lt;mirrors&gt;
+        &lt;mirror&gt;
+            &lt;id&gt;aliyun&lt;/id&gt;
+            &lt;name&gt;aliyun&lt;/name&gt;
+            &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+            &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+        &lt;/mirror&gt;
+    &lt;/mirrors&gt;
+&lt;/settings&gt;
+</code></pre>
+<h3 id="3-常用插件"><a href="#3-常用插件" class="headerlink" title="3. 常用插件"></a>3. 常用插件</h3><table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>对应执行的Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clean</td>
+<td>clean</td>
+</tr>
+<tr>
+<td>compile</td>
+<td>compile</td>
+</tr>
+<tr>
+<td>surefile</td>
+<td>test</td>
+</tr>
+<tr>
+<td>jar</td>
+<td>package</td>
+</tr>
+</tbody>
+</table>
+<p>创建一个可执行的jar包，并把运行时需要的jar一起打包到jar包中，需要使用插件 <a href="http://maven.apache.org/plugins/maven-shade-plugin/examples/executable-jar.html" target="_blank" rel="external">maven-shade-plugin</a>。</p>
+<pre><code class="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.0&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;phase&gt;package&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;shade&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;transformers&gt;
+                            &lt;transformer
+                                implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;&gt;
+                                &lt;mainClass&gt;该处修改成自己的main类名&lt;/mainClass&gt;
+                            &lt;/transformer&gt;
+                        &lt;/transformers&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<p>cobertura-maven-plugin</p>
+<p>生成单元测试覆盖率报告。</p>
+<p>findbugs-maven-plugin</p>
+<p>对Java源码进行静态分析以找出潜在的问题。</p>
+<h2 id="三、IO"><a href="#三、IO" class="headerlink" title="三、IO"></a>三、IO</h2><h3 id="1-File"><a href="#1-File" class="headerlink" title="1. File"></a>1. File</h3><p>IO: Input / Output。</p>
+<ol>
+<li>从外部读入数据；</li>
+<li>输出内容在某处；</li>
+<li>IO流是一种顺序读写数据的模式；</li>
+<li>单向流动，以byte字节为最小单位。</li>
+</ol>
+<p>IO流是一种流式的数据输入/输出模型：</p>
+<ol>
+<li>二进制数据以byte为最小单位在InputStream / OutputStream中单向流动；</li>
+<li>字符数据以char为最小单位在Reader / Writer中单向流动；</li>
+<li>JDK的java.io包提供了同步IO功能 - 编写简单, CPU执行效率低；</li>
+<li>JDK的java.nio包提供了异步IO功能 - 编写复杂, CPU执行效率高。</li>
+</ol>
+<p>Java的IO流的接口和实现分离：</p>
+<ol>
+<li>字节流接口：InputStream / OutputStream；</li>
+<li>字符流接口：Reader / Writer。</li>
+</ol>
+<p>java.io.File表示文件系统的一个文件或者目录，创建File对象本身不涉及IO操作。</p>
+<ol>
+<li>isFile()：是否是文件；</li>
+<li>isDirectory()：是否是目录。</li>
+</ol>
+<p>文件操作：</p>
+<ol>
+<li>canRead()：是否允许读取该文件；</li>
+<li>canWrite()：是否允许写入该文件；</li>
+<li>canExecute()：是否允许运行该文件；</li>
+<li>length()：获取文件大小；</li>
+<li>createNewFile()：创建一个新文件；</li>
+<li>static createTempFile()：创建一个临时文件；</li>
+<li>delete()：删除该文件；</li>
+<li>deleteOnExit()：在JVM退出时删除该文件。</li>
+</ol>
+<p>目录操作：</p>
+<ol>
+<li>String[] list()：列出目录下的文件和子目录名；</li>
+<li>File[] listFiles()：列出目录下的文件和子目录名；</li>
+<li>File[] listFiles(FileFilter filter)；</li>
+<li>File[] listFiles(FilenameFilter filter)；</li>
+<li>mkdir()：创建该目录；</li>
+<li>mkdirs()：创建该目录，并在必要时将不存在的父目录也创建出来；</li>
+<li>delete()：删除该目录。</li>
+</ol>
+<pre><code class="java">// File[] listFiles(FilenameFilter filter) 过滤掉部分目录或文件
+System.out.println(&quot;只获取以xml结尾的文件&quot;);
+// 添加一个回调函数处理
+File[] files = file.listFiles(new FilenameFilter() {
+
+    @Override
+    public boolean accept(File dir, String name) {
+        return name.endsWith(&quot;.xml&quot;);
+    }
+});
+for (File file : files) {
+    System.out.println(file);
+}
+</code></pre>
+<h3 id="2-InputStream"><a href="#2-InputStream" class="headerlink" title="2. InputStream"></a>2. InputStream</h3><p>java.io.InputStream是所有输入流的超类：</p>
+<ol>
+<li>abstruct int read() 读取下一个字节，并且返回字节（0-255），读到末尾返回-1；</li>
+<li>int read(byte[] b) 一次读取若干字节并填充到byte数组，返回读取的字节数；</li>
+<li>int read(byte[], int off, int len) 指定byte数组的偏移量和最大填充数；</li>
+<li>void close() 关闭输入流。</li>
+</ol>
+<p>read()方法是阻塞（blocking）的。</p>
+<p>使用try(resource)可以保证InputStream正确关闭。</p>
+<p>完整读取一个文本的所有字节：</p>
+<pre><code class="java">// 按字节读入文件流
+System.out.println(&quot;按字节读入文件流&quot;);
+// try () {} 写法能正确的关闭资源, 也是推荐的写法
+try (InputStream input = new FileInputStream(
+        &quot;src/main/java/github/banana/IO.java&quot;)) {
+    int n = 0;
+    // 设置一个缓存, 一次读入多个字节
+    byte[] buffer = new byte[1024];
+    // 读入结束返回-1, 并且该方法是阻塞读取的
+    while ((n = input.read(buffer)) != -1) {
+        System.out.println(n);
+    }
+}
+</code></pre>
+<p>FileInputStream是InputStream的一个文件实现，可以从文件读取输入流。</p>
+<p>ByteArrayInputStream可以在内存中模拟一个InputStream，网络编程会经常使用。</p>
+<h3 id="3-OutputStream"><a href="#3-OutputStream" class="headerlink" title="3. OutputStream"></a>3. OutputStream</h3><p>java.io.OutputStream是所有输出流的超类：</p>
+<ol>
+<li>abstruct write(int b) 写入一个字节；</li>
+<li>void write(byte[] b) 写入一个字符数据中的所有字节；</li>
+<li>void write(byte[] b, int off, int len) 写入字符数组指定的字节；</li>
+<li>void close() 关闭输出流；</li>
+<li>void flush() 将缓冲区的内容输出，磁盘，网络处于效率的考虑，先输出至缓冲区，在写入磁盘等位置。</li>
+</ol>
+<p>write()方法是阻塞（blocking）的。</p>
+<p>使用try(resource)可以保证OutputStream正确关闭。</p>
+<pre><code class="java">// OutputStream是所有输出流的超类
+System.out.println(&quot;OutputStream是所有输出流的超类&quot;);
+try (OutputStream output = new FileOutputStream(&quot;output.txt&quot;)) {
+    // write(int b)写入一个字节
+    // write(byte[])写入byte[]数组的所有字节
+    // flush()方法将缓冲器内容输出
+    // write()方法是阻塞（blocking）的
+    // 通常在调用close()方法前都会刷新缓冲区
+    // 字节数据都要处理编码
+    byte[] b1 = &quot;你好&quot;.getBytes(&quot;UTF-8&quot;);
+    output.write(b1);
+    byte[] b2 = &quot;世界，这里是中国，绵延长远的万里长城&quot;.getBytes(&quot;UTF-8&quot;);
+    output.write(b2);
+    System.out.println(&quot;写入完毕&quot;);
+}
+</code></pre>
+<h3 id="4-Filter模式"><a href="#4-Filter模式" class="headerlink" title="4. Filter模式"></a>4. Filter模式</h3><p>Java IO 使用Filter模式为InputStream / OutputStream 增加功能：</p>
+<ol>
+<li>可以把一个InputStream和任意的FilterInputStream组合；</li>
+<li>可以把一个OutputStream和任意的FilterOutputStream组合。</li>
+</ol>
+<p>Filter模式可以在运行期动态增加功能, 又称Decorator模式, 通过少量的类实现了各种功能的组合。</p>
+<p>InputStream：</p>
+<ol>
+<li>FileImputStream FilterInputStream</li>
+<li>ByteArrayInputStream BufferedInputStream</li>
+<li>ServletInputStream DataInputStream, CheckedInputStream</li>
+</ol>
+<p>DigestInputStream 签名；</p>
+<p>CipherInputStream 加解密；</p>
+<p>GZIPInputStream gzip压缩处理。</p>
+<p>CountInputStream.java</p>
+<pre><code class="java">package github.banana;
+
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+/**
+ * 继承FilterInputStream的方式来新增功能, 统计读取到的字节个数
+ * 
+ * @author zhgxun
+ *
+ */
+public class CountInputStream extends FilterInputStream {
+    // 统计读取到的文本字节数
+    public int count;
+
+    public CountInputStream(InputStream in) {
+        super(in);
+    }
+
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        int n = super.read(b, off, len);
+        count += n;
+        return n;
+    }
+
+}
+</code></pre>
+<p>使用实现：</p>
+<pre><code class="java">System.out.println(&quot;Filter模式是为了解决子类数量爆炸的问题&quot;);
+System.out.println(&quot;把一个.gz压缩的文件以字符串读取出来&quot;);
+// 尝试读取一个Yii框架的压缩更新日志记录文件
+// 如果想统计读取到的字符个数, 可以新增一个实现类
+// 需要注意的是如果此时要打印新增的实现类, 则要用新增类的类型, 不能再用原始的InputStream类型
+try (CountInputStream input = new CountInputStream(
+        new GZIPInputStream(new BufferedInputStream(new FileInputStream(&quot;yii_framework_change_log.tar.gz&quot;))))) {
+    // 读入到一个输出缓冲中
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    int n = 0;
+    // 一次读取4096个字节
+    byte[] bytes = new byte[4096];
+    while ((n = input.read(bytes)) != -1) {
+        // 将每次读取到的字节写入到缓冲中
+        output.write(bytes, 0, n);
+    }
+    // 将字节转换为字节数组
+    byte[] data = output.toByteArray();
+    // 将字节数组转换为字符串
+    String text = new String(data, &quot;UTF-8&quot;);
+    System.out.println(text);
+    System.out.println(&quot;该次读取到的字节个数为：&quot; + input.count);
+}
+</code></pre>
+<h3 id="5-classpath"><a href="#5-classpath" class="headerlink" title="5. classpath"></a>5. classpath</h3><p>classpath中可以包含任意类型的文件。</p>
+<p>从classpath读取文件可以避免不同环境下文件路径不一致的问题。</p>
+<p>读取classpath资源：</p>
+<pre><code class="java">// 从classpath中读取资源
+// 相对于src目录来说是根目录
+// 而且要明确指定路径/output.txt
+try (InputStream inputStream = IO.class.getResourceAsStream(&quot;/output.txt&quot;)) {
+    // 读取失败返回null
+    if (inputStream != null) {
+        // 一次读取一行
+        BufferedReader bufReader = new BufferedReader(new InputStreamReader(inputStream));
+        System.out.println(bufReader.readLine());
+    } else {
+        System.out.println(&quot;file not found.&quot;);
+    }
+}
+</code></pre>
+<h3 id="6-Reader"><a href="#6-Reader" class="headerlink" title="6. Reader"></a>6. Reader</h3><p>InputStream和Reader的区别</p>
+<table>
+<thead>
+<tr>
+<th>InputStream</th>
+<th>Reader</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字节流，以byte为单位</td>
+<td>字符流，以char为单位</td>
+</tr>
+<tr>
+<td>读取字节（-1，0-255），int read()</td>
+<td>读取字符（-1， 0-65536），int read()</td>
+</tr>
+<tr>
+<td>读到字节数组 int read(byte[])</td>
+<td>读到字符数组 int read(char[] c)</td>
+</tr>
+</tbody>
+</table>
+<p>Reader以字符为最小单位实现了字符流输入，是所有字符输入流的超类：</p>
+<ol>
+<li>int read() 读取下一个字符，并返回字符（0-65535），读到末尾返回-1；</li>
+<li>int read(char[] c) 读取若干字符并填充到char[]数组，返回读取的字符数；</li>
+<li>int read(char[] c, int off, int len) 指定读取数组的偏移量和读取的最大长度；</li>
+<li>void close() 关闭Reader。</li>
+</ol>
+<p>常用Reader类：</p>
+<ol>
+<li>FileReader：从文件读取；</li>
+<li>CharArrayReader：从char[]数组读取。</li>
+</ol>
+<p>Reader是基于InputStream构造的，FileReader内部持有一个InputStream。任何InputStream都可指定编码并通过InputStreamReader转换为Reader：</p>
+<pre><code class="java">System.out.println(&quot;一次性尽可能读取更多字符并且转换编码&quot;);
+try (Reader reader = new InputStreamReader(new FileInputStream(&quot;text.txt&quot;), &quot;UTF-8&quot;)) {
+    char[] chars = new char[4096];
+    while (reader.read(chars) != -1) {
+        System.out.println(chars);
+    }
+}
+</code></pre>
+<p>Writer以字符为最小单位实现了字符流输出，可以直接写入字符串。</p>
+<h2 id="四、集合"><a href="#四、集合" class="headerlink" title="四、集合"></a>四、集合</h2><h3 id="1-java-util包提供了集合类，包括："><a href="#1-java-util包提供了集合类，包括：" class="headerlink" title="1. java.util包提供了集合类，包括："></a>1. java.util包提供了集合类，包括：</h3><ol>
+<li>Collection：根接口;</li>
+<li>List：有序列表;</li>
+<li>Set：无重复元素集合;</li>
+<li>Map：通过Key查找Value的映射表。</li>
+</ol>
+<h3 id="2-Java集合设计的特点："><a href="#2-Java集合设计的特点：" class="headerlink" title="2. Java集合设计的特点："></a>2. Java集合设计的特点：</h3><ol>
+<li>接口和实现相分离：ArrayList, LinkedList；</li>
+<li>支持泛型，List<user> users = new ArrayList&lt;&gt;();</user></li>
+<li>访问集合有统一的方法，如迭代器。</li>
+</ol>
+<h3 id="3-List"><a href="#3-List" class="headerlink" title="3. List"></a>3. List</h3><p>List是一种有序列表，通过索引访问元素。</p>
+<ol>
+<li>void add(E e) 在末尾添加一个元素;</li>
+<li>void add(int index, E e) 在指定索引添加一个元素;</li>
+<li>int remove(int index) 删除指定索引的元素;</li>
+<li>int remove(Object e) 删除某个元素;</li>
+<li>E get(int index) 获取指定索引的元素;</li>
+<li>int size() 获取链表大小（包含元素的个数）。</li>
+</ol>
+<p>List有ArrayList和LinkedList两种实现。</p>
+<table>
+<thead>
+<tr>
+<th>比较的项目</th>
+<th>ArrayList</th>
+<th>LinkedList</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>获取指定元素</td>
+<td>速度很快</td>
+<td>需要从头开始查找元素</td>
+</tr>
+<tr>
+<td>添加元素到末尾</td>
+<td>速度很快</td>
+<td>速度很快</td>
+</tr>
+<tr>
+<td>在制定位置添加、删除</td>
+<td>需要移动元素</td>
+<td>不需要移动元素</td>
+</tr>
+<tr>
+<td>内存占用</td>
+<td>少</td>
+<td>较大</td>
+</tr>
+</tbody>
+</table>
+<p>通常情况下，优先使用ArrayList。</p>
+<p>遍历List使用Iterator或者foreach循环，迭代需要使用hasNext()方法检查是否到达末尾，使用next()获取下一个元素。编译器本身是不知道迭代对象的，但是会将foreach转换成迭代器方式来调用。</p>
+<p>List和Array可以相互转换。</p>
+<h3 id="4-equals"><a href="#4-equals" class="headerlink" title="4. equals"></a>4. equals</h3><p>判断元素是否存在或者查找元素索引：</p>
+<ol>
+<li>boolean contains(Object o) 是否包含某个元素；</li>
+<li>int indexOf(Object o) 查找某个元素的索引，不存在返回-1。</li>
+</ol>
+<p>要正确调用contains / indexOf方法，放入的实例要正确实现equals()。</p>
+<p>equals()编写方法：</p>
+<ol>
+<li>判断this==o；</li>
+<li>判断o instanceof Person；</li>
+<li>强制转型，并比较每个对应的字段，基本类型字段用==直接比较，引用类型字段借助Objects.equals()判断。</li>
+</ol>
+<p>如果要在List中查找元素：</p>
+<ol>
+<li>List的实现类通过元素的equals()方法比较两个元素；</li>
+<li>放入的元素必须正确覆写equals()方法，JDK提供的String，Integer等已经覆写了equals()方法；</li>
+<li>编写equals()方法可以借助Objects.equals()方法；</li>
+<li>如果不在List中查找元素，可以不用覆写equals()方法。</li>
+</ol>
+<pre><code class="java">package test;
+
+import java.util.Objects;
+
+/**
+ * 人类
+ * 
+ * @author zhgxun
+ *
+ */
+public class Person {
+    private final String name;
+    private final int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    // 正确使用Map必须保证
+    // 作为Key的对象必须正确覆写equals()方法
+    // 作为Key的对象必须正确覆写hashCode()方法
+    // 
+    // 覆写hashCode
+    // 如果两个对象相等，则两个对象的hashCode()必须相等
+    // 如果两个对象不相等，则两个对象的hashCode()尽量不相等（可以相等，会造成效率下降）
+    // hashCode可以通过Objects.hashCode()辅助方法实现
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.age);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // 相同对象
+        if (obj == this) {
+            return true;
+        }
+        // 父对象
+        if (obj instanceof Person) {
+            Person p = (Person) obj;
+            // 使用对象本身提供的比较方法
+            return Objects.equals(p.getName(), this.getName()) &amp;&amp; p.getAge() == this.getAge();
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;(Person: &quot; + name + &quot;, &quot; + age + &quot;)&quot;;
+    }
+}
+</code></pre>
+<h3 id="5-Map"><a href="#5-Map" class="headerlink" title="5. Map"></a>5. Map</h3><p>Map是一种键值映射表，可以通过Key快速查找Value。</p>
+<p>常用方法：</p>
+<ol>
+<li>V put(K key, V value)：把Key-Value放入Map；</li>
+<li>V get(K key)：通过Key获取Value；</li>
+<li>boolean containsKey(K key)：判断Key是否存在。</li>
+</ol>
+<p>遍历Map，用for…each循环：</p>
+<ol>
+<li>遍历Key：keySet()；</li>
+<li>遍历Key和Value：entrySet()。</li>
+</ol>
+<p>常用的实现类：</p>
+<ol>
+<li>HashMap：不保证有序；</li>
+<li>SortedMap：保证按Key排序，实现类有TreeMap。</li>
+</ol>
+<pre><code class="java">// 做一个map
+// Map是一种键值映射表，可以通过Key快速查找Value
+List&lt;Person&gt; p = Arrays.asList(new Person(&quot;张三&quot;, 19), new Person(&quot;李四&quot;, 15), new Person(&quot;王五&quot;, 30));
+// HashMap无序打印, 顺序打印要用TreeMap
+// 而且顺序只是对键起作用, 不会操作值
+Map&lt;String, Person&gt; map = new TreeMap&lt;&gt;(new Comparator&lt;String&gt;() {
+
+    @Override
+    public int compare(String o1, String o2) {
+        return -o1.compareTo(o2);
+    }
+
+});
+for (Person t : p) {
+    map.put(t.getName(), t);
+}
+
+System.out.println(map.get(&quot;张三&quot;));
+System.out.println(map.get(&quot;田七&quot;));
+
+for (String m : map.keySet()) {
+    System.out.println(m + &quot; -&gt; &quot; + map.get(m));
+}
+
+for (Map.Entry&lt;String, Person&gt; entry : map.entrySet()) {
+    System.out.println(entry.getKey() + &quot; -&gt; &quot; + entry.getValue());
+}
+</code></pre>
+<h3 id="6-Set"><a href="#6-Set" class="headerlink" title="6. Set"></a>6. Set</h3><p>Set用于存储不重复的元素集合：</p>
+<ol>
+<li>boolean add(E e);</li>
+<li>boolean remove(Object o);</li>
+<li>boolean contains(Object o);</li>
+<li>int size()。</li>
+</ol>
+<p>利用Set可以去除重复元素。</p>
+<p>放入Set的元素要正确实现equals()和hashCode()。</p>
+<p>Set不保证有序：</p>
+<ol>
+<li>HashSet是无序的；</li>
+<li>TreeSet是有序的。</li>
+</ol>
+<p>实现了SortedSet接口的是有序Set。</p>
+<pre><code class="java">System.out.println(&quot;Set...&quot;);
+List&lt;String&gt; list1 = Arrays.asList(&quot;pear&quot;, &quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;, &quot;apple&quot;, &quot;banana&quot;);
+List&lt;String&gt; list2 = removeDuplicate(list1);
+System.out.println(list2);
+
+List&lt;String&gt; list3 = Arrays.asList(&quot;abc&quot;, &quot;xyz&quot;, &quot;abc&quot;, &quot;www&quot;, &quot;edu&quot;, &quot;www&quot;, &quot;abc&quot;);
+Set&lt;String&gt; set = new LinkedHashSet&lt;&gt;(list3);
+System.out.println(new ArrayList&lt;String&gt;(set));
+</code></pre>
+<pre><code class="java">/**
+ * 去除List中重复的元素
+ * 
+ * @param list
+ * @return
+ */
+private static List&lt;String&gt; removeDuplicate(List&lt;String&gt; list) {
+    // 使用Set的方式存储
+    // 利用Set可以去除重复元素
+    // HashSet是无序的
+    // TreeSet是有序的
+    // 实现了SortedSet接口的是有序Set
+    // 自定义排序算法
+    Set&lt;String&gt; set = new TreeSet&lt;&gt;(new Comparator&lt;String&gt;() {
+
+        @Override
+        public int compare(String o1, String o2) {
+            return -o1.compareTo(o2);
+        }
+
+    });
+    set.addAll(list);
+    // 把set转化为list返回
+    return new ArrayList&lt;String&gt;(set);
+}
+</code></pre>
+<h3 id="7-Queue"><a href="#7-Queue" class="headerlink" title="7. Queue"></a>7. Queue</h3><p>队列（Queue）是一种先进先出（FIFO）的数据结构。</p>
+<p>实现类：ArrayDeque，LinkedList。</p>
+<p>操作Queue的元素的方法：</p>
+<ol>
+<li>获取队列的长度：size()</li>
+<li>添加至队尾压栈：add()，失败抛异常， / offer()，失败返回false；</li>
+<li>获取队列头部元素并删除：E remove()，失败抛异常； / E poll()，失败返回null；</li>
+<li>获取队列头部元素但不删除：E element()，失败抛异常； / E peek()，失败返回null;</li>
+<li>isEmpty()判断队列是否为空。</li>
+</ol>
+<p>两组方法的区别：是否抛出Exception。</p>
+<p>避免把null添加到队列。</p>
+<pre><code class="java">// 初始化一个队列
+Queue&lt;User&gt; users = new LinkedList&lt;&gt;();
+// 往队列添加元素
+// 添加失败抛异常
+users.add(new User(1, &quot;周迅&quot;, 18));
+// 添加失败返回false
+users.offer(new User(2, &quot;袁姗姗&quot;, 20));
+users.add(new User(3, &quot;张国荣&quot;, 30));
+users.offer(new User(4, &quot;罗大佑&quot;, 20));
+
+System.out.println(&quot;队列的长度：&quot; + users.size());
+System.out.println(&quot;获取头部元素并删除：&quot; + users.remove());
+System.out.println(&quot;队列的长度：&quot; + users.size());
+System.out.println(&quot;获取头部元素并删除：&quot; + users.poll());
+System.out.println(&quot;队列的长度：&quot; + users.size());
+System.out.println(&quot;获取头部元素不删除：&quot; + users.element());
+System.out.println(&quot;队列的长度：&quot; + users.size());
+System.out.println(&quot;获取头部元素不删除：&quot; + users.peek());
+System.out.println(&quot;队列的长度：&quot; + users.size());
+</code></pre>
+<p>PriorityQueue优先队列：</p>
+<ol>
+<li>PriorityQueue的出队顺序与元素的优先级有关，总是返回优先级最高的元素；</li>
+<li>从队首获取元素时，总是获取优先级最高的元素；</li>
+<li>默认按元素比较的顺序排序（必须实现Comparable接口）；</li>
+<li>可以通过Comparator自定义排序算法（不必实现Comparable接口）。</li>
+</ol>
+<p>优先队列需要实现 Comparable<user> 接口：</user></p>
+<pre><code class="java">@Override
+public int compareTo(User o) {
+    return o.name.compareTo(this.name);
+}
+</code></pre>
+<p>实现自定义的排序方法：</p>
+<pre><code class="java">// 实现自定义的排序方法
+PriorityQueue&lt;User&gt; users = new PriorityQueue&lt;&gt;(new Comparator&lt;User&gt;() {
+
+    @Override
+    public int compare(User o1, User o2) {
+        return -o1.getName().compareTo(o2.getName());
+    }
+
+});
+</code></pre>
+<p>Deque。</p>
+<p>Deque实现一个双端队列（Double Ended Queue）：</p>
+<ol>
+<li>既可以添加到队尾，也可以添加到队首；</li>
+<li>既可以从队首获取，又可以从队尾获取。</li>
+</ol>
+<h3 id="8-Stack"><a href="#8-Stack" class="headerlink" title="8. Stack"></a>8. Stack</h3><p>栈（Stack）是一种后进先出（LIFO）的数据结构。</p>
+<p>操作栈的元素的方法： </p>
+<ol>
+<li>push()压栈；</li>
+<li>pop()出栈；</li>
+<li>peek()取栈顶元素但不出栈。</li>
+</ol>
+<p>Java使用Deque实现栈的功能，注意只调用push/pop/peek，避免调用Deque的其他方法。</p>
+<p>不要使用遗留类Stack。</p>
+<h2 id="五、JDBC"><a href="#五、JDBC" class="headerlink" title="五、JDBC"></a>五、JDBC</h2><p>JDBC是Java程序访问数据库的标准接口：</p>
+<ol>
+<li>JDK提供JDBC接口，数据库厂商提供JDBC驱动（JDBC实现）；</li>
+<li>Connection代表一个JDBC连接。</li>
+</ol>
+<p>maven配置数据库连接组件</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;version&gt;6.0.6&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>以事务的方式处理：</p>
+<pre><code class="java">package test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 事务处理
+ * 
+ * @author zhgxun
+ *
+ */
+public class DBTx {
+    private static final String JDBC_URL = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=UTC&quot;;
+    private static final String JDBC_USER = &quot;root&quot;;
+    private static final String JDBC_PASSWORD = &quot;&quot;;
+
+    public static void main(String[] args) {
+        // 打印用户列表
+        List&lt;User&gt; users = null;
+        try {
+            users = getUsers();
+            for (User user : users) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 开启更新事务
+        System.out.println(&quot;开启更新事务&quot;);
+        Connection conn = null;
+        try {
+            // 连接数据库
+            conn = getConnection();
+            // 设置事务隔离级别为提交读
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            // 开启事务, 开启事务即是关闭自动提交即可
+            conn.setAutoCommit(false);
+            // 更新用户信息
+            update(conn, new User(users.get(0).id, &quot;杨幂&quot;, 25));
+            update(conn, new User(users.get(1).id, &quot;李思思&quot;, 20));
+            // 提交事务
+            conn.commit();
+            // 事务执行成功
+            System.out.println(&quot;事务执行成功&quot;);
+        } catch (SQLException e) {
+            // 回滚事务
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                System.out.println(&quot;回滚事务失败&quot;);
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // 尝试关闭数据库连接
+            try {
+                // 恢复数据库自动提交记录
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println(&quot;数据库关闭失败&quot;);
+                e.printStackTrace();
+            }
+        }
+
+        // 事务后重新打印所有用户列表
+        System.out.println(&quot;事务后重新打印所有用户列表&quot;);
+        try {
+            users = getUsers();
+            for (User user : users) {
+                System.out.println(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 模拟事务回滚
+        System.out.println(&quot;模拟事务回滚&quot;);
+        try {
+            // 连接数据库
+            conn = getConnection();
+            // 设置事务隔离级别为提交读
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            // 开启事务, 开启事务即是关闭自动提交即可
+            conn.setAutoCommit(false);
+            // 更新用户信息
+            update(conn, new User(users.get(0).id, &quot;周迅&quot;, 28));
+            update(conn, new User(users.get(1).id, &quot;卓依婷&quot;, 24));
+            // 提交事务
+            conn.commit();
+            // 人为制造异常终止事务使其回滚, 不过后续代码也无法正常执行了
+            throw new RuntimeException(&quot;强制数据库回滚&quot;);
+        } catch (SQLException e) {
+            // 回滚事务
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                System.out.println(&quot;回滚事务失败&quot;);
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // 尝试关闭数据库连接
+            try {
+                // 恢复数据库自动提交记录
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println(&quot;数据库关闭失败&quot;);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 数据库连接
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    }
+
+    /**
+     * 获取用户列表
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static List&lt;User&gt; getUsers() throws SQLException {
+        try (Connection conn = getConnection()) {
+            try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT * FROM user&quot;)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    List&lt;User&gt; users = new ArrayList&lt;&gt;();
+                    while (rs.next()) {
+                        long id = rs.getLong(&quot;id&quot;);
+                        String name = rs.getString(&quot;name&quot;);
+                        int age = rs.getInt(&quot;age&quot;);
+                        users.add(new User(id, name, age));
+                    }
+                    return users;
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据id更新用户姓名
+     * 
+     * @param conn
+     * @param user
+     * @throws SQLException
+     */
+    private static void update(Connection conn, User user) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(&quot;UPDATE user SET name = ? WHERE id = ?&quot;)) {
+            ps.setObject(1, user.name);
+            ps.setObject(2, user.id);
+            ps.executeUpdate();
+        }
+    }
+
+}
+</code></pre>
+<p>Maven配置连接池组件：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.zaxxer&lt;/groupId&gt;
+    &lt;artifactId&gt;HikariCP&lt;/artifactId&gt;
+    &lt;version&gt;2.7.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>常用JDBC连接池的实现：</p>
+<ol>
+<li>HikariCP</li>
+<li>C3P0</li>
+<li>BoneCP</li>
+<li>Druid</li>
+</ol>
+<p>以连接池的方式来说明：</p>
+<pre><code class="java">package github.banana;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 数据库连接池
+ */
+public class DBSource {
+    // 配置MySQL连接属性
+    private static final String JDBC_URL = &quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=UTC&quot;;
+    private static final String JDBC_USER = &quot;root&quot;;
+    private static final String JDBC_PASSWORD = &quot;&quot;;
+
+    /**
+     * 使用连接池查询数据
+     *
+     * @param args
+     *            输入参数
+     */
+    public static void main(String[] args) {
+        // 创建连接池
+        DataSource dataSource = create();
+        // 保持线程实例
+        List&lt;Thread&gt; threads = new ArrayList&lt;&gt;();
+        // 启动4个线程来查询用户列表
+        for (int i = 1; i &lt;= 4; i++) {
+            // 准备线程池
+            Thread thread = new Thread() {
+                public void run() {
+                    // 暂缓一段时间
+                    try {
+                        Thread.sleep((long) (Math.random() * 1000));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        List&lt;User&gt; users = getUsers(dataSource);
+                        for (User user : users) {
+                            System.out.println(user);
+                        }
+                    } catch (SQLException e) {
+                        e.getStackTrace();
+                    }
+                }
+            };
+            threads.add(thread);
+        }
+        // 启动线程
+        for (Thread thread : threads) {
+            thread.start();
+        }
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.getStackTrace();
+            }
+        }
+        // 关闭连接池
+        ((HikariDataSource) dataSource).close();
+    }
+
+    /**
+     * 配置数据库连接池
+     *
+     * @return DataSource
+     */
+    private static DataSource create() {
+        // HikariCP是JDBC连接池组件
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(JDBC_URL);
+        config.setUsername(JDBC_USER);
+        config.setPassword(JDBC_PASSWORD);
+        // 连接超时
+        config.addDataSourceProperty(&quot;connectionTimeout&quot;, 1000);
+        // 空闲超时
+        config.addDataSourceProperty(&quot;idleTimeout&quot;, 1000);
+        // 最大连接数
+        config.addDataSourceProperty(&quot;maximumPoolSize&quot;, 10);
+
+        return new HikariDataSource(config);
+    }
+
+    /**
+     * 通过连接池获取用户列表
+     *
+     * @param dataSource
+     *            数据库连接池
+     * @return List&lt;User&gt;
+     * @throws SQLException
+     *             异常处理
+     */
+    private static List&lt;User&gt; getUsers(DataSource dataSource) throws SQLException {
+        try (Connection conn = dataSource.getConnection()) {
+            System.out.println(&quot;Using connection: &quot; + conn);
+            try (PreparedStatement ps = conn.prepareStatement(&quot;SELECT * FROM user&quot;)) {
+                try (ResultSet rs = ps.executeQuery()) {
+                    return handleUsers(rs);
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取用户列表
+     *
+     * @param rs
+     *            ResultSet 结果集
+     * @return List&lt;User&gt;
+     * @throws SQLException
+     *             异常处理
+     */
+    private static List&lt;User&gt; handleUsers(ResultSet rs) throws SQLException {
+        List&lt;User&gt; users = new ArrayList&lt;&gt;();
+        while (rs.next()) {
+            long id = rs.getLong(&quot;id&quot;);
+            String name = rs.getString(&quot;name&quot;);
+            int age = rs.getInt(&quot;age&quot;);
+            users.add(new User(id, name, age));
+        }
+        return users;
+    }
+}
+</code></pre>
+<h2 id="六、网络"><a href="#六、网络" class="headerlink" title="六、网络"></a>六、网络</h2><p>计算机网络的基本概念：</p>
+<ol>
+<li>互联网：网络的网络；</li>
+<li>IP地址：计算机在网络中的标识；</li>
+<li>网关：负责连接多个网络；</li>
+<li>协议：TCP/IP协议；</li>
+<li>IP协议：分组交换协议；</li>
+<li>TCP协议：面向连接，可靠传输；</li>
+<li>UDP协议：不面向连接，不可靠传输。</li>
+</ol>
+<h3 id="1-TCP"><a href="#1-TCP" class="headerlink" title="1. TCP"></a>1. TCP</h3><ol>
+<li>客户端使用Socket(InetAddress, port)打开Socket；</li>
+<li>服务器端用ServerSocket监听端口；</li>
+<li>服务器端用accept接收连接并返回Socket；</li>
+<li>双方通过Socket打开InputStream / OutputStream读写数据；</li>
+<li>flush()用于强制输出缓冲区。</li>
+</ol>
+<p>客户端：</p>
+<pre><code class="java">package github.banana;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * TCP客户端
+ * 
+ * @author zhgxun
+ *
+ */
+public class TCPClient {
+
+    /**
+     * 向服务端请求一个日期
+     * 
+     * @param args
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static void main(String[] args) throws IOException, InterruptedException {
+        // 获取本机回环地址127.0.0.1
+        InetAddress address = Inet4Address.getLoopbackAddress();
+        // System.out.println(address);
+        // 启动Socket连接
+        try (Socket socket = new Socket(address, 9000)) {
+            // 将数据读取到缓冲中
+            try (BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))) {
+                // 将数据写入输出
+                try (BufferedWriter bufferedWriter = new BufferedWriter(
+                        new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8))) {
+                    // 向服务端写入信息
+                    bufferedWriter.write(&quot;time\n&quot;);
+                    bufferedWriter.flush();
+                    // 从服务端读取响应
+                    String resp = bufferedReader.readLine();
+                    System.out.println(&quot;response time: &quot; + resp);
+                    // 停留1秒后继续发送请求
+                    Thread.sleep(1000);
+                    // 向服务端写入一个退出标识
+                    bufferedWriter.write(&quot;q\n&quot;);
+                    bufferedWriter.flush();
+                    // 尝试从服务端读取信息
+                    resp = bufferedReader.readLine();
+                    System.out.println(&quot;response end: &quot; + resp);
+                }
+            }
+        }
+    }
+
+}
+</code></pre>
+<p>服务端：</p>
+<pre><code class="java">package github.banana;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+
+/**
+ * TCP服务端
+ * 
+ * @author zhgxun
+ *
+ */
+public class TCPServer {
+
+    /**
+     * 服务只能运行一次
+     * 
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        // 启动给一个Socket实例
+        try (ServerSocket serverSocket = new ServerSocket(9000)) {
+            System.out.println(&quot;TCP server Socket start...&quot;);
+            // 接收请求
+            try (Socket socket = serverSocket.accept()) {
+                // 读取客服端请求
+                try (BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))) {
+                    // 写会数据到客户端
+                    try (BufferedWriter bufferedWriter = new BufferedWriter(
+                            new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8))) {
+                        // 读取一行
+                        String line = bufferedReader.readLine();
+                        // 如果读到客户端约定的字段则返回时间
+                        if (&quot;time&quot;.equals(line)) {
+                            bufferedWriter.write(LocalDateTime.now().toString());
+                            bufferedWriter.flush();
+                        } else {
+                            bufferedWriter.write(&quot;None, please request &#39;time&#39;&quot;);
+                            bufferedWriter.flush();
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(&quot;Socket done&quot;);
+    }
+
+}
+</code></pre>
+<p>多线程运行：</p>
+<pre><code class="java">package github.banana;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/**
+ * 多线程
+ * 
+ * @author zhgxun
+ *
+ */
+public class MultiTcpServer {
+
+    /**
+     * 多线程服务端
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+        try {
+            // 启动Socket监听9000端口
+            @SuppressWarnings(&quot;resource&quot;)
+            ServerSocket serverSocket = new ServerSocket(9000);
+            System.out.println(&quot;Socket start...&quot;);
+            // 服务器端使用无限循环监听客服端请求
+            for (;;) {
+                // 每次accept()返回后，创建新的线程来处理客户端请求
+                Socket socket = serverSocket.accept();
+                System.out.println(&quot;Accepting from to: &quot; + socket.getRemoteSocketAddress());
+                // 使用多线程处理类处理, 每个客户端请求对应一个服务线程
+                TCPHandler handler = new TCPHandler(socket);
+                // 启动多线程
+                handler.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+</code></pre>
+<p>TCPHandler 需要实现Thread接口的run()方法：</p>
+<pre><code class="java">package github.banana;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+
+/**
+ * 多线程处理
+ * 
+ * @author zhgxun
+ *
+ */
+public class TCPHandler extends Thread {
+    Socket socket;
+
+    /**
+     * 构造化
+     * 
+     * @param socket
+     */
+    public TCPHandler(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        // 读缓冲
+        try (BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(this.socket.getInputStream(), StandardCharsets.UTF_8))) {
+            // 写缓冲
+            try (BufferedWriter bufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(this.socket.getOutputStream(), StandardCharsets.UTF_8))) {
+                // 循环读写每个请求中的请求数据
+                for (;;) {
+                    String line = bufferedReader.readLine();
+                    // 如果需要退出
+                    if (&quot;q&quot;.equals(line)) {
+                        bufferedWriter.write(&quot;Good bye!\n&quot;);
+                        bufferedWriter.flush();
+                        break;
+                    } else if (&quot;time&quot;.equals(line)) {
+                        bufferedWriter.write(LocalDateTime.now().toString() + &quot;\n&quot;);
+                        bufferedWriter.flush();
+                    } else {
+                        bufferedWriter.write(&quot;None!&quot;);
+                        bufferedWriter.flush();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 不管是否处理异常, 都尝试关闭连接
+            try {
+                this.socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="2-SMTP"><a href="#2-SMTP" class="headerlink" title="2. SMTP"></a>2. SMTP</h3><p>SMTP: Simple Mail Transport Protocol。</p>
+<p>标准端口25，加密端口465／587。</p>
+<p>使用javamail发送Email:</p>
+<ol>
+<li>确定SMTP服务器信息：域名／端口／使用明文／SSL／TLS；</li>
+<li>调用相关API发送Email；</li>
+<li>设置debug模式可以查看通信详细内容。</li>
+</ol>
+<p>邮件组件：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;javax.mail&lt;/groupId&gt;
+    &lt;artifactId&gt;mail&lt;/artifactId&gt;
+    &lt;version&gt;1.4&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>SMTP是一个应答模型：</p>
+<pre><code class="bash">DEBUG: setDebug: JavaMail version 1.4ea
+DEBUG: getProvider() returning javax.mail.Provider[TRANSPORT,smtp,com.sun.mail.smtp.SMTPTransport,Sun Microsystems, Inc]
+DEBUG SMTP: useEhlo true, useAuth true
+DEBUG SMTP: useEhlo true, useAuth true
+DEBUG SMTP: trying to connect to host &quot;smtp.sina.com&quot;, port 465, isSSL false
+220 smtp-2-32.smtpsmail.fmail.yf.sinanode.com ESMTP
+DEBUG SMTP: connected to host &quot;smtp.sina.com&quot;, port: 465
+
+EHLO zhgxun-pro
+250-smtp-2-32.smtpsmail.fmail.yf.sinanode.com
+250-AUTH LOGIN PLAIN
+250-AUTH=LOGIN PLAIN
+250-STARTTLS
+250 8BITMIME
+DEBUG SMTP: Found extension &quot;AUTH&quot;, arg &quot;LOGIN PLAIN&quot;
+DEBUG SMTP: Found extension &quot;AUTH=LOGIN&quot;, arg &quot;PLAIN&quot;
+DEBUG SMTP: Found extension &quot;STARTTLS&quot;, arg &quot;&quot;
+DEBUG SMTP: Found extension &quot;8BITMIME&quot;, arg &quot;&quot;
+DEBUG SMTP: Attempt to authenticate
+AUTH LOGIN
+334 VXNlcm5hbWU6
+emhneHVuMTk4OUBzaW5hLmNvbQ==
+334 UGFzc3dvcmQ6
+YnIxc2om
+235 OK Authenticated
+DEBUG SMTP: use8bit false
+MAIL FROM:&lt;zhgxun1989@sina.com&gt;
+250 ok
+RCPT TO:&lt;zhgxun1989@163.com&gt;
+250 ok
+DEBUG SMTP: Verified Addresses
+DEBUG SMTP:   zhgxun1989@163.com
+DATA
+354 End data with &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt;
+From: zhgxun1989@sina.com
+To: zhgxun1989@163.com
+Message-ID: &lt;455896770.01514724480880.JavaMail.zhgxun@zhgxun-pro&gt;
+Subject: =?UTF-8?B?5Y2D5LiO5Y2D5a+7?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+5aSp56m65piv6L+e552A55qE77yM5aaC5p6c5oiR5Lus5Lmf6IO95ZCE6Ieq5Y+R5YWJ55qE6K+d
+77yM5peg6K666Led56a75pyJ5aSa6L+c77yM6YO96IO955yL5Yiw5b285q2k5Yqq5Yqb55qE6Lqr
+5b2x44CC
+.
+250 ok queue id 552255407018
+QUIT
+221 smtp-2-32.smtpsmail.fmail.yf.sinanode.com
+</code></pre>
+<p>下面是用sina的邮箱进行的测试，每个邮件服务商都有自己的使用方式，需要根据邮件进行调试才行。</p>
+<pre><code class="java">package github.banana;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+
+/**
+ * 发送邮件
+ *
+ * @author zhgxun
+ */
+public class SendMail {
+    public static void main(String[] args) {
+        text();
+        html();
+        try {
+            attachment();
+            image();
+        } catch (IOException | MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 发送文本邮件
+     */
+    private static void text() {
+        Email email = new Email();
+        Session session = email.SSLSession();
+        try {
+            Message message = email.text(session, &quot;zhgxun1989@sina.com&quot;, &quot;zhgxun1989@163.com&quot;, &quot;千与千寻&quot;,
+                    &quot;天空是连着的，如果我们也能各自发光的话，无论距离有多远，都能看到彼此努力的身影。&quot;);
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 发送html格式邮件
+     */
+    private static void html() {
+        Email email = new Email();
+        Session session = email.SSLSession();
+        Message message;
+        try {
+            message = email.text(session, &quot;zhgxun1989@sina.com&quot;, &quot;zhgxun1989@163.com&quot;, &quot;风晴雪独白&quot;,
+                    &quot;&lt;p&gt;曾经有人告诉过我，对生死之事毫无执念的人，只是因为还没有经历过真正绝望的别离。仿佛诅咒一般……&lt;/p&gt;&quot;);
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 发送图片附件
+     *
+     * @throws IOException
+     *             IO异常
+     * @throws MessagingException
+     *             Message异常
+     */
+    private static void attachment() throws IOException, MessagingException {
+        Email email = new Email();
+        Session session = email.SSLSession();
+        try (InputStream inputStream = email.getClass().getResourceAsStream(&quot;/LinuxStory.jpeg&quot;)) {
+            Message message = email.attachment(session, &quot;zhgxun1989@sina.com&quot;, &quot;zhgxun1989@163.com&quot;, &quot;这是一次北京的小聚会&quot;,
+                    &quot;还记得15年华华去北京的时候，我们 LinuxStory 群里的几个“死党”聚会并没有正式的分享。我们晚上撸串，撸了串去中关村创业大街晃了一圈，谈天说地。10月北京的深夜还是透心凉的，但是我们几个好像怎么都聊不完，烤串吃了 n 久+逛了创业大街后说应该回家了，但是走到一个十字路口还是不自觉地停下来又聊了很久很久，路上的行人越来越少……那时候的场景还深深印在我脑海！&quot;,
+                    &quot;LinuxStory.jpeg&quot;, inputStream);
+            Transport.send(message);
+        }
+    }
+
+    /**
+     * 发送内嵌图片
+     *
+     * @throws IOException
+     *             IO异常
+     * @throws MessagingException
+     *             Message异常
+     */
+    private static void image() throws IOException, MessagingException {
+        Email email = new Email();
+        Session session = email.SSLSession();
+        try (InputStream inputStream = email.getClass().getResourceAsStream(&quot;/LinuxStory.jpeg&quot;)) {
+            Message message = email.attachment(session, &quot;zhgxun1989@sina.com&quot;, &quot;zhgxun1989@163.com&quot;, &quot;这是一次北京的小聚会&quot;,
+                    &quot;还记得15年华华去北京的时候，我们 LinuxStory 群里的几个“死党”聚会并没有正式的分享。我们晚上撸串，撸了串去中关村创业大街晃了一圈，谈天说地。10月北京的深夜还是透心凉的，但是我们几个好像怎么都聊不完，烤串吃了 n 久+逛了创业大街后说应该回家了，但是走到一个十字路口还是不自觉地停下来又聊了很久很久，路上的行人越来越少……那时候的场景还深深印在我脑海！&lt;img src=\&quot;cid:img01\&quot;&gt;LinuxStory 的线下聚会就是这样，不管在哪里，你都会觉得暖心，你都会感受到真诚，你都会爱上我们的气氛。&quot;,
+                    &quot;LinuxStory.jpeg&quot;, inputStream);
+            Transport.send(message);
+        }
+    }
+}
+</code></pre>
+<p>可以发送文本，最主要的要发送附件。发送邮件的功能运用较为普遍，但是收邮件基本都是客户端实现，无需赘述。</p>
+<pre><code class="java">package github.banana;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+
+/**
+ * 邮箱公共信息
+ *
+ * @author zhgxun
+ */
+public class Email {
+    // 邮箱服务地址
+    private String host = &quot;smtp.sina.com&quot;;
+    // 邮箱用户名
+    private String username = &quot;zhgxun1989@sina.com&quot;;
+    // 邮箱密码
+    private String password = &quot;br1sj&amp;&quot;;
+    // 是否开启调试模式
+    private boolean debug = true;
+    // 邮箱服务端口
+    private String port = &quot;465&quot;;
+
+    public Email() {
+
+    }
+
+    /**
+     * 可复写默认配置
+     *
+     * @param host     邮件主机
+     * @param username 用户名
+     * @param password 密码
+     * @param debug    调试模式
+     * @param port     端口
+     */
+    public Email(String host, String username, String password, boolean debug, String port) {
+        this.host = host;
+        this.username = username;
+        this.password = password;
+        this.debug = debug;
+        this.port = port;
+    }
+
+    /**
+     * 使用SSL方式认证
+     *
+     * @return javax.mail.Session
+     */
+    public Session SSLSession() {
+        Properties properties = new Properties();
+        // 主机
+        properties.put(&quot;mail.smtp.host&quot;, this.host);
+        // 端口
+        properties.put(&quot;mail.smtp.port&quot;, this.port);
+        // 启用用户登陆认证
+        properties.put(&quot;mail.smtp.auth&quot;, &quot;true&quot;);
+        // 启用SSL
+        properties.put(&quot;mail.smtp.socketFactory.class&quot;, &quot;javax.net.ssl.SSLSocketFactory&quot;);
+        properties.put(&quot;mail.smtp.socketFactory.port&quot;, this.port);
+        // 用户认证
+        Session session = Session.getInstance(properties, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                Email email = new Email();
+                return new PasswordAuthentication(email.username, email.password);
+            }
+        });
+        // 显示调试模式
+        session.setDebug(this.debug);
+        return session;
+    }
+
+    /**
+     * 发送文本
+     *
+     * @param session javax.mail.Session
+     * @param from    发信人
+     * @param to      收信人
+     * @param subject 邮件主题
+     * @param body    邮件内容
+     * @return Message
+     * @throws MessagingException Message异常
+     */
+    public Message text(Session session, String from, String to, String subject, String body)
+            throws MessagingException {
+        // 使用MimeMessage来发送邮件
+        MimeMessage mimeMessage = new MimeMessage(session);
+        // 设置发件人
+        mimeMessage.setFrom(new InternetAddress(from));
+        // 设置收件人
+        mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        // 设置主题
+        mimeMessage.setSubject(subject, &quot;UTF-8&quot;);
+        // 设置内容
+        mimeMessage.setText(body, &quot;UTF-8&quot;);
+        return mimeMessage;
+    }
+
+    /**
+     * 发送html格式邮件
+     *
+     * @param session
+     * @param from
+     * @param to
+     * @param subject
+     * @param body
+     * @return
+     * @throws MessagingException
+     */
+    public Message html(Session session, String from, String to, String subject, String body)
+            throws MessagingException {
+        // 使用MimeMessage来发送邮件
+        MimeMessage mimeMessage = new MimeMessage(session);
+        // 设置发件人
+        mimeMessage.setFrom(new InternetAddress(from));
+        // 设置收件人
+        mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        // 设置主题
+        mimeMessage.setSubject(subject, &quot;UTF-8&quot;);
+        // 设置内容
+        mimeMessage.setText(body, &quot;UTF-8&quot;, &quot;html&quot;);
+        return mimeMessage;
+    }
+
+    /**
+     * 发送图片附件
+     *
+     * @param session
+     * @param from
+     * @param to
+     * @param subject
+     * @param body
+     * @param fileName
+     * @param inputStream
+     * @return
+     * @throws MessagingException
+     * @throws IOException
+     */
+    public Message attachment(Session session, String from, String to, String subject, String body, String fileName,
+                              InputStream inputStream) throws MessagingException, IOException {
+        // 使用MimeMessage来发送邮件
+        MimeMessage mimeMessage = new MimeMessage(session);
+        // 设置发件人
+        mimeMessage.setFrom(new InternetAddress(from));
+        // 设置收件人
+        mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        // 设置主题
+        mimeMessage.setSubject(subject, &quot;UTF-8&quot;);
+        // 设置邮件主体body
+        BodyPart bodyPart = new MimeBodyPart();
+        bodyPart.setContent(body, &quot;text/html;charset=utf-8&quot;);
+        // 发送附件需要使用multi
+        Multipart multipart = new MimeMultipart();
+        // 将主体添加到multi中
+        multipart.addBodyPart(bodyPart);
+        // 添加一张图片附件
+        BodyPart imagePart = new MimeBodyPart();
+        imagePart.setFileName(fileName);
+        imagePart.setDataHandler(new DataHandler(new ByteArrayDataSource(inputStream, &quot;application/octet-stream&quot;)));
+        multipart.addBodyPart(imagePart);
+        mimeMessage.setContent(multipart);
+        return mimeMessage;
+    }
+
+    /**
+     * 发送一张内嵌的图片
+     *
+     * @param session
+     * @param from
+     * @param to
+     * @param subject
+     * @param body
+     * @param fileName
+     * @param inputStream
+     * @return
+     * @throws MessagingException
+     * @throws IOException
+     */
+    public Message image(Session session, String from, String to, String subject, String body, String fileName,
+                         InputStream inputStream) throws MessagingException, IOException {
+        // 使用MimeMessage来发送邮件
+        MimeMessage mimeMessage = new MimeMessage(session);
+        // 设置发件人
+        mimeMessage.setFrom(new InternetAddress(from));
+        // 设置收件人
+        mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        // 设置主题
+        mimeMessage.setSubject(subject, &quot;UTF-8&quot;);
+        // 设置邮件主体body
+        BodyPart bodyPart = new MimeBodyPart();
+        bodyPart.setContent(body, &quot;text/html;charset=utf-8&quot;);
+        // 发送附件需要使用multi
+        Multipart multipart = new MimeMultipart();
+        // 将主体添加到multi中
+        multipart.addBodyPart(bodyPart);
+        // 添加一张图片附件
+        BodyPart imagePart = new MimeBodyPart();
+        imagePart.setFileName(fileName);
+        imagePart.setDataHandler(new DataHandler(new ByteArrayDataSource(inputStream, &quot;application/octet-stream&quot;)));
+        // 与HTML的&lt;img src=&quot;cid:img01&quot;&gt;关联:
+        imagePart.setHeader(&quot;Content-ID&quot;, &quot;&lt;img01&gt;&quot;);
+        multipart.addBodyPart(imagePart);
+        mimeMessage.setContent(multipart);
+        return mimeMessage;
+    }
+
+}
+</code></pre>
+<h3 id="3-HTTP"><a href="#3-HTTP" class="headerlink" title="3. HTTP"></a>3. HTTP</h3><p>HTTP: HyperText Transfer Protocol：</p>
+<ol>
+<li>HTTP协议是一个基于TCP的请求／响应协议；</li>
+<li>请求和响应的结构分为header和body两部分；</li>
+<li>header是必须的；</li>
+<li>body可选；</li>
+<li>广泛用于浏览器、手机App与服务器的数据交互。</li>
+</ol>
+<p>java.net.Java提供了HttpURLConnection实现HTTP客户端。</p>
+<p>格式化输入内容：</p>
+<pre><code class="java">package github.banana;
+
+import java.nio.charset.StandardCharsets;
+
+/**
+ * 将响应内容格式化输出
+ * 
+ * @author zhgxun
+ *
+ */
+public class Response {
+    private int code;
+    private byte[] data;
+
+    public Response(int code, byte[] data) {
+        this.code = code;
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder(2014);
+        // 响应码
+        stringBuilder.append(this.code).append(&quot;\n&quot;);
+        // 把内容转化为字符串
+        String string = new String(data, StandardCharsets.UTF_8);
+        // 如果长度超过1024则拼接为...展示
+        if (string.length() &gt; 1024) {
+            stringBuilder.append(string.substring(0,  1024)).append(&quot;\n...&quot;);
+        } else {
+            stringBuilder.append(string);
+        }
+        return stringBuilder.toString();
+    }
+}
+</code></pre>
+<p>使用GET，POST发送数据到服务端：</p>
+<pre><code class="java">package github.banana;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Http编程
+ * 
+ * @author zhgxun
+ *
+ */
+public class HttpClient {
+
+    public static void main(String[] args) {
+        // get
+        System.out.println(&quot;start get request...&quot;);
+        Response response = get(&quot;https://www.douban.com&quot;);
+        System.out.println(response);
+
+        // post
+        System.out.println(&quot;start post send...&quot;);
+        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;form_email&quot;, &quot;zhgxun&quot;);
+        map.put(&quot;form_password&quot;, &quot;cqzytsy%&quot;);
+
+        // 初始化一个列表
+        List&lt;String&gt; list = new ArrayList&lt;&gt;(map.size());
+        for (String string : map.keySet()) {
+            try {
+                list.add(string + &quot;=&quot; + URLEncoder.encode(map.get(string), &quot;UTF-8&quot;));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        // 将参数拼接成地址格式
+        String query = String.join(&quot;&amp;&quot;, list);
+
+        try {
+            Response resp = post(&quot;https://www.douban.com/accounts/login&quot;, &quot;application/x-www-form-urlencoded&quot;, query);
+            System.out.println(resp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * get方式获取数据
+     * 
+     * @param theUrl
+     * @return
+     */
+    private static Response get(String theUrl) {
+        HttpURLConnection httpURLConnection = null;
+        try {
+            // 将请求地址转化为一个URL对象
+            URL url = new URL(theUrl);
+            // 将URL对象强制转化为HttpURLConnection连接
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            // 初始化一个输出流
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            // 从输入流中读取内容
+            try (InputStream inputStream = httpURLConnection.getInputStream()) {
+                // 以byte方式一次读取1024字节
+                byte[] bytes = new byte[1024];
+                int n;
+                while ((n = inputStream.read(bytes)) &gt;= 0) {
+                    // 将读取到的内容写入到输出存储中
+                    byteArrayOutputStream.write(bytes, 0, n);
+                }
+                // 将读取到的内容响应输出
+                return new Response(httpURLConnection.getResponseCode(), byteArrayOutputStream.toByteArray());
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            httpURLConnection.disconnect();
+        }
+        return null;
+    }
+
+    /**
+     * post方式发送数据
+     * 
+     * @param theUrl
+     * @param type
+     * @param data
+     * @return
+     * @throws IOException
+     */
+    private static Response post(String theUrl, String type, String data) throws IOException {
+        HttpURLConnection httpURLConnection = null;
+        try {
+            URL url = new URL(theUrl);
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+
+            // 设置请求方式为POST
+            httpURLConnection.setRequestMethod(&quot;POST&quot;);
+            // 设置开始输入请求内容
+            httpURLConnection.setDoOutput(true);
+            // 将请求体转化为字节数组
+            byte[] bytes = data.getBytes(StandardCharsets.UTF_8);
+            // 设置内容类型
+            httpURLConnection.setRequestProperty(&quot;Content-Type&quot;, type);
+            // 设置内容长度为字符串
+            httpURLConnection.setRequestProperty(&quot;Content-Length&quot;, String.valueOf(bytes.length));
+
+            // 获取连接内容输出对象
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            // 将内容写入到输出对象中
+            outputStream.write(bytes);
+
+            // 保存响应存储对象
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            // 从请求对象中获取输入对象
+            InputStream inputStream = httpURLConnection.getInputStream();
+            // 一次性读取1024个字节
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = inputStream.read(b)) &gt;= 0) {
+                // 将内容存储到输出对象中
+                byteArrayOutputStream.write(b, 0, n);
+            }
+
+            // 返回响应的内容
+            return new Response(httpURLConnection.getResponseCode(), byteArrayOutputStream.toByteArray());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } finally {
+            httpURLConnection.disconnect();
+        }
+        return null;
+    }
+}
+</code></pre>
+<h2 id="七、多线程"><a href="#七、多线程" class="headerlink" title="七、多线程"></a>七、多线程</h2><h3 id="1-进程和线程"><a href="#1-进程和线程" class="headerlink" title="1. 进程和线程"></a>1. 进程和线程</h3><p>进程和线程的关系：</p>
+<ol>
+<li>一个进程可以包含一个或多个线程，至少一个一线线程；</li>
+<li>线程是操作系统调度的最小任务单位；</li>
+<li>如何调度线程完全由操作系统决定。</li>
+</ol>
+<p>实现多任务的方法：</p>
+<ol>
+<li>多进程模式，一个进程只有一个线程；</li>
+<li>多线程模式，一个进程内有多个线程；</li>
+<li>多进程+多线程模式，复杂度最高。</li>
+</ol>
+<p>多进程和多线程：</p>
+<ol>
+<li>创建进程比创建线程开销大；</li>
+<li>进程间通信比线程间通信慢；</li>
+<li>多进程稳定性比多线程高，进程间互相独立，但是任何一个线程的崩溃都会导致进程奔溃。</li>
+</ol>
+<p>Java内置多线程支持：</p>
+<ol>
+<li>一个Javac程序实际上是一个JVM进程；</li>
+<li>JVM用一个主线程来执行main()方法；</li>
+<li>在main()方法中又可以启动多个线程。</li>
+</ol>
+<p>多线程编程的特点：</p>
+<ol>
+<li>多线程需要读写共享数据；</li>
+<li>多线程经常需要同步；</li>
+<li>多线程编程的复杂度高，调试更困哪。</li>
+</ol>
+<p>Java多线程编程的特点：</p>
+<ol>
+<li>多线程模型是Java程序最基本的并发模型；</li>
+<li>网络、数据库、Web等都依赖多线程模型；</li>
+<li>必须掌握Java多线程编程才能继续深入学习。</li>
+</ol>
+<h3 id="2-创建新线程"><a href="#2-创建新线程" class="headerlink" title="2. 创建新线程"></a>2. 创建新线程</h3><ol>
+<li>从Thread派生，通常由该类派生，覆写run()方法;</li>
+<li>实现Runnable接口，对于无法从Thread类派生的类，可以实现该接口。</li>
+</ol>
+<p>Java用Thread类表示一个线程，通常调用start()启动一个线程。</p>
+<p>一个线程对象只能调用一次start()，查看源码可以知道，start()继续调用start0()：</p>
+<pre><code class="java">private native void start0();
+</code></pre>
+<p>native表示线程启动是用JVM虚拟机来操作的，由C代码实现，并不是Java实现的。</p>
+<p>线程的执行代码是run()方法，但不能直接调用run()方法，这样run()就成为一个普通的Java方法，而不是启动给一个线程。</p>
+<p>线程调度由操作系统决定，程序无法决定。</p>
+<p>Thread.sleep(1000)可以把当前线程暂停一段时间，单位毫秒。</p>
+<h3 id="3-线程的状态"><a href="#3-线程的状态" class="headerlink" title="3. 线程的状态"></a>3. 线程的状态</h3><p>Java线程对象Thread的状态包括：</p>
+<ol>
+<li>New 新创建；</li>
+<li>Runnable 运行中；</li>
+<li>Blocked 被阻塞；</li>
+<li>Waiting 等待；</li>
+<li>Timed Waiting 计时等待；</li>
+<li>Terminated 已终止。</li>
+</ol>
+<p>线程终止的原因：</p>
+<ol>
+<li>run()方法执行到语句返回，线程正常终止；</li>
+<li>因为未捕获的异常导致线程意外终止；</li>
+<li>对某个线程的Thread实例调用stop()方法强制终止，不推荐。</li>
+</ol>
+<p>通过对另一个线程对象调用join()方法可以等待其执行结束。</p>
+<p>可以指定等待时间，超过等待时间线程仍然没有结束就不再等待。</p>
+<p>对已经运行结束的线程调用join()方法会立刻返回。</p>
+<h3 id="4-中断线程"><a href="#4-中断线程" class="headerlink" title="4. 中断线程"></a>4. 中断线程</h3><p>如果线程需要执行一个长时间任务，就可能需要能中断线程，中断线程就是其它线程给该线程发一个信号，该线程收到信号后结束run()方法。</p>
+<p>中断线程需要通过检测isInterrupted()标志，其它线程通过调用interrupt()方法可以中断一个线程。</p>
+<p>如果线程处于等待状态，该线程会捕获InterruptedException，捕获到InterruptedException说明有其它线程对其调用了interrupt()方法，通常情况下该线程会立即结束运行。</p>
+<p>isInterrupted()为true或者捕获了InterruptedException都应该立刻结束。</p>
+<p>还可以通过设置running标志位，线程间共享变量需要使用volatile关键字标记，确保线程能读取到更新后变量的值。</p>
+<p>Java内存模型：</p>
+<p>虚拟机中有一块主内存存储线程间的共享变量，线程也有自己的私有变量。通常线程间修改了变量的值后，会立即更新到主内存中。</p>
+<p>volatile关键字解决了共享变量在线程间的可见性问题，该关键字的目的是告诉虚拟机：</p>
+<ol>
+<li>每次访问变量时，总是获取主内存的最新值；</li>
+<li>每次修改变量后，立即会写到主内存。</li>
+</ol>
+<h3 id="5-守护线程"><a href="#5-守护线程" class="headerlink" title="5. 守护线程"></a>5. 守护线程</h3><p>有一种线程的目的就是无限循环, 比如定时任务。</p>
+<p>如果某个线程不结束, JVM线程就无法结束。</p>
+<p>守护线程负责结束这类线程。</p>
+<p>守护线程是为其它线程服务的线程。</p>
+<p>所有非守护线程都结束完毕后, 虚拟机退出。</p>
+<p>守护线程的特点是不能持有资源, 因为虚拟机退出后, 无法再释放资源等操作。</p>
+<p>创建线程对象后立即调用setDaemon(true)即可创建守护线程。</p>
+<h3 id="6-线程同步"><a href="#6-线程同步" class="headerlink" title="6. 线程同步"></a>6. 线程同步</h3><p>多线程同时修改变量，会造成逻辑错误。</p>
+<p>对共享变量进行操作时，必须保证是原子操作，原子操作是指不能被中断的一个或一系列操作。</p>
+<p>必须保证一系列操作执行过程中不被其他线程执行，必须进行加锁和解锁。</p>
+<p>Java使用synchronized对一个对象进行加锁，保证了代码块在任意时刻最多只有一个线程能执行。</p>
+<p>造成的问题性能下降，加锁解锁都消耗时间。</p>
+<p>如何使用synchronized：</p>
+<ol>
+<li>找出修改共享变量的线程代码块；</li>
+<li>选择一个实例作为锁；</li>
+<li>使用synchronized(lockObject) {…}。</li>
+</ol>
+<p>同步的本质就是给指定对象加锁，注意加锁对象必须是同一个实例，对JVM定义的单个原子操作不需要同步。</p>
+<p>用synchronized修饰方法可以把整个方法变为同步代码块；</p>
+<p>synchronized方法加锁对象是this；</p>
+<p>通过合理的设计和数据封装可以让一个类变为“线程安全”；</p>
+<p>一个类没有特殊说明，默认不是thread-safe；</p>
+<p>多线程能否访问某个非线程安全的实例，需要具体问题具体分析。</p>
+<p>死锁产生的条件：多线程各自持有不同的锁，并互相试图获取对方已持有的锁，双方无限等待下去：导致死锁。</p>
+<p>如何避免死锁：多线程获取锁的顺序要一致。</p>
+<p>死锁发生以后，没有任何机制能解除死锁，只能强制结束JVM进程。</p>
+<p>wait / notify多线程协调。</p>
+<p>当条件不满足时线程进入等待状态。</p>
+<p>在synchronized内部可以调用wait()使线程进入等待状态。</p>
+<p>必须在已获得的锁对象上调用wait()方法。</p>
+<p>在synchronized内部可以调用notify()/notifyAll()唤醒其他等待线程。</p>
+<p>必须在已获得的锁对象上调用notify()/notifyAll()方法。</p>
+<pre><code class="java">package com.feiyangedu.sample;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+/**
+ * 任务队列
+ * 
+ * @author zhgxun
+ *
+ */
+class TaskQueue {
+
+    final Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
+
+    /**
+     * 添加任务
+     * 
+     * @return
+     * @throws InterruptedException
+     */
+    public synchronized String getTask() throws InterruptedException {
+        // 如果队列为空, 会使线程进入等待状态，释放this锁，wait()方法是JVM虚拟机中的C代码实现的
+        // 并且该方法只能在synchronized中使用
+        while (this.queue.isEmpty()) {
+            this.wait();
+        }
+        return queue.remove();
+    }
+
+    /**
+     * 获取一个任务
+     * 
+     * @param name
+     */
+    public synchronized void addTask(String name) {
+        this.queue.add(name);
+        // 一旦该任务被添加激活, 必须通知所有的处理线程
+        this.notifyAll();
+    }
+}
+
+/**
+ * Worker线程
+ * 
+ * @author zhgxun
+ *
+ */
+class WorkerThread extends Thread {
+    TaskQueue taskQueue;
+
+    public WorkerThread(TaskQueue taskQueue) {
+        this.taskQueue = taskQueue;
+    }
+
+    public void run() {
+        // 线程未中断就一直运行
+        while (!isInterrupted()) {
+            String name;
+            try {
+                name = taskQueue.getTask();
+            } catch (InterruptedException e) {
+                break;
+            }
+            String result = &quot;Hello, &quot; + name + &quot;!&quot;;
+            System.out.println(result);
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        TaskQueue taskQueue = new TaskQueue();
+        WorkerThread worker = new WorkerThread(taskQueue);
+        worker.start();
+        // add task:
+        taskQueue.addTask(&quot;Bob&quot;);
+        Thread.sleep(1000);
+        taskQueue.addTask(&quot;Alice&quot;);
+        Thread.sleep(1000);
+        taskQueue.addTask(&quot;Tim&quot;);
+        Thread.sleep(1000);
+        worker.interrupt();
+        worker.join();
+        System.out.println(&quot;END&quot;);
+    }
+}
+</code></pre>
+<h3 id="7-高级concurrent包"><a href="#7-高级concurrent包" class="headerlink" title="7. 高级concurrent包"></a>7. 高级concurrent包</h3><h4 id="1-ReentrantLock"><a href="#1-ReentrantLock" class="headerlink" title="1. ReentrantLock"></a>1. ReentrantLock</h4><p>ReentrantLock可以替代synchronized。</p>
+<p>ReentrantLock获取锁更安全。</p>
+<p>必须使用try … finally保证正确获取和释放锁。</p>
+<p>tryLock()可指定超时。</p>
+<pre><code class="java">package com.feiyangedu.sample;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class Counter {
+
+    private Lock lock = new ReentrantLock();
+
+    private int value = 0;
+
+    public void add(int m) {
+        lock.lock();
+        try {
+            this.value += m;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void dec(int m) {
+        lock.lock();
+        try {
+            this.value -= m;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public int get() {
+        lock.lock();
+        try {
+            return this.value;
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+
+public class Main {
+
+    final static int LOOP = 100;
+
+    public static void main(String[] args) throws Exception {
+        Counter counter = new Counter();
+        Thread t1 = new Thread() {
+            public void run() {
+                for (int i = 0; i &lt; LOOP; i++) {
+                    counter.add(1);
+                }
+            }
+        };
+        Thread t2 = new Thread() {
+            public void run() {
+                for (int i = 0; i &lt; LOOP; i++) {
+                    counter.dec(1);
+                }
+            }
+        };
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println(counter.get());
+    }
+}
+</code></pre>
+<h4 id="2-ReadWriteLock"><a href="#2-ReadWriteLock" class="headerlink" title="2. ReadWriteLock"></a>2. ReadWriteLock</h4><p>ReentrantLock配合使用ReadWriteLock可以提高读取效率：</p>
+<ol>
+<li>ReadWriteLock只允许一个线程写入；</li>
+<li>ReadWriteLock允许多个线程同时读取；</li>
+<li>ReadWriteLock适合读多写少的场景。</li>
+</ol>
+<pre><code class="java">package com.feiyangedu.sample;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+class Counter {
+
+    private ReadWriteLock lock = new ReentrantReadWriteLock();
+    private Lock rlock = lock.readLock();
+    private Lock wlock = lock.writeLock();
+
+    private int value = 0;
+
+    public void add(int m) {
+        wlock.lock();
+        try {
+            this.value += m;
+        } finally {
+            wlock.unlock();
+        }
+    }
+
+    public void dec(int m) {
+        wlock.lock();
+        try {
+            this.value -= m;
+        } finally {
+            wlock.unlock();
+        }
+    }
+
+    public int get() {
+        rlock.lock();
+        try {
+            return this.value;
+        } finally {
+            rlock.unlock();
+        }
+    }
+}
+
+public class Main {
+
+    final static int LOOP = 100;
+
+    public static void main(String[] args) throws Exception {
+        Counter counter = new Counter();
+        Thread t1 = new Thread() {
+            public void run() {
+                for (int i = 0; i &lt; LOOP; i++) {
+                    counter.add(1);
+                }
+            }
+        };
+        Thread t2 = new Thread() {
+            public void run() {
+                for (int i = 0; i &lt; LOOP; i++) {
+                    counter.dec(1);
+                }
+            }
+        };
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println(counter.get());
+    }
+}
+</code></pre>
+<h4 id="3-Condition"><a href="#3-Condition" class="headerlink" title="3. Condition"></a>3. Condition</h4><p>Condition可以替代wait / notify。</p>
+<p>Condition对象必须从ReentrantLock对象获取。</p>
+<p>ReentrantLock＋Condition可以替代synchronized + wait / notify。</p>
+<pre><code class="java">package com.feiyangedu.sample;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+class TaskQueue {
+
+    final Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();
+
+    final Lock lock = new ReentrantLock();
+    final Condition notEmpty = lock.newCondition();
+
+    public String getTask() throws InterruptedException {
+        lock.lock();
+        try {
+            while (this.queue.isEmpty()) {
+                notEmpty.await();
+            }
+            return queue.remove();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void addTask(String name) {
+        lock.lock();
+        try {
+            this.queue.add(name);
+            notEmpty.signalAll();
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+
+class WorkerThread extends Thread {
+    TaskQueue taskQueue;
+
+    public WorkerThread(TaskQueue taskQueue) {
+        this.taskQueue = taskQueue;
+    }
+
+    public void run() {
+        while (!isInterrupted()) {
+            String name;
+            try {
+                name = taskQueue.getTask();
+            } catch (InterruptedException e) {
+                break;
+            }
+            String result = &quot;Hello, &quot; + name + &quot;!&quot;;
+            System.out.println(result);
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        TaskQueue taskQueue = new TaskQueue();
+        WorkerThread worker = new WorkerThread(taskQueue);
+        worker.start();
+        // add task:
+        taskQueue.addTask(&quot;Bob&quot;);
+        Thread.sleep(1000);
+        taskQueue.addTask(&quot;Alice&quot;);
+        Thread.sleep(1000);
+        taskQueue.addTask(&quot;Tim&quot;);
+        Thread.sleep(1000);
+        worker.interrupt();
+        worker.join();
+        System.out.println(&quot;END&quot;);
+    }
+}
+</code></pre>
+<h4 id="4-Concurrent集合"><a href="#4-Concurrent集合" class="headerlink" title="4. Concurrent集合"></a>4. Concurrent集合</h4><p>使用java.util.concurrent提供的Blocking集合可以简化多线程编程：</p>
+<ol>
+<li>CopyOnWriteArrayList；</li>
+<li>ConcurrentHashMap；</li>
+<li>CopyOnWriteArraySet；</li>
+<li>ArrayBlockingQueue；</li>
+<li>LinkedBlockingQueue；</li>
+<li>LinkedBlockingDeque。</li>
+</ol>
+<p>多线程同时访问Blocking集合是安全的，尽量使用JDK提供的concurrent集合，避免自己编写同步代码。</p>
+<pre><code class="java">package com.feiyangedu.sample;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+class WorkerThread extends Thread {
+    BlockingQueue&lt;String&gt; taskQueue;
+
+    public WorkerThread(BlockingQueue&lt;String&gt; taskQueue) {
+        this.taskQueue = taskQueue;
+    }
+
+    public void run() {
+        while (!isInterrupted()) {
+            String name;
+            try {
+                name = taskQueue.take();
+            } catch (InterruptedException e) {
+                break;
+            }
+            String result = &quot;Hello, &quot; + name + &quot;!&quot;;
+            System.out.println(result);
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        BlockingQueue&lt;String&gt; taskQueue = new ArrayBlockingQueue&lt;&gt;(100);
+        WorkerThread worker = new WorkerThread(taskQueue);
+        worker.start();
+        // add task:
+        taskQueue.put(&quot;Bob&quot;);
+        Thread.sleep(1000);
+        taskQueue.put(&quot;Alice&quot;);
+        Thread.sleep(1000);
+        taskQueue.put(&quot;Tim&quot;);
+        Thread.sleep(1000);
+        worker.interrupt();
+        worker.join();
+        System.out.println(&quot;END&quot;);
+    }
+}
+</code></pre>
+<h4 id="5-Fork-Join"><a href="#5-Fork-Join" class="headerlink" title="5. Fork/Join"></a>5. Fork/Join</h4><p>Fork/Join是一种基于“分治”的算法：分解任务＋合并结果。</p>
+<p>ForkJoinPool线程池可以把一个大任务分拆成小任务并行执行。</p>
+<p>任务类必须继承自RecursiveTask／RecursiveAction。</p>
+<p>使用Fork/Join模式可以进行并行计算提高效率。</p>
+<pre><code class="java">package com.feiyangedu.sample;
+
+import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
+
+class SumTask extends RecursiveTask&lt;Long&gt; {
+    private static final long serialVersionUID = 1L;
+    static final int THRESHOLD = 300;
+    long[] array;
+    int start;
+    int end;
+
+    SumTask(long[] array, int start, int end) {
+        this.array = array;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    protected Long compute() {
+        if (end - start &lt;= THRESHOLD) {
+            // 如果任务足够小,直接计算:
+            long sum = 0;
+            for (int i = start; i &lt; end; i++) {
+                sum += this.array[i];
+                try {
+                    Thread.sleep(2);
+                } catch (InterruptedException e) {
+                    e.getStackTrace();
+                }
+            }
+            return sum;
+        }
+        // 任务太大,一分为二:
+        int middle = (end + start) / 2;
+        System.out.println(String.format(&quot;split %d~%d ==&gt; %d~%d, %d~%d&quot;, start, end, start, middle, middle, end));
+        SumTask subtask1 = new SumTask(this.array, start, middle);
+        SumTask subtask2 = new SumTask(this.array, middle, end);
+        invokeAll(subtask1, subtask2);
+        Long subresult1 = subtask1.join();
+        Long subresult2 = subtask2.join();
+        Long result = subresult1 + subresult2;
+        System.out.println(&quot;result = &quot; + subresult1 + &quot; + &quot; + subresult2 + &quot; ==&gt; &quot; + result);
+        return result;
+    }
+
+}
+
+public class ForkJoinTaskSample {
+
+    public static void main(String[] args) throws Exception {
+        // 创建1000个随机数组成的数组:
+        long[] array = new long[1000];
+        long expectedSum = 0;
+        for (int i = 0; i &lt; array.length; i++) {
+            array[i] = random();
+            expectedSum += array[i];
+        }
+        System.out.println(&quot;Expected sum: &quot; + expectedSum);
+        // fork/join:
+        ForkJoinTask&lt;Long&gt; task = new SumTask(array, 0, array.length);
+        long startTime = System.currentTimeMillis();
+        Long result = ForkJoinPool.commonPool().invoke(task);
+        long endTime = System.currentTimeMillis();
+        System.out.println(&quot;Fork/join sum: &quot; + result + &quot; in &quot; + (endTime - startTime) + &quot; ms.&quot;);
+    }
+
+    static Random random = new Random(0);
+
+    static long random() {
+        return random.nextInt(10000);
+    }
+}
+</code></pre>
+<p>通过修改发现，其实程序的运行效率是有一个范围的，超出了该范围，性能就不明显。</p>
+<h2 id="八、反射与泛型"><a href="#八、反射与泛型" class="headerlink" title="八、反射与泛型"></a>八、反射与泛型</h2><h3 id="1-class"><a href="#1-class" class="headerlink" title="1. class"></a>1. class</h3><p>class本身是一种数据类型（Type），class/interface的数据类型是Class，JVM为每个加载的class创建唯一的Class实例。</p>
+<p>Class实例包含该class的所有信息，通过Class实例获取class信息的方法称为反射（Reflection）。</p>
+<p>获取一个class的Class实例：</p>
+<ol>
+<li>Class cls = String.class;</li>
+<li>Class cls = “str”.getClass();</li>
+<li>Class cls = Class.forName(“java.lang.String”)。</li>
+</ol>
+<p>注意Class的==比较和instanceof的区别。</p>
+<p>从Class实例获取class信息：</p>
+<ol>
+<li>getName()</li>
+<li>getSimpleName()</li>
+<li>getPackage()</li>
+</ol>
+<p>从Class实例判断class类型：</p>
+<ol>
+<li>isInterface()</li>
+<li>isEnum()</li>
+<li>isArray()</li>
+<li>isPrimitive()</li>
+</ol>
+<p>创建class实例：cls.newInstance()。</p>
+<p>JVM总是动态加载class，可以在运行期根据条件控制加载class。</p>
+<h3 id="2-Field"><a href="#2-Field" class="headerlink" title="2. Field"></a>2. Field</h3><p>通过Class实例获取字段field信息：</p>
+<ol>
+<li>getField(name)：获取某个public的field（包括父类）</li>
+<li>getDeclaredField(name)：获取当前类的某个field（不包括父类）</li>
+<li>getFields()：获取所有public的field（包括父类）</li>
+<li>getDeclaredFields()：获取当前类的所有field（不包括父类）。</li>
+</ol>
+<p>Field对象包含一个field的所有信息：</p>
+<ol>
+<li>getName()</li>
+<li>getType()</li>
+<li>getModifiers()</li>
+</ol>
+<p>获取和设置field的值：</p>
+<ol>
+<li>get(Object obj)</li>
+<li>set(Object, Object)</li>
+</ol>
+<p>通过反射访问Field需要通过SecurityManager设置的规则。</p>
+<p>通过设置setAccessible(true)来访问非public字段。</p>
+<h3 id="3-Method"><a href="#3-Method" class="headerlink" title="3. Method"></a>3. Method</h3><p>通过Class实例获取方法Method信息：</p>
+<ol>
+<li>getMethod(name, Class…)：获取某个public的method（包括父类）</li>
+<li>getDeclaredMethod(name, Class…)：获取当前类的某个method（不包括父类）</li>
+<li>getMethods()：获取所有public的method（包括父类）</li>
+<li>getDeclaredMethods()：获取当前类的所有method（不包括父类）</li>
+</ol>
+<p>Method对象包含一个method的所有信息：</p>
+<ol>
+<li>getName()</li>
+<li>getReturnType()</li>
+<li>getParameterTypes()</li>
+<li>getModifiers()</li>
+</ol>
+<p>调用Method：Object invoke(Object obj, Object… args)。</p>
+<p>通过设置setAccessible(true)来访问非public方法。</p>
+<p>反射调用Method也遵守多态的规则。</p>
+<h3 id="4-Constructor"><a href="#4-Constructor" class="headerlink" title="4. Constructor"></a>4. Constructor</h3><p>调用public无参数构造方法：Class.newInstance()。</p>
+<p>通过Class实例获取Constructor信息：</p>
+<ol>
+<li>getConstructor(Class…)：获取某个public的Constructor</li>
+<li>getDeclaredConstructor(Class…)：获取某个Constructor</li>
+<li>getConstructors()：获取所有public的Constructor</li>
+<li>getDeclaredConstructors()：获取所有Constructor</li>
+</ol>
+<p>通过Constructor实例可以创建一个实例对象：newInstance(Object… parameters)。</p>
+<p>通过设置setAccessible(true)来访问非public构造方法。</p>
+<h3 id="5-注解"><a href="#5-注解" class="headerlink" title="5. 注解"></a>5. 注解</h3><p>注解（Annotation）是放在Java源码的类、方法、字段、参数前的一种标签。</p>
+<p>注解本身对代码逻辑没有任何影响，如何使用注解由工具决定。</p>
+<p>编译器可以使用的注解：</p>
+<p>@Override，让编译器检查该方法是否正确实现了覆写；<br>@Deprecated，这个方法被标记为作废，会出现下划线；<br>@SuppressWarnings，如果出现警告，会忽略该警告。</p>
+<p>注解可以定义配置参数和默认值。</p>
+<p>注解可以定义配置参数：</p>
+<ol>
+<li>配置参数由注解类型定义；</li>
+<li>配置参数可以包括：所有基本类型，String，枚举类型，数组；</li>
+<li>配置参数必须是常量。</li>
+</ol>
+<p>检查注解：</p>
+<pre><code class="java">@Check(min=0, max=100, value=55)
+public int a;
+</code></pre>
+<p>赋值为99：</p>
+<pre><code class="java">@Check(value=99)
+public int a;
+</code></pre>
+<p>相当于@Check(value=99)：</p>
+<pre><code class="java">@Check(99)
+public int a;
+</code></pre>
+<p>无参数则全部使用默认值：</p>
+<pre><code class="java">@Check
+public int a;
+</code></pre>
+<h3 id="6-定义注解"><a href="#6-定义注解" class="headerlink" title="6. 定义注解"></a>6. 定义注解</h3><p>使用@interface定义注解（Annotation）。</p>
+<p>使用元注解定义注解：</p>
+<ol>
+<li>@Target，定义注解可以用于源码的哪些位置：ElementType.TYPE-类和接口，FIELD-字段，METHOD-方法，PARAMETER-参数，CONSTRUCTOR-构造方法；</li>
+<li>@Retention，定义注解的生命周期，RetentionPolicy.SOURCE-编译期，编译器在编译时直接丢弃，比如覆写，CLASS-class文件，仅存储在class文件，RUNTIME-运行，运行期可以读取该注解，默认是CLASS，通常是RUNTIME；</li>
+<li>@Repeatable，是否可重复</li>
+<li>@Inherited，子类是否可以继承父类定义的注解，仅针对Target.TYPE类型的注解，仅针对class，对interface的继承无效。</li>
+</ol>
+<p>定义Annotation的步骤：</p>
+<ol>
+<li>用@interface定义注解</li>
+<li>用元注解（meta annotation）配置注解，Target：必须设置，Retention：一般设置为RUNTIME；</li>
+<li>通常不必写@Inherited, @Repeatable等等</li>
+<li>定义注解参数和默认值</li>
+</ol>
+<h3 id="7-泛型"><a href="#7-泛型" class="headerlink" title="7. 泛型"></a>7. 泛型</h3><p>泛型（Generic）就是定义一种模板，例如ArrayList<t>。</t></p>
+<p>在代码中为用到的类创建对应的ArrayList&lt;类型&gt;：ArrayList<string> strList = new ArrayList<string>()。</string></string></p>
+<p>编译器会针对泛型类型作检查。 要注意泛型的继承关系。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/12/25/jdbc/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">68. JDBC操作MySQL数据库</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
