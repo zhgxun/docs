@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>71. 查找数组中元素的下标 | 张广训的个人网站</title>
+  <title>72. 尾递归 | 张广训的个人网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
 
@@ -52,13 +52,13 @@
     <div class="row">
         
           <div class="col-sm-12 blog-info">
-            <article id="post-twosum" class="article article-type-post" itemscope itemprop="blogPost">
+            <article id="post-fact" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      71. 查找数组中元素的下标
+      72. 尾递归
     </h1>
   
 
@@ -67,13 +67,13 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2018/01/01/twosum/" class="article-date"><time datetime="2018-01-01T13:08:43.000Z" itemprop="datePublished">2018-01-01</time></a>
+  <a href="/2018/01/10/fact/" class="article-date"><time datetime="2018-01-10T14:03:38.000Z" itemprop="datePublished">2018-01-10</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
+    <a class="article-category-link" href="/categories/c/">c</a>
   </div>
 
 
@@ -82,75 +82,62 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="external">Two Sum</a>;</p>
-<pre><code class="java">package github.banana;
+        <p>尾递归的性能比普通递归要高，而且编译器能优化尾递归。</p>
+<pre><code class="c">//
+// Created by zhgxun on 04/12/2017.
+//
+#include &lt;stdio.h&gt;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+int fact(int n);
+int tail(int n, int a);
+
+int main(void)
+{
+    int num = 0;
+    num = fact(10);
+    printf(&quot;%d\n&quot;, num);
+
+    int b = 0;
+    b = tail(10, 1);
+    printf(&quot;%d\n&quot;, b);
+}
 
 /**
- * 给一个整数数组和一个目标值, 返回数组中两个元素相加后等于目标值的原数组元素下标
- * 
- * 比如Given nums = [2, 7, 11, 15], target = 9
- * 
- * Because nums[0] + nums[1] = 2 + 7= 9
- * 
- * return [0, 1]
- * 
- * @author zhgxun
- *
+ * 递归求阶乘
+ * @param n
+ * @return
  */
-public class TwoSum {
-    public static void main(String[] args) {
-        int[] nums = { 2, 7, 11, 15 };
-        int[] res;
-        res = twoSum(nums, 9);
-        System.out.println(Arrays.toString(res));
-
-        res = twoSumV2(nums, 9);
-        System.out.println(Arrays.toString(res));
+int fact(int n)
+{
+    // 逐级递归, 最终退出时逐级相乘, 编译器无法优化
+    // 必须保存上一次活跃区以维持函数调用信息
+    if (n &lt; 0) {
+        return 0;
+    } else if (n &lt;= 1) {
+        return 1;
+    } else {
+        return n * fact(n - 1);
     }
+}
 
-    /**
-     * 双层遍历
-     * 
-     * @param nums
-     * @param target
-     * @return
-     */
-    public static int[] twoSum(int[] nums, int target) {
-        for (int i = 0; i &lt; nums.length; i++) {
-            for (int j = i + 1; j &lt; nums.length; j++) {
-                // 判断值是否相等
-                if (nums[i] + nums[j] == target) {
-                    return new int[] { i, j };
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 使用map
-     * 
-     * @param nums
-     * @param target
-     * @return
-     */
-    public static int[] twoSumV2(int[] nums, int target) {
-        // 存储元素键为数组元素值, 元素值为数组元素下标
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; nums.length; i++) {
-            // 计算的目标值
-            int goal = target - nums[i];
-            // 看该值是否存在于hash表中
-            if (map.containsKey(goal)) {
-                return new int[] { map.get(goal), i };
-            }
-            map.put(nums[i], i);
-        }
-        return null;
+/**
+ * 尾递归求阶乘
+ * @param n
+ * @param a
+ * @return
+ */
+int tail(int n, int a)
+{
+    // 每次递归都将结果保存下来, 直接返回乘积, 编译器可以优化
+    // 无需保存上一次活跃区直接覆盖即可
+    if (n &lt; 0) {
+        return 0;
+    } else if (n == 0) {
+        return 1;
+    } else if (n == 1) {
+        return a;
+    } else {
+        return tail(n - 1, n * a);
     }
 }
 </code></pre>
@@ -165,7 +152,7 @@ public class TwoSum {
 
     <footer class="article-footer">
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
 
 
     </footer>
@@ -195,19 +182,12 @@ public class TwoSum {
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/2018/01/01/string/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/01/01/twosum/" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">70. 字符串和字符串函数</span>
+      <span class="article-nav-link-title">71. 查找数组中元素的下标</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/2018/01/10/fact/" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">72. 尾递归</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 

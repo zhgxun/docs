@@ -63,6 +63,115 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-fact" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/10/fact/">72. 尾递归</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/10/fact/" class="article-date"><time datetime="2018-01-10T14:03:38.000Z" itemprop="datePublished">2018-01-10</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c/">c</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>尾递归的性能比普通递归要高，而且编译器能优化尾递归。</p>
+<pre><code class="c">//
+// Created by zhgxun on 04/12/2017.
+//
+#include &lt;stdio.h&gt;
+
+int fact(int n);
+int tail(int n, int a);
+
+int main(void)
+{
+    int num = 0;
+    num = fact(10);
+    printf(&quot;%d\n&quot;, num);
+
+    int b = 0;
+    b = tail(10, 1);
+    printf(&quot;%d\n&quot;, b);
+}
+
+/**
+ * 递归求阶乘
+ * @param n
+ * @return
+ */
+int fact(int n)
+{
+    // 逐级递归, 最终退出时逐级相乘, 编译器无法优化
+    // 必须保存上一次活跃区以维持函数调用信息
+    if (n &lt; 0) {
+        return 0;
+    } else if (n &lt;= 1) {
+        return 1;
+    } else {
+        return n * fact(n - 1);
+    }
+}
+
+/**
+ * 尾递归求阶乘
+ * @param n
+ * @param a
+ * @return
+ */
+int tail(int n, int a)
+{
+    // 每次递归都将结果保存下来, 直接返回乘积, 编译器可以优化
+    // 无需保存上一次活跃区直接覆盖即可
+    if (n &lt; 0) {
+        return 0;
+    } else if (n == 0) {
+        return 1;
+    } else if (n == 1) {
+        return a;
+    } else {
+        return tail(n - 1, n * a);
+    }
+}
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-twosum" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -696,62 +805,6 @@ zhgxun-pro:c2 zhgxun$
 </article>
 
   
-    <article id="post-zaiyi" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/27/zaiyi/">62. 吃素若能成佛</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/11/27/zaiyi/" class="article-date"><time datetime="2017-11-27T15:11:15.000Z" itemprop="datePublished">2017-11-27</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>“吃素若能成佛，牛羊皆可成仙”。</p>
-<p>记得好久好久前，在上班，我说看到群里和网上这些问问题的人，真想过去打他一顿，手册那么丰富你去看啊，什么都问，我说了你也听不明白。旁边的同事就说，哎，你别提了，我加了一个群，刚看到有人问的问题实在是太简单，看不下去就退群了。</p>
-<p>今天在做资金池商户余额查询接口升级，对方给了一个wiki文档，我看了下，实在是看不明白具体我要做什么。就加了他们，问了很多问题。后来那边的技术就让另一个人跟我一起联调。由于百度钱包没有给我线下测试环境，只能上线调试。</p>
-<p>他们提供自己的开发机给我用，轻松就调通了。后来又告诉我说最好用Ral方式访问，使用BNS连接。Ral是百度内部封装的一个请求层，BNS，Baidu Names Service，是一个智能路由层。</p>
-<p>我在群里问，主机名是哪个时？对方给我回复一个 <code>man.baidu.com</code>。这是百度自己内部的手册文档，就相当于你问别人一个问题，别人回你说自己去百度啊的意思，觉得特别的尴尬，很丢人。前阵子在群里问别人也是，我师傅说你别在群里乱说话，大哥，你这样，我把心都操碎了。</p>
-<p>很多时候觉得自己也挺幼稚的，自己的很多行为，说过的话，都带来那么多的误解和负面影响。就像每个刚入行的新手一样，总免不了被嘲笑，被鄙视的情形。也只有这些时候，才回想起自己冥冥之中也这样无意间伤害过别人。成长是痛苦的，也是需要成本的。</p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -766,7 +819,7 @@ zhgxun-pro:c2 zhgxun$
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -775,6 +828,10 @@ zhgxun-pro:c2 zhgxun$
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
       
         <li>
           <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
@@ -790,10 +847,6 @@ zhgxun-pro:c2 zhgxun$
       
         <li>
           <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/17/multi/">67. 指针和多维数组</a>
         </li>
       
     </ul>
