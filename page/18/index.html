@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-8 blog-main">
+            
+  
+    <article id="post-min-abs" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/11/min-abs/">38. PHP在升序数组中查找绝对值最小的元素</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/min-abs/" class="article-date"><time datetime="2017-09-11T03:18:39.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是不久前我在滴滴出行时，面试官让我在纸上写出来的面试题。在一个升序排列的数组中, 查找绝对值最小的元素。分析, 数组升序排列, 两边的数值绝对值只会越来越大, 绝对值最小的元素必须在中间趋近于0的地方,因此思路就是不断的遍历数组, 找到趋近于0的这个位置。考虑四种情况:</p>
+<ol>
+<li>数组全部为正数时, 绝对值最小的元素是第一位;</li>
+<li>数组全部为负值时, 绝对值最小的元素为最后一位;</li>
+<li>数组即包含正数, 也包含负数时, 需要找到趋近于0的位置, 找到两边的正数和负数, 比较这两个元素的大小;</li>
+<li>数组为空或为一个元素时, 就是该元素或不存在。</li>
+</ol>
+<p>这个题的思路并不难, 一般都会一开始就想到, 关键是面试时如何在纸上正确写出。我在网上搜索了下，发觉这是一道很老的面试题了，遗憾没有为找工作刷过题，当时没能在纸上写出来，但是思路是正确的，就卡在如何处理有正负数时的情况。我想到了用中点来快速遍历，但是一下子没多想，可能还是因为紧张，就没想到<code>while</code>循环的数组下标处理方式，而是去设计每次判断中点偏离了解题思路。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/11/min-abs/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+    <article id="post-accuracy" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/11/accuracy/">37. PHP处理数学精度</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/accuracy/" class="article-date"><time datetime="2017-09-11T02:03:35.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用编程语言做计算，很多时候浮点数精度都是困扰过我的问题，即便是刚学PHP的新手也会在群里问为什么我的计算结果明显不对，而我们总是老态龙钟的丢出一句浮点数计算都存在精度问题，并没有提出过什么实质性的改善。比如下面的计算 <code>0.57*100</code>：</p>
+<pre><code class="bash">zhgxun-pro:~ zhgxun$ php -a
+Interactive shell
+
+php &gt; echo intval(0.57*100);
+56
+php &gt; echo 0.57*100;
+57
+php &gt;
+</code></pre>
+<p>看到结果其实我们已经想到了，很多时候我们忽略精度问题，一定意义上是因为我们没有对计算结果进行类型转换，巧妙的得到了更好的结果值。但是总会有（细心）的开发者会自作聪明的对结果进行指定，恰恰得到了相反的效果。这也是为什么我一直没有仔细想过这个问题的原因，按动态解释性语言的特性，变量都是在运行时才最终确定的，所以不要刻意去转换类型，即便你很确认变量就应该是这个样子的。</p>
+<p>我记得在刚学PHP的时候，偶然间看到网络上高洛峰的一个视频，其间有一句话就说以后你们在PHP编程中，会遇到很多一时半会解释不清楚的问题，那时候你们首先想到的应该是这门语言的特性–解释性，自然你就会慢慢理解了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/11/accuracy/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/17/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/16/">16</a></li><li><a class="page-number" href="/page/17/">17</a></li><li class="active"><span class="page-number">18</span></li><li><a class="page-number" href="/page/19/">19</a></li><li><a class="page-number" href="/page/20/">20</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/19/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+          </div>
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/java/">69. Java</a>
+        </li>
+      
+        <li>
+          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  <div class="sidebar-module">
+  <h4>Friends</h4>
+  <ul class="sidebar-module-list">
+      <li><a href="http://www.lxzfranky.com" target="_blank">Franky's Diary</a></li>
+      <li><a href="http://lyj1215.com" target="_blank">lyjの博客</a></li>
+      <li><a href="https://wenqixiang.com" target="_blank">聞其詳的個人網站</a></li>
+      <li><a href="https://oef.org.cn" target="_blank">开放教育反应堆</a></li>
+  </ul>
+</div>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

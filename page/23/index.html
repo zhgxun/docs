@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-8 blog-main">
+            
+  
+    <article id="post-swoole-platform" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/26/swoole-platform/">28. 用swoole_process写一个跑数平台</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/26/swoole-platform/" class="article-date"><time datetime="2017-08-26T04:19:30.000Z" itemprop="datePublished">2017-08-26</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>还是在上家公司的时候，同事在群里突然发了这个<a href="http://www.swoole.com" target="_blank" rel="external">Swoole</a>连接，才看到原来PHP还有这么一个扩展，顺便了也发<a href="http://www.workerman.net" target="_blank" rel="external">Workerman</a>，说也是PHP新的通信框架，而swoole则重新定义了PHP，那时候项目中还没使用这些扩展，就没去看过文档。前不久，这家公司当时带我的这位小伙伴突然告诉说，他们在准备要用swoole重构下一版接口了。</p>
+<p>刚好这段时间我们也在准备街电的财务项目，用了<a href="https://laravel.com" target="_blank" rel="external">Laravel</a>框架，顺便也提前重新写一下跑数平台。以前没做过类似的工具，不知道怎么设计好，就借鉴了原来项目的跑数平台，完全是迁移过来的，并没有自己多的独特创造。</p>
+<h2 id="1-起因"><a href="#1-起因" class="headerlink" title="1. 起因"></a>1. 起因</h2><p>Laravel框架提供了非常丰富的控制台<a href="http://d.laravel-china.org/docs/5.4/artisan" target="_blank" rel="external">Artisan 命令行工具</a>和<a href="http://d.laravel-china.org/docs/5.4/scheduling" target="_blank" rel="external">任务调度功能Task</a>应用，对于测试通过和已经运行正常的脚本来说，直接添加不需要观察就可以很好的得到执行，但是线上项目我没有权限登陆控制台手动去运行命令，也不想申请这些权限，故只能依赖后台网页端来输入命令，让它自动执行，收集每一个脚本的输出结果，执行完毕后直接发邮件给我就行。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/26/swoole-platform/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+    <article id="post-slice" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/24/slice/">27. Go在函数和切片间传递数组</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/24/slice/" class="article-date"><time datetime="2017-08-24T01:39:19.000Z" itemprop="datePublished">2017-08-24</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>该部分笔记来源于：</p>
+<blockquote>
+<p>Go语言实战 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 69). 人民邮电出版社. Kindle Edition. </p>
+<p>在函数间传递数组和在函数间传递切片部分摘要</p>
+</blockquote>
+<p>根据内存和性能来看，在函数间传递数组是一个开销很大的操作。在函数之间传递变量时，总是以值的方式传递的。如果这个变量是个数组，意味着整个数组，不管有多长，都会完整复制，并传递给函数。</p>
+<p><a href="http://books.studygolang.com/gopl-zh" target="_blank" rel="external">Go语言圣经</a>这本书中介绍到，数组属于复合数据类型，而切片属于引用类型。</p>
+<blockquote>
+<p>当调用一个函数的时候，函数的每个调用参数将会被赋值给函数内部的参数变量，所以函数参数变量接收的是一个复制的副本，并不是原始调用的变量。因为函数参数传递的机制导致传递大的数组类型将是低效的，并且对数组参数的任何的修改都是发生在复制的数组上，并不能直接修改调用时原始的数组变量。在这个方面，Go语言对待数组的方式和其它很多编程语言不同，其它编程语言可能会隐式地将数组作为引用或指针对象传入被调用的函数。</p>
+<p>from: 数组</p>
+<p>Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。基础类型，包括：数字、字符串和布尔型。复合数据类型——数组和结构体——是通过组合简单类型，来表达更加复杂的数据结构。引用类型包括指针、切片、字典、函数、通道，虽然数据种类很多，但它们都是对程序中一个变量或状态的间接引用。这意味着对任一引用类型数据的修改都会影响所有该引用的拷贝。</p>
+<p>from: 基础数据类型</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/24/slice/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/22/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/21/">21</a></li><li><a class="page-number" href="/page/22/">22</a></li><li class="active"><span class="page-number">23</span></li><li><a class="page-number" href="/page/24/">24</a></li><li><a class="page-number" href="/page/25/">25</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/24/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+          </div>
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/java/">69. Java</a>
+        </li>
+      
+        <li>
+          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  <div class="sidebar-module">
+  <h4>Friends</h4>
+  <ul class="sidebar-module-list">
+      <li><a href="http://www.lxzfranky.com" target="_blank">Franky's Diary</a></li>
+      <li><a href="http://lyj1215.com" target="_blank">lyjの博客</a></li>
+      <li><a href="https://wenqixiang.com" target="_blank">聞其詳的個人網站</a></li>
+      <li><a href="https://oef.org.cn" target="_blank">开放教育反应堆</a></li>
+  </ul>
+</div>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

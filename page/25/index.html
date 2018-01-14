@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-8 blog-main">
+            
+  
+    <article id="post-dropdownlist" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/dropdownlist/">24. Yii2中下拉列表dropdownlist的用法</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/dropdownlist/" class="article-date"><time datetime="2017-08-21T04:33:23.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>准确说,初学框架那段时间,使用下拉列表可不是件容易的事,包括怎么引入类class都需要去百度,手册找,而且几乎很多次都是徒劳无功.第一次使用地区三级联动还是用的网上的js插件,才插件中别人已经把地区信息以数组或者json的格式包装好了,不需要提供额外的数据<br>库支持,好处是直接使用.坏处是地区信息都很旧,比如我家所在地,记得是2012年已经将毕节地区改为市了,但是插件中还是使用毕业地区,这虽然没什么错,但已经说明这些数据其实也是作者搜索出来的,别的地方没有考证过,但肯定也有一些地区信息,已经在最近的几年被更改<br>过了,因此使用一定意义上是不正确的.</p>
+<p>几乎在我遇到的项目中,地区信息都有自己的数据库,而且后台都有地区信息添加修改功能,所以地区的插件其实是不需要的,基本都要自己去写,这次也不例外.</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/dropdownlist/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+    <article id="post-gii" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/gii/">23. Yii2如何重写Gii生成的列表页按钮</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/gii/" class="article-date"><time datetime="2017-08-21T04:28:08.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。</p>
+<pre><code class="php">// 默认是不需要设置的，默认值是
+[
+    &#39;class&#39; =&gt; &#39;yii\grid\ActionColumn&#39;,
+    &#39;template&#39; =&gt; &#39;{view} {update} {delete}&#39;
+],
+
+// 可以看到默认的实现方式是：
+protected function initDefaultButtons()
+{
+    if (!isset($this-&gt;buttons[&#39;view&#39;])) {
+        $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
+            $options = array_merge([
+                &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
+                &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
+                &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
+                &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+            ], $this-&gt;buttonOptions);
+            return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+        };
+    }
+}
+// 即是使用Bootstrap的字体和样式实现的
+</code></pre>
+<p>因此就可以重写该类，覆盖原来的内容。因为常用的操作就这么多，修改默认样式和增加新按钮相对多些。比如不想用默认的图标，想改成汉字，比如”查看”， “编辑”, “删除”，则只需要改变return的行为就可以，</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/gii/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/24/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/23/">23</a></li><li><a class="page-number" href="/page/24/">24</a></li><li class="active"><span class="page-number">25</span></li><li><a class="page-number" href="/page/26/">26</a></li><li><a class="page-number" href="/page/27/">27</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/26/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+          </div>
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/java/">69. Java</a>
+        </li>
+      
+        <li>
+          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  <div class="sidebar-module">
+  <h4>Friends</h4>
+  <ul class="sidebar-module-list">
+      <li><a href="http://www.lxzfranky.com" target="_blank">Franky's Diary</a></li>
+      <li><a href="http://lyj1215.com" target="_blank">lyjの博客</a></li>
+      <li><a href="https://wenqixiang.com" target="_blank">聞其詳的個人網站</a></li>
+      <li><a href="https://oef.org.cn" target="_blank">开放教育反应堆</a></li>
+  </ul>
+</div>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

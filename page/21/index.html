@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-8 blog-main">
+            
+  
+    <article id="post-object" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/10/object/">32. PHP面向对象基础</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/10/object/" class="article-date"><time datetime="2017-09-10T05:11:14.000Z" itemprop="datePublished">2017-09-10</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>PHP5的最大特点是引入了面向对象的全部机制，并且保留了向下的兼容性。面向对象程序设计OOP，达到了软件工程的三个目标：重用性、灵活性和可扩展性。面向对象程序设计OOP是一种计算机编程框架，OOP的一条基本原则是计算机元素是由单个能够起到子程序作用的单元或对象组合而成的，为了实现整体运算，每个对象都能够接收信息，处理数据或向其它对象发送信息。</p>
+<p>面向对象一直是软件开发领域比较热门的话题，面向对象符合人类看待事物的一般规律，采用面向对象的设计方式可以使系统各部分运行自己的功能。对于大型项目，你可能需要使用纯粹的面向对象去设计。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/10/object/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+    <article id="post-standard" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/03/standard/">31. (转)PHP运行机制</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/03/standard/" class="article-date"><time datetime="2017-09-03T14:40:59.000Z" itemprop="datePublished">2017-09-03</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.jb51.net/article/74907.htm" target="_blank" rel="external">原文章来源</a></p>
+<p>说到PHP的运行机制还要先给大家介绍PHP的模块，PHP总共有三个模块：内核、Zend引擎、以及扩展层；PHP内核用来处理请求、文件流、错误处理等相关操作；Zend引擎（ZE）用以将源文件转换成机器语言，然后在虚拟机上运行它；扩展层是一组函数、类库和流，PHP使用它们来执行一些特定的操作。比如，我们需要MySQL扩展来连接MySQL数据库；当ZE执行程序时可能会需要连接若干扩展，这时ZE将控制权交给扩展，等处理完特定任务后再返还。</p>
+<p>最后，ZE将程序运行结果返回给PHP内核，它再将结果传送给SAPI(Server Application Programming Interface 服务器端应用编程接口)层，最终输出到浏览器上。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/03/standard/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/20/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/19/">19</a></li><li><a class="page-number" href="/page/20/">20</a></li><li class="active"><span class="page-number">21</span></li><li><a class="page-number" href="/page/22/">22</a></li><li><a class="page-number" href="/page/23/">23</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/22/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+          </div>
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/java/">69. Java</a>
+        </li>
+      
+        <li>
+          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  <div class="sidebar-module">
+  <h4>Friends</h4>
+  <ul class="sidebar-module-list">
+      <li><a href="http://www.lxzfranky.com" target="_blank">Franky's Diary</a></li>
+      <li><a href="http://lyj1215.com" target="_blank">lyjの博客</a></li>
+      <li><a href="https://wenqixiang.com" target="_blank">聞其詳的個人網站</a></li>
+      <li><a href="https://oef.org.cn" target="_blank">开放教育反应堆</a></li>
+  </ul>
+</div>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

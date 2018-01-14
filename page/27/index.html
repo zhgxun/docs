@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-8 blog-main">
+            
+  
+    <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/rename/">20. shell重命名目录中文件名称</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/rename/" class="article-date"><time datetime="2017-08-21T03:48:09.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。</p>
+<p>常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得的），有些字段可能周期中就使用过一两次或者根本没有使用过，也把它处理了。然后我贴了类似这样重复的代码：</p>
+<pre><code class="php">if (isset($request[&#39;content&#39;]) &amp;&amp; trim($request[&#39;content&#39;])) {
+    $query-&gt;andFilterWhere([&#39;like&#39;, &#39;content&#39;, trim(strip_tags($request[&#39;content&#39;]))]);
+}
+if (isset($request[&#39;userid&#39;]) &amp;&amp; intval($request[&#39;userid&#39;])) {
+    $query-&gt;andFilterWhere([&#39;userid&#39; =&gt; intval($request[&#39;userid&#39;])]);
+}
+if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#39;])) {
+    $query-&gt;andFilterWhere([&#39;&gt;=&#39;, &#39;ctime&#39;, trim($request[&#39;start&#39;])]);
+}
+</code></pre>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/rename/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+    <article id="post-yii2-qiniu" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/yii2-qiniu/">19. Yii2使用七牛云存储</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/yii2-qiniu/" class="article-date"><time datetime="2017-08-21T03:43:26.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>初学yii2时，不怎么理解前后台分离的思路，有一阵子还纠结怎么处理图片上传的问题。毕竟在已做过的项目中，图片都是直接上传到项目中的一个类似Public/images/*的目录中。发觉这些做法在这里行不通了，在网上也搜查过一些，比较多的答案是配置一台图片<br>服务器，就可以前后台访问了。后来都觉得麻烦，幸好目前在做的项目中，使用了七牛。觉得还方便一些，提供了很多通用的接口，解决了例如断点续传这样的问题。</p>
+<p><a href="http://developer.qiniu.com/code/v7/sdk/php.html" target="_blank" rel="external">PHP开发者地址</a>，基本的使用文档不仅在官网提供，在源代码中也有很多有用的实例。七牛的SDK也在不断更新，要随时看最新的文档。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/yii2-qiniu/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/26/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="active"><span class="page-number">27</span></li><li><a class="page-number" href="/page/28/">28</a></li><li><a class="page-number" href="/page/29/">29</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/28/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+          </div>
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/java/">69. Java</a>
+        </li>
+      
+        <li>
+          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  <div class="sidebar-module">
+  <h4>Friends</h4>
+  <ul class="sidebar-module-list">
+      <li><a href="http://www.lxzfranky.com" target="_blank">Franky's Diary</a></li>
+      <li><a href="http://lyj1215.com" target="_blank">lyjの博客</a></li>
+      <li><a href="https://wenqixiang.com" target="_blank">聞其詳的個人網站</a></li>
+      <li><a href="https://oef.org.cn" target="_blank">开放教育反应堆</a></li>
+  </ul>
+</div>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-8 blog-main">
+            
+  
+    <article id="post-export" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/export/">16. 用Go重写商家结余表导数脚本</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/16/export/" class="article-date"><time datetime="2017-08-16T15:22:06.000Z" itemprop="datePublished">2017-08-16</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。</p>
+<p>开始编写时，确实遇到很多难处。一开始想到的，是如何做数据库连接，幸好Go对这些常见的场景都有现成的库可使用，稍微在GitHub上搜索就能有好的选择。然后是对数据类型的描述上，确实跟动态语言有明显的不同，但是无法否认，静态语言在编写和编译期间就能减少很多低级的Bug。</p>
+<p>也发现了一些公司的服务问题，比如邮件服务器总是x.509证书问题而无法使用，网易163也存在这样的问题，但是QQ邮箱可以正常使用。官方库中已经提供了CSV格式的支持，使用起来相当的方便，就不提供excel方式了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/16/export/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+    <article id="post-jingbian" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/06/jingbian/">15. 靖边</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/06/jingbian/" class="article-date"><time datetime="2017-08-06T14:44:10.000Z" itemprop="datePublished">2017-08-06</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/travel/">travel</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、靖边站"><a href="#1、靖边站" class="headerlink" title="1、靖边站"></a>1、靖边站</h2><p>晚上十点半时，小宝打电话来，问我到哪里了？快到了，最多半小时，这边手机完全没信号，但是短信能发电话能打通，到了我找你们。然后申腾给我打电话，说到站了打这个电话，给我一个陌生的电话。我在车上，没信号，不造怎么问，就简单说好。</p>
+<p>火车准时到达，这时候申腾又给我打电话，说到了……旁边太吵，没听清他的意思。我匆忙走出出站口，没注意到他们。像我家乡县城里一样，这里的出站口占满了很多拉客的人，要不要住宿，要不要坐车，去榆林吗……我一项很讨厌这些行为，但又不得不面对。我就往外走，旁边就有人跟过来，靠近我，走吗……我很干脆的说，不用，有人来接我啦。</p>
+<p>出来后刚好看到旁边就是洗手间，洗手间出来后外面该走的人都差不多了，只留下拉客的人。我看了看靖边站，想明晚申腾他们送我来时，可能已经十二点，担心取票来不及。我就找到售票厅，售票厅里面只有一个人在买票，里面安静的只有机器运转的声音。我去自动取票机取票后，就给申腾发短信说，我到了，在售票厅里面，等了一会儿他没回。看这边离县城还是有一段距离，可能是他们还在路上。</p>
+<p>然后申腾之前给我的那个电话打过来了，说火车晚点了吗？没有啊，我在售票厅。那你快过来吧，我在外面路边呢。好，我看看怎么找到你，你尾号是多少？XXXXXX。好，我马上过来了。我一出来就看到这个车牌号，但是我一看很犹豫不决，他应该也没看到我，把车开到前面去了。一个拉客的又过来跟着我，你要去哪里？我回头摇摇手很平淡的说，不用了，他们来接我。我打通电话，你是申腾吗？我不是申腾，我是申腾同学。好，你稍微等一下。我打通小宝电话，说你们不过来吗？我们不来了。申腾也不过来？不过来，他同学来接你。哦，好，我找到他了，但我不敢坐，就问你了，现在没事了。那是他同学，开一个丰田，车牌号是XXXXXX。对的，我已经找到他了，但是我跟你们确认一下。确认我是有人来接后，这时候一直跟着我走的那个拉客的才走开，终于没人跟着我，太开心了。首次到一个陌生的地方，被一群盲目热情拉客的人围起来，其实心里一点都不舒服，再加上已经快十一点，还是挺担心的。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/06/jingbian/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/28/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/27/">27</a></li><li><a class="page-number" href="/page/28/">28</a></li><li class="active"><span class="page-number">29</span></li><li><a class="page-number" href="/page/30/">30</a></li><li><a class="page-number" href="/page/31/">31</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/30/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+          </div>
+          <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/10/fact/">72. 尾递归</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/01/java/">69. Java</a>
+        </li>
+      
+        <li>
+          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+  <div class="sidebar-module">
+  <h4>Friends</h4>
+  <ul class="sidebar-module-list">
+      <li><a href="http://www.lxzfranky.com" target="_blank">Franky's Diary</a></li>
+      <li><a href="http://lyj1215.com" target="_blank">lyjの博客</a></li>
+      <li><a href="https://wenqixiang.com" target="_blank">聞其詳的個人網站</a></li>
+      <li><a href="https://oef.org.cn" target="_blank">开放教育反应堆</a></li>
+  </ul>
+</div>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

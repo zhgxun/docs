@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>张广训的个人网站</title>
+  <title>张广训的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
 
@@ -46,30 +46,19 @@
   </div>
 </nav>
 
-  
-    <div class="blog-head">
-      <!-- 该部分内容原本是在_partial/header.ejs中，但无奈is_home()判断编译后github.io无法正常使用 -->
-      <div class="blog-header">
-        <h3 class="blog-title">衣沾不足惜，但使愿无违。</h3>
-      </div>
-
-      <img class="img-responsive img" src="https://raw.githubusercontent.com/zhgxun/images/master/travel/haituo_road.jpg" alt="海坨山-回望来时的路">
-    </div>
-  
-
   <div class="container">
-    <div class="row">
+    <div class="row margin-top">
         
           <div class="col-sm-8 blog-main">
             
   
-    <article id="post-object" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mianbao" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/object/">32. PHP面向对象基础</a>
+      <a class="article-title" href="/2017/12/09/mianbao/">64. 有时候，把工作耽搁几天是无害的</a>
     </h1>
   
 
@@ -78,13 +67,13 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2017/09/10/object/" class="article-date"><time datetime="2017-09-10T05:11:14.000Z" itemprop="datePublished">2017-09-10</time></a>
+  <a href="/2017/12/09/mianbao/" class="article-date"><time datetime="2017-12-09T06:43:03.000Z" itemprop="datePublished">2017-12-09</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
+    <a class="article-category-link" href="/categories/read/">read</a>
   </div>
 
 
@@ -93,298 +82,25 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>PHP5的最大特点是引入了面向对象的全部机制，并且保留了向下的兼容性。面向对象程序设计OOP，达到了软件工程的三个目标：重用性、灵活性和可扩展性。面向对象程序设计OOP是一种计算机编程框架，OOP的一条基本原则是计算机元素是由单个能够起到子程序作用的单元或对象组合而成的，为了实现整体运算，每个对象都能够接收信息，处理数据或向其它对象发送信息。</p>
-<p>面向对象一直是软件开发领域比较热门的话题，面向对象符合人类看待事物的一般规律，采用面向对象的设计方式可以使系统各部分运行自己的功能。对于大型项目，你可能需要使用纯粹的面向对象去设计。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/10/object/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-standard" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/03/standard/">31. (转)PHP运行机制</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/03/standard/" class="article-date"><time datetime="2017-09-03T14:40:59.000Z" itemprop="datePublished">2017-09-03</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.jb51.net/article/74907.htm" target="_blank" rel="external">原文章来源</a></p>
-<p>说到PHP的运行机制还要先给大家介绍PHP的模块，PHP总共有三个模块：内核、Zend引擎、以及扩展层；PHP内核用来处理请求、文件流、错误处理等相关操作；Zend引擎（ZE）用以将源文件转换成机器语言，然后在虚拟机上运行它；扩展层是一组函数、类库和流，PHP使用它们来执行一些特定的操作。比如，我们需要MySQL扩展来连接MySQL数据库；当ZE执行程序时可能会需要连接若干扩展，这时ZE将控制权交给扩展，等处理完特定任务后再返还。</p>
-<p>最后，ZE将程序运行结果返回给PHP内核，它再将结果传送给SAPI(Server Application Programming Interface 服务器端应用编程接口)层，最终输出到浏览器上。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/03/standard/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-custom" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/03/custom/">30. Yii2在DetailView中使用自定义方法解析模型数据</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/03/custom/" class="article-date"><time datetime="2017-09-03T10:56:32.000Z" itemprop="datePublished">2017-09-03</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>作者：尐邪|2015-4-23 交流探讨</p>
-<p>说明：yii2提供了足够解析模型数据的方法，但有时候我们还是需要实现一些自定义的数据格式，如果框架提供的方法不足以满足要求时，除了直接在模板中改写外，其实可以看看框架的源码，为框架增加更多的新方法。前几天在群里看到说，yii2的作者已经转go了，这个框架更新已经不在积极。</p>
-<p>如GridView Widget中可以使用匿名方法对模型数据进行自定义格式化处理类似，DetailView Widget也提供了类似的处理方法，只是稍微繁琐一些，查看DetailView源码可以发现：</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/03/custom/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-reg-ip" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/29/reg-ip/">29. 正则表达式之ip地址匹配</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/29/reg-ip/" class="article-date"><time datetime="2017-08-29T13:45:44.000Z" itemprop="datePublished">2017-08-29</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>白天和小伙伴聊起明后天就要去瓜子和蚂蜂窝面试，他说真棒，瓜子我朋友刚去过，蚂蜂窝去年我去过，没成，蚂蜂窝可是被称为望京的小阿里巴巴呢。当时问了很多Web端的东西，这方面不怎么懂。说让我写个正则，匹配邮箱和ip地址，不会写。想起前几次面试，也是同样的问题，就让写个匹配邮箱的正则，我都是空着。还问我，你不会写正则吗？恩，很少写了。像这样的正则其实是应该背下来的，虽然用的不多，但是毕竟问过好多次了。刚好想起前年读过的一本小书《正则表达式必知必会》，其中就有这篇关于ip地址匹配，当时觉得挺有趣，还抄写下来，终于从尘封的电脑文档中找出来了。</p>
-<p>有这样一段文本：</p>
-<pre><code>Pinging hog.forta.com [12.159.46.200] with 32 bytes of data.
-</code></pre><p>匹配出其中的ip地址，简单粗暴的处理方式是：</p>
-<pre><code class="php">$pattern = &#39;/(\d{1,3}\.){3}\d{1,3}/&#39;;
-</code></pre>
-<p>但是注意，不可以使用下面的方式：</p>
-<pre><code class="php">$pattern = &#39;/(\d{1,3}\.){4}/&#39;;
-</code></pre>
-<p>因为至少要保证ip地址的格式是以英文句号分隔的四组数字，每组数字由1个，2个或者3个数字字符构成。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/29/reg-ip/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-swoole-platform" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/26/swoole-platform/">28. 用swoole_process写一个跑数平台</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/26/swoole-platform/" class="article-date"><time datetime="2017-08-26T04:19:30.000Z" itemprop="datePublished">2017-08-26</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>还是在上家公司的时候，同事在群里突然发了这个<a href="http://www.swoole.com" target="_blank" rel="external">Swoole</a>连接，才看到原来PHP还有这么一个扩展，顺便了也发<a href="http://www.workerman.net" target="_blank" rel="external">Workerman</a>，说也是PHP新的通信框架，而swoole则重新定义了PHP，那时候项目中还没使用这些扩展，就没去看过文档。前不久，这家公司当时带我的这位小伙伴突然告诉说，他们在准备要用swoole重构下一版接口了。</p>
-<p>刚好这段时间我们也在准备街电的财务项目，用了<a href="https://laravel.com" target="_blank" rel="external">Laravel</a>框架，顺便也提前重新写一下跑数平台。以前没做过类似的工具，不知道怎么设计好，就借鉴了原来项目的跑数平台，完全是迁移过来的，并没有自己多的独特创造。</p>
-<h2 id="1-起因"><a href="#1-起因" class="headerlink" title="1. 起因"></a>1. 起因</h2><p>Laravel框架提供了非常丰富的控制台<a href="http://d.laravel-china.org/docs/5.4/artisan" target="_blank" rel="external">Artisan 命令行工具</a>和<a href="http://d.laravel-china.org/docs/5.4/scheduling" target="_blank" rel="external">任务调度功能Task</a>应用，对于测试通过和已经运行正常的脚本来说，直接添加不需要观察就可以很好的得到执行，但是线上项目我没有权限登陆控制台手动去运行命令，也不想申请这些权限，故只能依赖后台网页端来输入命令，让它自动执行，收集每一个脚本的输出结果，执行完毕后直接发邮件给我就行。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/26/swoole-platform/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-slice" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/24/slice/">27. Go在函数和切片间传递数组</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/24/slice/" class="article-date"><time datetime="2017-08-24T01:39:19.000Z" itemprop="datePublished">2017-08-24</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>该部分笔记来源于：</p>
-<blockquote>
-<p>Go语言实战 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 69). 人民邮电出版社. Kindle Edition. </p>
-<p>在函数间传递数组和在函数间传递切片部分摘要</p>
-</blockquote>
-<p>根据内存和性能来看，在函数间传递数组是一个开销很大的操作。在函数之间传递变量时，总是以值的方式传递的。如果这个变量是个数组，意味着整个数组，不管有多长，都会完整复制，并传递给函数。</p>
-<p><a href="http://books.studygolang.com/gopl-zh" target="_blank" rel="external">Go语言圣经</a>这本书中介绍到，数组属于复合数据类型，而切片属于引用类型。</p>
-<blockquote>
-<p>当调用一个函数的时候，函数的每个调用参数将会被赋值给函数内部的参数变量，所以函数参数变量接收的是一个复制的副本，并不是原始调用的变量。因为函数参数传递的机制导致传递大的数组类型将是低效的，并且对数组参数的任何的修改都是发生在复制的数组上，并不能直接修改调用时原始的数组变量。在这个方面，Go语言对待数组的方式和其它很多编程语言不同，其它编程语言可能会隐式地将数组作为引用或指针对象传入被调用的函数。</p>
-<p>from: 数组</p>
-<p>Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。基础类型，包括：数字、字符串和布尔型。复合数据类型——数组和结构体——是通过组合简单类型，来表达更加复杂的数据结构。引用类型包括指针、切片、字典、函数、通道，虽然数据种类很多，但它们都是对程序中一个变量或状态的间接引用。这意味着对任一引用类型数据的修改都会影响所有该引用的拷贝。</p>
-<p>from: 基础数据类型</p>
+        <blockquote>
+<p>安托万·德·圣埃克苏佩里. 小王子(法国“圣埃克苏佩里基金会”官方认可简体中文译本)(果麦经典) (Kindle Location 378). 天津人民出版社. Kindle Edition. </p>
+<p>节选 Chapter 05</p>
+<p>我每天都对小王子的星球、他的离开，以及他的旅程，有新的了解。这些信息是他在交谈中不经意透露出来的。就这样，在遇到他的第三天，我听说了猴面包树的祸害。</p>
+<p>这次又得感谢那只绵羊，因为小王子突然忧心忡忡地问我：</p>
+<p>“绵羊真的能把矮小的灌木吃掉吗？”</p>
+<p>“是的。是真的。”</p>
+<p>“好啊！我真高兴！”</p>
+<p>我不明白绵羊能把矮小的灌木吃掉有什么重要的。但小王子又问：“那么它也能把猴面包树吃掉咯？”</p>
+<p>我跟小王子说，猴面包树不是矮小的灌木，而是像教堂那么大的乔木，就算他带上整群大象，恐怕也吃不掉一棵猴面包树。带上整群大象这个说法让小王子哈哈大笑。“那必须把它们叠起来才行……”</p>
+<p>但他又说了一句很聪明的话：“猴面包树在长大之前也是小树苗啊。”“那倒是！但你为什么想要绵羊把小猴面包树吃掉呢？”他的回答是：“这还要说吗！”仿佛这里面的道理是显而易见的。我只好绞尽脑汁，自己弄明白这个问题。</p>
+<p>原来和所有星球相同，小王子的星球上有好植物和坏植物。所以那里就有好植物的好种子和坏植物的坏种子。但种子是看不见的。它们隐秘地沉睡在泥土里，直到有的种子突然决定苏醒。接着它会发芽，先是害羞地迎着阳光长出可爱的嫩枝。如果这是萝卜或者玫瑰的嫩芽，你可以任它生长。但如果是坏的植物，那么你认出来之后要马上把它拔掉。小王子的星球上有些可怕的种子……就是猴面包树的种子。它们入侵了那个星球的土地。假如发现得太晚，你就再也不能将猴面包树拔掉。它会覆盖整个星球。它会长出许多树根。如果星球太小，而猴面包树又太多的话，星球最后将会被撑得爆裂。</p>
+<p>“我们那边的规矩是，”后来小王子对我说，“每天早晨洗漱好以后，你必须仔细地清洁和打扮你的星球。你必须强迫自己经常去拔掉猴面包树，它小时候跟玫瑰的幼苗长得很像，你要是能把它认出来，马上就就得拔掉。这是非常乏味的劳动，但也非常简单。”</p>
+<p>有一天，他建议我不妨画一幅美丽的图画，以便我这个星球上的孩子能明白这件事。“将来他们旅行的时候，”他对我说，“你的画对他们会有帮助的。有时候，把工作耽搁几天是无害的。但说到猴面包树，拖延会造成大灾难。我知道某个星球上住着一个懒惰的家伙。他忽略了三株猴面包树的幼苗……”</p>
+<p>在小王子的指导下，我画出了那个星球。我不想采用道德家的口吻。但猴面包树的危害很少有人知道，而人们迷路踏上小行星的可能性又很大，所以我打算不再保持沉默，而是破例地呼吁：“孩子们！当心猴面包树！”我用心去画这张图，是为了提醒朋友们注意，他们就像我自己，已经在危险边缘逗留了太久。花心思给大家上这一课还是很值的。你也许会问：“这本书里其他图画，为什么不像这幅猴面包树的图画这么漂亮呢？”答案十分简单：我也想画得这么漂亮，但没有成功。在画猴面包树的时候，有种紧迫感在驱动着我。</p>
 </blockquote>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/24/slice/#more">Read More</a>
+            <a class="btn btn-primary" href="/2017/12/09/mianbao/#more">Read More</a>
           </p>
         
       
@@ -394,7 +110,7 @@
 
     <footer class="article-footer">
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
 
 
     </footer>
@@ -403,13 +119,13 @@
 </article>
 
   
-    <article id="post-composer" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-cpp" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/composer/">26. composer.json文件说明</a>
+      <a class="article-title" href="/2017/12/05/cpp/">63. 《C Primer Plus》读书笔记系列</a>
     </h1>
   
 
@@ -418,13 +134,13 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2017/08/21/composer/" class="article-date"><time datetime="2017-08-21T04:41:01.000Z" itemprop="datePublished">2017-08-21</time></a>
+  <a href="/2017/12/05/cpp/" class="article-date"><time datetime="2017-12-05T15:54:25.000Z" itemprop="datePublished">2017-12-05</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
+    <a class="article-category-link" href="/categories/read/">read</a>
   </div>
 
 
@@ -433,237 +149,26 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>PHP组件中必须有composer.json文件，而且这个文件的内容必须是有效的JSON，Composer会使用这个文件中的信息查找、安装和自动加载PHP组件。composer.json文件还包含组件在Packagist目录中的信息。</p>
-<pre><code>{
-    &quot;name&quot;: &quot;modernphp/scnner&quot;,
-    &quot;description&quot;: &quot;Scan URLs a CSV file and report inaccessible URLs&quot;,
-    &quot;keywords&quot;: [&quot;url&quot;, &quot;scanner&quot;, &quot;csv&quot;],
-    &quot;homepage&quot;: &quot;http://example.com&quot;,
-    &quot;license&quot;: &quot;MIT&quot;,
-    &quot;authors&quot;: [
-        {
-            &quot;name&quot;: &quot;Josh Lockhart&quot;,
-            &quot;homepage&quot;: &quot;https://github.com/codeguy&quot;,
-            &quot;role&quot;: &quot;Developer&quot;
-        }
-    ],
-    &quot;support&quot;: {
-        &quot;email&quot;: &quot;help@example.com&quot;
-    },
-    &quot;require&quot;: {
-        &quot;php&quot;: &quot;&gt;=5.4.0&quot;,
-        &quot;guzzlehttp&quot;: &quot;~5.0&quot;
-    },
-    &quot;require-dev&quot;: {
-        &quot;phpunit/phpunit&quot; : &quot;~5.0&quot;
-    },
-    &quot;suggest&quot;: {
-        &quot;league/csv&quot;: &quot;~6.0&quot;
-    },
-    &quot;autoload&quot;: {
-        &quot;psr-4&quot;: {
-            &quot;Oreilly\\ModernPHP&quot;: &quot;src/&quot;
-        }
-    }
-}
-</code></pre>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/composer/#more">Read More</a>
-          </p>
-        
+        <p>记得第一次想要学编程的时候，选的就是C语言，那时候看的是K&amp;R的《C程序设计语言》，看的懵懵懂懂的，最后一行代码也写不出来，还一度怀疑自己还要不要继续下去，还能靠它生活吗。那时候就看到豆瓣上的这句话：</p>
+<blockquote>
+<p>技术方面的书，还是外国人写得比较透彻，国人写的书大多是经过二次咀嚼后凭着感觉写出来的，有些细节，因为外国人没有写或者自己没有看到或者看到了没有理解清楚，那么自己的书里也就含糊略过，但对于初学者来说，太痛苦了。国人的技术书，大部分而言，充其量算是一本比较详细的读书笔记，写笔记的人能看懂，读者未必明白。</p>
+</blockquote>
+<p>就信以为真，觉得程序设计应该就是这样了。</p>
+<p>这本书看过两遍，但对里面的很多东西还是不明白，这段时间也在想以后该做点什么。目前的工作，说实话项目上对自己提升不大，涨工资也是特别的渺茫，就不想把时间都浪费在无休无止的业务上，想趁机训练一下自己的毅力，重新学一遍C语言，希望这次之后，能有所收获和提升，不管是理解力上，还是认知上。</p>
+<p>正如书中所说：“1984年C Primer Plus第1版刚问世时，使用C语言编程的人并不多。C语言从那时开始流行，许多人在本书的帮助下掌握了C语言。”我也希望在这本书的帮助下，学会C语言。</p>
+<p>于是给自己定下了这个目标，愿自己一如既往。俊飞说：“治性如治兵，治国如治身”，对自己的各种性情，得拿出治理军队的办法来，严于律己，有令必行。治理自己的身体，就要像对待一个国家一样治理。</p>
+
       
     </div>
+
+    
+      
 
     
 
     <footer class="article-footer">
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-php-excel" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/php-excel/">25. Yii2使用PHPExcel第三方扩展</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/php-excel/" class="article-date"><time datetime="2017-08-21T04:38:00.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>解释：以下代码非我所写，我只是添加部分注释和说明，不要用来说事，若能帮助到，自己实现所需的功能就行了。</p>
-<h2 id="1-说明"><a href="#1-说明" class="headerlink" title="1. 说明"></a>1. 说明</h2><p>PHPExcel是一个由纯PHP写的函数库，从不同的电子表格中读取和写回数据。PHPExcel这个项目围绕微软的OpenXML和PHP标准创建，<a href="https://github.com/PHPOffice/PHPExcel">GitHub的源码托管地址</a>。</p>
-<p>也<a href="http://www.imooc.com/learn/433" target="_blank" rel="external">可以去听听慕课的免费视频</a>。</p>
-<p>网上有详细的设置教程，并且源代码中提供了很多的使用样例，几乎能用到的场景都有现成的例子。汉老师的yiifans也列有好几篇，我大体看过，都是很好的教程，对初学者都是不错的选择。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/php-excel/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-dropdownlist" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/dropdownlist/">24. Yii2中下拉列表dropdownlist的用法</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/dropdownlist/" class="article-date"><time datetime="2017-08-21T04:33:23.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>准确说,初学框架那段时间,使用下拉列表可不是件容易的事,包括怎么引入类class都需要去百度,手册找,而且几乎很多次都是徒劳无功.第一次使用地区三级联动还是用的网上的js插件,才插件中别人已经把地区信息以数组或者json的格式包装好了,不需要提供额外的数据<br>库支持,好处是直接使用.坏处是地区信息都很旧,比如我家所在地,记得是2012年已经将毕节地区改为市了,但是插件中还是使用毕业地区,这虽然没什么错,但已经说明这些数据其实也是作者搜索出来的,别的地方没有考证过,但肯定也有一些地区信息,已经在最近的几年被更改<br>过了,因此使用一定意义上是不正确的.</p>
-<p>几乎在我遇到的项目中,地区信息都有自己的数据库,而且后台都有地区信息添加修改功能,所以地区的插件其实是不需要的,基本都要自己去写,这次也不例外.</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/dropdownlist/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-gii" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/gii/">23. Yii2如何重写Gii生成的列表页按钮</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/gii/" class="article-date"><time datetime="2017-08-21T04:28:08.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。</p>
-<pre><code class="php">// 默认是不需要设置的，默认值是
-[
-    &#39;class&#39; =&gt; &#39;yii\grid\ActionColumn&#39;,
-    &#39;template&#39; =&gt; &#39;{view} {update} {delete}&#39;
-],
-
-// 可以看到默认的实现方式是：
-protected function initDefaultButtons()
-{
-    if (!isset($this-&gt;buttons[&#39;view&#39;])) {
-        $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
-            $options = array_merge([
-                &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
-                &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
-                &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
-                &#39;data-pjax&#39; =&gt; &#39;0&#39;,
-            ], $this-&gt;buttonOptions);
-            return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
-        };
-    }
-}
-// 即是使用Bootstrap的字体和样式实现的
-</code></pre>
-<p>因此就可以重写该类，覆盖原来的内容。因为常用的操作就这么多，修改默认样式和增加新按钮相对多些。比如不想用默认的图标，想改成汉字，比如”查看”， “编辑”, “删除”，则只需要改变return的行为就可以，</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/gii/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
 
 
     </footer>
@@ -675,7 +180,7 @@ protected function initDefaultButtons()
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/4/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="active"><span class="page-number">5</span></li><li><a class="page-number" href="/page/6/">6</a></li><li><a class="page-number" href="/page/7/">7</a></li><li><a class="page-number" href="/page/8/">8</a></li><li><a class="page-next" rel="next" href="/page/6/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/4/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="active"><span class="page-number">5</span></li><li><a class="page-number" href="/page/6/">6</a></li><li><a class="page-number" href="/page/7/">7</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/6/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -738,7 +243,7 @@ protected function initDefaultButtons()
   <footer class="blog-footer">
   <div class="container">
     <div id="footer-info" class="inner">
-      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by 张广训</a><br>
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
     </div>
   </div>

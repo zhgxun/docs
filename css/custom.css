@@ -132,6 +132,10 @@ code {
 /*
  * Blog header and description
  */
+.margin-top {
+  margin-top: 40px;
+}
+
 .blog-head {
   position: relative;
   text-align: center;
@@ -197,7 +201,7 @@ code {
 }
 
 .blog-info {
-  padding-top: 60px;
+  padding-top: 30px;
 }
 
 /* Sidebar modules for boxing content */
