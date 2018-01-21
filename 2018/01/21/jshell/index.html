@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>73. Java执行shell命令 | 张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-jshell" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      73. Java执行shell命令
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/21/jshell/" class="article-date"><time datetime="2018-01-21T11:50:30.000Z" itemprop="datePublished">2018-01-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在PHP中，执行一段shell命令非常简单，直接调用语言函数<code>exec()</code>，<code>system()</code>等即可完成，而且返回值也是显而易见的。但Java不是，做不到这么简单。</p>
+<p>比如在PHP中简单执行<code>exec(&quot;la -al&quot;)</code>的结果：</p>
+<pre><code class="php">// @see http://php.net/manual/zh/function.exec.php
+exec(&#39;ls -l&#39;, $output);
+print_r($output);
+</code></pre>
+<p>输出:</p>
+<pre><code class="bash">zhgxun-pro:~ zhgxun$ php test.php 
+Array
+(
+    [0] =&gt; total 8
+    [1] =&gt; drwx------+ 13 zhgxun  staff   442 Jan 21 19:57 Desktop
+    [2] =&gt; drwx------+ 10 zhgxun  staff   340 Jan  4 22:12 Documents
+    [3] =&gt; drwx------+  9 zhgxun  staff   306 Jan 20 11:45 Downloads
+    [4] =&gt; drwx------@ 56 zhgxun  staff  1904 Dec 16 14:40 Library
+    [5] =&gt; drwx------+  3 zhgxun  staff   102 Aug 24  2015 Movies
+    [6] =&gt; drwx------+  6 zhgxun  staff   204 Dec 21 23:00 Music
+    [7] =&gt; drwx------+  8 zhgxun  staff   272 Mar 27  2017 Pictures
+    [8] =&gt; drwxr-xr-x+  9 zhgxun  staff   306 Dec 25 09:23 Public
+    [9] =&gt; drwxr-xr-x   2 zhgxun  staff    68 Aug 14 14:37 Snapshots
+    [10] =&gt; drwxr-xr-x   4 zhgxun  staff   136 Mar 28  2017 Soft
+    [11] =&gt; drwxr-xr-x   6 zhgxun  staff   204 May 10  2017 go
+    [12] =&gt; -rw-r--r--   1 zhgxun  staff    56 Jan 21 19:56 test.php
+)
+zhgxun-pro:~ zhgxun$ ls -l
+total 8
+drwx------+ 13 zhgxun  staff   442 Jan 21 19:57 Desktop
+drwx------+ 10 zhgxun  staff   340 Jan  4 22:12 Documents
+drwx------+  9 zhgxun  staff   306 Jan 20 11:45 Downloads
+drwx------@ 56 zhgxun  staff  1904 Dec 16 14:40 Library
+drwx------+  3 zhgxun  staff   102 Aug 24  2015 Movies
+drwx------+  6 zhgxun  staff   204 Dec 21 23:00 Music
+drwx------+  8 zhgxun  staff   272 Mar 27  2017 Pictures
+drwxr-xr-x+  9 zhgxun  staff   306 Dec 25 09:23 Public
+drwxr-xr-x   2 zhgxun  staff    68 Aug 14 14:37 Snapshots
+drwxr-xr-x   4 zhgxun  staff   136 Mar 28  2017 Soft
+drwxr-xr-x   6 zhgxun  staff   204 May 10  2017 go
+-rw-r--r--   1 zhgxun  staff    56 Jan 21 19:56 test.php
+zhgxun-pro:~ zhgxun$
+</code></pre>
+<p>然而使用Java，就没这么直接了。</p>
+<a id="more"></a>
+<pre><code class="java">package flight;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * @see https://docs.oracle.com/javase/8/docs/api/index.html
+ */
+public class App {
+    public static void main(String[] args) {
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec(&quot;ls -l&quot;);
+            process.waitFor();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>输出：</p>
+<pre><code class="bash">total 24
+-rw-r--r--   1 zhgxun  staff  2651 Jan 18 22:53 balance.iml
+drwxr-xr-x   3 zhgxun  staff   102 Jan 21 18:06 data
+-rw-r--r--   1 zhgxun  staff  1706 Jan 19 00:14 dependency-reduced-pom.xml
+-rw-r--r--   1 zhgxun  staff  3613 Jan 18 22:55 pom.xml
+drwxr-xr-x   5 zhgxun  staff   170 Jan 20 14:13 src
+drwxr-xr-x  11 zhgxun  staff   374 Jan 19 00:14 target
+
+Process finished with exit code 0
+</code></pre>
+<p>下面是一个综合使用Java的例子：</p>
+<pre><code class="java">package flight;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+
+/**
+ * 周对账
+ *
+ * @author zhangguangxun
+ */
+public class Week {
+    // 基本目录
+    private static String BASEDIR = &quot;&quot;;
+    // 周对账文件, 分GBK, UTF-8两种文件, GBK文件为提供给财务用, UTF-8为例行文件, 自行使用
+    private static String WEEKPATH = &quot;&quot;;
+    private static String WEEKPATH_UTF8 = &quot;&quot;;
+    private static String WEEKPATH_GBK = &quot;&quot;;
+
+    /**
+     * 周对账
+     *
+     * @param from 对账开始时间
+     * @param to   对账截止时间
+     */
+    public static void handler(String from, String to) {
+        // 1. 创建文件夹和文件
+        create(to);
+
+        // 2. 下载周对账文件
+        fetch(from, to);
+
+        // 3. 对账
+        // ...
+    }
+
+    /**
+     * 按年月为单位创建文件夹和周对账文件
+     *
+     * @param to 截止日期
+     */
+    private static void create(String to) {
+        LocalDate localDate = LocalDate.parse(to);
+        int year = localDate.getYear();
+        int month = localDate.getMonthValue();
+        int day = localDate.getDayOfMonth();
+        BASEDIR = String.format(&quot;data/balance/%d/%d&quot;, year, month);
+        File file = new File(BASEDIR);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                System.out.println(&quot;Error create directory: &quot; + BASEDIR);
+                System.exit(0);
+            }
+        }
+        WEEKPATH = String.format(&quot;%s/week_%d_%d.csv&quot;, BASEDIR, month, day);
+        WEEKPATH_UTF8 = String.format(&quot;%s/week_utf8_%d_%d.csv&quot;, BASEDIR, month, day);
+        WEEKPATH_GBK = String.format(&quot;%s/week_gbk_%d_%d.csv&quot;, BASEDIR, month, day);
+    }
+
+    /**
+     * 下载每天对账文件, 并将下载的文件合并为一个文件用于周对账
+     *
+     * @param from 开始时间
+     * @param to   截止时间
+     */
+    private static void fetch(String from, String to) {
+        // 解析字符串格式的时间样式, 2018-01-21
+        LocalDate localDate = LocalDate.parse(from);
+        // 提供的时间是否为周的开始和结束
+        int firstDay = localDate.getDayOfWeek().getValue();
+        if (firstDay != 1) {
+            System.out.println(&quot;Error first day: &quot; + firstDay);
+            System.exit(0);
+        }
+        int lastDay = LocalDate.parse(to).getDayOfWeek().getValue();
+        if (lastDay != 7) {
+            System.out.println(&quot;Error last day: &quot; + lastDay);
+        }
+
+        Process process;
+
+        // 遍历一周的日期, 从钱包下载天对账数据, 并拼接写入到一个文件中
+        for (int i = firstDay; i &lt;= lastDay; i++) {
+            int year = localDate.getYear();
+            int month = localDate.getMonthValue();
+            int day = localDate.getDayOfMonth();
+
+            // 下载每一天对账数据
+            String path = String.format(&quot;***/data/finance/product/052/2017/%d/052_%d-%d-%d.csv&quot;, month, year, month, day);
+            String local = String.format(BASEDIR + &quot;/052_%d-%d-%d.csv&quot;, year, month, day);
+            String command = String.format(&quot;wget -O %s %s&quot;, local, path);
+            // 错误或下载异常时直接退出, 否则数据不完整
+            try {
+                process = Runtime.getRuntime().exec(command);
+                process.waitFor();
+                process = Runtime.getRuntime().exec(String.format(&quot;cat %s | sed &#39;1,4d&#39; &gt;&gt; %s&quot;, local, WEEKPATH));
+                process.waitFor();
+                // 删除天对账文件
+                File file = new File(local);
+                if (!file.delete()) {
+                    System.out.println(&quot;Error delete file: &quot; + local);
+                }
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+                System.out.println(&quot;Error Down file: &quot; + path);
+                System.exit(0);
+            }
+
+            // 加1天
+            localDate = localDate.plusDays(1);
+        }
+    }
+}
+</code></pre>
+<p>当然，如果没有特别的性能考虑，还是推荐使用动态语言，比如PHP，Python。虽然可能这些语言不被人推荐，但是我们的确要看到这些语言实现的方式都非常简单，而且易于工作交界和后续维护。不过也要看编写代码人的水平和态度了，一份写的不完整或者杂乱无章的代码，其实是没意义的。</p>
+<p>我在工作中就看到过很多公司的高级程序员编写的代码，不得不说维护他们的代码，是无比的糟糕和气愤，一方面也看出确实这个行业里的编写者，不管是所谓的高级工程师，还是管理者，写的代码很多还很差强人意的。这倒不是说写的东西要多难，让人佩服不已。其实不是的，写的东西，在满足需求的情况下，自然是越简单越好，而不是越容易应付越好。少给后续的维护者添加麻烦的代码，肯定不容易写。即使是很简单的功能，在一些人的手里，写出来的代码看了的确让人心寒，瞬间分分钟想离职避开这种没有责任心的是非之地。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/01/10/fact/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">72. 尾递归</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

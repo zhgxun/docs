@@ -52,6 +52,59 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-bathinsert" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/bathinsert/">21. Yii2批量导入大数据的快捷方法</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/bathinsert/" class="article-date"><time datetime="2017-08-21T03:51:09.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。</p>
+<p>后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时涉及到需要给发放优惠券的用户发送一条私信通知，这个连接非常耗时，没办法同步发送，最后只能拆分开来，将用户存入redis中，用系统自带的crontab计划任务来完成了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/bathinsert/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -115,63 +168,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
 </article>
 
   
-    <article id="post-yii2-qiniu" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/yii2-qiniu/">19. Yii2使用七牛云存储</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/yii2-qiniu/" class="article-date"><time datetime="2017-08-21T03:43:26.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>初学yii2时，不怎么理解前后台分离的思路，有一阵子还纠结怎么处理图片上传的问题。毕竟在已做过的项目中，图片都是直接上传到项目中的一个类似Public/images/*的目录中。发觉这些做法在这里行不通了，在网上也搜查过一些，比较多的答案是配置一台图片<br>服务器，就可以前后台访问了。后来都觉得麻烦，幸好目前在做的项目中，使用了七牛。觉得还方便一些，提供了很多通用的接口，解决了例如断点续传这样的问题。</p>
-<p><a href="http://developer.qiniu.com/code/v7/sdk/php.html" target="_blank" rel="external">PHP开发者地址</a>，基本的使用文档不仅在官网提供，在源代码中也有很多有用的实例。七牛的SDK也在不断更新，要随时看最新的文档。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/yii2-qiniu/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/26/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="active"><span class="page-number">27</span></li><li><a class="page-number" href="/page/28/">28</a></li><li><a class="page-number" href="/page/29/">29</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/28/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/26/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="active"><span class="page-number">27</span></li><li><a class="page-number" href="/page/28/">28</a></li><li><a class="page-number" href="/page/29/">29</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/37/">37</a></li><li><a class="page-next" rel="next" href="/page/28/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -182,7 +182,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -191,6 +191,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
+        </li>
       
         <li>
           <a href="/2018/01/10/fact/">72. 尾递归</a>
@@ -206,10 +210,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2018/01/01/java/">69. Java</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
         </li>
       
     </ul>

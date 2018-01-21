@@ -52,6 +52,70 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-slice" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/24/slice/">27. Go在函数和切片间传递数组</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/24/slice/" class="article-date"><time datetime="2017-08-24T01:39:19.000Z" itemprop="datePublished">2017-08-24</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>该部分笔记来源于：</p>
+<blockquote>
+<p>Go语言实战 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 69). 人民邮电出版社. Kindle Edition. </p>
+<p>在函数间传递数组和在函数间传递切片部分摘要</p>
+</blockquote>
+<p>根据内存和性能来看，在函数间传递数组是一个开销很大的操作。在函数之间传递变量时，总是以值的方式传递的。如果这个变量是个数组，意味着整个数组，不管有多长，都会完整复制，并传递给函数。</p>
+<p><a href="http://books.studygolang.com/gopl-zh" target="_blank" rel="external">Go语言圣经</a>这本书中介绍到，数组属于复合数据类型，而切片属于引用类型。</p>
+<blockquote>
+<p>当调用一个函数的时候，函数的每个调用参数将会被赋值给函数内部的参数变量，所以函数参数变量接收的是一个复制的副本，并不是原始调用的变量。因为函数参数传递的机制导致传递大的数组类型将是低效的，并且对数组参数的任何的修改都是发生在复制的数组上，并不能直接修改调用时原始的数组变量。在这个方面，Go语言对待数组的方式和其它很多编程语言不同，其它编程语言可能会隐式地将数组作为引用或指针对象传入被调用的函数。</p>
+<p>from: 数组</p>
+<p>Go语言将数据类型分为四类：基础类型、复合类型、引用类型和接口类型。基础类型，包括：数字、字符串和布尔型。复合数据类型——数组和结构体——是通过组合简单类型，来表达更加复杂的数据结构。引用类型包括指针、切片、字典、函数、通道，虽然数据种类很多，但它们都是对程序中一个变量或状态的间接引用。这意味着对任一引用类型数据的修改都会影响所有该引用的拷贝。</p>
+<p>from: 基础数据类型</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/24/slice/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-composer" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -137,65 +201,10 @@
 </article>
 
   
-    <article id="post-php-excel" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/php-excel/">25. Yii2使用PHPExcel第三方扩展</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/php-excel/" class="article-date"><time datetime="2017-08-21T04:38:00.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>解释：以下代码非我所写，我只是添加部分注释和说明，不要用来说事，若能帮助到，自己实现所需的功能就行了。</p>
-<h2 id="1-说明"><a href="#1-说明" class="headerlink" title="1. 说明"></a>1. 说明</h2><p>PHPExcel是一个由纯PHP写的函数库，从不同的电子表格中读取和写回数据。PHPExcel这个项目围绕微软的OpenXML和PHP标准创建，<a href="https://github.com/PHPOffice/PHPExcel">GitHub的源码托管地址</a>。</p>
-<p>也<a href="http://www.imooc.com/learn/433" target="_blank" rel="external">可以去听听慕课的免费视频</a>。</p>
-<p>网上有详细的设置教程，并且源代码中提供了很多的使用样例，几乎能用到的场景都有现成的例子。汉老师的yiifans也列有好几篇，我大体看过，都是很好的教程，对初学者都是不错的选择。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/php-excel/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/23/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/22/">22</a></li><li><a class="page-number" href="/page/23/">23</a></li><li class="active"><span class="page-number">24</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/36/">36</a></li><li><a class="page-next" rel="next" href="/page/25/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/23/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/22/">22</a></li><li><a class="page-number" href="/page/23/">23</a></li><li class="active"><span class="page-number">24</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/37/">37</a></li><li><a class="page-next" rel="next" href="/page/25/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -206,7 +215,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -215,6 +224,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
+        </li>
       
         <li>
           <a href="/2018/01/10/fact/">72. 尾递归</a>
@@ -230,10 +243,6 @@
       
         <li>
           <a href="/2018/01/01/java/">69. Java</a>
-        </li>
-      
-        <li>
-          <a href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
         </li>
       
     </ul>
