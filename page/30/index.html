@@ -52,6 +52,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-export" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/16/export/">16. 用Go重写商家结余表导数脚本</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/16/export/" class="article-date"><time datetime="2017-08-16T15:22:06.000Z" itemprop="datePublished">2017-08-16</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。</p>
+<p>开始编写时，确实遇到很多难处。一开始想到的，是如何做数据库连接，幸好Go对这些常见的场景都有现成的库可使用，稍微在GitHub上搜索就能有好的选择。然后是对数据类型的描述上，确实跟动态语言有明显的不同，但是无法否认，静态语言在编写和编译期间就能减少很多低级的Bug。</p>
+<p>也发现了一些公司的服务问题，比如邮件服务器总是x.509证书问题而无法使用，网易163也存在这样的问题，但是QQ邮箱可以正常使用。官方库中已经提供了CSV格式的支持，使用起来相当的方便，就不提供excel方式了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/16/export/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-jingbian" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -107,61 +161,6 @@
 </article>
 
   
-    <article id="post-lanzhou" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/29/lanzhou/">14. 兰州</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/07/29/lanzhou/" class="article-date"><time datetime="2017-07-29T14:21:07.000Z" itemprop="datePublished">2017-07-29</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/travel/">travel</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、兰州西"><a href="#1、兰州西" class="headerlink" title="1、兰州西"></a>1、兰州西</h2><p>在西宁上动车后，我刚坐下来，前面一个女的就把座位放下来，就抵到我了。我说麻烦你不要把凳子放下来好吗，这里都没有空间了。她说凳子本来就设计成这样的，这是正常的位置。我说我知道，但是你站起来看看，你这样后我这里就没法坐了。她把凳子稍微抬高一些后，我也就没再说什么了。</p>
-<p>担心一会儿她又把凳子突然放下来，我就没敢把电脑放在座位后背的快捷小桌子上打字，只好放腿上了。插座在中间的位置，我把手机充上电后。插座盖就不能盖上去，数据线和手机充电头也裸露在外面，中间也占去了好大一块位置。中间那个男的就说，要不我跟你换一下位置吧，你这样我脚都没地方伸了。</p>
-<p>他坐在里面，我坐在中间，外面是跟他一起的一个女同事。车刚走，这个女同事就问我，只有一个手机充电吗？是的，只能充一个。她给男的要了移动电源，说没事，她们到兰州就要坐飞机了。后来我用电脑充电，就说你充吧，我到兰州还不走，晚上就能充电了。她收好移动电源，充好电后，就慢慢的睡去了。</p>
-<p>设计这个座位的初衷不知道是怎么想的。如果前后两个人都把座位放低来睡是不影响的，但是如果后面的人要坐起来，或者要用小桌子看书，吃东西的话，前面是不能把凳子放低的。问题是就跟她说的一样，人家设计成这样，这是正常的位置，我怎么放都应该没关系。可是明明前面一放低座位，后面就没法弄了。我不知道别人遇见这种情况都是怎么沟通的，但我觉得设计这个方式的人应该受到指责。私家车你可以放下来睡觉，那完全是你能支配的，但是像动车这种公共交通，就不应该这么想。不管你怎么做，都不应该给大家造成困扰。而且这种总是觉得用沟通就能解决问题的思想，是应该抛弃的。很多事情，不应该用道德感召来规范行为，只有对错，应不应该，没有好与不好，合不合适。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/07/29/lanzhou/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -176,7 +175,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
   </div>
 
 
@@ -185,6 +184,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
+        </li>
       
         <li>
           <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
@@ -200,10 +203,6 @@
       
         <li>
           <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/java/">69. Java</a>
         </li>
       
     </ul>
