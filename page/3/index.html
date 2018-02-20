@@ -52,6 +52,128 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-twosum" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/01/twosum/" class="article-date"><time datetime="2018-01-01T13:08:43.000Z" itemprop="datePublished">2018-01-01</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="external">Two Sum</a>;</p>
+<pre><code class="java">package github.banana;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 给一个整数数组和一个目标值, 返回数组中两个元素相加后等于目标值的原数组元素下标
+ * 
+ * 比如Given nums = [2, 7, 11, 15], target = 9
+ * 
+ * Because nums[0] + nums[1] = 2 + 7= 9
+ * 
+ * return [0, 1]
+ * 
+ * @author zhgxun
+ *
+ */
+public class TwoSum {
+    public static void main(String[] args) {
+        int[] nums = { 2, 7, 11, 15 };
+        int[] res;
+        res = twoSum(nums, 9);
+        System.out.println(Arrays.toString(res));
+
+        res = twoSumV2(nums, 9);
+        System.out.println(Arrays.toString(res));
+    }
+
+    /**
+     * 双层遍历
+     * 
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i &lt; nums.length; i++) {
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                // 判断值是否相等
+                if (nums[i] + nums[j] == target) {
+                    return new int[] { i, j };
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 使用map
+     * 
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSumV2(int[] nums, int target) {
+        // 存储元素键为数组元素值, 元素值为数组元素下标
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            // 计算的目标值
+            int goal = target - nums[i];
+            // 看该值是否存在于hash表中
+            if (map.containsKey(goal)) {
+                return new int[] { map.get(goal), i };
+            }
+            map.put(nums[i], i);
+        }
+        return null;
+    }
+}
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-string" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -125,81 +247,10 @@ int main(void)
 </article>
 
   
-    <article id="post-java" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/01/java/">69. Java</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/01/01/java/" class="article-date"><time datetime="2018-01-01T07:50:20.000Z" itemprop="datePublished">2018-01-01</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、概览"><a href="#一、概览" class="headerlink" title="一、概览"></a>一、概览</h2><h3 id="1-特点"><a href="#1-特点" class="headerlink" title="1. 特点"></a>1. 特点</h3><ol>
-<li>面向对象编程；</li>
-<li>字节码方式运行在虚拟机上；</li>
-<li>简单，健壮，安全;</li>
-<li>跨平台。</li>
-</ol>
-<h3 id="2-版本"><a href="#2-版本" class="headerlink" title="2. 版本"></a>2. 版本</h3><ol>
-<li>Java SE：Standard Edition，标准版;</li>
-<li>Java EE：Enterprise Edition，企业版;</li>
-<li>Java ME：Micro Edition，移动版。</li>
-</ol>
-<p>需要注意的是，目前的Android开发并非是该移动版本。</p>
-<h3 id="3-规范"><a href="#3-规范" class="headerlink" title="3. 规范"></a>3. 规范</h3><ol>
-<li>JSR：Java Specification Request，Java规范提案；</li>
-<li>JCP：Java Community Process，国际组织；</li>
-<li>RI：Reference Implementation，参考实现；</li>
-<li>TCK：Technology Compatibility Kit，测试套件；</li>
-<li>JDK：Java Development Kit，Java开发套件；</li>
-<li>JRE：Java Runtime Environment，Java运行环境。</li>
-</ol>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2018/01/01/java/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/2/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li><a class="page-number" href="/page/2/">2</a></li><li class="active"><span class="page-number">3</span></li><li><a class="page-number" href="/page/4/">4</a></li><li><a class="page-number" href="/page/5/">5</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/37/">37</a></li><li><a class="page-next" rel="next" href="/page/4/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/2/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li><a class="page-number" href="/page/2/">2</a></li><li class="active"><span class="page-number">3</span></li><li><a class="page-number" href="/page/4/">4</a></li><li><a class="page-number" href="/page/5/">5</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/38/">38</a></li><li><a class="page-next" rel="next" href="/page/4/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -210,7 +261,7 @@ int main(void)
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -219,6 +270,10 @@ int main(void)
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
+        </li>
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
@@ -234,10 +289,6 @@ int main(void)
       
         <li>
           <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
         </li>
       
     </ul>

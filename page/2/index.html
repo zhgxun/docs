@@ -52,6 +52,98 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-jshell" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/21/jshell/">73. Java执行shell命令</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/01/21/jshell/" class="article-date"><time datetime="2018-01-21T11:50:30.000Z" itemprop="datePublished">2018-01-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在PHP中，执行一段shell命令非常简单，直接调用语言函数<code>exec()</code>，<code>system()</code>等即可完成，而且返回值也是显而易见的。但Java不是，做不到这么简单。</p>
+<p>比如在PHP中简单执行<code>exec(&quot;la -al&quot;)</code>的结果：</p>
+<pre><code class="php">// @see http://php.net/manual/zh/function.exec.php
+exec(&#39;ls -l&#39;, $output);
+print_r($output);
+</code></pre>
+<p>输出:</p>
+<pre><code class="bash">zhgxun-pro:~ zhgxun$ php test.php 
+Array
+(
+    [0] =&gt; total 8
+    [1] =&gt; drwx------+ 13 zhgxun  staff   442 Jan 21 19:57 Desktop
+    [2] =&gt; drwx------+ 10 zhgxun  staff   340 Jan  4 22:12 Documents
+    [3] =&gt; drwx------+  9 zhgxun  staff   306 Jan 20 11:45 Downloads
+    [4] =&gt; drwx------@ 56 zhgxun  staff  1904 Dec 16 14:40 Library
+    [5] =&gt; drwx------+  3 zhgxun  staff   102 Aug 24  2015 Movies
+    [6] =&gt; drwx------+  6 zhgxun  staff   204 Dec 21 23:00 Music
+    [7] =&gt; drwx------+  8 zhgxun  staff   272 Mar 27  2017 Pictures
+    [8] =&gt; drwxr-xr-x+  9 zhgxun  staff   306 Dec 25 09:23 Public
+    [9] =&gt; drwxr-xr-x   2 zhgxun  staff    68 Aug 14 14:37 Snapshots
+    [10] =&gt; drwxr-xr-x   4 zhgxun  staff   136 Mar 28  2017 Soft
+    [11] =&gt; drwxr-xr-x   6 zhgxun  staff   204 May 10  2017 go
+    [12] =&gt; -rw-r--r--   1 zhgxun  staff    56 Jan 21 19:56 test.php
+)
+zhgxun-pro:~ zhgxun$ ls -l
+total 8
+drwx------+ 13 zhgxun  staff   442 Jan 21 19:57 Desktop
+drwx------+ 10 zhgxun  staff   340 Jan  4 22:12 Documents
+drwx------+  9 zhgxun  staff   306 Jan 20 11:45 Downloads
+drwx------@ 56 zhgxun  staff  1904 Dec 16 14:40 Library
+drwx------+  3 zhgxun  staff   102 Aug 24  2015 Movies
+drwx------+  6 zhgxun  staff   204 Dec 21 23:00 Music
+drwx------+  8 zhgxun  staff   272 Mar 27  2017 Pictures
+drwxr-xr-x+  9 zhgxun  staff   306 Dec 25 09:23 Public
+drwxr-xr-x   2 zhgxun  staff    68 Aug 14 14:37 Snapshots
+drwxr-xr-x   4 zhgxun  staff   136 Mar 28  2017 Soft
+drwxr-xr-x   6 zhgxun  staff   204 May 10  2017 go
+-rw-r--r--   1 zhgxun  staff    56 Jan 21 19:56 test.php
+zhgxun-pro:~ zhgxun$
+</code></pre>
+<p>然而使用Java，就没这么直接了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2018/01/21/jshell/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-fact" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -161,132 +253,10 @@ int tail(int n, int a)
 </article>
 
   
-    <article id="post-twosum" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/01/01/twosum/" class="article-date"><time datetime="2018-01-01T13:08:43.000Z" itemprop="datePublished">2018-01-01</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://leetcode.com/problems/two-sum/description/" target="_blank" rel="external">Two Sum</a>;</p>
-<pre><code class="java">package github.banana;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * 给一个整数数组和一个目标值, 返回数组中两个元素相加后等于目标值的原数组元素下标
- * 
- * 比如Given nums = [2, 7, 11, 15], target = 9
- * 
- * Because nums[0] + nums[1] = 2 + 7= 9
- * 
- * return [0, 1]
- * 
- * @author zhgxun
- *
- */
-public class TwoSum {
-    public static void main(String[] args) {
-        int[] nums = { 2, 7, 11, 15 };
-        int[] res;
-        res = twoSum(nums, 9);
-        System.out.println(Arrays.toString(res));
-
-        res = twoSumV2(nums, 9);
-        System.out.println(Arrays.toString(res));
-    }
-
-    /**
-     * 双层遍历
-     * 
-     * @param nums
-     * @param target
-     * @return
-     */
-    public static int[] twoSum(int[] nums, int target) {
-        for (int i = 0; i &lt; nums.length; i++) {
-            for (int j = i + 1; j &lt; nums.length; j++) {
-                // 判断值是否相等
-                if (nums[i] + nums[j] == target) {
-                    return new int[] { i, j };
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 使用map
-     * 
-     * @param nums
-     * @param target
-     * @return
-     */
-    public static int[] twoSumV2(int[] nums, int target) {
-        // 存储元素键为数组元素值, 元素值为数组元素下标
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; nums.length; i++) {
-            // 计算的目标值
-            int goal = target - nums[i];
-            // 看该值是否存在于hash表中
-            if (map.containsKey(goal)) {
-                return new int[] { map.get(goal), i };
-            }
-            map.put(nums[i], i);
-        }
-        return null;
-    }
-}
-</code></pre>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/37/">37</a></li><li><a class="page-next" rel="next" href="/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/38/">38</a></li><li><a class="page-next" rel="next" href="/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -297,7 +267,7 @@ public class TwoSum {
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -306,6 +276,10 @@ public class TwoSum {
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
+        </li>
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
@@ -321,10 +295,6 @@ public class TwoSum {
       
         <li>
           <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
         </li>
       
     </ul>

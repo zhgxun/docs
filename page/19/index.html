@@ -52,6 +52,62 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-fall" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/14/fall/">39. 谁会留意这个秋天</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/14/fall/" class="article-date"><time datetime="2017-09-14T00:46:40.000Z" itemprop="datePublished">2017-09-14</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/travel/">travel</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>北京的香山，在很多人眼里，只是个公园。没错，这是景区的香山。</p>
+<p>去年，一个很要好的朋友说，广训，下次你去看红叶时，记得告诉我，我室友她想跟你去。我们去坡峰岭时，她说昨晚加班太久，起不来，就没有去成。一等就是一年。坡峰岭的红叶漫山遍野，是北京周边看红叶最好的地方。香山红叶，只有香山，没什么红叶。</p>
+<p>我们去的香山，是野山。大家习惯在香山邮局集合，沿碧云寺路，穿过小村，朝好汉坡走。可能大部分人的户外之行，都是从香山起步的。香山最经典的路线是从香山到八大处拉练，称香八拉。这条线因为近和方便，也是我们最爱走的路线，经年累月，乐此不疲。有时候周五了，还不知要去哪里，也不想学习时，就在群里吆喝小伙伴们，要不要去香山。</p>
+<p>上周六听说东山村贡梨园的梨可以吃了，商量好要去偷梨，顺便摘些大枣。</p>
+<p>在好汉坡，歇息时我使劲摇路边的树，一阵落叶随风飘洒在四周，才知道秋天已经开始了。一叶落而知秋，这种感觉，对于我，并不是每一年都会有。记得上一次来香山时，那还是春来百花开，跟那段日子流行的电视剧一样，十里桃花，点都不差。站在山顶，颜色最绿的那批，是三角五角的枫树。香山最美的两段路，是好汉坡到植物园和南马场水库。东山村不在这两段路，这一段路是以前的香山古道，走的人并不多。路边多灌木，蚊虫也多，蜘蛛网还不少。周六我手上就被蚊子咬了两个包，到现在都还没好。菜说腿上被咬了六个包，简直了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/14/fall/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-min-abs" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -111,73 +167,10 @@
 </article>
 
   
-    <article id="post-accuracy" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/11/accuracy/">37. PHP处理数学精度</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/11/accuracy/" class="article-date"><time datetime="2017-09-11T02:03:35.000Z" itemprop="datePublished">2017-09-11</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用编程语言做计算，很多时候浮点数精度都是困扰过我的问题，即便是刚学PHP的新手也会在群里问为什么我的计算结果明显不对，而我们总是老态龙钟的丢出一句浮点数计算都存在精度问题，并没有提出过什么实质性的改善。比如下面的计算 <code>0.57*100</code>：</p>
-<pre><code class="bash">zhgxun-pro:~ zhgxun$ php -a
-Interactive shell
-
-php &gt; echo intval(0.57*100);
-56
-php &gt; echo 0.57*100;
-57
-php &gt;
-</code></pre>
-<p>看到结果其实我们已经想到了，很多时候我们忽略精度问题，一定意义上是因为我们没有对计算结果进行类型转换，巧妙的得到了更好的结果值。但是总会有（细心）的开发者会自作聪明的对结果进行指定，恰恰得到了相反的效果。这也是为什么我一直没有仔细想过这个问题的原因，按动态解释性语言的特性，变量都是在运行时才最终确定的，所以不要刻意去转换类型，即便你很确认变量就应该是这个样子的。</p>
-<p>我记得在刚学PHP的时候，偶然间看到网络上高洛峰的一个视频，其间有一句话就说以后你们在PHP编程中，会遇到很多一时半会解释不清楚的问题，那时候你们首先想到的应该是这门语言的特性–解释性，自然你就会慢慢理解了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/11/accuracy/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/18/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/17/">17</a></li><li><a class="page-number" href="/page/18/">18</a></li><li class="active"><span class="page-number">19</span></li><li><a class="page-number" href="/page/20/">20</a></li><li><a class="page-number" href="/page/21/">21</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/37/">37</a></li><li><a class="page-next" rel="next" href="/page/20/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/18/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/17/">17</a></li><li><a class="page-number" href="/page/18/">18</a></li><li class="active"><span class="page-number">19</span></li><li><a class="page-number" href="/page/20/">20</a></li><li><a class="page-number" href="/page/21/">21</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/38/">38</a></li><li><a class="page-next" rel="next" href="/page/20/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -188,7 +181,7 @@ php &gt;
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">19</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -197,6 +190,10 @@ php &gt;
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
+        </li>
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
@@ -212,10 +209,6 @@ php &gt;
       
         <li>
           <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/string/">70. 字符串和字符串函数</a>
         </li>
       
     </ul>
