@@ -52,6 +52,61 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-jdbc" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/25/jdbc/">68. JDBC操作MySQL数据库</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/25/jdbc/" class="article-date"><time datetime="2017-12-25T12:11:03.000Z" itemprop="datePublished">2017-12-25</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于熟悉PHP的人来说，最熟悉的莫过于PDO(PHP Data Object)这个词了。而且Web后端更多的时候也确实是存取数据，反而对代码性能和封装没太大的讲究。虽然偶尔会有人问我，你觉得一个人，代码写的漂亮，特别好；另一个人代码写的一般，你更倾向于哪一种？我说，如果非要选一种，那肯定是写的漂亮又好的还稳定的。但事实上，并不是这么回事。对很多人来说，二者并不是统一的。</p>
+<p>有段时间我还学过Python，但是对于Python操作MySQL数据库相当的泄气，以至于后来我就放弃这门语言了。说实话，这门语言比PHP还有实用的多，而且也是一种新潮的趋势，越来越多的人开始使用这门语言。而且这门语言本身的能力也比PHP要强大的多，可以做很多PHP做不了的事情。</p>
+<p>这几天在疯狂的苦学Java，由于之前学过一段时间的Go，觉得差别不是很大，相对来说还是挺容易的。终于学到操作数据库这一节，这应该是对于使用动态语言的人来说，最为期待的一幕了。在动态语言的世界里，数据库相关的操作，占据了业务的大多数，也占据了代码量相当的一部分。觉得静态语言会不会也很难，当然Go使用MySQL数据库是相当的简单，但是Go的DB包不是特别的好用，不过已经非常完美了。</p>
+<p>让我感到惊讶的是，Java操作MySQL也是如此的简单，得益于jar包的便利，加入一个扩展是如此的方便和快捷。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/12/25/jdbc/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-multi" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -106,87 +161,6 @@
 </article>
 
   
-    <article id="post-arr" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/17/arr/">66. 数组和指针笔记</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/12/17/arr/" class="article-date"><time datetime="2017-12-17T04:21:44.000Z" itemprop="datePublished">2017-12-17</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="1-有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。"><a href="#1-有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。" class="headerlink" title="1. 有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。"></a>1. 有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。</h5><pre><code class="c">const int days[MONTHS]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-</code></pre>
-<p>这样修改后，程序在运行过程中就不能修改该数组中的内容。和普通变量一样，应该使用声明来初始化const数据，因为一旦声明为const，便不能再给它赋值。</p>
-<h5 id="2-使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。"><a href="#2-使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。" class="headerlink" title="2. 使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。"></a>2. 使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。</h5><p>使用未被初始化的变量：</p>
-<pre><code class="c">#include &lt;stdio.h&gt;
-#define SIZE 5
-
-int main(void)
-{
-    int data[SIZE];
-
-    printf(&quot;%2s%14s\n&quot;, &quot;i&quot;, &quot;data[i]&quot;);
-
-    for (int i = 0; i &lt; SIZE; ++i) {
-        printf(&quot;%2d%14d\n&quot;, i, data[i]);
-    }
-
-    return 0;
-}
-</code></pre>
-<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
-zhgxun-pro:c2 zhgxun$ ./a.out 
- i       data[i]
- 0             0
- 1             0
- 2             0
- 3             0
- 4    1600449552
-zhgxun-pro:c2 zhgxun$
-</code></pre>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/12/17/arr/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -201,7 +175,7 @@ zhgxun-pro:c2 zhgxun$
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -210,6 +184,10 @@ zhgxun-pro:c2 zhgxun$
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/21/merge/">76. 归并排序</a>
+        </li>
       
         <li>
           <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
@@ -225,10 +203,6 @@ zhgxun-pro:c2 zhgxun$
       
         <li>
           <a href="/2018/01/10/fact/">72. 尾递归</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
         </li>
       
     </ul>

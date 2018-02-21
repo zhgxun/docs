@@ -52,6 +52,87 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-arr" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/17/arr/">66. 数组和指针笔记</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/17/arr/" class="article-date"><time datetime="2017-12-17T04:21:44.000Z" itemprop="datePublished">2017-12-17</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="1-有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。"><a href="#1-有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。" class="headerlink" title="1. 有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。"></a>1. 有时需要把数组设置为只读。这样，程序只能从数组中检索值，不能把新值写入数组。要创建只读数组，应该用const声明和初始化数组。</h5><pre><code class="c">const int days[MONTHS]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+</code></pre>
+<p>这样修改后，程序在运行过程中就不能修改该数组中的内容。和普通变量一样，应该使用声明来初始化const数据，因为一旦声明为const，便不能再给它赋值。</p>
+<h5 id="2-使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。"><a href="#2-使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。" class="headerlink" title="2. 使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。"></a>2. 使用数组前必须先初始化它。与普通变量类似，在使用数组元素之前，必须先给它们赋初值。编译器使用的值是内存相应位置上的现有值。</h5><p>使用未被初始化的变量：</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+#define SIZE 5
+
+int main(void)
+{
+    int data[SIZE];
+
+    printf(&quot;%2s%14s\n&quot;, &quot;i&quot;, &quot;data[i]&quot;);
+
+    for (int i = 0; i &lt; SIZE; ++i) {
+        printf(&quot;%2d%14d\n&quot;, i, data[i]);
+    }
+
+    return 0;
+}
+</code></pre>
+<pre><code class="bash">zhgxun-pro:c2 zhgxun$ gcc test.c 
+zhgxun-pro:c2 zhgxun$ ./a.out 
+ i       data[i]
+ 0             0
+ 1             0
+ 2             0
+ 3             0
+ 4    1600449552
+zhgxun-pro:c2 zhgxun$
+</code></pre>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/12/17/arr/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-cnote" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -104,73 +185,6 @@
 </article>
 
   
-    <article id="post-mianbao" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/mianbao/">64. 有时候，把工作耽搁几天是无害的</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/12/09/mianbao/" class="article-date"><time datetime="2017-12-09T06:43:03.000Z" itemprop="datePublished">2017-12-09</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>安托万·德·圣埃克苏佩里. 小王子(法国“圣埃克苏佩里基金会”官方认可简体中文译本)(果麦经典) (Kindle Location 378). 天津人民出版社. Kindle Edition. </p>
-<p>节选 Chapter 05</p>
-<p>我每天都对小王子的星球、他的离开，以及他的旅程，有新的了解。这些信息是他在交谈中不经意透露出来的。就这样，在遇到他的第三天，我听说了猴面包树的祸害。</p>
-<p>这次又得感谢那只绵羊，因为小王子突然忧心忡忡地问我：</p>
-<p>“绵羊真的能把矮小的灌木吃掉吗？”</p>
-<p>“是的。是真的。”</p>
-<p>“好啊！我真高兴！”</p>
-<p>我不明白绵羊能把矮小的灌木吃掉有什么重要的。但小王子又问：“那么它也能把猴面包树吃掉咯？”</p>
-<p>我跟小王子说，猴面包树不是矮小的灌木，而是像教堂那么大的乔木，就算他带上整群大象，恐怕也吃不掉一棵猴面包树。带上整群大象这个说法让小王子哈哈大笑。“那必须把它们叠起来才行……”</p>
-<p>但他又说了一句很聪明的话：“猴面包树在长大之前也是小树苗啊。”“那倒是！但你为什么想要绵羊把小猴面包树吃掉呢？”他的回答是：“这还要说吗！”仿佛这里面的道理是显而易见的。我只好绞尽脑汁，自己弄明白这个问题。</p>
-<p>原来和所有星球相同，小王子的星球上有好植物和坏植物。所以那里就有好植物的好种子和坏植物的坏种子。但种子是看不见的。它们隐秘地沉睡在泥土里，直到有的种子突然决定苏醒。接着它会发芽，先是害羞地迎着阳光长出可爱的嫩枝。如果这是萝卜或者玫瑰的嫩芽，你可以任它生长。但如果是坏的植物，那么你认出来之后要马上把它拔掉。小王子的星球上有些可怕的种子……就是猴面包树的种子。它们入侵了那个星球的土地。假如发现得太晚，你就再也不能将猴面包树拔掉。它会覆盖整个星球。它会长出许多树根。如果星球太小，而猴面包树又太多的话，星球最后将会被撑得爆裂。</p>
-<p>“我们那边的规矩是，”后来小王子对我说，“每天早晨洗漱好以后，你必须仔细地清洁和打扮你的星球。你必须强迫自己经常去拔掉猴面包树，它小时候跟玫瑰的幼苗长得很像，你要是能把它认出来，马上就就得拔掉。这是非常乏味的劳动，但也非常简单。”</p>
-<p>有一天，他建议我不妨画一幅美丽的图画，以便我这个星球上的孩子能明白这件事。“将来他们旅行的时候，”他对我说，“你的画对他们会有帮助的。有时候，把工作耽搁几天是无害的。但说到猴面包树，拖延会造成大灾难。我知道某个星球上住着一个懒惰的家伙。他忽略了三株猴面包树的幼苗……”</p>
-<p>在小王子的指导下，我画出了那个星球。我不想采用道德家的口吻。但猴面包树的危害很少有人知道，而人们迷路踏上小行星的可能性又很大，所以我打算不再保持沉默，而是破例地呼吁：“孩子们！当心猴面包树！”我用心去画这张图，是为了提醒朋友们注意，他们就像我自己，已经在危险边缘逗留了太久。花心思给大家上这一课还是很值的。你也许会问：“这本书里其他图画，为什么不像这幅猴面包树的图画这么漂亮呢？”答案十分简单：我也想画得这么漂亮，但没有成功。在画猴面包树的时候，有种紧迫感在驱动着我。</p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/12/09/mianbao/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -185,7 +199,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -194,6 +208,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/21/merge/">76. 归并排序</a>
+        </li>
       
         <li>
           <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
@@ -209,10 +227,6 @@
       
         <li>
           <a href="/2018/01/10/fact/">72. 尾递归</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
         </li>
       
     </ul>

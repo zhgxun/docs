@@ -52,6 +52,85 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-flow" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/11/flow/">58. 流量切分</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/11/11/flow/" class="article-date"><time datetime="2017-11-11T09:04:31.000Z" itemprop="datePublished">2017-11-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前不久接到一个需求，新接入一个保险公司，一开始只需要切入20%的流量。一时半会还想不出来有什么好的办法。</p>
+<p>其实每个学过编程的人都或多或少接触过这些东西，最常见的莫过于nginx负载均衡了。切分流量也是类似的道理，就跟分库分表一样，就是一种计算规则，将一个用户定位到一个区间上。当让要考虑到正态分布，使其尽可能平均，不要造成一个区间数量过于太大即可。</p>
+<p>这次我们采取的方式就是，由于产品是在一个域中，就考虑到用用户的标识COOKIE来处理，当用户未登陆时随机分配一个权值即可。用PHP的方式如下：</p>
+<pre><code class="php">function flow()
+{
+    // 假如当前登陆用户的COOKIE为该值
+    $_COOKIE[&#39;id&#39;] = &#39;vW8ySjnxAeLF5cV5-bo4NeL94Mu1SzDMm3myEIdQktiHtW0G&#39;;
+    if (isset($_COOKIE[&#39;id&#39;])) {
+        $length = strlen($_COOKIE[&#39;id&#39;]);
+        $num = 0;
+        for ($i = 0; $i &lt; $length; $i++) {
+            $num += ord($_COOKIE[&#39;id&#39;][$i]);
+        }
+        return $num % 100;
+    }
+    return rand(1, 100);
+}
+
+echo &quot;当前权重\n&quot;;
+echo flow();
+echo &quot;\n&quot;;
+</code></pre>
+<p>计算结果为：</p>
+<pre><code class="bash">zhgxun-pro:php zhgxun$ php flow.php 
+当前权重
+2
+zhgxun-pro:php zhgxun$
+</code></pre>
+<p>这样业务方就可以根据返回的数值进行后续操作了。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-wutaishan" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -121,61 +200,6 @@
 </article>
 
   
-    <article id="post-taishan" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/26/taishan/">56. 泰山</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/26/taishan/" class="article-date"><time datetime="2017-09-26T03:11:42.000Z" itemprop="datePublished">2017-09-26</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/travel/">travel</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一</p>
-<p>国庆的时候，有龙就叫我一起来夜爬泰山。节假日景区都异常的拥挤，就说太麻烦，不去。后来他就把车票和门票都退了，我们自己去香山进香古道爬了一次东山村。上周狗牙山徒步回来后，我问起，说这周来泰山，两人毫不犹豫的就决定了。</p>
-<p>周二看了下攻略，周三就买了来回的车票。出去玩都遵循第一天出门可以下班后走，就看时间，刚好有一次K51从北京到日照的火车，晚上23：06分走，早上六点过到泰山只要78元，就定了这张车票。刚开始还想爬完泰山，晚上赶去济南市区，从济南坐高铁回北京。后来想，泰安也有高铁，去济南市区也只是吃一顿饭，就选择从泰安回，买了周日下午14：00的G42次车，回到北京差不多4点，我回回龙观应该不到19点，正合适。我还预定了泰山红门附近的青年旅社。</p>
-<p>毕竟第一次来泰安，很多东西完全不知道，还想求一本入泰安进城务工防骗指南。问了下小逸，她也没来过泰山，让我问老大。在狗牙山的途中，听他们说起，泰山有三条路可以走，最经典的就是中天门到南天门这一条，但是这一条走的人特别的多；最有意思的还是后山那条路，特别漂亮，多的就没说什么了。小闲还说多喝水来多看报，便宜不贪多吃瓜，小明还把晓铮那天在朋友圈的评论拖出来，越漂亮的女人越会骗人。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/26/taishan/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -190,7 +214,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -199,6 +223,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/21/merge/">76. 归并排序</a>
+        </li>
       
         <li>
           <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
@@ -214,10 +242,6 @@
       
         <li>
           <a href="/2018/01/10/fact/">72. 尾递归</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/01/twosum/">71. 查找数组中元素的下标</a>
         </li>
       
     </ul>

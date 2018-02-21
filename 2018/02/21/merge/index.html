@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>76. 归并排序 | 张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-merge" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      76. 归并排序
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/02/21/merge/" class="article-date"><time datetime="2018-02-21T05:40:11.000Z" itemprop="datePublished">2018-02-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>归并排序是典型的分治算法，它不断地将某个数组分为两个部分，分别对左子数组与右子数组进行排序，然后将两个数组合并为新的有序数组。</p>
+<p>一般来说，小文件单机版排序比并发排序更快一些，但是大文件无法一次性读入内存处理，需要分块处理。单机版排序无法做到分布式排序，分布式排序需要联网进行，网络传输跟通道传输非常类似，稍作修改就可以做到在网络上进行排序。</p>
+<p>并行和并发是有区别的，依赖操作系统和硬件是否支持。同时，在允许的情况下，使用有缓冲的通道和使用文件读写缓冲，有利于加快程序的处理速度，避免及时阻塞。</p>
+<h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><p>对一个整数数组进行排序，系统库中已经提供了排序函数，直接使用即可。需要注意的是，Go中使用通道，使用不当会造成死锁。需要注意通道的使用，否则一运行就发生竞争条件造成程序无法执行而终止。</p>
+<pre><code class="go">// 按升序排序
+func InMemSort(in &lt;-chan int) &lt;-chan int {
+    out := make(chan int, 4096)
+
+    // 启动一个协程输出排序数据
+    go func() {
+        var a []int
+        for v := range in {
+            a = append(a, v)
+        }
+        fmt.Println(&quot;Read done: &quot;, time.Now().Sub(startTime))
+
+        sort.Ints(a)
+        fmt.Println(&quot;Sort done: &quot;, time.Now().Sub(startTime))
+
+        // 将排序好的数据输出至通道中
+        for _, n := range a {
+            out &lt;- n
+        }
+
+        close(out)
+    }()
+
+    return out
+}
+</code></pre>
+<p>通常来说，协程的使用是成对出现的，并且习惯用Go匿名函数来操作。需要留意匿名函数的传参问题，可以去官方文档进行查看。go程运行时，函数调用是瞬间返回的。如果在其它地方使用range操作来处理通道，在通道数据发送完毕时必须显示关闭通道，否则必是死锁错误。</p>
+<a id="more"></a>
+<h2 id="合并两个有序数组"><a href="#合并两个有序数组" class="headerlink" title="合并两个有序数组"></a>合并两个有序数组</h2><p>归并排序是分别进行的，每一块排序完成后，需要等待另外的块排序完毕后，才可继续进行。通道能很方便的做到这个操作，每一个读通道都是阻塞的，在未读取到数据之前，始终等待。</p>
+<pre><code class="go">// 按升序合并两个通道中数据
+func Merge(in1, in2 &lt;-chan int) &lt;-chan int {
+    out := make(chan int, 4096)
+
+    go func() {
+        v1, ok1 := &lt;-in1
+        v2, ok2 := &lt;-in2
+        for ok1 || ok2 {
+            if !ok2 || (ok1 &amp;&amp; v1 &lt;= v2) {
+                out &lt;- v1
+                v1, ok1 = &lt;-in1
+            } else {
+                out &lt;- v2
+                v2, ok2 = &lt;-in2
+            }
+        }
+
+        close(out)
+        fmt.Println(&quot;Merge done: &quot;, time.Now().Sub(startTime))
+    }()
+
+    return out
+}
+</code></pre>
+<p>合并两个有序数组时，也要遵循一定的顺序合并，最终的数据才是有顺序的。这块是程序执行最难的一处，无法并行排序，只能一次合并有序数组。</p>
+<h2 id="递归合并数组"><a href="#递归合并数组" class="headerlink" title="递归合并数组"></a>递归合并数组</h2><p>可变通道的递归合并，一般也是按中点切分，区间内进行递归合并。</p>
+<pre><code class="go">// 递归进行两两归并
+func MergeN(ins ...&lt;-chan int) &lt;-chan int {
+    // 只有一个通道时直接返回
+    if len(ins) == 1 {
+        return ins[0]
+    }
+
+    // 取中点
+    m := len(ins) / 2
+
+    // 递归归并
+    return Merge(MergeN(ins[:m]...), MergeN(ins[m:]...))
+}
+</code></pre>
+<p>如果只有一个通道时不需要递归，直接退出即可。需要注意的是，递归合并始终传递可变通道类型。</p>
+<h2 id="从源读取数据"><a href="#从源读取数据" class="headerlink" title="从源读取数据"></a>从源读取数据</h2><p>Go习惯用法是接口类型，即可读数据源均可，包括文件，网络，甚至各种输入类型，而不是简单的FileSource形式，而是更广泛意义上的可读源。</p>
+<pre><code class="go">// 从可读位置读入数据
+// 读入指定长度的数据, 为-1时一次性全部读完
+func ReadSource(reader io.Reader, chunkSize int) &lt;-chan int {
+    out := make(chan int, 4096)
+
+    go func() {
+        buffer := make([]byte, 8)
+        size := 0
+        for {
+            n, err := reader.Read(buffer)
+            size += n
+            if n &gt; 0 {
+                v := int(binary.BigEndian.Uint64(buffer))
+                out &lt;- v
+            }
+            if err != nil || (chunkSize != -1 &amp;&amp; size &gt;= chunkSize) {
+                break
+            }
+        }
+
+        close(out)
+    }()
+
+    return out
+}
+</code></pre>
+<p>以二进制的方式读数据，同时使用有缓冲的读操作，加快文件读取速度。如果尺寸为-1时完全一次性读取文件，否则读取指定大小的文件。文件读取有一个偏移量，默认从偏移量处开始往后读取到指定的尺寸。</p>
+<h2 id="写数据到文件"><a href="#写数据到文件" class="headerlink" title="写数据到文件"></a>写数据到文件</h2><p>写文件基本都类似，也是按二进制方式写入数据到文件。</p>
+<pre><code class="go">// 向可写输入写入数据
+func WriteSink(writer io.Writer, in &lt;-chan int) {
+    for m := range in {
+        buffer := make([]byte, 8)
+        binary.BigEndian.PutUint64(buffer, uint64(m))
+        writer.Write(buffer)
+    }
+}
+</code></pre>
+<p>该处写文件不需要另起协程，当然也可以起协程，效果不明显。</p>
+<h2 id="生成样本数据"><a href="#生成样本数据" class="headerlink" title="生成样本数据"></a>生成样本数据</h2><p>生成指定大小的随机整数数据来测试用。</p>
+<pre><code class="go">// 生成指定数量的随机整数
+func RandomSource(count int) &lt;-chan int {
+    out := make(chan int)
+
+    go func() {
+        for i := 0; i &lt; count; i++ {
+            out &lt;- rand.Int()
+        }
+
+        close(out)
+    }()
+
+    return out
+}
+</code></pre>
+<p>生成简单整数即可。</p>
+<h2 id="分片读取文件内容"><a href="#分片读取文件内容" class="headerlink" title="分片读取文件内容"></a>分片读取文件内容</h2><p>分片的实现，其实就是指定一次性读取多大文件内容而已。实现方式很多，一般就是读取等大小的块，该处需要注意的是，文件的完整性，如果读取的内容是不完整，或者被错误分隔的，将造成数据的不完整或错误。</p>
+<pre><code class="go">// 可读入资源切片
+func create(fileName string, fileSize, count int) &lt;-chan int {
+    chunkSize := fileSize / count
+
+    var result []&lt;-chan int
+    for i := 0; i &lt; count; i++ {
+        file, err := os.Open(fileName)
+        if err != nil {
+            panic(err)
+        }
+        // 设置文件偏移量, 并从偏移量开始0处读取文件内容
+        file.Seek(int64(i*chunkSize), 0)
+
+        p := util.ReadSource(bufio.NewReader(file), chunkSize)
+
+        result = append(result, util.InMemSort(p))
+    }
+
+    return util.MergeN(result...)
+}
+</code></pre>
+<p>该处实现文件切片并归并排序，也是最主要的外部排序实现方式。注意文件偏移量的概念和读方式。</p>
+<h2 id="将排序数据写入文件"><a href="#将排序数据写入文件" class="headerlink" title="将排序数据写入文件"></a>将排序数据写入文件</h2><p>排序完成后将数据写入结果文件中，便于后续直接处理有序的文件内容。</p>
+<pre><code class="go">// 将排序好的数据写入文件中
+func write(in &lt;-chan int, fileName string) {
+    file, err := os.Create(fileName)
+    if err != nil {
+        panic(err)
+    }
+    defer file.Close()
+
+    w := bufio.NewWriter(file)
+    defer w.Flush()
+
+    util.WriteSink(w, in)
+}
+</code></pre>
+<p>缓冲写数据需要注意，可能缓冲区未满，文件就写结束，需要强制刷新缓冲区，避免丢失未来得及写入的部分数据。</p>
+<h2 id="打印排序结果"><a href="#打印排序结果" class="headerlink" title="打印排序结果"></a>打印排序结果</h2><p>文件过大时全部数据可能无法输出，内存不够，故只输出一部分数据即可。</p>
+<pre><code class="go">// 输出文件内容
+func echo(fileName string) {
+    file, err := os.Open(fileName)
+    if err != nil {
+        panic(err)
+    }
+    defer file.Close()
+
+    p := util.ReadSource(file, -1)
+    n := 0
+    for m := range p {
+        fmt.Println(m)
+        n++
+        if n &gt;= 100 {
+            break
+        }
+    }
+}
+</code></pre>
+<p>排序一个800M的整数数据，文件分4块，可以看到读取，内部排序都比较快，比较慢的部分是归并部分，归并部分需要每个数据进行比较，故速度会稍微慢一些。</p>
+<pre><code class="bash">GOROOT=/usr/local/go #gosetup
+GOPATH=/Users/zhgxun/go #gosetup
+/usr/local/go/bin/go build -i -o /private/var/folders/9g/jnc134qd1q109tbwlrqx724m0000gn/T/___go_build_merge_go /Users/zhgxun/go/src/notes/go/merge.go #gosetup
+/private/var/folders/9g/jnc134qd1q109tbwlrqx724m0000gn/T/___go_build_merge_go #gosetup
+Read done:  6.999545181s
+Read done:  7.66175118s
+Read done:  8.459462212s
+Read done:  8.816146958s
+Sort done:  19.166359357s
+Sort done:  19.4937898s
+Sort done:  19.999469296s
+Sort done:  20.299377746s
+Merge done:  44.900010813s
+Merge done:  44.900058988s
+Merge done:  44.90163168s
+30554741346
+217339476874
+223812424683
+......
+</code></pre>
+<p><a href="https://github.com/zhgxun/notes/blob/master/go/merge.go">完整实例</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/02/20/mq/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">75. “你在森林，我在达达拉”</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
