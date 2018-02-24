@@ -52,6 +52,61 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-mq" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/02/20/mq/" class="article-date"><time datetime="2018-02-20T09:09:10.000Z" itemprop="datePublished">2018-02-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/travel/">travel</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>就像都市里大多数人一样，一辈子也不会认识，却一直生活在一起。 <em>__</em>《向左走向右走》</p>
+</blockquote>
+<h2 id="一、买票"><a href="#一、买票" class="headerlink" title="一、买票"></a>一、买票</h2><p>按以往上班习惯，公司会提前告知春节放假通知。吃饭时听他们讲，百度只走法定节假日，但是你们可以根据自己的情况酌情调休。去年没回家，每次打电话，家里人都是问什么时候回家，就决定今年回家。看了下票的情况和休假安排，选择2月9号回家，连返程票一并买好。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2018/02/20/mq/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-cal" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -175,102 +230,10 @@ Process finished with exit code 0
 </article>
 
   
-    <article id="post-jshell" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/21/jshell/">73. Java执行shell命令</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/01/21/jshell/" class="article-date"><time datetime="2018-01-21T11:50:30.000Z" itemprop="datePublished">2018-01-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在PHP中，执行一段shell命令非常简单，直接调用语言函数<code>exec()</code>，<code>system()</code>等即可完成，而且返回值也是显而易见的。但Java不是，做不到这么简单。</p>
-<p>比如在PHP中简单执行<code>exec(&quot;la -al&quot;)</code>的结果：</p>
-<pre><code class="php">// @see http://php.net/manual/zh/function.exec.php
-exec(&#39;ls -l&#39;, $output);
-print_r($output);
-</code></pre>
-<p>输出:</p>
-<pre><code class="bash">zhgxun-pro:~ zhgxun$ php test.php 
-Array
-(
-    [0] =&gt; total 8
-    [1] =&gt; drwx------+ 13 zhgxun  staff   442 Jan 21 19:57 Desktop
-    [2] =&gt; drwx------+ 10 zhgxun  staff   340 Jan  4 22:12 Documents
-    [3] =&gt; drwx------+  9 zhgxun  staff   306 Jan 20 11:45 Downloads
-    [4] =&gt; drwx------@ 56 zhgxun  staff  1904 Dec 16 14:40 Library
-    [5] =&gt; drwx------+  3 zhgxun  staff   102 Aug 24  2015 Movies
-    [6] =&gt; drwx------+  6 zhgxun  staff   204 Dec 21 23:00 Music
-    [7] =&gt; drwx------+  8 zhgxun  staff   272 Mar 27  2017 Pictures
-    [8] =&gt; drwxr-xr-x+  9 zhgxun  staff   306 Dec 25 09:23 Public
-    [9] =&gt; drwxr-xr-x   2 zhgxun  staff    68 Aug 14 14:37 Snapshots
-    [10] =&gt; drwxr-xr-x   4 zhgxun  staff   136 Mar 28  2017 Soft
-    [11] =&gt; drwxr-xr-x   6 zhgxun  staff   204 May 10  2017 go
-    [12] =&gt; -rw-r--r--   1 zhgxun  staff    56 Jan 21 19:56 test.php
-)
-zhgxun-pro:~ zhgxun$ ls -l
-total 8
-drwx------+ 13 zhgxun  staff   442 Jan 21 19:57 Desktop
-drwx------+ 10 zhgxun  staff   340 Jan  4 22:12 Documents
-drwx------+  9 zhgxun  staff   306 Jan 20 11:45 Downloads
-drwx------@ 56 zhgxun  staff  1904 Dec 16 14:40 Library
-drwx------+  3 zhgxun  staff   102 Aug 24  2015 Movies
-drwx------+  6 zhgxun  staff   204 Dec 21 23:00 Music
-drwx------+  8 zhgxun  staff   272 Mar 27  2017 Pictures
-drwxr-xr-x+  9 zhgxun  staff   306 Dec 25 09:23 Public
-drwxr-xr-x   2 zhgxun  staff    68 Aug 14 14:37 Snapshots
-drwxr-xr-x   4 zhgxun  staff   136 Mar 28  2017 Soft
-drwxr-xr-x   6 zhgxun  staff   204 May 10  2017 go
--rw-r--r--   1 zhgxun  staff    56 Jan 21 19:56 test.php
-zhgxun-pro:~ zhgxun$
-</code></pre>
-<p>然而使用Java，就没这么直接了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2018/01/21/jshell/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/38/">38</a></li><li><a class="page-next" rel="next" href="/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/page/3/">3</a></li><li><a class="page-number" href="/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/39/">39</a></li><li><a class="page-next" rel="next" href="/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -281,7 +244,7 @@ zhgxun-pro:~ zhgxun$
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -290,6 +253,10 @@ zhgxun-pro:~ zhgxun$
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
+        </li>
       
         <li>
           <a href="/2018/02/21/merge/">76. 归并排序</a>
@@ -305,10 +272,6 @@ zhgxun-pro:~ zhgxun$
       
         <li>
           <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/10/fact/">72. 尾递归</a>
         </li>
       
     </ul>

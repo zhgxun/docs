@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>77. 本地机器查看线上机器日志 | 张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-get-log" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      77. 本地机器查看线上机器日志
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/02/25/get-log/" class="article-date"><time datetime="2018-02-24T16:07:51.000Z" itemprop="datePublished">2018-02-25</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>一般来说，线上机器为了安全，都不允许直接登录系统，通常的做法是通过中间机器去登录，比如我们熟知的跳板机。</p>
+<p>通常都需要先登录跳板机，从跳板机继续登录线上机器去查看日志。当机器有多台，并且无法知道要查看的日志在哪台机器时，会特别的苦恼，盲目的尝试几台机器后觉得非常的沮丧。觉得肯定有好的办法，免去盲目登录的苦恼。</p>
+<h2 id="Expect"><a href="#Expect" class="headerlink" title="Expect"></a>Expect</h2><p>确实如此，有这么一个免费的编程工具语言有这种能完成用户交互的功能，它就是Expect。<a href="https://baike.baidu.com/item/expect/4598715#viewPageContent" target="_blank" rel="external">百度百科</a>这么描述：”用来实现自动和交互式任务进行通信，而无需人的干预。Expect的作者Don Libes在1990年开始编写Expect时对Expect做有如下定义：Expect是一个用来实现自动交互功能的软件套件(Expect [is a] software suite for automating interactive tools)。使用它，系统管理员可以创建脚本来对命令或程序进行输入，而这些命令和程序是期望从终端（terminal）得到输入，一般来说这些输入都需要手工输入进行的。Expect则可以根据程序的提示模拟标准输入提供给程序需要的输入来实现交互程序执行。”</p>
+<p>基于这个考虑，参考已有自动登录开发机的文章，我写了这个shell脚本，来方便查看线上机器日志。</p>
+<p>基本语法可参考这篇，<a href="https://www.cnblogs.com/yinghao1991/p/6926125.html" target="_blank" rel="external">Expect使用小记</a>，官网目测是无法访问了。</p>
+<a id="more"></a>
+<h2 id="配置ssh免密码登录"><a href="#配置ssh免密码登录" class="headerlink" title="配置ssh免密码登录"></a>配置ssh免密码登录</h2><p>需要先配置ssh免密码登录，在自己的本地机器新增配置文件$HOME/.ssh/config，并输入以下内容：</p>
+<pre><code class="bash">$: ~ zhangguangxun$ cat .ssh/config 
+Host *  
+ControlMaster auto 
+
+ControlPath ~/.ssh/master-%r@%h:%p  
+ControlPersist yes
+ServerAliveInterval 60
+$: ~ zhangguangxun$
+</code></pre>
+<h2 id="Expect自动登录机器"><a href="#Expect自动登录机器" class="headerlink" title="Expect自动登录机器"></a>Expect自动登录机器</h2><p>该脚本我命名为auto_expect，并存放在家目录下$HOME/auto_expect，可任意命名，但要注意下一个文件中的可执行文件调用脚本应该与该处命名一致。</p>
+<pre><code class="bash">#!/usr/bin/expect
+
+# expect 进行交互式登录线上系统
+# 一般公司线上系统都是通过中间机器登录，不允许直接从本机登录，故受到很多限制
+# Expect是一个可以和交互式程序对话的程序
+# 语法可参考：https://www.cnblogs.com/yinghao1991/p/6926125.html
+# 官网无法打开，未能进行浏览
+
+# relay用户名
+set USER [lindex $argv 0]
+
+# relay PIN码
+set PIN [lindex $argv 1]
+
+# [可选]开发机地址, 如：user@host
+set HOST [lindex $argv 2]
+
+# [命令] 需要在线上机器执行的命令全称，写在一行内
+set CMD [lindex $argv 3]
+
+# [可选]开发机密码
+set PASSWORD [lindex $argv 4]
+
+# 登录relay
+# 创建一个新的进程运行program [args]。program的标准输入、标准输出和标准错误都连接到Expect，这样程序就可以被Expect读写了。
+spawn /usr/bin/ssh $USER@你自己的跳板机地址
+
+# 打开调试模式
+#exp_internal 1
+
+# relay PIN码 + Token(Token需手动输入)
+# 等待，直到模式patn匹配到spawn打开的进程的输出，超过指定的时间，或遇到EOF。
+expect {
+    # 正则表达式，在单项前面指定匹配
+    -re &quot;password:*&quot; {
+        # 类似send，不过输出发送到标准输出，而不是当前进程。
+        send_user &quot;PIN:****** + Token:&quot;
+
+        # 类似expect，不过是从标准输入读取字符，行必须以回车结尾，以使expect能识别它们。 
+        expect_user {
+            # 不超时等待
+            -timeout -1
+            # 正则匹配
+            -re &quot;(.*)\n&quot;
+        }
+        set TOKEN $expect_out(buffer)
+
+        # 发送string到当前进程
+        send &quot;$PIN$TOKEN\r&quot;
+
+        # 允许expect继续执行自身而不是往下执行，默认情况下，exp_continue会重置timeout，如果不想重置timeout，使用-continue_timer选项。
+        exp_continue
+    }
+
+    # 自动登录开发机
+    -re &quot;-bash-baidu-ssl*&quot; {
+        if { &quot;$HOST&quot; != &quot;&quot; } {
+            # 自动登录到指定的机器
+            send &quot;ssh --silent $HOST\r&quot;
+
+            # [可选]自动开发机输入密码
+            if { &quot;$PASSWORD&quot; != &quot;&quot; } {
+                expect -re &quot;password:&quot; { send &quot;$PASSWORD\r&quot; }
+            }
+
+            # 已经登录到机器，在机器上直接执行命令，可手动换行，或者自动换行即是末尾加\r标识符
+            send &quot;$CMD\r&quot;
+
+            # 为了便于查看日志，需要手动退出不自动处理
+        }
+    }
+}
+# 关闭调试模式
+#exp_internal 0
+# 将当前进程的控制权交付给用户
+interact
+# Expec退出
+exit
+</code></pre>
+<h2 id="本地操作命令"><a href="#本地操作命令" class="headerlink" title="本地操作命令"></a>本地操作命令</h2><p>下面这个文件我取名为get_log.sh，通过该脚本来执行来获取线上机器的日志信息。该脚本依赖上一个脚本auto_expect，需要注意路径一致。</p>
+<pre><code class="bash">#!/bin/bash
+
+#********************脚本说明********************#
+
+# 该脚本的运行需要依赖脚本 auto_expect，将其部署到家目录$HOME下，比如/Users/baidu/auto_expect
+#
+# 命令例子：
+# sh get_log.sh &quot;cd /home/zhangguangxun/log/trade/ &amp;&amp; more trade.log.20180223* | grep &#39;orderdetailRet&#39; | wc -l&quot;
+#
+# 需要每台机器分别查看，手动输入exit退出后进入到下一台机器
+#
+
+#***********************************************#
+
+#********************账户信息配置********************#
+
+# 账号和PIN码
+# 自己的授权开发账号
+USER_NAME=&quot;自己账号&quot;
+# 自己的安全key
+PIN=&quot;自己安全key&quot;
+
+# 配置环境 dev个人开发机, mirror预览机器, ......, all除开发机外的所有线上机器
+MODE=&quot;dev&quot;
+
+#**************************************************#
+
+#********************机器信息配置********************#
+
+# 个人开发机
+DEV_HOST=(10.99.201.110)
+
+# 预览机
+MIRROR_HOST=(......)
+
+# 北京机房
+BJ_HOST=(......)
+
+# 广州机房
+GZ_HOST=(......)
+
+#***************************************************#
+
+# 获取需要执行的日志命令, $0为执行命令名, 从$1开始获取传递的参数
+# 至少需要1个参数
+if [ $# -lt 1 ];
+then
+    echo &quot;参数个数不够，至少需要传入一个参数：查找日志的命令名&quot;
+    exit 255
+fi
+CMD=$1
+
+# 确定机器, 数组赋值和多个数组一并赋值
+if [ $MODE = &quot;dev&quot; ];
+then
+    HOST=(${DEV_HOST[@]})
+elif [ $MODE = &quot;mirror&quot; ];
+then
+    HOST=(${MIRROR_HOST[@]})
+elif [ $MODE = &quot;bj&quot; ];
+then
+    HOST=(${BJ_HOST[@]})
+elif [ $MODE = &quot;gz&quot; ];
+then
+    HOST=(${GZ_HOST[@]})
+else
+    HOST=(${MIRROR_HOST[@]} ${BJ_HOST[@]} ${GZ_HOST[@]})
+fi
+
+# 遍历机器
+for i in ${!HOST[@]};
+do
+    # 使用expect方式依次登录机器，注意命令需要使用双引号包含起来避免被空格分割成单一参数
+    /usr/bin/expect $HOME/auto_expect $USER_NAME $PIN ${HOST[$i]} &quot;$CMD&quot;
+done
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/02/21/merge/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">76. 归并排序</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

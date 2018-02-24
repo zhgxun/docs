@@ -52,6 +52,70 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-httprpc" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/19/httprpc/">45. Go http rpc 笔记</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/19/httprpc/" class="article-date"><time datetime="2017-09-19T04:49:54.000Z" itemprop="datePublished">2017-09-19</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>rpc包提供了通过网络或其他I/O连接对一个对象的导出方法的访问。服务端注册一个对象，使它作为一个服务被暴露，服务的名字是该对象的类型名。注册之后，对象的导出方法就可以被远程访问。服务端可以注册多个不同类型的对象(服务)，但注册具有相同类型的多个对象是错误的。</p>
+<p>只有满足如下标准的方法才能用于远程访问，其余方法会被忽略:</p>
+<ol>
+<li>方法是导出的；</li>
+<li>方法有两个参数，都是导出类型或内建类型；</li>
+<li>方法的第二个参数是指针；</li>
+<li>方法只有一个error接口类型的返回值。</li>
+</ol>
+<p>事实上，方法必须看起来像这样：</p>
+<pre><code class="go">func (t *T) MethodName(argType T1，replyType *T2) error
+</code></pre>
+<p>其中T，T1和T2都能被 encoding/gob 包序列化；这些限制即使使用不同的编解码器也适用(未来，对定制的编解码器可能会使用较宽松一点的限制)。</p>
+<p>方法的第一个参数代表调用者提供的参数；第二个参数代表返回给调用者的参数。方法的返回值，如果非nil，将被作为字符串回传，在客户端看来就和errors.New创建的一样。如果返回了错误，回复的参数将不会被发送给客户端。<br>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/19/httprpc/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-kubuqi" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -105,63 +169,10 @@
 </article>
 
   
-    <article id="post-home" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/17/home/">43. 搬家</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/17/home/" class="article-date"><time datetime="2017-09-17T13:33:24.000Z" itemprop="datePublished">2017-09-17</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/travel/">travel</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>3月关键词–搬家。</p>
-<p>上周就应该开始看房子了，被别的事耽搁，推到前天才开始在周边看房。去年也是这时候特别着急找房，就跟中介我爱我家签了新龙城三期的房子。是个阳隔，客厅还挺大，有阳台。那时候我们是三个人住，中介还给我们换成两个大的双人床。我记得当时我带着行李来时，中介是一个跟我们年龄相仿的小伙子，还挺会说话的。说你们住进来，大家要保持公共区域的卫生。像客厅和卫生间，我每个月给大家叫一次保洁。虽然一次没多少钱，但是大家互相照顾一下，你们也负担个二十三十的，并不是说非要扣你们这个钱，只是告诉大家要保持整洁。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/17/home/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/16/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/15/">15</a></li><li><a class="page-number" href="/page/16/">16</a></li><li class="active"><span class="page-number">17</span></li><li><a class="page-number" href="/page/18/">18</a></li><li><a class="page-number" href="/page/19/">19</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/38/">38</a></li><li><a class="page-next" rel="next" href="/page/18/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/16/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/15/">15</a></li><li><a class="page-number" href="/page/16/">16</a></li><li class="active"><span class="page-number">17</span></li><li><a class="page-number" href="/page/18/">18</a></li><li><a class="page-number" href="/page/19/">19</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/39/">39</a></li><li><a class="page-next" rel="next" href="/page/18/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -172,7 +183,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">15</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -181,6 +192,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
+        </li>
       
         <li>
           <a href="/2018/02/21/merge/">76. 归并排序</a>
@@ -196,10 +211,6 @@
       
         <li>
           <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/10/fact/">72. 尾递归</a>
         </li>
       
     </ul>
