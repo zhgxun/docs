@@ -52,6 +52,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-custom" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/03/custom/">30. Yii2在DetailView中使用自定义方法解析模型数据</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/03/custom/" class="article-date"><time datetime="2017-09-03T10:56:32.000Z" itemprop="datePublished">2017-09-03</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者：尐邪|2015-4-23 交流探讨</p>
+<p>说明：yii2提供了足够解析模型数据的方法，但有时候我们还是需要实现一些自定义的数据格式，如果框架提供的方法不足以满足要求时，除了直接在模板中改写外，其实可以看看框架的源码，为框架增加更多的新方法。前几天在群里看到说，yii2的作者已经转go了，这个框架更新已经不在积极。</p>
+<p>如GridView Widget中可以使用匿名方法对模型数据进行自定义格式化处理类似，DetailView Widget也提供了类似的处理方法，只是稍微繁琐一些，查看DetailView源码可以发现：</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/03/custom/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-reg-ip" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -113,60 +167,6 @@
 </article>
 
   
-    <article id="post-swoole-platform" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/26/swoole-platform/">28. 用swoole_process写一个跑数平台</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/26/swoole-platform/" class="article-date"><time datetime="2017-08-26T04:19:30.000Z" itemprop="datePublished">2017-08-26</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>还是在上家公司的时候，同事在群里突然发了这个<a href="http://www.swoole.com" target="_blank" rel="external">Swoole</a>连接，才看到原来PHP还有这么一个扩展，顺便了也发<a href="http://www.workerman.net" target="_blank" rel="external">Workerman</a>，说也是PHP新的通信框架，而swoole则重新定义了PHP，那时候项目中还没使用这些扩展，就没去看过文档。前不久，这家公司当时带我的这位小伙伴突然告诉说，他们在准备要用swoole重构下一版接口了。</p>
-<p>刚好这段时间我们也在准备街电的财务项目，用了<a href="https://laravel.com" target="_blank" rel="external">Laravel</a>框架，顺便也提前重新写一下跑数平台。以前没做过类似的工具，不知道怎么设计好，就借鉴了原来项目的跑数平台，完全是迁移过来的，并没有自己多的独特创造。</p>
-<h2 id="1-起因"><a href="#1-起因" class="headerlink" title="1. 起因"></a>1. 起因</h2><p>Laravel框架提供了非常丰富的控制台<a href="http://d.laravel-china.org/docs/5.4/artisan" target="_blank" rel="external">Artisan 命令行工具</a>和<a href="http://d.laravel-china.org/docs/5.4/scheduling" target="_blank" rel="external">任务调度功能Task</a>应用，对于测试通过和已经运行正常的脚本来说，直接添加不需要观察就可以很好的得到执行，但是线上项目我没有权限登陆控制台手动去运行命令，也不想申请这些权限，故只能依赖后台网页端来输入命令，让它自动执行，收集每一个脚本的输出结果，执行完毕后直接发邮件给我就行。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/26/swoole-platform/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -181,7 +181,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -190,6 +190,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
+        </li>
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
@@ -205,10 +209,6 @@
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
         </li>
       
     </ul>

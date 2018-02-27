@@ -52,6 +52,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-day" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/24/day/">10. 日复一日</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/07/24/day/" class="article-date"><time datetime="2017-07-24T14:44:02.000Z" itemprop="datePublished">2017-07-24</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/travel/">travel</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、搬家"><a href="#1、搬家" class="headerlink" title="1、搬家"></a>1、搬家</h2><p>在汉庭退房时，把房卡还回去就行了。我还奇怪的问道，不看吗？她很客气的说不看了，我说了声谢谢，就离开酒店。在别的地方，都是前台阿姨拿起对讲机大喊大叫，315退房，315退房……等几分钟后，才告诉你说好了。</p>
+<p>上午11点不到，我就从汉庭酒店搬家到红山公园下的麦田青旅。住的是八人间，没有卫生间。来的时候已经住了人，有一部分已经收拾好背包，似乎是要离开了。看背包的装扮，极有可能是来新疆徒步的驴友。有一些还是不同肤色的人，有可能是外国友人。</p>
+<p>我拿着床单被罩，把洗漱和衣服放下后，去了下洗手间。第一感觉是乌市的青旅条件还是要比之前去过的南京差一些。不过这里的青旅显得更热闹。从进门开始，基本墙上都是各种涂鸦，谁谁某年来过这里，有一些还画了自己走过的地图，比如环华第75天。简单看了，有很多还自称是妹子，走过了哪些地方，康定……乌鲁木齐，给我一种崇敬的感觉。有些比较普通，很像我，北京-天津-河北-新疆-广东深圳香港澳门-台湾。有的就比较可怕，河南-深圳-广州-拉萨-那曲-唐古拉-格尔木-西宁-兰州-敦煌-哈密-吐鲁番-乌鲁木齐……我都看不下去了，这是跟中国有仇，不踏遍千山万水，就心有不甘，觉得自己这辈子就活得没意义。我就是想想而已，从来没有真的背起背包，去走遍哪怕只是大西北。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/07/24/day/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-wushi" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -107,62 +161,6 @@
 </article>
 
   
-    <article id="post-go-database" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/19/go-database/">8. Go database/sql 教程</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/07/19/go-database/" class="article-date"><time datetime="2017-07-19T15:20:05.000Z" itemprop="datePublished">2017-07-19</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>说明：内容来源于<a href="http://go-database-sql.org/index.html" target="_blank" rel="external">Go database/sql tutorial</a>，通过谷歌翻译完成。文档翻译成中文后，很多意思会被语言本身造成误解，请查看英文原文。</p>
-<p>在Go中使用SQL或类SQL数据库的惯用方法是通过 database/sql 包。 它为面向行的数据库提供了轻量级的接口。 这个网站对最常见的方面如何使用提供一个参考。</p>
-<p>为什么需要这样？软件包的文档告诉你所有操作，但它并没有告诉你如何使用这个软件包。我们中的许多人发现自己希望能够快速参考和“入门”的方式来讲述故事而不是列举事实。欢迎贡献，请在<a href="https://github.com/VividCortex/go-database-sql-tutorial">这里</a>提交请求。</p>
-<h2 id="1、概观"><a href="#1、概观" class="headerlink" title="1、概观"></a>1、概观</h2><p>在Go中访问数据库，需要使用<strong>sql.DB</strong>类型。你可以使用此类型创建语句和事务，执行查询和获取结果。</p>
-<p>你应该知道的第一件事是，一个<strong>sql.DB</strong>不是一个数据库连接。 它也不是对任何一个特定数据库软件的概念如数据库或模式的映射。它是一个接口的抽象和数据库存在，很可能就像本地文件一样多样化，通过网络连接，内存或进程访问。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/07/19/go-database/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -177,7 +175,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -186,6 +184,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
+        </li>
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
@@ -201,10 +203,6 @@
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
         </li>
       
     </ul>

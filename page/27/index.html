@@ -52,6 +52,91 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-composer" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/composer/">26. composer.json文件说明</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/composer/" class="article-date"><time datetime="2017-08-21T04:41:01.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>PHP组件中必须有composer.json文件，而且这个文件的内容必须是有效的JSON，Composer会使用这个文件中的信息查找、安装和自动加载PHP组件。composer.json文件还包含组件在Packagist目录中的信息。</p>
+<pre><code>{
+    &quot;name&quot;: &quot;modernphp/scnner&quot;,
+    &quot;description&quot;: &quot;Scan URLs a CSV file and report inaccessible URLs&quot;,
+    &quot;keywords&quot;: [&quot;url&quot;, &quot;scanner&quot;, &quot;csv&quot;],
+    &quot;homepage&quot;: &quot;http://example.com&quot;,
+    &quot;license&quot;: &quot;MIT&quot;,
+    &quot;authors&quot;: [
+        {
+            &quot;name&quot;: &quot;Josh Lockhart&quot;,
+            &quot;homepage&quot;: &quot;https://github.com/codeguy&quot;,
+            &quot;role&quot;: &quot;Developer&quot;
+        }
+    ],
+    &quot;support&quot;: {
+        &quot;email&quot;: &quot;help@example.com&quot;
+    },
+    &quot;require&quot;: {
+        &quot;php&quot;: &quot;&gt;=5.4.0&quot;,
+        &quot;guzzlehttp&quot;: &quot;~5.0&quot;
+    },
+    &quot;require-dev&quot;: {
+        &quot;phpunit/phpunit&quot; : &quot;~5.0&quot;
+    },
+    &quot;suggest&quot;: {
+        &quot;league/csv&quot;: &quot;~6.0&quot;
+    },
+    &quot;autoload&quot;: {
+        &quot;psr-4&quot;: {
+            &quot;Oreilly\\ModernPHP&quot;: &quot;src/&quot;
+        }
+    }
+}
+</code></pre>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/composer/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-php-excel" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -107,59 +192,6 @@
 </article>
 
   
-    <article id="post-dropdownlist" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/dropdownlist/">24. Yii2中下拉列表dropdownlist的用法</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/dropdownlist/" class="article-date"><time datetime="2017-08-21T04:33:23.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>准确说,初学框架那段时间,使用下拉列表可不是件容易的事,包括怎么引入类class都需要去百度,手册找,而且几乎很多次都是徒劳无功.第一次使用地区三级联动还是用的网上的js插件,才插件中别人已经把地区信息以数组或者json的格式包装好了,不需要提供额外的数据<br>库支持,好处是直接使用.坏处是地区信息都很旧,比如我家所在地,记得是2012年已经将毕节地区改为市了,但是插件中还是使用毕业地区,这虽然没什么错,但已经说明这些数据其实也是作者搜索出来的,别的地方没有考证过,但肯定也有一些地区信息,已经在最近的几年被更改<br>过了,因此使用一定意义上是不正确的.</p>
-<p>几乎在我遇到的项目中,地区信息都有自己的数据库,而且后台都有地区信息添加修改功能,所以地区的插件其实是不需要的,基本都要自己去写,这次也不例外.</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/dropdownlist/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -174,7 +206,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -183,6 +215,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
+        </li>
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
@@ -198,10 +234,6 @@
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
         </li>
       
     </ul>

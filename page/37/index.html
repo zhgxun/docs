@@ -52,6 +52,66 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-sub-longest" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/09/sub-longest/">6. Golang字符串子串的最大长度</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/07/09/sub-longest/" class="article-date"><time datetime="2017-07-09T15:18:24.000Z" itemprop="datePublished">2017-07-09</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天在Letcode上做题，有这么一道题：</p>
+<blockquote>
+<p>Given a string, find the length of the longest substring without repeating characters.</p>
+<p>Examples:</p>
+<p>Given “abcabcbb”, the answer is “abc”, which the length is 3.</p>
+<p>Given “bbbbb”, the answer is “b”, with the length of 1.</p>
+<p>Given “pwwkew”, the answer is “wke”, with the length of 3. Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
+</blockquote>
+<p>查找当前字符串不重复的子串最大长度，我看难度等级是中等。我用go写了至少2个小时吧，总算是完成了，但是一提交测试，所有单元测试都通过了，但是，最后一个超时，就是执行时间太长了而被拒绝。昨天忘记记录下该测试用例，是一个很长很长的字符串，我写出来的代码983个单元测试，除了这个长串超时外其余982个都通过了。我苦思不得其解，后来去看了别人的答案，才知道之所以把这类问题归类为算法题的原因，肯定是不能用常规的思路去解决。确实高人挺多，我辈需要学习的东西实在是太多了。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/07/09/sub-longest/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-haituo" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -106,64 +166,6 @@
 </article>
 
   
-    <article id="post-bible" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/09/bible/">4. &#34;话说你想了解圣经吗&#34;</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/07/09/bible/" class="article-date"><time datetime="2017-07-09T15:06:36.000Z" itemprop="datePublished">2017-07-09</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>前些天一个朋友突然问我: “话说你想了解圣经吗？”</p>
-<p>我先是一愣，说：“为啥问这个？你听谁说的？”</p>
-<p>她显然听出了我的疑虑，说：“我以前学习过，我以前上学的时候看过很多书啊！”</p>
-</blockquote>
-<p>我们以前是同事，在一起玩过很长的一段时间，我知道她不是信教的人。之前的一个同事也问过我类似的问题，她也不是信教的人。不过他们都看圣经。我知道这本书，但我除了前面几页外，一直没再继续往里看过。只是这些书一听起来，就像跟信教有关一样让人觉得气氛有点怪怪的。其实看不看圣经，跟信不信教没有什么关系。</p>
-<p>在深圳的时候，我一直在书店找这本书，后来在南山新华书店找到了，但是有点贵，我就没有买，看圣经的最后一点机会也没有了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/07/09/bible/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -178,7 +180,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -187,6 +189,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
+        </li>
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
@@ -202,10 +208,6 @@
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
         </li>
       
     </ul>

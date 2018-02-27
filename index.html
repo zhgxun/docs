@@ -52,6 +52,74 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-liberal-arts" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/02/27/liberal-arts/" class="article-date"><time datetime="2018-02-27T01:48:57.000Z" itemprop="datePublished">2018-02-27</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>美国大学系统的自由技艺学科，是指历史、政治、哲学、文学艺术这些大学问。</p>
+<p><img src="https://raw.githubusercontent.com/zhgxun/images/master/reading/liberal_arts.jpeg" alt="你能做任何工作：&quot;无用的&quot;自由技艺的惊人力量"></p>
+<p>《你能做任何工作：”无用的”自由技艺的惊人力量》，作者是纪实作家乔治-安德斯（George Anders）。用中国话说，这本书就是文科生就业指南。</p>
+<p>安德斯总结了实用的面试故事套路。公司招人面试，最关心的三个问题：第一，你能不能干这个活；第二，你愿不愿意干这个活；第三，你跟我们公司般配不般配。现在你讲的故事，就要解决这三个问题。安德斯的套路，就是五个谈话点（talking points）。</p>
+<ol>
+<li>逆境；</li>
+<li>影响力；</li>
+<li>技术水平；</li>
+<li>合拍；</li>
+<li>成就。</li>
+</ol>
+<p>把这个道理再进一步，也许你应该为了到时候有故事可讲，专门按照这五个套路去做些事情-也就是有意识地刷经验值：</p>
+<p><strong><em>1. 多尝试，经历失败，丰富你的人生经验；</em></strong></p>
+<p><strong><em>2. 多跟人交往，练习交流和组织能力；</em></strong></p>
+<p><strong><em>3. 多学点技术，掌握一些实用工具；</em></strong></p>
+<p><strong><em>4. 要善于做调研，了解你所在的领域正在发生什么事儿；</em></strong></p>
+<p><strong><em>5. 找机会取得能让自己脱颖而出的成绩。</em></strong></p>
+<p>作为一套强有力的软技能，自由技艺并不限于”好人”使用，而且也不能把人变成”好人”。不管是不是好人在用，都是掌握自由技艺的人统治真实世界。复杂世界需要复杂人才，不会面对真实世界是危险的。这个世界归根结底，属于那些能处理复杂问题的明白人。世界从来都不公平，真实世界都是充满复杂和套路。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-get-log" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -108,88 +176,6 @@
 </article>
 
   
-    <article id="post-merge" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/21/merge/">76. 归并排序</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/02/21/merge/" class="article-date"><time datetime="2018-02-21T05:40:11.000Z" itemprop="datePublished">2018-02-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>归并排序是典型的分治算法，它不断地将某个数组分为两个部分，分别对左子数组与右子数组进行排序，然后将两个数组合并为新的有序数组。</p>
-<p>一般来说，小文件单机版排序比并发排序更快一些，但是大文件无法一次性读入内存处理，需要分块处理。单机版排序无法做到分布式排序，分布式排序需要联网进行，网络传输跟通道传输非常类似，稍作修改就可以做到在网络上进行排序。</p>
-<p>并行和并发是有区别的，依赖操作系统和硬件是否支持。同时，在允许的情况下，使用有缓冲的通道和使用文件读写缓冲，有利于加快程序的处理速度，避免及时阻塞。</p>
-<h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><p>对一个整数数组进行排序，系统库中已经提供了排序函数，直接使用即可。需要注意的是，Go中使用通道，使用不当会造成死锁。需要注意通道的使用，否则一运行就发生竞争条件造成程序无法执行而终止。</p>
-<pre><code class="go">// 按升序排序
-func InMemSort(in &lt;-chan int) &lt;-chan int {
-    out := make(chan int, 4096)
-
-    // 启动一个协程输出排序数据
-    go func() {
-        var a []int
-        for v := range in {
-            a = append(a, v)
-        }
-        fmt.Println(&quot;Read done: &quot;, time.Now().Sub(startTime))
-
-        sort.Ints(a)
-        fmt.Println(&quot;Sort done: &quot;, time.Now().Sub(startTime))
-
-        // 将排序好的数据输出至通道中
-        for _, n := range a {
-            out &lt;- n
-        }
-
-        close(out)
-    }()
-
-    return out
-}
-</code></pre>
-<p>通常来说，协程的使用是成对出现的，并且习惯用Go匿名函数来操作。需要留意匿名函数的传参问题，可以去官方文档进行查看。go程运行时，函数调用是瞬间返回的。如果在其它地方使用range操作来处理通道，在通道数据发送完毕时必须显示关闭通道，否则必是死锁错误。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2018/02/21/merge/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -204,7 +190,7 @@ func InMemSort(in &lt;-chan int) &lt;-chan int {
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -213,6 +199,10 @@ func InMemSort(in &lt;-chan int) &lt;-chan int {
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
+        </li>
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
@@ -228,10 +218,6 @@ func InMemSort(in &lt;-chan int) &lt;-chan int {
       
         <li>
           <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/jshell/">73. Java执行shell命令</a>
         </li>
       
     </ul>
