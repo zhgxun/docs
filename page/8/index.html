@@ -52,6 +52,58 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-cnote" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/16/cnote/">65. C Prime Plus 笔记-2017.12.16</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/12/16/cnote/" class="article-date"><time datetime="2017-12-16T13:39:15.000Z" itemprop="datePublished">2017-12-16</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/read/">read</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="1-C语言在提供更多自由的同时，也让使用者承担了更大的责任。"><a href="#1-C语言在提供更多自由的同时，也让使用者承担了更大的责任。" class="headerlink" title="1. C语言在提供更多自由的同时，也让使用者承担了更大的责任。"></a>1. C语言在提供更多自由的同时，也让使用者承担了更大的责任。</h5><h5 id="2-想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。"><a href="#2-想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。" class="headerlink" title="2. 想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。"></a>2. 想拥有自由就必须时刻保持警惕。C语言紧凑简洁，结合了大量的运算载体。正因如此，我们也可以编写出让人极其费解的代码。虽然没必要强迫自己编写晦涩的代码，但是有兴趣写写也无妨。</h5><h5 id="3-编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。"><a href="#3-编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。" class="headerlink" title="3. 编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。"></a>3. 编译器把源代码转换成中间代码，链接器把中间代码和其它代码合并，生成可执行文件。C使用这种分而治之的方法方便对程序进行模块化，可以独立编译单独的模块，稍后再用链接器合并已编译的模块。通过这种方法，如果只更改某个模块，不必因此重新编译其他模块。另外，链接器还将你编写的程序和预编译的库代码合并。</h5><h5 id="4-链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。"><a href="#4-链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。" class="headerlink" title="4. 链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。"></a>4. 链接器的作用是，把你编写的目标代码、系统的标准启动代码和库代码3部分合并成一个文件，即可执行文件。对于库代码，链接器只会把程序中要用到的库函数代码提取出来。</h5><h5 id="5-LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。"><a href="#5-LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。" class="headerlink" title="5. LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。"></a>5. LLVM项目成为cc的另一个替代品。该项目是与编译器相关的开源软件集合，始于伊利诺伊大学的2000份研究项目。它的Clang编译器处理C代码，可以通过clang调用。有多种版本供不同的平台使用，包括Linux。2012年，Clang成为FreeBSD的默认C编译器。Clang也对最新的C标准支持得很好。</h5>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/12/16/cnote/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-mianbao" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -119,68 +171,10 @@
 </article>
 
   
-    <article id="post-cpp" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/05/cpp/">63. 《C Primer Plus》读书笔记系列</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/12/05/cpp/" class="article-date"><time datetime="2017-12-05T15:54:25.000Z" itemprop="datePublished">2017-12-05</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记得第一次想要学编程的时候，选的就是C语言，那时候看的是K&amp;R的《C程序设计语言》，看的懵懵懂懂的，最后一行代码也写不出来，还一度怀疑自己还要不要继续下去，还能靠它生活吗。那时候就看到豆瓣上的这句话：</p>
-<blockquote>
-<p>技术方面的书，还是外国人写得比较透彻，国人写的书大多是经过二次咀嚼后凭着感觉写出来的，有些细节，因为外国人没有写或者自己没有看到或者看到了没有理解清楚，那么自己的书里也就含糊略过，但对于初学者来说，太痛苦了。国人的技术书，大部分而言，充其量算是一本比较详细的读书笔记，写笔记的人能看懂，读者未必明白。</p>
-</blockquote>
-<p>就信以为真，觉得程序设计应该就是这样了。</p>
-<p>这本书看过两遍，但对里面的很多东西还是不明白，这段时间也在想以后该做点什么。目前的工作，说实话项目上对自己提升不大，涨工资也是特别的渺茫，就不想把时间都浪费在无休无止的业务上，想趁机训练一下自己的毅力，重新学一遍C语言，希望这次之后，能有所收获和提升，不管是理解力上，还是认知上。</p>
-<p>正如书中所说：“1984年C Primer Plus第1版刚问世时，使用C语言编程的人并不多。C语言从那时开始流行，许多人在本书的帮助下掌握了C语言。”我也希望在这本书的帮助下，学会C语言。</p>
-<p>于是给自己定下了这个目标，愿自己一如既往。俊飞说：“治性如治兵，治国如治身”，对自己的各种性情，得拿出治理军队的办法来，严于律己，有令必行。治理自己的身体，就要像对待一个国家一样治理。</p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/7/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/6/">6</a></li><li><a class="page-number" href="/page/7/">7</a></li><li class="active"><span class="page-number">8</span></li><li><a class="page-number" href="/page/9/">9</a></li><li><a class="page-number" href="/page/10/">10</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/39/">39</a></li><li><a class="page-next" rel="next" href="/page/9/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/7/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/6/">6</a></li><li><a class="page-number" href="/page/7/">7</a></li><li class="active"><span class="page-number">8</span></li><li><a class="page-number" href="/page/9/">9</a></li><li><a class="page-number" href="/page/10/">10</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/40/">40</a></li><li><a class="page-next" rel="next" href="/page/9/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -191,7 +185,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -200,6 +194,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/03/rsa/">79. RSA</a>
+        </li>
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
@@ -215,10 +213,6 @@
       
         <li>
           <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
         </li>
       
     </ul>

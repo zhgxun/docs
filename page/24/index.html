@@ -52,6 +52,64 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-apache-config" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/10/apache-config/">33. Apache请求超过了10个内部重定向的限制</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/10/apache-config/" class="article-date"><time datetime="2017-09-10T14:55:38.000Z" itemprop="datePublished">2017-09-10</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/apache/">apache</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本地原一直使用Nginx作为Web服务器，今天刚重置了Mac，就沿用系统自带的Apache作为服务器。</p>
+<p>配置完虚拟机和重定向，提示500内部错误，查看权限错误日志，有如下说明：</p>
+<pre><code>[Mon Jun 19 12:14:08.349798 2017] [core:error] [pid 5839] [client 127.0.0.1:50553] AH00124:
+Request exceeded the limit of 10 internal redirects due to probable configuration error.
+Use &#39;LimitInternalRecursion&#39; to increase the limit if necessary.
+Use &#39;LogLevel debug&#39; to get a backtrace., referer: http://frontend.com/
+</code></pre><p>由于可能的配置错误，请求超过了10个内部重定向的限制。如果需要，使用“LimitInternalRecursion”来增加限制。 使用’LogLevel debug’来获得一个回溯。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/10/apache-config/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-object" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -105,64 +163,10 @@
 </article>
 
   
-    <article id="post-standard" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/03/standard/">31. (转)PHP运行机制</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/03/standard/" class="article-date"><time datetime="2017-09-03T14:40:59.000Z" itemprop="datePublished">2017-09-03</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.jb51.net/article/74907.htm" target="_blank" rel="external">原文章来源</a></p>
-<p>说到PHP的运行机制还要先给大家介绍PHP的模块，PHP总共有三个模块：内核、Zend引擎、以及扩展层；PHP内核用来处理请求、文件流、错误处理等相关操作；Zend引擎（ZE）用以将源文件转换成机器语言，然后在虚拟机上运行它；扩展层是一组函数、类库和流，PHP使用它们来执行一些特定的操作。比如，我们需要MySQL扩展来连接MySQL数据库；当ZE执行程序时可能会需要连接若干扩展，这时ZE将控制权交给扩展，等处理完特定任务后再返还。</p>
-<p>最后，ZE将程序运行结果返回给PHP内核，它再将结果传送给SAPI(Server Application Programming Interface 服务器端应用编程接口)层，最终输出到浏览器上。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/03/standard/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/23/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/22/">22</a></li><li><a class="page-number" href="/page/23/">23</a></li><li class="active"><span class="page-number">24</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/39/">39</a></li><li><a class="page-next" rel="next" href="/page/25/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/23/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/22/">22</a></li><li><a class="page-number" href="/page/23/">23</a></li><li class="active"><span class="page-number">24</span></li><li><a class="page-number" href="/page/25/">25</a></li><li><a class="page-number" href="/page/26/">26</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/40/">40</a></li><li><a class="page-next" rel="next" href="/page/25/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -173,7 +177,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -182,6 +186,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/03/rsa/">79. RSA</a>
+        </li>
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
@@ -197,10 +205,6 @@
       
         <li>
           <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
         </li>
       
     </ul>

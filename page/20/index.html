@@ -52,6 +52,60 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-runner" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/runner/">41. Go管理任务运行和生命周期</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/17/runner/" class="article-date"><time datetime="2017-09-17T08:14:57.000Z" itemprop="datePublished">2017-09-17</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/go/">go</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>案例来源于 [美]威廉·肯尼迪（William Kennedy）布赖恩·克特森（Brian Ketelsen）埃里克·圣马丁（Erik St. Martin）. Go语言实战 (Kindle Location 3997). 人民邮电出版社. Kindle Edition.一书第7章 并发模式 之 7.1 runner。</p>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><p>runner包用于展示如何使用通道来监视程序的执行时间，如果程序运行时间太长，也可以用runner包来终止程序。当开发需要调度后台处理任务的程序的时候，这种模式会很有用。这也是目前我们使用跑数平台抓取数据和执行临时脚本的关键所在，虽然实现各不相同，但大致思路都是相同的。即是添加命令，记录输出，控制命令执行完毕或中断……</p>
+<p>教材中给出的案例相对比较简单，传入参数随意，只传入一个下标ID值。但是go中参数传递并不容易，更啰嗦的办法或者是总结业务中需要用到的形式来提炼出更抽象的方式，这样会显得相对简单，但维护会增加好几倍的精力。但是所有的抽象都统一到一个函数中，只会让参数更抽象，使用go语言的接口interface{}类型，因为该类型可以接收函数传入任意类型的参数，但是在函数中，参数的类型依然是interface类型，需要特别注意，必须进行处理后方可使用。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/17/runner/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-xian" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -107,66 +161,10 @@
 </article>
 
   
-    <article id="post-fall" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/14/fall/">39. 谁会留意这个秋天</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/14/fall/" class="article-date"><time datetime="2017-09-14T00:46:40.000Z" itemprop="datePublished">2017-09-14</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/travel/">travel</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>北京的香山，在很多人眼里，只是个公园。没错，这是景区的香山。</p>
-<p>去年，一个很要好的朋友说，广训，下次你去看红叶时，记得告诉我，我室友她想跟你去。我们去坡峰岭时，她说昨晚加班太久，起不来，就没有去成。一等就是一年。坡峰岭的红叶漫山遍野，是北京周边看红叶最好的地方。香山红叶，只有香山，没什么红叶。</p>
-<p>我们去的香山，是野山。大家习惯在香山邮局集合，沿碧云寺路，穿过小村，朝好汉坡走。可能大部分人的户外之行，都是从香山起步的。香山最经典的路线是从香山到八大处拉练，称香八拉。这条线因为近和方便，也是我们最爱走的路线，经年累月，乐此不疲。有时候周五了，还不知要去哪里，也不想学习时，就在群里吆喝小伙伴们，要不要去香山。</p>
-<p>上周六听说东山村贡梨园的梨可以吃了，商量好要去偷梨，顺便摘些大枣。</p>
-<p>在好汉坡，歇息时我使劲摇路边的树，一阵落叶随风飘洒在四周，才知道秋天已经开始了。一叶落而知秋，这种感觉，对于我，并不是每一年都会有。记得上一次来香山时，那还是春来百花开，跟那段日子流行的电视剧一样，十里桃花，点都不差。站在山顶，颜色最绿的那批，是三角五角的枫树。香山最美的两段路，是好汉坡到植物园和南马场水库。东山村不在这两段路，这一段路是以前的香山古道，走的人并不多。路边多灌木，蚊虫也多，蜘蛛网还不少。周六我手上就被蚊子咬了两个包，到现在都还没好。菜说腿上被咬了六个包，简直了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/14/fall/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/travel/">travel</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/19/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/18/">18</a></li><li><a class="page-number" href="/page/19/">19</a></li><li class="active"><span class="page-number">20</span></li><li><a class="page-number" href="/page/21/">21</a></li><li><a class="page-number" href="/page/22/">22</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/39/">39</a></li><li><a class="page-next" rel="next" href="/page/21/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/19/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/18/">18</a></li><li><a class="page-number" href="/page/19/">19</a></li><li class="active"><span class="page-number">20</span></li><li><a class="page-number" href="/page/21/">21</a></li><li><a class="page-number" href="/page/22/">22</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/40/">40</a></li><li><a class="page-next" rel="next" href="/page/21/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -177,7 +175,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -186,6 +184,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/03/rsa/">79. RSA</a>
+        </li>
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
@@ -201,10 +203,6 @@
       
         <li>
           <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
-        </li>
-      
-        <li>
-          <a href="/2018/01/21/cal/">74. Java打印当月日历</a>
         </li>
       
     </ul>

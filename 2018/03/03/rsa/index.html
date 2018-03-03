@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>79. RSA | 张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-rsa" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      79. RSA
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/03/03/rsa/" class="article-date"><time datetime="2018-03-03T14:56:19.000Z" itemprop="datePublished">2018-03-03</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>RSA公钥加密算法是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。1987年7月首次在美国公布，当时他们三人都在麻省理工学院工作实习。RSA就是他们三人姓氏开头字母拼在一起组成的。</p>
+<p>RSA是目前最有影响力和最常用的公钥加密算法，它能够抵抗到目前为止已知的绝大多数密码攻击，已被ISO推荐为公钥数据加密标准。</p>
+<p>今天只有短的RSA钥匙才可能被强力方式解破。到2008年为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被解破的。但在分布式计算和量子计算机理论日趋成熟的今天，RSA加密安全性受到了挑战和质疑。</p>
+<p>RSA算法基于一个十分简单的数论事实：将两个大质数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。</p>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><pre><code class="php">&lt;?php
+
+/**
+ * RSA加密PHP版本
+ */
+class RSA
+{
+    /**
+     * 对字符串进行RSA加密
+     *
+     * @param string $channelPass 待加密字符串
+     * @return bool|string 加密后十六进制字符串
+     */
+    public static function getSign($channelPass = &#39;&#39;)
+    {
+        // 不同平台之间转化过的对等公钥文件
+        $pubKeyFile = &quot;file://&quot; . dirname(__FILE__) . &quot;/publickey.pem&quot;;
+        // 读取公钥内容
+        $pubKey = file_get_contents($pubKeyFile);
+        /**
+         * 从证书中提取公钥并准备使用
+         * @link http://php.net/manual/zh/function.openssl-pkey-get-public.php
+         */
+        $res = openssl_pkey_get_public($pubKey);
+        if ($res) {
+            /**
+             * 用公钥加密数据
+             * @link http://php.net/manual/zh/function.openssl-public-encrypt.php
+             */
+            $opt = openssl_public_encrypt($channelPass, $result, $res);
+            if ($opt) {
+                /**
+                 * 函数把包含数据的二进制字符串转换为十六进制值
+                 * @link http://php.net/manual/zh/function.bin2hex.php
+                 */
+                return bin2hex($result);
+            }
+        }
+
+        return false;
+    }
+}
+
+echo RSA::getSign(&#39;Test password&#39;);
+echo &quot;\n\n&quot;;
+</code></pre>
+<a id="more"></a>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><pre><code class="java">package b2c;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPublicKey;
+
+/**
+ * RSA加密
+ */
+public class Test {
+
+    /**
+     * 十六进制字符
+     */
+    private static char[] HEX = {&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;};
+
+    public static void main(String args[]) {
+        // 需要加密的字符串
+        String password = &quot;Test password&quot;;
+        String encodePassword = encryptPassword(password);
+        System.out.println(encodePassword);
+    }
+
+    /**
+     * 针对明文密码进行RSA加密
+     *
+     * @param clearPassword 待加密字符串
+     * @return 加密后的字符串
+     */
+    private static String encryptPassword(String clearPassword) {
+        try {
+            // 读取RSA的加密公钥
+            RSAPublicKey publicKey = (RSAPublicKey) readFromFile(&quot;public.dat&quot;);
+            // 跟公钥一并进行加密
+            byte[] encryptBytes = encrypt(clearPassword, publicKey);
+            if (encryptBytes == null) {
+                System.out.println(&quot;Error&quot;);
+                System.exit(0);
+            }
+            // 加密后的字节数组转为十六进制字符串
+            return toHexString(encryptBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 从读取文件Object对象
+     *
+     * @param fileName 文件名
+     * @return 文件对象
+     */
+    private static Object readFromFile(String fileName) {
+        ObjectInputStream objectInputStream = null;
+        Object object = null;
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(fileName));
+            object = objectInputStream.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (objectInputStream != null) {
+                try {
+                    objectInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return object;
+    }
+
+    /**
+     * 加密,key可以是公钥，也可以是私钥  RSA加密明文最长117位，需要分段加密
+     *
+     * @param message 代价密字符串
+     * @return 加密后的字节数组
+     */
+    private static byte[] encrypt(String message, Key key) {
+        try {
+            Cipher cipher = Cipher.getInstance(&quot;RSA&quot;);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] me = message.getBytes();
+            byte[] doFinal = null;
+            byte[] doFinal2;
+            for (int i = 0; i &lt; me.length; i += 117) {
+                if (i + 117 &gt; me.length) {
+                    doFinal2 = cipher.doFinal(me, i, me.length - i);
+                } else {
+                    doFinal2 = cipher.doFinal(me, i, 117);
+                }
+                if (doFinal == null) {
+                    doFinal = doFinal2;
+                } else {
+                    doFinal = join(doFinal, doFinal2);
+                }
+            }
+            return doFinal;
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 连接两个byte数组，之后返回一个新的连接好的byte数组
+     *
+     * @param a1 byte[]
+     * @param a2 byte[]
+     * @return byte[]
+     */
+    private static byte[] join(byte[] a1, byte[] a2) {
+        byte[] result = new byte[a1.length + a2.length];
+        System.arraycopy(a1, 0, result, 0, a1.length);
+        System.arraycopy(a2, 0, result, a1.length, a2.length);
+        return result;
+    }
+
+    /**
+     * byte[]转化为十六进制字符串
+     *
+     * @param b byte[]
+     * @return string
+     */
+    private static String toHexString(byte[] b) {
+        StringBuilder sb = new StringBuilder(b.length * 2);
+        for (int i : b) {
+            sb.append(HEX[(i &amp; 0xf0) &gt;&gt;&gt; 4]);
+            sb.append(HEX[i &amp; 0x0f]);
+        }
+
+        return sb.toString();
+    }
+}
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/02/27/liberal-arts/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">78. 你能做任何工作</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
