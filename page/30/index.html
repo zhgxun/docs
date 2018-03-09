@@ -52,6 +52,58 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-xhprof" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/xhprof/">22. 在Yii2中如何使用XHProf性能分析工具</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/xhprof/" class="article-date"><time datetime="2017-08-21T04:00:30.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>“XHProf是PHP的功能级别分层分析器，具有简单的基于HTML的导航界面。 原始数据收集组件以C（作为PHP扩展）实现。 报告UI层全部在PHP中。 它能够报告功能级别的调用时间，内存使用情况，CPU时间和每个功能的呼叫次数。 此外，它还支持比较两个运行（分层DIFF报告）的能力，或多个运行的聚合结果。”</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/xhprof/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-bathinsert" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -105,69 +157,6 @@
 </article>
 
   
-    <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/rename/">20. shell重命名目录中文件名称</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/rename/" class="article-date"><time datetime="2017-08-21T03:48:09.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。</p>
-<p>常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得的），有些字段可能周期中就使用过一两次或者根本没有使用过，也把它处理了。然后我贴了类似这样重复的代码：</p>
-<pre><code class="php">if (isset($request[&#39;content&#39;]) &amp;&amp; trim($request[&#39;content&#39;])) {
-    $query-&gt;andFilterWhere([&#39;like&#39;, &#39;content&#39;, trim(strip_tags($request[&#39;content&#39;]))]);
-}
-if (isset($request[&#39;userid&#39;]) &amp;&amp; intval($request[&#39;userid&#39;])) {
-    $query-&gt;andFilterWhere([&#39;userid&#39; =&gt; intval($request[&#39;userid&#39;])]);
-}
-if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#39;])) {
-    $query-&gt;andFilterWhere([&#39;&gt;=&#39;, &#39;ctime&#39;, trim($request[&#39;start&#39;])]);
-}
-</code></pre>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/rename/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -182,7 +171,7 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -191,6 +180,10 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/09/arrayblockqueue/">80. ArrayBlockingQueue阻塞队列</a>
+        </li>
       
         <li>
           <a href="/2018/03/03/rsa/">79. RSA</a>
@@ -206,10 +199,6 @@ if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#3
       
         <li>
           <a href="/2018/02/21/merge/">76. 归并排序</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
         </li>
       
     </ul>

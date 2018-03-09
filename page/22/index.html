@@ -52,6 +52,65 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-min-abs" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/11/min-abs/">38. PHP在升序数组中查找绝对值最小的元素</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/11/min-abs/" class="article-date"><time datetime="2017-09-11T03:18:39.000Z" itemprop="datePublished">2017-09-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是不久前我在滴滴出行时，面试官让我在纸上写出来的面试题。在一个升序排列的数组中, 查找绝对值最小的元素。分析, 数组升序排列, 两边的数值绝对值只会越来越大, 绝对值最小的元素必须在中间趋近于0的地方,因此思路就是不断的遍历数组, 找到趋近于0的这个位置。考虑四种情况:</p>
+<ol>
+<li>数组全部为正数时, 绝对值最小的元素是第一位;</li>
+<li>数组全部为负值时, 绝对值最小的元素为最后一位;</li>
+<li>数组即包含正数, 也包含负数时, 需要找到趋近于0的位置, 找到两边的正数和负数, 比较这两个元素的大小;</li>
+<li>数组为空或为一个元素时, 就是该元素或不存在。</li>
+</ol>
+<p>这个题的思路并不难, 一般都会一开始就想到, 关键是面试时如何在纸上正确写出。我在网上搜索了下，发觉这是一道很老的面试题了，遗憾没有为找工作刷过题，当时没能在纸上写出来，但是思路是正确的，就卡在如何处理有正负数时的情况。我想到了用中点来快速遍历，但是一下子没多想，可能还是因为紧张，就没想到<code>while</code>循环的数组下标处理方式，而是去设计每次判断中点偏离了解题思路。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/11/min-abs/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-accuracy" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -115,61 +174,6 @@ php &gt;
 </article>
 
   
-    <article id="post-httpd" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/11/httpd/">36. 安装 httpd-2.4.25</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/11/httpd/" class="article-date"><time datetime="2017-09-10T22:49:49.000Z" itemprop="datePublished">2017-09-11</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/apache/">apache</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>通常来说，在Linux系列系统上安装apache还是比较容易的，不管是基于Red Hat系列的yum命令，Debian系列的apt-get命令，还是openSUSE系列的zypper命令，安装系统提供的软件包是最便捷的，不需要自行处理软件依赖问题。该安装方式其实已经可以直接在服务器上操作了，并不都是所说的，服务器上的软件都是精心编译出来的。就我工作过的3个公司来说，服务器上都没有自己编译。源代码编译的好处是文件都统一放在一个固定的位置，不需要时直接删除文件夹即可，但是系统命令安装的，文件和可执行程序最终会被分散在操作系统的各目录中。</p>
-<p>操作系统：Ubuntu 16.04 LTS x86_64</p>
-<h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1. 准备"></a>1. 准备</h2><p>Apache可移植运行的任务（APR）项目是创建和维护软件库，为底层平台的具体实现提供了一个可预见的和一致的接口。</p>
-<p>APR(Apache portable Run-time libraries，Apache可移植运行库)的目的如其名称一样，主要为上层的应用程序提供一个可以跨越多操作系统平台使用的底层支持接口库。在早期的Apache版本中，应用程序本身必须能够处理各种具体操作系统平台的细节，并针对不同的平台调用不同的处理函数。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/11/httpd/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -184,7 +188,7 @@ php &gt;
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -193,6 +197,10 @@ php &gt;
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/09/arrayblockqueue/">80. ArrayBlockingQueue阻塞队列</a>
+        </li>
       
         <li>
           <a href="/2018/03/03/rsa/">79. RSA</a>
@@ -208,10 +216,6 @@ php &gt;
       
         <li>
           <a href="/2018/02/21/merge/">76. 归并排序</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/20/mq/">75. “你在森林，我在达达拉”</a>
         </li>
       
     </ul>

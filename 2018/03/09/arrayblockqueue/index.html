@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>80. ArrayBlockingQueue阻塞队列 | 张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-arrayblockqueue" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      80. ArrayBlockingQueue阻塞队列
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/03/09/arrayblockqueue/" class="article-date"><time datetime="2018-03-09T01:52:57.000Z" itemprop="datePublished">2018-03-09</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ArrayBlockingQueue阻塞队列有一系列方法，主要区别在异常操作时的反应，持有一把全局锁。用于存储队列元素的存储空间是预先分配的，使用过程中内存开销较小，适合已知最大存储容量的场景。适用于生产消费模型，平衡两边的处理速度。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>行为</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>添加一个元素</td>
+<td>如果队列已满抛出异常 IllegalStateException</td>
+</tr>
+<tr>
+<td>element</td>
+<td>返回头部元素</td>
+<td>如果队列为空抛出异常 NoSuchElementException</td>
+</tr>
+<tr>
+<td>offer</td>
+<td>添加一个元素</td>
+<td>成功返回 true, 如果队列已满返回 false</td>
+</tr>
+<tr>
+<td>peek</td>
+<td>返回头部元素</td>
+<td>如果队列为空，返回 null</td>
+</tr>
+<tr>
+<td>poll</td>
+<td>删除并返回该元素</td>
+<td>如果队列为空返回 null</td>
+</tr>
+<tr>
+<td>put</td>
+<td>添加一个元素</td>
+<td>如果队列已满则阻塞</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>删除并返回该元素</td>
+<td>如果队列为空抛出异常 NoSuchElementException</td>
+</tr>
+<tr>
+<td>take</td>
+<td>删除并返回该元素</td>
+<td>如果队列为空则阻塞</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>下面为一个搜索特定目录下关键字存在的行：</p>
+<pre><code class="java">package github.banana;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+/**
+ * 阻塞队列实例-搜索指定目录下文件中存在关键字的行
+ */
+public class BlockingQueueTest {
+
+    // 文件队列长度
+    private static final int FILE_QUEUE_SIZE = 10;
+    // 当前可运行最大搜索线程数
+    private static final int SEARCH_THREADS = 100;
+    // 当前目录，作为队列处理完成的标识
+    private static final File DUMMY = new File(&quot;&quot;);
+    // 阻塞队列
+    private static BlockingQueue&lt;File&gt; queue = new ArrayBlockingQueue&lt;&gt;(FILE_QUEUE_SIZE);
+
+    /**
+     * 搜索目录中存在关键字的行
+     *
+     * @param args args
+     */
+    public static void main(String args[]) {
+        try (Scanner in = new Scanner(System.in)) {
+            System.out.println(&quot;输入目录名 (e.g. /opt/jdk1.8.0/src)&quot;);
+            String directory = in.nextLine();
+            System.out.println(&quot;输入要搜索的关键字 (e.g. volatile)&quot;);
+            String keyword = in.nextLine();
+
+            Runnable r = () -&gt; {
+                try {
+                    enumerate(new File(directory));
+                    // 最后存入空文件标识队列处理完毕
+                    queue.put(DUMMY);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+            new Thread(r).start();
+
+            for (int i = 1; i &lt;= SEARCH_THREADS; i++) {
+                Runnable s = () -&gt; {
+                    try {
+                        boolean done = false;
+                        while (!done) {
+                            File file = queue.take();
+                            // 队列文件处理完毕，需要退出处理
+                            if (file == DUMMY) {
+                                queue.put(file);
+                                done = true;
+                            } else {
+                                search(file, keyword);
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                };
+                new Thread(s).start();
+            }
+        }
+    }
+
+    /**
+     * 递归枚举目录下文件名和目录名
+     *
+     * @param directory 目录名
+     */
+    private static void enumerate(File directory) {
+        // 列出目录下的所有文件和目录
+        File[] files = directory.listFiles();
+        try {
+            // 文件可能存在空指针异常
+            if (files == null) {
+                System.out.println(&quot;错误：该目录内无任何文件或目录&quot;);
+                return;
+            }
+            for (File file : files) {
+                // 如果是目录，递归列出文件名
+                if (file.isDirectory()) {
+                    enumerate(file);
+                } else {
+                    // 把文件名存入队列中
+                    // 当Queue已经满了时，会进入等待，只要不被中断，就会插入数据到队列中。会阻塞，可以响应中断。
+                    queue.put(file);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 搜索文件内是否包含关键字
+     *
+     * @param file    文件名
+     * @param keyword 待搜索关键字
+     */
+    private static void search(File file, String keyword) {
+        // 按UTF-8编码方式读取文件内容
+        try (Scanner in = new Scanner(file, &quot;UTF-8&quot;)) {
+            int lineNumber = 0;
+            while (in.hasNextLine()) {
+                lineNumber++;
+                String line = in.nextLine();
+                // 匹配文件内容是否包含关键字
+                if (line.contains(keyword)) {
+                    System.out.printf(&quot;%s:%d:%s\n&quot;, file.getPath(), lineNumber, line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>输出表现：</p>
+<pre><code class="bash">输入目录名 (e.g. /opt/jdk1.8.0/src)
+/Users/zhgxun/Documents/self/2018
+输入要搜索的关键字 (e.g. volatile)
+expect
+/Users/zhgxun/Documents/self/2018/get_log.sh:5:# 该脚本的运行需要依赖脚本 auto_expect，将其部署到家目录$HOME下，比如/Users/baidu/auto_expect
+/Users/zhgxun/Documents/self/2018/auto_expect:1:#!/usr/bin/expect
+/Users/zhgxun/Documents/self/2018/auto_expect:3:# expect 进行交互式登录线上系统
+/Users/zhgxun/Documents/self/2018/auto_expect:33:expect {
+/Users/zhgxun/Documents/self/2018/auto_expect:39:        # 类似expect，不过是从标准输入读取字符，行必须以回车结尾，以使expect能识别它们。 
+/Users/zhgxun/Documents/self/2018/auto_expect:40:        expect_user {
+/Users/zhgxun/Documents/self/2018/auto_expect:46:        set TOKEN $expect_out(buffer)
+/Users/zhgxun/Documents/self/2018/auto_expect:51:        # 允许expect继续执行自身而不是往下执行，默认情况下，exp_continue会重置timeout，如果不想重置timeout，使用-continue_timer选项。
+/Users/zhgxun/Documents/self/2018/auto_expect:63:                expect -re &quot;password:&quot; { send &quot;$PASSWORD\r&quot; }
+/Users/zhgxun/Documents/self/2018/get_log.sh:77:    # 使用expect方式依次登录机器，注意命令需要使用双引号包含起来避免被空格分割成单一参数
+/Users/zhgxun/Documents/self/2018/get_log.sh:78:    /usr/bin/expect $HOME/auto_expect $USER_NAME $PIN ${HOST[$i]} &quot;$CMD&quot;
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:11:确实如此，有这么一个免费的编程工具语言有这种能完成用户交互的功能，它就是Expect。[百度百科](https://baike.baidu.com/item/expect/4598715#viewPageContent)这么描述：&quot;用来实现自动和交互式任务进行通信，而无需人的干预。Expect的作者Don Libes在1990年开始编写Expect时对Expect做有如下定义：Expect是一个用来实现自动交互功能的软件套件(Expect [is a] software suite for automating interactive tools)。使用它，系统管理员可以创建脚本来对命令或程序进行输入，而这些命令和程序是期望从终端（terminal）得到输入，一般来说这些输入都需要手工输入进行的。Expect则可以根据程序的提示模拟标准输入提供给程序需要的输入来实现交互程序执行。&quot;
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:34:该脚本我命名为auto_expect，并存放在家目录下$HOME/auto_expect，可任意命名，但要注意下一个文件中的可执行文件调用脚本应该与该处命名一致。
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:37:#!/usr/bin/expect
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:39:# expect 进行交互式登录线上系统
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:69:expect {
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:75:        # 类似expect，不过是从标准输入读取字符，行必须以回车结尾，以使expect能识别它们。 
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:76:        expect_user {
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:82:        set TOKEN $expect_out(buffer)
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:87:        # 允许expect继续执行自身而不是往下执行，默认情况下，exp_continue会重置timeout，如果不想重置timeout，使用-continue_timer选项。
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:99:                expect -re &quot;password:&quot; { send &quot;$PASSWORD\r&quot; }
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:119:下面这个文件我取名为get_log.sh，通过该脚本来执行来获取线上机器的日志信息。该脚本依赖上一个脚本auto_expect，需要注意路径一致。
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:126:# 该脚本的运行需要依赖脚本 auto_expect，将其部署到家目录$HOME下，比如/Users/baidu/auto_expect
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:198:    # 使用expect方式依次登录机器，注意命令需要使用双引号包含起来避免被空格分割成单一参数
+/Users/zhgxun/Documents/self/2018/本地机器查看线上机器日志.md:199:    /usr/bin/expect $HOME/auto_expect $USER_NAME $PIN ${HOST[$i]} &quot;$CMD&quot;
+/Users/zhgxun/Documents/self/2018/Java.md:2630:        long expectedSum = 0;
+/Users/zhgxun/Documents/self/2018/Java.md:2633:            expectedSum += array[i];
+/Users/zhgxun/Documents/self/2018/Java.md:2635:        System.out.println(&quot;Expected sum: &quot; + expectedSum);
+
+Process finished with exit code 0
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/03/03/rsa/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">79. RSA</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>
