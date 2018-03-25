@@ -52,6 +52,61 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-mysqlbase" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/22/mysqlbase/">51. 高性能MySQL笔记-事务</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/09/22/mysqlbase/" class="article-date"><time datetime="2017-09-22T10:05:05.000Z" itemprop="datePublished">2017-09-22</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/mysql/">mysql</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、MySQL逻辑架构"><a href="#一、MySQL逻辑架构" class="headerlink" title="一、MySQL逻辑架构"></a>一、MySQL逻辑架构</h2><p>为了充分发挥MySQL的性能并顺利地使用，就必须理解其设计。</p>
+<h3 id="1-逻辑架构"><a href="#1-逻辑架构" class="headerlink" title="1. 逻辑架构"></a>1. 逻辑架构</h3><p>最上层的服务并不是MySQL所独有的，大多数基于网络的客户端/服务器的工具或者服务都有类似的架构。比如连接处理、授权认证、安全等等。</p>
+<p>第二层架构是MySQL比较有意思的部分。大多数MySQL的核心服务功能都在这一层，包括查询解析、分析、优化、缓存以及所有的内置函数（例如，日期、时间、数学和加密函数），所有跨存储引擎的功能都在这一层实现：存储过程、触发器、视图等。</p>
+<p>第三层包含了存储引擎。存储引擎负责MySQL中数据的存储和提取。和GNU/Linux下的各种文件系统一样，每个存储引擎都有它的优势和劣势。服务器通过API与存储引擎进行通信。这些接口屏蔽了不同存储引擎之间的差异，使得这些差异对上层的查询过程透明。存储引擎不会去解析SQL（InnoDB是一个例外，它会去解析外键定义，因为MySQL服务器本身没有实现该功能），不同存储引擎之间也不会相互通信，而只是简单的响应上层服务器的请求。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/09/22/mysqlbase/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-cut" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -107,67 +162,10 @@
 </article>
 
   
-    <article id="post-experence" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/21/experence/">49. 讲故事和刷经验值</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/09/21/experence/" class="article-date"><time datetime="2017-09-21T06:03:56.000Z" itemprop="datePublished">2017-09-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>内容来源自 得到栏目 万维钢-精英日课第二季 日课004。</p>
-</blockquote>
-<p>早上醒来，收到同学推送的这篇付费订阅，于是就打开来看，正如评论所说“世界从来都不公平，真实的世界就是充满复杂和套路”，这些日子刚找好工作，很受启发，我也就订阅了得到的精英日课这个专栏。顺便也整理成一份MarkDown文档，当做读书笔记来保存。</p>
-<p>前些日子跟一个已去上海发展的小伙伴聊天，说我月底要去百度糯米入职了。他告诉我说他有一个小伙伴在阿里巴巴，说自己然而只是一条打工狗，没日没夜的打工，赚经验，点技能树，最后发现年纪大了，除了一身经验能卖钱，其它的都干不动了。</p>
-<p>我说不都是这样吗，对我们来说，也只有不断点亮技能树来养家糊口。他不时就说谁谁都转go语言了……一开始我也很附和，是呀，应该趁早转过去。后来也就不想再说这些，就很不客气的说，其实这些真的只是一个工具。你看前不久还看到群里有人聊天说，你看你写go一个月挣一万五，然人家写.net一年挣一百多万，你说争这些有用吗。你php要是写的好，一样能赚钱，只是说对于刚入职来说，确实php没其它语言赚的多，但是这持续不了多久，还是要看自己掌握的程度。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/09/21/experence/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/15/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/14/">14</a></li><li><a class="page-number" href="/page/15/">15</a></li><li class="active"><span class="page-number">16</span></li><li><a class="page-number" href="/page/17/">17</a></li><li><a class="page-number" href="/page/18/">18</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/40/">40</a></li><li><a class="page-next" rel="next" href="/page/17/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/15/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/14/">14</a></li><li><a class="page-number" href="/page/15/">15</a></li><li class="active"><span class="page-number">16</span></li><li><a class="page-number" href="/page/17/">17</a></li><li><a class="page-number" href="/page/18/">18</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/41/">41</a></li><li><a class="page-next" rel="next" href="/page/17/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -178,7 +176,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -187,6 +185,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/25/aes/">81. 解密微信小程序对用户加密的数据</a>
+        </li>
       
         <li>
           <a href="/2018/03/09/arrayblockqueue/">80. ArrayBlockingQueue阻塞队列</a>
@@ -202,10 +204,6 @@
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/21/merge/">76. 归并排序</a>
         </li>
       
     </ul>

@@ -52,6 +52,82 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-gii" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/gii/">23. Yii2如何重写Gii生成的列表页按钮</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/gii/" class="article-date"><time datetime="2017-08-21T04:28:08.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Gii默认生成的crud操作虽然简单，但是可定制的灵活性却没那么简便。如果默认的样式勉强够用，推荐使用gii生成，毕竟太便捷了。但是如果需要一些个性的可定制性，就得需要去了解很多额外的东西。这次我们讲解，如何重写默认生成的查看，编辑和删除操作按钮并新增按钮。</p>
+<pre><code class="php">// 默认是不需要设置的，默认值是
+[
+    &#39;class&#39; =&gt; &#39;yii\grid\ActionColumn&#39;,
+    &#39;template&#39; =&gt; &#39;{view} {update} {delete}&#39;
+],
+
+// 可以看到默认的实现方式是：
+protected function initDefaultButtons()
+{
+    if (!isset($this-&gt;buttons[&#39;view&#39;])) {
+        $this-&gt;buttons[&#39;view&#39;] = function ($url, $model, $key) {
+            $options = array_merge([
+                &#39;class&#39; =&gt; &#39;buttonViewLink&#39;,
+                &#39;title&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;查看&#39;),
+                &#39;aria-label&#39; =&gt; Yii::t(&#39;yii&#39;, &#39;View&#39;),
+                &#39;data-pjax&#39; =&gt; &#39;0&#39;,
+            ], $this-&gt;buttonOptions);
+            return Html::a(&#39;&lt;span class=&quot;glyphicon glyphicon-eye-open&quot;&gt;&lt;/span&gt;&#39;, $url, $options);
+        };
+    }
+}
+// 即是使用Bootstrap的字体和样式实现的
+</code></pre>
+<p>因此就可以重写该类，覆盖原来的内容。因为常用的操作就这么多，修改默认样式和增加新按钮相对多些。比如不想用默认的图标，想改成汉字，比如”查看”， “编辑”, “删除”，则只需要改变return的行为就可以，</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/gii/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-xhprof" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -104,63 +180,10 @@
 </article>
 
   
-    <article id="post-bathinsert" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/bathinsert/">21. Yii2批量导入大数据的快捷方法</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/bathinsert/" class="article-date"><time datetime="2017-08-21T03:51:09.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上上个月公司后台需要写一个优惠券管理的功能，其中涉及到根据手动输入用户ID来发放和通过小区来筛选符合条件的用户发放等情况。当用户数不是很多，比如就20个左右时，将用户记录保存到MySQL还不觉得有什么问题。可是根据用户类型或小区等筛选时，一个小区可能有超过一万个的用户，很容易超时造成偏后的用户来不及保存就连接中断了。</p>
-<p>后来受指点使用Yii2提供的对象方法，批量导入一万多条的数据也是秒完成。毕竟当时涉及到需要给发放优惠券的用户发送一条私信通知，这个连接非常耗时，没办法同步发送，最后只能拆分开来，将用户存入redis中，用系统自带的crontab计划任务来完成了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/bathinsert/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/29/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/28/">28</a></li><li><a class="page-number" href="/page/29/">29</a></li><li class="active"><span class="page-number">30</span></li><li><a class="page-number" href="/page/31/">31</a></li><li><a class="page-number" href="/page/32/">32</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/40/">40</a></li><li><a class="page-next" rel="next" href="/page/31/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/29/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/28/">28</a></li><li><a class="page-number" href="/page/29/">29</a></li><li class="active"><span class="page-number">30</span></li><li><a class="page-number" href="/page/31/">31</a></li><li><a class="page-number" href="/page/32/">32</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/41/">41</a></li><li><a class="page-next" rel="next" href="/page/31/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -171,7 +194,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -180,6 +203,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/03/25/aes/">81. 解密微信小程序对用户加密的数据</a>
+        </li>
       
         <li>
           <a href="/2018/03/09/arrayblockqueue/">80. ArrayBlockingQueue阻塞队列</a>
@@ -195,10 +222,6 @@
       
         <li>
           <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/21/merge/">76. 归并排序</a>
         </li>
       
     </ul>

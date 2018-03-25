@@ -52,13 +52,13 @@
           <div class="col-sm-8 blog-main">
             
   
-    <article id="post-mysql-note" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-beego-cookie" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/mysql-note/">17. 燕十八MySQL优化笔记</a>
+      <a class="article-title" href="/2017/07/08/beego-cookie/">1. Beego框架设置cookie</a>
     </h1>
   
 
@@ -67,60 +67,7 @@
 
   <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2017/08/21/mysql-note/" class="article-date"><time datetime="2017-08-21T03:05:18.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/mysql/">mysql</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本套笔记是2次通过燕十八视频听讲后整理的，<a href="http://www.itbool.com/php-video.html" target="_blank" rel="external">视频出处</a>，该视频目前还算比较新，也是学习PHP比较好的资源。<a href="http://www.zixue.it/" target="_blank" rel="external">自学it论坛</a>有好几套传世经典视频，都录制的非常不错。我对PHP的很多概念和思维方法，都是从这里起步的。</p>
-<p>面试过好几次，确实有这样的感受，面试官和我，很多回答都是大而化之，通用又无用的废话。比如提及MySQL优化，少取字段，建立合理的索引这种废话每次都不会少。这就跟平常说的做人是大方点好，还是小气点好一样。我认为该大方的时候要大方，女朋友要买包，此处该大方；该小气的时候要小气一样。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/mysql-note/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
-    <article id="post-export" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/export/">16. 用Go重写商家结余表导数脚本</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/16/export/" class="article-date"><time datetime="2017-08-16T15:22:06.000Z" itemprop="datePublished">2017-08-16</time></a>
+  <a href="/2017/07/08/beego-cookie/" class="article-date"><time datetime="2017-07-08T15:13:55.000Z" itemprop="datePublished">2017-07-08</time></a>
 </div>
 
     
@@ -135,12 +82,11 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。</p>
-<p>开始编写时，确实遇到很多难处。一开始想到的，是如何做数据库连接，幸好Go对这些常见的场景都有现成的库可使用，稍微在GitHub上搜索就能有好的选择。然后是对数据类型的描述上，确实跟动态语言有明显的不同，但是无法否认，静态语言在编写和编译期间就能减少很多低级的Bug。</p>
-<p>也发现了一些公司的服务问题，比如邮件服务器总是x.509证书问题而无法使用，网易163也存在这样的问题，但是QQ邮箱可以正常使用。官方库中已经提供了CSV格式的支持，使用起来相当的方便，就不提供excel方式了。</p>
+        <p>“cookie是当前识别用户，实现持久会话的最好方式…最初是由网景公司开发的。”</p>
+<p>Beego框架上下文模块中context对象对GetCookie和SetCookie进行了封装。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/16/export/#more">Read More</a>
+            <a class="btn btn-primary" href="/2017/07/08/beego-cookie/#more">Read More</a>
           </p>
         
       
@@ -162,7 +108,7 @@
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/32/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/31/">31</a></li><li><a class="page-number" href="/page/32/">32</a></li><li class="active"><span class="page-number">33</span></li><li><a class="page-number" href="/page/34/">34</a></li><li><a class="page-number" href="/page/35/">35</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/41/">41</a></li><li><a class="page-next" rel="next" href="/page/34/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/page/40/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/page/39/">39</a></li><li><a class="page-number" href="/page/40/">40</a></li><li class="active"><span class="page-number">41</span></li><li class="disabled"><span class="page-next">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
