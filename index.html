@@ -52,6 +52,145 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-enum" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/15/enum/">82. 枚举</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/04/15/enum/" class="article-date"><time datetime="2018-04-15T10:23:57.000Z" itemprop="datePublished">2018-04-15</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>枚举类是一种很实用的类型，在标识状态一类的应用中，使用起来十分方便。当然我们也可以用map来替代枚举类型的功能，虽然简单，但是阅读起来map要比枚举稍微差一些，可以根据情况来选择。</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>比较清晰的直接赋值为一个map形式。</p>
+<pre><code class="java">package github.banana;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 供应商类型和描述
+ */
+public class TP {
+
+    public static String getName(String id) {
+        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;1&quot;, &quot;携程&quot;);
+        map.put(&quot;2&quot;, &quot;国航&quot;);
+        map.put(&quot;4&quot;, &quot;东航&quot;);
+        map.put(&quot;8&quot;, &quot;南航&quot;);
+        map.put(&quot;16&quot;, &quot;携程一期H5&quot;);
+        map.put(&quot;32&quot;, &quot;必去&quot;);
+        map.put(&quot;64&quot;, &quot;携程H5抓取&quot;);
+        map.put(&quot;128&quot;, &quot;必去国际&quot;);
+        map.put(&quot;256&quot;, &quot;就旅行&quot;);
+        map.put(&quot;512&quot;, &quot;必去候补&quot;);
+        map.put(&quot;1024&quot;, &quot;去哪儿&quot;);
+        map.put(&quot;2048&quot;, &quot;携程H5阿拉丁&quot;);
+        map.put(&quot;ctrip&quot;, &quot;携程&quot;);
+
+        return map.getOrDefault(id, &quot;未知&quot;);
+    }
+}
+</code></pre>
+<p>使用枚举来实现。</p>
+<pre><code class="java">package github.banana;
+
+/**
+ * 供应商类型和描述
+ */
+public enum  EnumTP {
+    CTRIP(&quot;1&quot;, &quot;携程&quot;),
+    CA(&quot;2&quot;, &quot;国航&quot;),
+    MU(&quot;4&quot;, &quot;东航&quot;),
+    CZ(&quot;8&quot;, &quot;南航&quot;),
+    CTRIPH5(&quot;16&quot;, &quot;携程一期H5&quot;),
+    BIQU(&quot;32&quot;, &quot;必去&quot;),
+    CTRIPCRAWL(&quot;64&quot;, &quot;携程H5抓取&quot;),
+    BIQUINT(&quot;128&quot;, &quot;必去国际&quot;),
+    BIQUSTANDARD(&quot;256&quot;, &quot;就旅行&quot;),
+    QUNAR(&quot;512&quot;, &quot;去哪儿&quot;),
+    CTRIPHTALADDIN(&quot;1024&quot;, &quot;携程H5阿拉丁&quot;),
+    CTRIPV2(&quot;ctrip&quot;, &quot;携程&quot;);
+
+    // 供应商标识
+    private String index;
+
+    // 供应商描述
+    private String name;
+
+    EnumTP(String index, String name) {
+        this.index = index;
+        this.name = name;
+    }
+
+    // 获取供应商中文名称
+    public static String getName(String index) {
+        for (EnumTP enumTP:EnumTP.values()) {
+            if (index.equals(enumTP.index)) {
+                return enumTP.name;
+            }
+        }
+        return &quot;未知&quot;;
+    }
+}
+</code></pre>
+<p>可以看出，如果操作本身比较简单，其实选择哪一种都是比较合乎逻辑的。但就是设计来说，map因数据结构的关系，理论上会更快一些，如果做持久化后。不过这些性能，可能并不明显。</p>
+<pre><code class="java">package github.banana;
+
+public class TPTest {
+
+    public static void main(String[] args) {
+        String partner = &quot;256&quot;;
+
+        System.out.println(TP.getName(partner));
+
+        System.out.println(EnumTP.getName(partner));
+    }
+}
+</code></pre>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2018/04/15/enum/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-aes" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -162,109 +301,6 @@ public class AesTest {
 </article>
 
   
-    <article id="post-arrayblockqueue" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/09/arrayblockqueue/">80. ArrayBlockingQueue阻塞队列</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/03/09/arrayblockqueue/" class="article-date"><time datetime="2018-03-09T01:52:57.000Z" itemprop="datePublished">2018-03-09</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ArrayBlockingQueue阻塞队列有一系列方法，主要区别在异常操作时的反应，持有一把全局锁。用于存储队列元素的存储空间是预先分配的，使用过程中内存开销较小，适合已知最大存储容量的场景。适用于生产消费模型，平衡两边的处理速度。</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>行为</th>
-<th>表现</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>add</td>
-<td>添加一个元素</td>
-<td>如果队列已满抛出异常 IllegalStateException</td>
-</tr>
-<tr>
-<td>element</td>
-<td>返回头部元素</td>
-<td>如果队列为空抛出异常 NoSuchElementException</td>
-</tr>
-<tr>
-<td>offer</td>
-<td>添加一个元素</td>
-<td>成功返回 true, 如果队列已满返回 false</td>
-</tr>
-<tr>
-<td>peek</td>
-<td>返回头部元素</td>
-<td>如果队列为空，返回 null</td>
-</tr>
-<tr>
-<td>poll</td>
-<td>删除并返回该元素</td>
-<td>如果队列为空返回 null</td>
-</tr>
-<tr>
-<td>put</td>
-<td>添加一个元素</td>
-<td>如果队列已满则阻塞</td>
-</tr>
-<tr>
-<td>remove</td>
-<td>删除并返回该元素</td>
-<td>如果队列为空抛出异常 NoSuchElementException</td>
-</tr>
-<tr>
-<td>take</td>
-<td>删除并返回该元素</td>
-<td>如果队列为空则阻塞</td>
-</tr>
-</tbody>
-</table>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2018/03/09/arrayblockqueue/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -279,7 +315,7 @@ public class AesTest {
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -288,6 +324,10 @@ public class AesTest {
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/04/15/enum/">82. 枚举</a>
+        </li>
       
         <li>
           <a href="/2018/03/25/aes/">81. 解密微信小程序对用户加密的数据</a>
@@ -303,10 +343,6 @@ public class AesTest {
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
         </li>
       
     </ul>

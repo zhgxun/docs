@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>82. 枚举 | 张广训的笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/about">About</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="container">
+    <div class="row margin-top">
+        
+          <div class="col-sm-12 blog-info">
+            <article id="post-enum" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      82. 枚举
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/04/15/enum/" class="article-date"><time datetime="2018-04-15T10:23:57.000Z" itemprop="datePublished">2018-04-15</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>枚举类是一种很实用的类型，在标识状态一类的应用中，使用起来十分方便。当然我们也可以用map来替代枚举类型的功能，虽然简单，但是阅读起来map要比枚举稍微差一些，可以根据情况来选择。</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>比较清晰的直接赋值为一个map形式。</p>
+<pre><code class="java">package github.banana;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 供应商类型和描述
+ */
+public class TP {
+
+    public static String getName(String id) {
+        Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;1&quot;, &quot;携程&quot;);
+        map.put(&quot;2&quot;, &quot;国航&quot;);
+        map.put(&quot;4&quot;, &quot;东航&quot;);
+        map.put(&quot;8&quot;, &quot;南航&quot;);
+        map.put(&quot;16&quot;, &quot;携程一期H5&quot;);
+        map.put(&quot;32&quot;, &quot;必去&quot;);
+        map.put(&quot;64&quot;, &quot;携程H5抓取&quot;);
+        map.put(&quot;128&quot;, &quot;必去国际&quot;);
+        map.put(&quot;256&quot;, &quot;就旅行&quot;);
+        map.put(&quot;512&quot;, &quot;必去候补&quot;);
+        map.put(&quot;1024&quot;, &quot;去哪儿&quot;);
+        map.put(&quot;2048&quot;, &quot;携程H5阿拉丁&quot;);
+        map.put(&quot;ctrip&quot;, &quot;携程&quot;);
+
+        return map.getOrDefault(id, &quot;未知&quot;);
+    }
+}
+</code></pre>
+<p>使用枚举来实现。</p>
+<pre><code class="java">package github.banana;
+
+/**
+ * 供应商类型和描述
+ */
+public enum  EnumTP {
+    CTRIP(&quot;1&quot;, &quot;携程&quot;),
+    CA(&quot;2&quot;, &quot;国航&quot;),
+    MU(&quot;4&quot;, &quot;东航&quot;),
+    CZ(&quot;8&quot;, &quot;南航&quot;),
+    CTRIPH5(&quot;16&quot;, &quot;携程一期H5&quot;),
+    BIQU(&quot;32&quot;, &quot;必去&quot;),
+    CTRIPCRAWL(&quot;64&quot;, &quot;携程H5抓取&quot;),
+    BIQUINT(&quot;128&quot;, &quot;必去国际&quot;),
+    BIQUSTANDARD(&quot;256&quot;, &quot;就旅行&quot;),
+    QUNAR(&quot;512&quot;, &quot;去哪儿&quot;),
+    CTRIPHTALADDIN(&quot;1024&quot;, &quot;携程H5阿拉丁&quot;),
+    CTRIPV2(&quot;ctrip&quot;, &quot;携程&quot;);
+
+    // 供应商标识
+    private String index;
+
+    // 供应商描述
+    private String name;
+
+    EnumTP(String index, String name) {
+        this.index = index;
+        this.name = name;
+    }
+
+    // 获取供应商中文名称
+    public static String getName(String index) {
+        for (EnumTP enumTP:EnumTP.values()) {
+            if (index.equals(enumTP.index)) {
+                return enumTP.name;
+            }
+        }
+        return &quot;未知&quot;;
+    }
+}
+</code></pre>
+<p>可以看出，如果操作本身比较简单，其实选择哪一种都是比较合乎逻辑的。但就是设计来说，map因数据结构的关系，理论上会更快一些，如果做持久化后。不过这些性能，可能并不明显。</p>
+<pre><code class="java">package github.banana;
+
+public class TPTest {
+
+    public static void main(String[] args) {
+        String partner = &quot;256&quot;;
+
+        System.out.println(TP.getName(partner));
+
+        System.out.println(EnumTP.getName(partner));
+    }
+}
+</code></pre>
+<a id="more"></a>
+<h2 id="单一枚举"><a href="#单一枚举" class="headerlink" title="单一枚举"></a>单一枚举</h2><p>功能比较单一的枚举，比如状态的描述等。</p>
+<pre><code class="java">package github.banana;
+
+/**
+ * 定义一个枚举类
+ */
+public enum  EnumTest {
+
+    // 枚举类内容, 通常由大写字母标识, 每个枚举类型的说明直接写在括号中
+    A(&quot;字母A&quot;), B(&quot;字母B&quot;), C(&quot;字母C&quot;), D(&quot;字母D&quot;);
+
+    // 枚举类型的说明
+    private String index;
+
+    // 枚举类型说明的赋值, 该修饰符默认是private, 不允许其他类型修饰符
+    EnumTest(String index) {
+        this.index = index;
+    }
+
+    // 前端直接通过该公开方法获取枚举类型的值
+    public String getIndex() {
+        return index;
+    }
+}
+</code></pre>
+<p>访问也很简单。</p>
+<pre><code class="java">package github.banana;
+
+public class EnumTestCase {
+
+    public static void main(String[] args) {
+
+        // 遍历枚举类型的标识
+        for (EnumTest enumTest : EnumTest.values()) {
+            System.out.println(enumTest.name());
+        }
+
+        // 获取枚举类型的描述
+        System.out.println(EnumTest.A.getIndex());
+    }
+}
+</code></pre>
+<h2 id="复合枚举"><a href="#复合枚举" class="headerlink" title="复合枚举"></a>复合枚举</h2><p>稍微复杂一点的枚举类型，可以操作范围等。</p>
+<pre><code class="java">package github.banana;
+
+/**
+ * 范围类型枚举
+ */
+public enum EnumRange {
+
+    // 定义枚举类型所属的范围
+    PC(100, 500), WISE(501, 1000);
+
+    // 范围的起止
+    private int start;
+    private int end;
+
+    EnumRange(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
+    // 判断是否在该范围内
+    public static EnumRange getDesc(int index) {
+        for (EnumRange enumRange : EnumRange.values()) {
+            if (index &gt;= enumRange.start &amp;&amp; index &lt;= enumRange.end) {
+                return enumRange;
+            }
+        }
+        throw new IndexOutOfBoundsException(&quot;未知的范围&quot;);
+    }
+
+    // 也可以实现各种枚举类型的具体判断, 比如PC
+    public boolean isPC(int index) {
+        return index &gt;= PC.start &amp;&amp; index &lt;= PC.end;
+    }
+
+    public boolean isWISE(int index) {
+        return index &gt;= WISE.start &amp;&amp; index &lt;= WISE.end;
+    }
+}
+</code></pre>
+<p>也是直接使用。</p>
+<pre><code class="java">package github.banana;
+
+public class EnumRangeCase {
+
+    public static void main(String[] args) {
+        // 指定一个范围具体值
+        int index = 120;
+        EnumRange enumRange = EnumRange.getDesc(index);
+
+        // 判断属于何种类型
+        System.out.println(enumRange.name());
+
+        // 是否属于PC
+        System.out.println(EnumRange.PC.isPC(index));
+
+        // 是否属于WISE
+        System.out.println(EnumRange.WISE.isWISE(index));
+    }
+}
+</code></pre>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    <!-- 评论 -->
+    <!-- LiveRe City install code -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDMzMC82ODgz">
+      <script type="text/javascript">
+         (function(d, s) {
+             var j, e = d.getElementsByTagName(s)[0];
+
+             if (typeof LivereTower === 'function') { return; }
+
+             j = d.createElement(s);
+             j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+             j.async = true;
+
+             e.parentNode.insertBefore(j, e);
+         })(document, 'script');
+      </script>
+      <noscript>Please activate JavaScript for write a comment in LiveRe</noscript>
+    </div>
+    <!-- completed City install code -->
+
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2018/03/25/aes/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">81. 解密微信小程序对用户加密的数据</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+          </div>
+        
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2018 <a href="https://github.com/zhgxun" target="_blank"> by zhgxun</a><br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, and theme base on <a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank">hexo-theme-bootstrap-blog.</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

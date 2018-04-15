@@ -52,6 +52,59 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-php-note" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/php-note/">18. PHP性能优化笔记</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/php-note/" class="article-date"><time datetime="2017-08-21T03:28:58.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>该部分笔记源于慕课视频听讲后所记录的笔记，有一些优化在以前的项目中曾经使用过，大部分并没有真正做过。毕竟很少有一开始写代码就考虑优化，都是项目运行一段时间后逐渐改良。一些项目还来不及优化就离职，一些上线后并不怎么使用，也就谈不上优化了。而且之前使用过XHProf来分析过，大部分耗时的任务基本都是在框架加载上和数据库查询上。一般来说，PHP的性能优化都是数据库优化上。</p>
+<p>一年前在望京SOHO作业盒子面试，他说你写的兑换码，那你是怎么处理并发的？我们项目很小，没考虑并发。那你这不考虑并发，两个请求如果同时发出，那不是给公司造成损失了吗？是呀，如果真的存在并发请求，是极可能给数据库记录造成混乱的。毕竟是第三份工作，待的都是小公司，很少会考虑这些，面试也没什么说的，就结结巴巴的敷衍过去了。后来我想了下，那如果要考虑并发，该怎么写，也一直没弄明白。后来的一段时间在世纪佳缘面试，我也问了同样的问题。他说PHP都是按进程来的，我们也没有考虑并发，都是一个进程过来就处理一个进程。我才知道，其实问这些，多半没什么意义，一个项目真的到了考虑并发的时候，肯定会有办法的。后来看了一些消息队列的东西，发觉并发编程其实挺不容易，要考虑很多东西。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/php-note/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-mysql-note" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -105,60 +158,6 @@
 </article>
 
   
-    <article id="post-export" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/export/">16. 用Go重写商家结余表导数脚本</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/16/export/" class="article-date"><time datetime="2017-08-16T15:22:06.000Z" itemprop="datePublished">2017-08-16</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/go/">go</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前段时间在导出商家结余表时，发现有些大商家数据比较多，而一直使用的PHP导数脚本是同步脚本，未改为多进程导数，导出效果特别差强人意，有一些甚至等待一天才勉强收到邮件通知。刚好这段时间公司项目上没有什么新需求要做，项目处于维护期和日常工作期，鉴于Go语言的异步优势，就用Go重写了该脚本。一来将Go的学习用于实际场景编写，巩固和运用；二来也比较一下动态语言和静态语言的思维方式和执行效率。</p>
-<p>开始编写时，确实遇到很多难处。一开始想到的，是如何做数据库连接，幸好Go对这些常见的场景都有现成的库可使用，稍微在GitHub上搜索就能有好的选择。然后是对数据类型的描述上，确实跟动态语言有明显的不同，但是无法否认，静态语言在编写和编译期间就能减少很多低级的Bug。</p>
-<p>也发现了一些公司的服务问题，比如邮件服务器总是x.509证书问题而无法使用，网易163也存在这样的问题，但是QQ邮箱可以正常使用。官方库中已经提供了CSV格式的支持，使用起来相当的方便，就不提供excel方式了。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/16/export/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -173,7 +172,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -182,6 +181,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/04/15/enum/">82. 枚举</a>
+        </li>
       
         <li>
           <a href="/2018/03/25/aes/">81. 解密微信小程序对用户加密的数据</a>
@@ -197,10 +200,6 @@
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
         </li>
       
     </ul>

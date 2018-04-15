@@ -52,6 +52,109 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-arrayblockqueue" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/09/arrayblockqueue/">80. ArrayBlockingQueue阻塞队列</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2018/03/09/arrayblockqueue/" class="article-date"><time datetime="2018-03-09T01:52:57.000Z" itemprop="datePublished">2018-03-09</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ArrayBlockingQueue阻塞队列有一系列方法，主要区别在异常操作时的反应，持有一把全局锁。用于存储队列元素的存储空间是预先分配的，使用过程中内存开销较小，适合已知最大存储容量的场景。适用于生产消费模型，平衡两边的处理速度。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>行为</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>添加一个元素</td>
+<td>如果队列已满抛出异常 IllegalStateException</td>
+</tr>
+<tr>
+<td>element</td>
+<td>返回头部元素</td>
+<td>如果队列为空抛出异常 NoSuchElementException</td>
+</tr>
+<tr>
+<td>offer</td>
+<td>添加一个元素</td>
+<td>成功返回 true, 如果队列已满返回 false</td>
+</tr>
+<tr>
+<td>peek</td>
+<td>返回头部元素</td>
+<td>如果队列为空，返回 null</td>
+</tr>
+<tr>
+<td>poll</td>
+<td>删除并返回该元素</td>
+<td>如果队列为空返回 null</td>
+</tr>
+<tr>
+<td>put</td>
+<td>添加一个元素</td>
+<td>如果队列已满则阻塞</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>删除并返回该元素</td>
+<td>如果队列为空抛出异常 NoSuchElementException</td>
+</tr>
+<tr>
+<td>take</td>
+<td>删除并返回该元素</td>
+<td>如果队列为空则阻塞</td>
+</tr>
+</tbody>
+</table>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2018/03/09/arrayblockqueue/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-rsa" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -153,75 +256,6 @@ echo &quot;\n\n&quot;;
 </article>
 
   
-    <article id="post-liberal-arts" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2018/02/27/liberal-arts/" class="article-date"><time datetime="2018-02-27T01:48:57.000Z" itemprop="datePublished">2018-02-27</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/read/">read</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>美国大学系统的自由技艺学科，是指历史、政治、哲学、文学艺术这些大学问。</p>
-<p><img src="https://raw.githubusercontent.com/zhgxun/images/master/reading/liberal_arts.jpeg" alt="你能做任何工作：&quot;无用的&quot;自由技艺的惊人力量"></p>
-<p>《你能做任何工作：”无用的”自由技艺的惊人力量》，作者是纪实作家乔治-安德斯（George Anders）。用中国话说，这本书就是文科生就业指南。</p>
-<p>安德斯总结了实用的面试故事套路。公司招人面试，最关心的三个问题：第一，你能不能干这个活；第二，你愿不愿意干这个活；第三，你跟我们公司般配不般配。现在你讲的故事，就要解决这三个问题。安德斯的套路，就是五个谈话点（talking points）。</p>
-<ol>
-<li>逆境；</li>
-<li>影响力；</li>
-<li>技术水平；</li>
-<li>合拍；</li>
-<li>成就。</li>
-</ol>
-<p>把这个道理再进一步，也许你应该为了到时候有故事可讲，专门按照这五个套路去做些事情-也就是有意识地刷经验值：</p>
-<p><strong><em>1. 多尝试，经历失败，丰富你的人生经验；</em></strong></p>
-<p><strong><em>2. 多跟人交往，练习交流和组织能力；</em></strong></p>
-<p><strong><em>3. 多学点技术，掌握一些实用工具；</em></strong></p>
-<p><strong><em>4. 要善于做调研，了解你所在的领域正在发生什么事儿；</em></strong></p>
-<p><strong><em>5. 找机会取得能让自己脱颖而出的成绩。</em></strong></p>
-<p>作为一套强有力的软技能，自由技艺并不限于”好人”使用，而且也不能把人变成”好人”。不管是不是好人在用，都是掌握自由技艺的人统治真实世界。复杂世界需要复杂人才，不会面对真实世界是危险的。这个世界归根结底，属于那些能处理复杂问题的明白人。世界从来都不公平，真实世界都是充满复杂和套路。</p>
-<p>(得到万维钢精英日课0-4笔记)</p>
-
-      
-    </div>
-
-    
-      
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/read/">read</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -236,7 +270,7 @@ echo &quot;\n\n&quot;;
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -245,6 +279,10 @@ echo &quot;\n\n&quot;;
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/04/15/enum/">82. 枚举</a>
+        </li>
       
         <li>
           <a href="/2018/03/25/aes/">81. 解密微信小程序对用户加密的数据</a>
@@ -260,10 +298,6 @@ echo &quot;\n\n&quot;;
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
         </li>
       
     </ul>

@@ -52,6 +52,69 @@
           <div class="col-sm-8 blog-main">
             
   
+    <article id="post-rename" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/rename/">20. shell重命名目录中文件名称</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/08/21/rename/" class="article-date"><time datetime="2017-08-21T03:48:09.000Z" itemprop="datePublished">2017-08-21</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这几天在看《Modern PHP》这本书，发觉需要使用其中介绍到的Xdebug工具来分析代码的运行，虽然对Xdebug这个工具的名称已是家常便饭，但项目中并没有使用过它。之前也听过一些关于Webgrind网页版的查看分析工具，但都没有自己安装使用过。</p>
+<p>常听人讲，怎么优化代码一类的事情，但都没有去实践过。前几天在Coding冒泡贴了一段代码，就是后台某些功能可能需要超过10个的搜索字段（我是这么觉得的），有些字段可能周期中就使用过一两次或者根本没有使用过，也把它处理了。然后我贴了类似这样重复的代码：</p>
+<pre><code class="php">if (isset($request[&#39;content&#39;]) &amp;&amp; trim($request[&#39;content&#39;])) {
+    $query-&gt;andFilterWhere([&#39;like&#39;, &#39;content&#39;, trim(strip_tags($request[&#39;content&#39;]))]);
+}
+if (isset($request[&#39;userid&#39;]) &amp;&amp; intval($request[&#39;userid&#39;])) {
+    $query-&gt;andFilterWhere([&#39;userid&#39; =&gt; intval($request[&#39;userid&#39;])]);
+}
+if (isset($request[&#39;start&#39;]) &amp;&amp; strtotime($request[&#39;start&#39;])) {
+    $query-&gt;andFilterWhere([&#39;&gt;=&#39;, &#39;ctime&#39;, trim($request[&#39;start&#39;])]);
+}
+</code></pre>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/2017/08/21/rename/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+  
     <article id="post-yii2-qiniu" class="article article-type-post" itemscope itemprop="blogPost">
 
   <header class="article-header">
@@ -105,59 +168,6 @@
 </article>
 
   
-    <article id="post-php-note" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/php-note/">18. PHP性能优化笔记</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/08/21/php-note/" class="article-date"><time datetime="2017-08-21T03:28:58.000Z" itemprop="datePublished">2017-08-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/php/">php</a>
-  </div>
-
-
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>该部分笔记源于慕课视频听讲后所记录的笔记，有一些优化在以前的项目中曾经使用过，大部分并没有真正做过。毕竟很少有一开始写代码就考虑优化，都是项目运行一段时间后逐渐改良。一些项目还来不及优化就离职，一些上线后并不怎么使用，也就谈不上优化了。而且之前使用过XHProf来分析过，大部分耗时的任务基本都是在框架加载上和数据库查询上。一般来说，PHP的性能优化都是数据库优化上。</p>
-<p>一年前在望京SOHO作业盒子面试，他说你写的兑换码，那你是怎么处理并发的？我们项目很小，没考虑并发。那你这不考虑并发，两个请求如果同时发出，那不是给公司造成损失了吗？是呀，如果真的存在并发请求，是极可能给数据库记录造成混乱的。毕竟是第三份工作，待的都是小公司，很少会考虑这些，面试也没什么说的，就结结巴巴的敷衍过去了。后来我想了下，那如果要考虑并发，该怎么写，也一直没弄明白。后来的一段时间在世纪佳缘面试，我也问了同样的问题。他说PHP都是按进程来的，我们也没有考虑并发，都是一个进程过来就处理一个进程。我才知道，其实问这些，多半没什么意义，一个项目真的到了考虑并发的时候，肯定会有办法的。后来看了一些消息队列的东西，发觉并发编程其实挺不容易，要考虑很多东西。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/2017/08/21/php-note/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-  
 
 
   <div id="page-nav">
@@ -172,7 +182,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/apache/">apache</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/c/">c</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/go/">go</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/java/">java</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/mysql/">mysql</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/php/">php</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/read/">read</a><span class="sidebar-module-list-count">17</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/travel/">travel</a><span class="sidebar-module-list-count">20</span></li></ul>
   </div>
 
 
@@ -181,6 +191,10 @@
   <div class="sidebar-module">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2018/04/15/enum/">82. 枚举</a>
+        </li>
       
         <li>
           <a href="/2018/03/25/aes/">81. 解密微信小程序对用户加密的数据</a>
@@ -196,10 +210,6 @@
       
         <li>
           <a href="/2018/02/27/liberal-arts/">78. 你能做任何工作</a>
-        </li>
-      
-        <li>
-          <a href="/2018/02/25/get-log/">77. 本地机器查看线上机器日志</a>
         </li>
       
     </ul>
